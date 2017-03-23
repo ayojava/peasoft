@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" 
+                xmlns:o="http://omnifaces.org/ui"  xmlns:p="http://primefaces.org/ui" xmlns:h="http://java.sun.com/jsf/html" 
+                xmlns:of="http://omnifaces.org/functions" 
+                template="/WEB-INF/templates/home-template.xhtml"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+    <ui:define name="pageTitle">
+        Welcome To PEA-SOFT
+    </ui:define>
+
+    <ui:define name="topNavBar">
+        <ui:include src="/WEB-INF/common/home-header.xhtml"/>
+    </ui:define>
+
+    <ui:define name="menu-contents">
+        <ui:include src="#{navigatorBean.selectedMenuPath}"/>
+    </ui:define>
+
+    <ui:define name="body-contents">
+        <o:form id="homeForm" enctype="multipart/form-data">
+            <p:growl id="msgHome" globalOnly="true" sticky="false" />
+
+            <div class="col-md-12">
+
+            </div>
+            <div class="col-md-3">
+
+            </div>
+            <div class="col-md-6">
+                <o:messages id="homeFormErrorMsg"  for="homeForm" message="An Error has occured" 
+                            styleClass="pnx-validation-error-class" />
+            </div>
+            <div class="col-md-3">
+
+            </div>
+            <div class="row">
+                <p:tooltip />
+                <ui:include src="#{navigatorBean.selectedContentPath}"/>
+            </div>
+
+        </o:form>
+        <o:highlight styleClass="text-danger"/>
+
+    </ui:define>
+
+    <ui:define name="bottom">
+        <ui:include src="/WEB-INF/common/home-footer.xhtml"/>  
+    </ui:define>
+</ui:define>
+</ui:composition>

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:pnx="http://www.javasoft.org/primefacesExt/primefacelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"  xmlns:p="http://primefaces.org/ui" xmlns:of="http://omnifaces.org/functions"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core">
+
+    <h:body>
+        <pnx:topNavBarLayout id="topNav">
+            <ui:define name="topNavBarTitle">
+                <div class="pageHeader">
+                    <h1 align="center" style="font-size: 38.5px; color: #0088cc ;margin-top: 1px ;margin-bottom: 1px;">
+                        PeaSoft
+                    </h1> 
+                </div> 
+            </ui:define>
+
+            <ui:define name="leftNavBarItems">
+                <p:ajaxStatus style="width:25px;height:25px;" styleClass="center-block">
+                    <f:facet name="start">
+                        <p:graphicImage name="icon/pics/ajax-loading.gif" library="images" />
+                    </f:facet>
+                    <f:facet name="complete">
+                        <h:outputText value="" />
+                    </f:facet>
+                </p:ajaxStatus> 
+            </ui:define>
+
+            <ui:define name="middleNavBarItems">
+                <p:spacer width="8" height="25"/>
+                <span class="h5">
+                    <em>Welcome</em>    
+                </span>
+                <p:spacer width="8"/>
+                <i class="fa fa-home fa-1g"/>
+                <p:spacer width="4" height="25"/>
+                <span class="h5">
+                    <em>
+                        <strong>mercy @ Admin</strong>
+                    </em>
+                </span>
+
+                <div class="pull-right">
+                    <em>
+                        <script type="text/javascript" >
+                            var d = new Date();
+                            var weekday = new Array("Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday");
+                            var monthname = new Array("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December");
+                            document.write(weekday[d.getDay()] + ", ");
+                            document.write(monthname[d.getMonth()] + " ");
+                            document.write(d.getDate() + " ");
+                            document.write(d.getFullYear() + ".");
+                        </script>
+                    </em>
+                </div>
+            </ui:define>
+            <ui:define name="rightNavBarItems">
+                <div class="pull-right">
+                    
+                </div>
+            </ui:define>
+        </pnx:topNavBarLayout>
+    </h:body>
+</html>
+

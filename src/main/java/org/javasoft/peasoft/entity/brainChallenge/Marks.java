@@ -6,13 +6,18 @@
 package org.javasoft.peasoft.entity.brainChallenge;
 
 import java.io.Serializable;
+import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
 
 /**
  *
@@ -28,7 +33,6 @@ public class Marks implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column()
     private double mathScore;
     
     private double englishScore;
@@ -39,11 +43,28 @@ public class Marks implements Serializable {
     
     private double totalAcademicScore;
     
+    
     private double communicationSkill;
     
     private double personalAppearance;
     
     private double selfAwareness;
+    
+    private double plansAndGoals;
+    
+    private double bookKnowledge;
+    
+    private double confidenceLevel;
+    
+    private double totalInterviewScore;
+    
+    @Transient
+    private double totalScore;
+    
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(updatable = false)
+    @CreationTimestamp
+    private Date createDate;
     
     
 }

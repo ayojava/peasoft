@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:o="http://omnifaces.org/ui">
+    
+    <h:head>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>
+            <ui:insert name="pageTitle"/>
+        </title>
+        <ui:include src="/WEB-INF/common/resources.xhtml"/>  
+        <o:importFunctions type="org.apache.commons.lang3.text.WordUtils" var="wordUtils"/>
+        <o:importFunctions type="org.apache.commons.lang3.StringUtils" var="stringUtils"/>
+        
+    </h:head>
+    <h:body styleClass="default-body">
+        <table class="table table-bordered table-condensed" style="margin-top: 2px;">
+            <tr>
+                <div class="container-fluid">
+                    <div class="row default-page-border">
+                        <ui:insert name="topNavBar">Top</ui:insert>
+                    </div>
+                </div>  
+            </tr>
+            <tr>
+                <td style="width: 15%;">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <ui:insert name="menu-contents">Left</ui:insert>
+                        </div>
+                    </div>
+                </td>
+                <td height="500px">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <ui:insert name="body-contents">Right</ui:insert>
+                        </div>
+                    </div>
+
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" align="center">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <ui:insert name="bottom">Bottom</ui:insert> 
+                        </div>
+                    </div>  
+                </td>
+
+            </tr>
+        </table>  
+    </h:body>
+</html>

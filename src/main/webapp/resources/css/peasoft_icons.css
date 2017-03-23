@@ -1,0 +1,29 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 28 Feb, 2016, 12:24:41 AM
+    Author     : ayojava
+
+
+*/
+
+.management{
+    background: url("#{resource['images/icons/peasoft/data-management.png']}") no-repeat !important;
+    height:16px;
+    width:16px;
+}
+
+.account-icon{
+    background: url("#{resource['images/icons/peasoft/accounts.png']}") no-repeat !important;
+    height:16px;
+    width:16px;
+}
+
+.residents-icon{
+    background: url("#{resource['images/icons/peasoft/residents.png']}") no-repeat !important;
+    height:16px;
+    width:16px;
+}
