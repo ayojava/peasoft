@@ -12,6 +12,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -30,16 +31,13 @@ import org.hibernate.annotations.CreationTimestamp;
 @NoArgsConstructor
 public class StudentRecord implements Serializable {
 
-    @OneToOne(mappedBy = "studentRecord")
-    private Student student;
-
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     
     @Valid
-    @OneToOne
+    @ManyToOne
     private School school;
     
     @NotNull

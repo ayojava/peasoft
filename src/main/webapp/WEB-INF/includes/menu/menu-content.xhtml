@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"   
+      xmlns:o="http://omnifaces.org/ui" xmlns:p="http://primefaces.org/ui" xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <h:body>
+        <div class="col-md-12" style="margin-top: 2px;">
+            <o:form id="NavMenuForm">
+                 <o:importConstants type="org.javasoft.peasoft.constants.PeaResource" var="peaResource"/>
+                <p:tieredMenu id="navMenu" style="width: 100% ;border-radius: 8px;" >
+                    <p:menuitem id="headMenu" value="Home"  icon="fa fa-home fa-1g"
+                                action="#{dashBoardPageBean.setPageResource(peaResource.VIEW_HOME_PAGE)}" update=":homeForm"/>
+                    <p:separator />
+                    <p:menuitem id="schoolMenu" value="Schools"  icon="fa fa-building fa-1g"
+                                action="#{schoolPageBean.setPageResource(peaResource.LIST_SCHOOLS)}" update=":homeForm"/>
+                </p:tieredMenu>
+            </o:form>
+        </div>
+    </h:body>
+</html>

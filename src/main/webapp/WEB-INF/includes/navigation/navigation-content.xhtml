@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="/WEB-INF/templates/navigation-template.xhtml" xmlns:o="http://omnifaces.org/ui"
+                xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="profile-image">
+        <div class="col-md-12 default-page-border">
+            <o:form id="profileImageForm">
+                <p:graphicImage name="icon/pics/avatar.png" library="images" 
+                                            class="img-circle profile-image center-block"/>  
+            </o:form>
+        </div>
+    </ui:define>
+    
+    <ui:define name="profile-menu">
+        <div class="row">
+            <ui:include src="/WEB-INF/includes/menu/menu-content.xhtml"/>
+        </div>
+
+    </ui:define>
+</ui:composition>
