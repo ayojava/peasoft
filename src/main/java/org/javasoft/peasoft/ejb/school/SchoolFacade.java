@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.javasoft.peasoft.ejb.shop;
+package org.javasoft.peasoft.ejb.school;
 
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
@@ -18,9 +18,9 @@ import org.javasoft.peasoft.entity.brainChallenge.School;
 @Slf4j
 @Stateless
 @LocalBean
-public class ShopFacade extends GenericDAO<School, Long>{
+public class SchoolFacade extends GenericDAO<School, Long>{
 
-    public ShopFacade(){
+    public SchoolFacade(){
         super(School.class);
     }
 }

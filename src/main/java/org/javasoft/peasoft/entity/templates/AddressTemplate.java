@@ -26,10 +26,7 @@ public class AddressTemplate implements Serializable{
     
     @NotNull
     private String city;
-    
-    @NotNull
-    private String state;
-    
+        
     @NotNull
     private String nearestBusStop;
     

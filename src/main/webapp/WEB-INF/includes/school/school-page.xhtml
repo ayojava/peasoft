@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+      xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:p="http://primefaces.org/ui" xmlns:of="http://omnifaces.org/functions"
+      xmlns:o="http://omnifaces.org/ui" xmlns:pnx="http://www.javasoft.org/primefacesExt/primefacelets"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <body>
+        <ui:composition>
+            <c:choose>
+                <c:when test="#{displayMode=='new'}">
+                    <pnx:pageDivider id="new-school" separator="false">
+                        <ui:define name="properties">
+                            <div class="default-page-border">
+                                <div class="row default-row-padding">
+                                    <pnx:primeDIV labelDiv="col-md-2" labelID="nameLbl" label="School Name : "
+                                                  contentDiv="col-md-10" targetID="nameTxt">
+                                        <p:inputText id="nameTxt" required="true" autocomplete="off" size="40"
+                                                     value="#{schoolPageBean.school.name}"/>
+                                    </pnx:primeDIV>
+                                </div>
+                                <div class="row default-row-padding">
+                                    <pnx:primeDIV labelDiv="col-md-2" labelID="streetLbl" label="Street : "
+                                                  contentDiv="col-md-10" targetID="streetTxt">
+                                        <p:inputText id="streetTxt" required="true" autocomplete="off" size="40"
+                                                     value="#{schoolPageBean.school.addressTemplate.street}"/>
+                                    </pnx:primeDIV>
+                                </div>
+                                <div class="row default-row-padding">
+                                    <pnx:primeDIV labelDiv="col-md-2" labelID="cityLbl" label="City : "
+                                                  contentDiv="col-md-4" targetID="cityTxt">
+                                        <p:inputText id="cityTxt" required="true" autocomplete="off" size="25"
+                                                     value="#{schoolPageBean.school.addressTemplate.city}"/>
+                                    </pnx:primeDIV>
+                                    <pnx:primeDIV labelDiv="col-md-2" labelID="bStopLbl" label="Bus Stop : "
+                                                  contentDiv="col-md-4" targetID="bStopTxt">
+                                        <p:inputText id="bStopTxt" required="true" autocomplete="off" size="25"
+                                                     value="#{schoolPageBean.school.addressTemplate.city}"/>
+                                    </pnx:primeDIV>
+                                    
+                                </div>
+                                 <div class="row default-row-padding">
+                                    <div class="col-md-12">
+                                        <hr size="0" class="pnx-tableRow-Separator"/>
+                                    </div>
+                                </div>
+                                <div class="row default-row-padding">
+                                    <pnx:primeDIV labelDiv="col-md-2" labelID="phoneNoLbl" label="Phone No  : "
+                                                  contentDiv="col-md-4" targetID="phoneNoTxt">
+                                        <p:inputText id="phoneNoTxt" required="true" autocomplete="off" size="25"
+                                                     value="#{schoolPageBean.school.addressTemplate.contactPhoneNo1}"/>
+                                    </pnx:primeDIV>
+                                    <pnx:primeDIV labelDiv="col-md-2" labelID="alternatePhoneNoLbl" label="Alternate Phone No : "
+                                                  contentDiv="col-md-4" targetID="alternatePhoneNoTxt">
+                                        <p:inputText id="alternatePhoneNoTxt" required="false" autocomplete="off" size="25"
+                                                     value="#{schoolPageBean.school.addressTemplate.contactPhoneNo2}"/>
+                                    </pnx:primeDIV>    
+                                </div>
+                                
+                                <div class="row default-row-padding">
+                                    <pnx:primeDIV labelDiv="col-md-2" labelID="emailLbl" label="Email   : "
+                                                  contentDiv="col-md-4" targetID="emailTxt">
+                                        <p:inputText id="emailTxt" required="false" autocomplete="off" size="25"
+                                                     value="#{schoolPageBean.school.addressTemplate.contactEmail1}"/>
+                                    </pnx:primeDIV>
+                                    <pnx:primeDIV labelDiv="col-md-2" labelID="alternateEmailLbl" label="Alternate Email : "
+                                                  contentDiv="col-md-4" targetID="alternateEmailTxt">
+                                        <p:inputText id="alternateEmailTxt" required="false" autocomplete="off" size="25"
+                                                     value="#{schoolPageBean.school.addressTemplate.contactEmail2}"/>
+                                    </pnx:primeDIV>    
+                                </div>
+                                
+                            </div>
+                        </ui:define>
+                    </pnx:pageDivider>
+                </c:when>
+            </c:choose>
+        </ui:composition>
+    </body>
+</html>

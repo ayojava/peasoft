@@ -9,8 +9,11 @@ import java.io.Serializable;
 import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.javasoft.peasoft.beans.core.AbstractBean;
+import org.javasoft.peasoft.entity.brainChallenge.School;
 
 /**
  *
@@ -20,6 +23,9 @@ import org.javasoft.peasoft.beans.core.AbstractBean;
 @Named("schoolPageBean")
 @ViewScoped
 public class SchoolPageBean extends AbstractBean implements Serializable {
+    
+    @Getter @Setter
+    private School school;
 
     @Override
     @PostConstruct
