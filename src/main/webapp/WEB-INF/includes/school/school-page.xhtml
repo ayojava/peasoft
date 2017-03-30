@@ -13,8 +13,8 @@ and open the template in the editor.
     <body>
         <ui:composition>
             <c:choose>
-                <c:when test="#{displayMode=='new'}">
-                    <pnx:pageDivider id="new-school" separator="false">
+                <c:when test="#{displayMode=='new' or displayMode=='edit'}">
+                    <pnx:pageDivider id="school" separator="false">
                         <ui:define name="properties">
                             <div class="default-page-border">
                                 <div class="row default-row-padding">
@@ -40,11 +40,10 @@ and open the template in the editor.
                                     <pnx:primeDIV labelDiv="col-md-2" labelID="bStopLbl" label="Bus Stop : "
                                                   contentDiv="col-md-4" targetID="bStopTxt">
                                         <p:inputText id="bStopTxt" required="true" autocomplete="off" size="25"
-                                                     value="#{schoolPageBean.school.addressTemplate.city}"/>
+                                                     value="#{schoolPageBean.school.addressTemplate.nearestBusStop}"/>
                                     </pnx:primeDIV>
-                                    
                                 </div>
-                                 <div class="row default-row-padding">
+                                <div class="row default-row-padding">
                                     <div class="col-md-12">
                                         <hr size="0" class="pnx-tableRow-Separator"/>
                                     </div>
@@ -61,7 +60,7 @@ and open the template in the editor.
                                                      value="#{schoolPageBean.school.addressTemplate.contactPhoneNo2}"/>
                                     </pnx:primeDIV>    
                                 </div>
-                                
+
                                 <div class="row default-row-padding">
                                     <pnx:primeDIV labelDiv="col-md-2" labelID="emailLbl" label="Email   : "
                                                   contentDiv="col-md-4" targetID="emailTxt">
@@ -74,8 +73,88 @@ and open the template in the editor.
                                                      value="#{schoolPageBean.school.addressTemplate.contactEmail2}"/>
                                     </pnx:primeDIV>    
                                 </div>
-                                
+
                             </div>
+                        </ui:define>
+                    </pnx:pageDivider>
+                </c:when>
+                
+                <c:when test="#{displayMode=='view'}">
+                    <pnx:pageDivider id="view-school" separator="false">
+                        <ui:define name="properties">
+                            <table class="table table-bordered pnx-table-bordered table-striped" width="100%">
+                                <pnx:primeTR>
+                                    <pnx:primeTD  labelWidth="20%" tdContentStyle="width:80%" labelID="nameLbl" 
+                                                  labelClass="default-page-label" label="School Name : " >
+                                        <span class="default-page-text">
+                                            <h:outputText value="#{schoolPageBean.school.name}"/>
+                                        </span>
+                                    </pnx:primeTD>
+                                </pnx:primeTR>
+                                <pnx:primeTR>
+                                    <pnx:primeTD  labelWidth="20%" tdContentStyle="width:80%" labelID="streetLbl" 
+                                                  labelClass="default-page-label" label="School Street : " >
+                                        <span class="default-page-text">
+                                            <h:outputText value="#{schoolPageBean.school.addressTemplate.street}"/>
+                                        </span>
+                                    </pnx:primeTD>
+                                </pnx:primeTR>
+                                <pnx:primeTR>
+                                    <pnx:primeTD  labelWidth="20%" tdContentStyle="width:80%" labelID="cityLbl" 
+                                                  labelClass="default-page-label"
+                                                  label="City : " >
+                                        <span class="default-page-text">
+                                            <h:outputText value="#{schoolPageBean.school.addressTemplate.city}"/>
+                                        </span>
+                                    </pnx:primeTD>
+                                </pnx:primeTR>
+                                <pnx:primeTR>
+                                    <pnx:primeTD  labelWidth="20%" tdContentStyle="width:80%" labelID="bStopLbl" 
+                                                  labelClass="default-page-label"
+                                                  label="Nearest Bus Stop : " >
+                                        <span class="default-page-text">
+                                            <h:outputText value="#{schoolPageBean.school.addressTemplate.nearestBusStop}"/>
+                                        </span>
+                                    </pnx:primeTD>
+                                </pnx:primeTR>
+                                <pnx:primeTR>
+                                    <pnx:primeTD  labelWidth="20%" tdContentStyle="width:80%" labelID="phoneNoLbl" 
+                                                  labelClass="default-page-label"
+                                                  label="Phone No : " >
+                                        <span class="default-page-text">
+                                            <h:outputText value="#{schoolPageBean.school.addressTemplate.contactPhoneNo1}"/>
+                                        </span>
+                                    </pnx:primeTD>
+                                </pnx:primeTR>
+                                <pnx:primeTR>
+                                    <pnx:primeTD  labelWidth="20%" tdContentStyle="width:80%" labelID="emailLbl" 
+                                                  labelClass="default-page-label"
+                                                  label="Email : " >
+                                        <span class="default-page-text">
+                                            <h:outputText value="#{schoolPageBean.school.addressTemplate.contactEmail1}"/>
+                                        </span>
+                                    </pnx:primeTD>
+                                </pnx:primeTR>
+                            </table>
+                        </ui:define>
+                    </pnx:pageDivider>
+                </c:when>
+                <c:when test="#{displayMode=='list'}">
+                    <pnx:pageDivider id="list-schools" separator="false">
+                        <ui:define name="properties">
+                            <p:dataTable id="schoolsTable" var="school" value="#{schoolPageBean.schools}" 
+                                         paginatorPosition="bottom" paginator="true" rows="40" rowIndexVar="rowIndex"
+                                         paginatorTemplate=" {CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}">
+                                
+                                <p:column headerText="No" style="text-align: center;width: 35px;">
+                                    <h:outputText value="#{rowIndex+1}"/>
+                                </p:column>
+                                
+                                <p:column headerText="School Name" style="text-align: left;">
+                                    <h:outputText value="#{school.name}"/>
+                                </p:column>
+                                
+                            </p:dataTable>
                         </ui:define>
                     </pnx:pageDivider>
                 </c:when>

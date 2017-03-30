@@ -12,8 +12,11 @@ import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.text.StrBuilder;
-import static org.javasoft.peasoft.constants.PeaResource.DEFAULT_INCLUDE_PATH;
+import static org.javasoft.peasoft.constants.PeaResource.DEFAULT_HOME_PATH;
+import static org.javasoft.peasoft.constants.PeaResource.DEFAULT_MENU_PATH;
+import static org.javasoft.peasoft.constants.PeaResource.MENU_PAGE;
 import static org.javasoft.peasoft.constants.PeaResource.PAGE_EXTENSION;
+import static org.javasoft.peasoft.constants.PeaResource.VIEW_HOME_PAGE;
 
 /**
  *
@@ -35,8 +38,7 @@ public class NavigatorBean implements Serializable {
     public String getSelectedContentPath() {
         if (StringUtils.isBlank(selectedContentPath)) {
             StrBuilder builder = new StrBuilder();
-            builder = builder.append(DEFAULT_INCLUDE_PATH).append(File.separator);
-            builder = builder.append(PAGE_EXTENSION);
+            builder.append(DEFAULT_HOME_PATH).append(File.separator).append(VIEW_HOME_PAGE).append(PAGE_EXTENSION);
             selectedContentPath = builder.build();
         }
         return selectedContentPath;
@@ -45,7 +47,7 @@ public class NavigatorBean implements Serializable {
     public String getSelectedMenuPath() {
         if (StringUtils.isBlank(selectedMenuPath)) {
             StrBuilder builder = new StrBuilder();
-            builder = builder.append(DEFAULT_INCLUDE_PATH);
+            builder = builder.append(DEFAULT_MENU_PATH).append(File.separator).append(MENU_PAGE).append(PAGE_EXTENSION);
             selectedMenuPath = builder.build();
         }
         return selectedMenuPath;

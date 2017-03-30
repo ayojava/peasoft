@@ -9,6 +9,6 @@ package org.javasoft.peasoft.constants;
  *
  * @author ayojava
  */
-public interface peaConstants {
+public interface PeaConstants {
     
 }

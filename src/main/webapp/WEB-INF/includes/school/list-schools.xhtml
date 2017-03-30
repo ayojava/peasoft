@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui" xmlns:of="http://omnifaces.org/functions"
+      xmlns:o="http://omnifaces.org/ui" xmlns:pnx="http://www.javasoft.org/primefacesExt/primefacelets"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <body>
+        <ui:composition>
+            <pnx:pageLayout pageTitle="List Schools" headerClass="pnx-page-title-text" requiredIcon="true" 
+                            pageSeparatorTop="true" pageSeparatorBottom="true" pageMode="list">
+                <ui:define name="pageContent">
+                    <ui:decorate template="school-page.xhtml">
+                        <ui:param name="displayMode" value="list"/>
+                    </ui:decorate> 
+                </ui:define>
+                <ui:define name="pageButtonsTop">
+                    <p:commandButton styleClass="pnx-round-button" id="newTopBtn" value="New" 
+                                     ajax="false" update="@form" action="#{schoolPageBean.setPageResource(peaResource.LIST_SCHOOLS)}" 
+                                     icon="fa fa-fw fa-plus" title="New School"/> 
+                    <p:spacer width="10px"/>
+                    <p:commandButton styleClass="pnx-round-button" id="closeTopBtn" value="Home" 
+                                     immediate="true" ajax="false" update="@form" icon="fa fa-fw fa-home"
+                                     action="#{schoolPageBean.setPageResource(peaResource.VIEW_HOME_PAGE)}" 
+                                     title="Back to Home Page"/>  
+                    <p:spacer width="10px"/>
+                </ui:define>
+            </pnx:pageLayout>
+        </ui:composition>
+    </body>
+</html>

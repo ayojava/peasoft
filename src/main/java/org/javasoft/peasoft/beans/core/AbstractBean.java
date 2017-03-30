@@ -29,6 +29,18 @@ public abstract class AbstractBean<T> implements PeaResource{
         navigatorBean.setSelectedContentPath(pagePath);
     }
     
+    protected String appendFolderPath(String parentFolder, String childFolder) {
+        StringBuilder builder = new StringBuilder();
+        builder = builder.append(parentFolder).append(childFolder);
+        return builder.toString();
+    }
+    
+    protected void setHomePageResource(){
+        StrBuilder builder = new StrBuilder();
+        builder = builder.append(DEFAULT_HOME_PATH).append(File.separator).append(VIEW_HOME_PAGE).append(PAGE_EXTENSION);
+        setContentPath(builder.toString());
+    }
+    
     @Override
     public void setPageResource(String pageResource) {
         StrBuilder builder = new StrBuilder();
@@ -40,4 +52,6 @@ public abstract class AbstractBean<T> implements PeaResource{
     public String getPageResource() {
         return pageResource;
     }
+    
+    
 }
