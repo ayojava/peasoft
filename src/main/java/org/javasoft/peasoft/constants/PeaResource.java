@@ -11,7 +11,7 @@ package org.javasoft.peasoft.constants;
  */
 public interface PeaResource {
 
-    public static final String DEFAULT_INCLUDE_PATH = "/WEB-INF/includes/";
+    public static final String DEFAULT_INCLUDE_PATH = "/WEB-INF/includes";
     
     public static final String DEFAULT_HOME_PATH = "/WEB-INF/includes/home";
     
@@ -23,7 +23,7 @@ public interface PeaResource {
     
     public static final String MENU_PAGE = "menu-page";
     
-    /*=========== MODULES ===========*/
+    /*=========== SCHOOLS ===========*/
     public static final String LIST_SCHOOLS = "list-schools";
 
     public static final String NEW_SCHOOL = "new-school";
@@ -31,6 +31,32 @@ public interface PeaResource {
     public static final String EDIT_SCHOOL = "edit-school";
 
     public static final String VIEW_SCHOOL = "view-school";
+    
+    /*=========== STUDENT ===========*/
+    public static final String LIST_STUDENTS = "list-students";
+
+    public static final String NEW_STUDENT = "new-student";
+
+    public static final String EDIT_STUDENT = "edit-student";
+
+    public static final String VIEW_STUDENT = "view-student";
+    
+    //===============================
+    public static final String ACTIVE ="AC";
+    
+    public static final String DISQUALIFIED ="DQ";
+    
+    public static final String SUCCESS ="S";
+    
+    public static final String FAIL ="F";
+    
+    public static final String PENDING ="P";
+    
+    public static final String ARTS ="A";
+    
+    public static final String SCIENCE ="SC";
+    
+    public static final String COMMERCIAL ="CM";
     
     
     

@@ -18,7 +18,10 @@ import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.validator.constraints.Email;
 
 /**
  *
@@ -42,6 +45,7 @@ public class Student implements Serializable {
 
     private String gender;
 
+    @Email
     private String email;
 
     private String phoneNo;
@@ -49,9 +53,11 @@ public class Student implements Serializable {
     private String otherPhoneNo;
     
     @OneToOne
+    @Cascade(CascadeType.DELETE)
     private StudentRecord studentRecord;
     
     @OneToOne
+    @Cascade(CascadeType.DELETE)
     private Parent parent;
 
     @Temporal(TemporalType.TIMESTAMP)
@@ -59,10 +65,19 @@ public class Student implements Serializable {
     
     @Transient
     private int age;
+    
+    @Transient
+    private String fullName;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(updatable = false)
     @CreationTimestamp
     private Date createDate;
+    
+    public String getFullName(){
+        StringBuilder builder = new StringBuilder();
+        builder = builder.append(firstName).append("  ").append(lastName);
+        return builder.toString();
+    }
 
 }

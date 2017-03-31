@@ -12,21 +12,21 @@ and open the template in the editor.
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <body>
         <ui:composition>
-            <pnx:pageLayout pageTitle="List Schools" headerClass="pnx-page-title-text" requiredIcon="false" 
+            <pnx:pageLayout pageTitle="List Students" headerClass="pnx-page-title-text" requiredIcon="false" 
                             pageSeparatorTop="true" pageSeparatorBottom="true" pageMode="list">
                 <ui:define name="pageContent">
-                    <ui:decorate template="school-page.xhtml">
+                    <ui:decorate template="student-page.xhtml">
                         <ui:param name="displayMode" value="list"/>
                     </ui:decorate> 
                 </ui:define>
                 <ui:define name="pageButtonsTop">
                     <p:commandButton styleClass="pnx-round-button" id="newTopBtn" value="New" 
-                                     ajax="false" update="@form" action="#{schoolPageBean.setPageResource(peaResource.NEW_SCHOOL)}" 
+                                     ajax="false" update="@form" action="#{studentPageBean.setPageResource(peaResource.NEW_STUDENT)}" 
                                      icon="fa fa-fw fa-plus" title="New School"/> 
                     <p:spacer width="10px"/>
                     <p:commandButton styleClass="pnx-round-button" id="closeTopBtn" value="Home" 
                                      immediate="true" ajax="false" update="@form" icon="fa fa-fw fa-home"
-                                     action="#{schoolPageBean.setPageResource(peaResource.VIEW_HOME_PAGE)}" 
+                                     action="#{studentPageBean.setPageResource(peaResource.VIEW_HOME_PAGE)}" 
                                      title="Back to Home Page"/>  
                     <p:spacer width="10px"/>
                 </ui:define>

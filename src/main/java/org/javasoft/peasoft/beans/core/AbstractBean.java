@@ -31,7 +31,7 @@ public abstract class AbstractBean<T> implements PeaResource{
     
     protected String appendFolderPath(String parentFolder, String childFolder) {
         StringBuilder builder = new StringBuilder();
-        builder = builder.append(parentFolder).append(childFolder);
+        builder = builder.append(parentFolder).append(File.separator).append(childFolder);
         return builder.toString();
     }
     

@@ -19,25 +19,25 @@ import org.hibernate.validator.constraints.Email;
 @Data
 @NoArgsConstructor
 @Embeddable
-public class AddressTemplate implements Serializable{
-    
+public class AddressTemplate implements Serializable {
+
     @NotNull
     private String street;
-    
+
     @NotNull
     private String city;
-        
+
     @NotNull
     private String nearestBusStop;
-    
+
     private String contactPhoneNo1;
-    
+
     private String contactPhoneNo2;
-    
+
     @Email
     private String contactEmail1;
+
     
-    @Email
     private String contactEmail2;
-    
+
 }

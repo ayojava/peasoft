@@ -18,6 +18,9 @@ and open the template in the editor.
                     <p:separator />
                     <p:menuitem id="schoolMenu" value="Schools"  icon="fa fa-building fa-1g"
                                 action="#{schoolPageBean.setPageResource(peaResource.LIST_SCHOOLS)}" update=":homeForm"/>
+                    <p:separator />
+                    <p:menuitem id="studentMenu" value="Students"  icon="fa fa-users fa-1g"
+                                action="#{studentPageBean.setPageResource(peaResource.LIST_STUDENTS)}" update=":homeForm"/>
                 </p:tieredMenu>
             </o:form>
         </div>
