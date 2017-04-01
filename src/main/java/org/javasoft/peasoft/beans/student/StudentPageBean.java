@@ -6,11 +6,15 @@
 package org.javasoft.peasoft.beans.student;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.javasoft.peasoft.beans.core.AbstractBean;
+import org.javasoft.peasoft.entity.brainChallenge.Student;
 
 /**
  *
@@ -20,6 +24,12 @@ import org.javasoft.peasoft.beans.core.AbstractBean;
 @Named("studentPageBean")
 @ViewScoped
 public class StudentPageBean extends AbstractBean implements Serializable{
+   
+    @Getter @Setter
+    private Student student;
+    
+    @Getter
+    private List<Student> students;
     
     @Override
     @PostConstruct

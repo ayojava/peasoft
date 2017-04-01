@@ -5,12 +5,70 @@ To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
-    <head>
-        <title>TODO supply a title</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    </head>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+      xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:p="http://primefaces.org/ui" xmlns:of="http://omnifaces.org/functions"
+      xmlns:o="http://omnifaces.org/ui" xmlns:pnx="http://www.javasoft.org/primefacesExt/primefacelets"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <body>
-        <div>TODO write content</div>
+        <ui:composition>
+            <c:choose>
+                <c:when test="#{displayMode=='new'}">
+                    <pnx:pageDivider id="student" separator="false">
+                        <ui:define name="properties">
+                            <div class="default-page-border">
+                                <div class="row default-row-padding">
+                                    <pnx:primeDIV labelDiv="col-md-2" labelID="nameLbl" label="Surname : "
+                                                  contentDiv="col-md-4" targetID="surnameTxt">
+                                        <p:inputText id="surnameTxt" required="true" autocomplete="off" size="40"
+                                                     value="#{studentPageBean.student.surname}"/>
+                                    </pnx:primeDIV>
+                                    <pnx:primeDIV labelDiv="col-md-2" labelID="otherNameLbl" label="Other Names : "
+                                                  contentDiv="col-md-4" targetID="othernamesTxt">
+                                        <p:inputText id="othernamesTxt" required="true" autocomplete="off" size="60"
+                                                     value="#{studentPageBean.student.othernames}"/>
+                                    </pnx:primeDIV>
+                                </div>
+                                <div class="row default-row-padding">
+                                    <pnx:primeDIV labelDiv="col-md-2" labelID="phoneNoLbl" label="Phone No : "
+                                                  contentDiv="col-md-4" targetID="phoneNoTxt">
+                                        <p:inputText id="phoneNoTxt" required="true" autocomplete="off" size="40"
+                                                     value="#{studentPageBean.student.phoneNo}"/>
+                                    </pnx:primeDIV>
+                                    <pnx:primeDIV labelDiv="col-md-2" labelID="alternatePhoneNoLbl" label="Alternate Phone No : "
+                                                  contentDiv="col-md-4" targetID="alternatePhoneNoTxt">
+                                        <p:inputText id="alternatePhoneNoTxt" required="false" autocomplete="off" size="60"
+                                                     value="#{studentPageBean.student.otherPhoneNo}"/>
+                                    </pnx:primeDIV>
+                                </div>
+                                <div class="row default-row-padding">
+                                    <pnx:primeDIV labelDiv="col-md-2" labelID="genderLbl" label="Gender : "
+                                                  contentDiv="col-md-4" targetID="selGender">
+                                        <p:selectOneRadio id="selGender" value="#{studentPageBean.student.gender}" required="true">
+                                            <f:selectItem itemValue="#{peaResource.MALE}" itemLabel="Male" />
+                                            <f:selectItem itemValue="#{peaResource.FEMALE}" itemLabel="Female" />
+                                        </p:selectOneRadio>
+                                    </pnx:primeDIV>
+                                    <pnx:primeDIV labelDiv="col-md-2" labelID="emailLbl" label="Email   : "
+                                                  contentDiv="col-md-4" targetID="emailTxt">
+                                        <p:inputText id="emailTxt" required="false" autocomplete="off" size="40"
+                                                     value="#{studentPageBean.student.email}"
+                                                     validatorMessage="Invalid Email Format">
+                                            <f:validateRegex 
+                                                pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+                                        </p:inputText>
+                                    </pnx:primeDIV>
+                                </div>
+                                <div class="row default-row-padding">
+                                    <div class="col-md-12">
+                                        <hr size="0" class="pnx-tableRow-Separator"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </ui:define>
+                    </pnx:pageDivider>
+                </c:when>
+            </c:choose>
+        </ui:composition>
     </body>
 </html>

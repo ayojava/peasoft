@@ -37,11 +37,10 @@ public class Student implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private String firstName;
+    private String surname;
 
-    private String lastName;
+    private String othernames;
 
-    private String middleName;
 
     private String gender;
 
@@ -76,7 +75,7 @@ public class Student implements Serializable {
     
     public String getFullName(){
         StringBuilder builder = new StringBuilder();
-        builder = builder.append(firstName).append("  ").append(lastName);
+        builder = builder.append(surname).append("  ").append(othernames);
         return builder.toString();
     }
 

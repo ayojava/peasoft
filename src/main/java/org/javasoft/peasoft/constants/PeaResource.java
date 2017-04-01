@@ -58,6 +58,9 @@ public interface PeaResource {
     
     public static final String COMMERCIAL ="CM";
     
+    public static final String MALE ="M";
+    
+    public static final String FEMALE ="F";
     
     
     void setPageResource(String pageResource);
