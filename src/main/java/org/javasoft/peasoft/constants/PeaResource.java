@@ -5,6 +5,8 @@
  */
 package org.javasoft.peasoft.constants;
 
+import org.apache.commons.lang3.math.NumberUtils;
+
 /**
  *
  * @author ayojava
@@ -61,6 +63,12 @@ public interface PeaResource {
     public static final String MALE ="M";
     
     public static final String FEMALE ="F";
+    
+    public static final String SSS1 ="SSS 1";
+    
+    public static final String SSS2 ="SSS 2";
+    
+    public static final String SSS3 ="SSS 3";
     
     
     void setPageResource(String pageResource);

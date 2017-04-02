@@ -41,7 +41,6 @@ public class Student implements Serializable {
 
     private String othernames;
 
-
     private String gender;
 
     @Email
@@ -51,7 +50,7 @@ public class Student implements Serializable {
 
     private String otherPhoneNo;
     
-    @OneToOne
+    @OneToOne()
     @Cascade(CascadeType.DELETE)
     private StudentRecord studentRecord;
     

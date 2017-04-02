@@ -63,7 +63,6 @@ public class SchoolPageBean extends AbstractBean implements Serializable {
             school.setAddressTemplate(addressTemplate);
             super.setPageResource(appendFolderPath("school", NEW_SCHOOL));
         } else if (StringUtils.equals(EDIT_SCHOOL, pageResource)) {
-
             super.setPageResource(appendFolderPath("school", EDIT_SCHOOL));
         } else if (StringUtils.equals(VIEW_SCHOOL, pageResource)) {
             school = schoolFacade.fetchJoinSchoolRecord(school);
