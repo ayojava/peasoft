@@ -41,6 +41,16 @@ public interface PeaResource {
 
     public static final String VIEW_STUDENT = "view-student";
     
+    /*=========== STUDENT-RECORD ===========*/
+    public static final String LIST_STUDENT_RECORDS = "list-student-records";
+
+    public static final String NEW_STUDENT_RECORD = "new-student-record";
+
+    public static final String EDIT_STUDENT_RECORD = "edit-student-record";
+
+    public static final String VIEW_STUDENT_RECORD = "view-student-record";
+    
+    
     //===============================
     public static final String ACTIVE ="AC";
     
