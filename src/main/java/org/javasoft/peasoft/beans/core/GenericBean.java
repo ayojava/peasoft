@@ -11,6 +11,8 @@ import javax.inject.Named;
 import static org.javasoft.peasoft.constants.PeaResource.ACTIVE;
 import static org.javasoft.peasoft.constants.PeaResource.DISQUALIFIED;
 import static org.javasoft.peasoft.constants.PeaResource.FAIL;
+import static org.javasoft.peasoft.constants.PeaResource.FEMALE;
+import static org.javasoft.peasoft.constants.PeaResource.MALE;
 import static org.javasoft.peasoft.constants.PeaResource.PENDING;
 import static org.javasoft.peasoft.constants.PeaResource.SUCCESS;
 
@@ -40,6 +42,16 @@ public class GenericBean implements Serializable {
                 return "Fail";
             case PENDING:
                 return "Pending";
+        }
+        return "";
+    }
+    
+    public String gender(String gender){
+        switch (gender) {
+            case MALE:
+                return "Male" ;
+            case FEMALE:
+                return "Female" ;
         }
         return "";
     }

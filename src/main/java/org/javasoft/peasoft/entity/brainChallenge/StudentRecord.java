@@ -9,6 +9,7 @@ import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -54,11 +55,11 @@ public class StudentRecord implements Serializable {
     private String grade;//Pending , Success , Fail
     
     @Valid
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     private School school;
     
     @OneToOne
-    @Cascade(CascadeType.DELETE)
+    @Cascade({CascadeType.DELETE,CascadeType.PERSIST})
     private Marks marks;
     
     @OneToOne(mappedBy = "studentRecord")

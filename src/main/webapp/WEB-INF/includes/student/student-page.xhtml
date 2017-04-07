@@ -13,7 +13,7 @@ and open the template in the editor.
     <body>
         <ui:composition>
             <c:choose>
-                <c:when test="#{displayMode=='new'}">
+                <c:when test="#{displayMode=='new' or displayMode=='edit'}">
                     <pnx:pageDivider id="student" separator="false">
                         <ui:define name="properties">
                             <div class="default-page-border">
@@ -59,6 +59,51 @@ and open the template in the editor.
                                         </p:inputText>
                                     </pnx:primeDIV>
                                 </div>
+                                <div class="row default-row-padding">
+                                    <pnx:primeDIV labelDiv="col-md-2" labelID="dateOfBirthLbl" label="Date Of Birth : "
+                                                  contentDiv="col-md-10" targetID="selDateOfBirth">
+                                        <p:calendar id="selDateOfBirth" value="#{studentPageBean.student.dateOfBirth}" effect="clip"
+                                                    showOn="both" navigator="true"/>
+                                    </pnx:primeDIV>
+                                </div>
+
+                                <c:if test="#{displayMode=='new'}">
+                                    <div class="row default-row-padding">
+                                        <div class="col-md-12">
+                                            <hr size="0" class="pnx-tableRow-Separator"/>
+                                        </div>
+                                    </div>
+
+                                    <div class="row default-row-padding">
+                                        <pnx:primeDIV labelDiv="col-md-2" labelID="schoolLbl" label="School  : "
+                                                      contentDiv="col-md-10" targetID="selSchool">
+                                            <p:selectOneMenu id="selSchool" value="#{studentPageBean.school}" required="true">
+                                                <f:selectItem itemLabel="-- Select--" itemValue="#{null}" />
+                                                <f:selectItems value="#{studentPageBean.schools}" var="aSchool" itemLabel="#{aSchool.name}" itemValue="#{aSchool}"/>
+                                            </p:selectOneMenu>
+
+                                        </pnx:primeDIV>
+                                    </div>
+
+                                    <div class="row default-row-padding">
+                                        <pnx:primeDIV labelDiv="col-md-2" labelID="classLbl" label="Class   : "
+                                                      contentDiv="col-md-4" targetID="selClass">
+                                            <p:selectOneRadio id="selClass" value="#{studentPageBean.studentRecord.sss}" required="true">
+                                                <f:selectItem itemValue="#{peaResource.SSS1}" itemLabel="SSS 1" />
+                                                <f:selectItem itemValue="#{peaResource.SSS2}" itemLabel="SSS 2" />
+                                                <f:selectItem itemValue="#{peaResource.SSS3}" itemLabel="SSS 3" />
+                                            </p:selectOneRadio>
+                                        </pnx:primeDIV>
+                                        <pnx:primeDIV labelDiv="col-md-2" labelID="deptLbl" label="Department   : "
+                                                      contentDiv="col-md-4" targetID="selDept">
+                                            <p:selectOneRadio id="selDept" value="#{studentPageBean.studentRecord.department}" required="true">
+                                                <f:selectItem itemValue="#{peaResource.ARTS}" itemLabel="Arts" />
+                                                <f:selectItem itemValue="#{peaResource.COMMERCIAL}" itemLabel="Commercial" />
+                                                <f:selectItem itemValue="#{peaResource.SCIENCE}" itemLabel="Science" />
+                                            </p:selectOneRadio>
+                                        </pnx:primeDIV>
+                                    </div>
+                                </c:if>
 
                                 <div class="row default-row-padding">
                                     <div class="col-md-12">
@@ -67,49 +112,202 @@ and open the template in the editor.
                                 </div>
 
                                 <div class="row default-row-padding">
-                                    <pnx:primeDIV labelDiv="col-md-2" labelID="schoolLbl" label="School  : "
-                                                  contentDiv="col-md-10" targetID="selSchool">
-                                        <p:selectOneMenu id="selSchool" value="#{studentPageBean.school}" required="true">
-                                            <f:selectItem itemLabel="-- Select--" itemValue="#{null}" />
-                                            <f:selectItems value="#{studentPageBean.schools}" var="aSchool" itemLabel="#{aSchool.name}" itemValue="#{aSchool}"/>
-                                        </p:selectOneMenu>
-
+                                    <pnx:primeDIV labelDiv="col-md-2" labelID="parentNameLbl" label="Parent Name : "
+                                                  contentDiv="col-md-4" targetID="parentNameTxt">
+                                        <p:inputText id="parentNameTxt" required="true" autocomplete="off" size="40"
+                                                     value="#{studentPageBean.student.parent.name}"/>
+                                    </pnx:primeDIV>
+                                    <pnx:primeDIV labelDiv="col-md-2" labelID="occupationLbl" label="Occupation : "
+                                                  contentDiv="col-md-4" targetID="occupationTxt">
+                                        <p:inputText id="occupationTxt" required="true" autocomplete="off" size="40"
+                                                     value="#{studentPageBean.student.parent.occupation}"/>
                                     </pnx:primeDIV>
                                 </div>
 
                                 <div class="row default-row-padding">
-                                    <pnx:primeDIV labelDiv="col-md-2" labelID="classLbl" label="Class   : "
-                                                  contentDiv="col-md-4" targetID="selClass">
-                                        <p:selectOneRadio id="selClass" value="#{studentPageBean.studentRecord.sss}" required="true">
-                                            <f:selectItem itemValue="#{peaResource.SSS1}" itemLabel="SSS 1" />
-                                            <f:selectItem itemValue="#{peaResource.SSS2}" itemLabel="SSS 2" />
-                                            <f:selectItem itemValue="#{peaResource.SSS3}" itemLabel="SSS 3" />
-                                        </p:selectOneRadio>
+                                    <pnx:primeDIV labelDiv="col-md-2" labelID="parentEmailLbl" label="Email : "
+                                                  contentDiv="col-md-4" targetID="parentEmailTxt">
+                                        <p:inputText id="parentEmailTxt" required="false" autocomplete="off" size="40"
+                                                     value="#{studentPageBean.student.parent.addressTemplate.contactEmail1}"
+                                                     validatorMessage="Invalid Email Format">
+                                            <f:validateRegex 
+                                                pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+                                        </p:inputText>
                                     </pnx:primeDIV>
-                                    <pnx:primeDIV labelDiv="col-md-2" labelID="deptLbl" label="Department   : "
-                                                  contentDiv="col-md-4" targetID="selDept">
-                                        <p:selectOneRadio id="selDept" value="#{studentPageBean.studentRecord.department}" required="true">
-                                            <f:selectItem itemValue="#{peaResource.ARTS}" itemLabel="Arts" />
-                                            <f:selectItem itemValue="#{peaResource.COMMERCIAL}" itemLabel="Commercial" />
-                                            <f:selectItem itemValue="#{peaResource.SCIENCE}" itemLabel="Science" />
-                                        </p:selectOneRadio>
+
+                                    <pnx:primeDIV labelDiv="col-md-2" labelID="parentPhoneNoLbl" label="Phone No : "
+                                                  contentDiv="col-md-4" targetID="parentPhoneNoTxt">
+                                        <p:inputText id="parentPhoneNoTxt" required="false" autocomplete="off" size="40"
+                                                     value="#{studentPageBean.student.parent.addressTemplate.contactPhoneNo1}"/>
                                     </pnx:primeDIV>
                                 </div>
-                                <div class="row default-row-padding">
-                                    <div class="col-md-12">
-                                        <hr size="0" class="pnx-tableRow-Separator"/>
-                                    </div>
-                                </div>
-                                
+
                                 <div class="row default-row-padding">
                                     <pnx:primeDIV labelDiv="col-md-2" labelID="streetLbl" label="Street : "
                                                   contentDiv="col-md-10" targetID="streetTxt">
                                         <p:inputText id="streetTxt" required="true" autocomplete="off" size="100"
-                                                     value="#{schoolPageBean.school.addressTemplate.street}"/>
+                                                     value="#{studentPageBean.student.parent.addressTemplate.street}"/>
+                                    </pnx:primeDIV>
+                                </div>
+                                <div class="row default-row-padding">
+                                    <pnx:primeDIV labelDiv="col-md-2" labelID="cityLbl" label="City : "
+                                                  contentDiv="col-md-4" targetID="cityTxt">
+                                        <p:inputText id="cityTxt" required="true" autocomplete="off" size="40"
+                                                     value="#{studentPageBean.student.parent.addressTemplate.city}"/>
+                                    </pnx:primeDIV>
+                                    <pnx:primeDIV labelDiv="col-md-2" labelID="bStopLbl" label="Bus Stop : "
+                                                  contentDiv="col-md-4" targetID="bStopTxt">
+                                        <p:inputText id="bStopTxt" required="true" autocomplete="off" size="40"
+                                                     value="#{studentPageBean.student.parent.addressTemplate.nearestBusStop}"/>
+                                    </pnx:primeDIV>
+                                </div>    
+                            </div>
+                        </ui:define>
+                    </pnx:pageDivider>
+                </c:when>
+                <c:when test="#{displayMode=='view'}">
+                    <pnx:pageDivider id="view-school" separator="false">
+                        <ui:define name="properties">
+                            <div class="default-page-border">
+                                <div class="row default-row-padding">
+                                    <pnx:primeDIV labelDiv="col-md-2" label="Student Name : " contentDiv="col-md-4">
+                                        <span class="default-page-text">
+                                           #{studentPageBean.student.fullName}
+                                        </span>
+                                    </pnx:primeDIV>
+                                    <pnx:primeDIV labelDiv="col-md-2" label="Date Of Birth : " contentDiv="col-md-4">
+                                        <span class="default-page-text">
+                                           #{of:formatDate(studentPageBean.student.dateOfBirth,peaResource.DISPLAY_DATE_FORMAT_DAYS)}
+                                        </span>
+                                    </pnx:primeDIV>
+                                </div>
+                                <div class="row default-row-padding">
+                                    <pnx:primeDIV labelDiv="col-md-2" label="Gender : " contentDiv="col-md-4">
+                                        <span class="default-page-text">
+                                           #{genericBean.gender(studentPageBean.student.gender)}
+                                        </span>
+                                    </pnx:primeDIV>
+                                    <pnx:primeDIV labelDiv="col-md-2" label="Email : " contentDiv="col-md-4">
+                                        <span class="default-page-text">
+                                           #{studentPageBean.student.email}
+                                        </span>
+                                    </pnx:primeDIV>
+                                </div>
+                                <div class="row default-row-padding">
+                                    <pnx:primeDIV labelDiv="col-md-2" label="Phone No : " contentDiv="col-md-4">
+                                        <span class="default-page-text">
+                                           #{studentPageBean.student.phoneNo}
+                                        </span>
+                                    </pnx:primeDIV>
+                                    <pnx:primeDIV labelDiv="col-md-2" label="Other Phone No : " contentDiv="col-md-4">
+                                        <span class="default-page-text">
+                                           #{studentPageBean.student.otherPhoneNo}
+                                        </span>
                                     </pnx:primeDIV>
                                 </div>
                                 
+                                <div class="row default-row-padding">
+                                    <div class="col-md-12">
+                                        <hr size="0" class="pnx-tableRow-Separator"/>
+                                    </div>
+                                </div>
+                                
+                                <div class="row default-row-padding">
+                                    <pnx:primeDIV labelDiv="col-md-2" label="Parent Name : " contentDiv="col-md-4">
+                                        <span class="default-page-text">
+                                           #{studentPageBean.student.parent.name}
+                                        </span>
+                                    </pnx:primeDIV>
+                                    <pnx:primeDIV labelDiv="col-md-2" label="Occupation : " contentDiv="col-md-4">
+                                        <span class="default-page-text">
+                                           #{studentPageBean.student.parent.occupation}
+                                        </span>
+                                    </pnx:primeDIV>
+                                </div>
+                                
+                                <div class="row default-row-padding">
+                                    <pnx:primeDIV labelDiv="col-md-2" label="Email : " contentDiv="col-md-4">
+                                        <span class="default-page-text">
+                                           #{studentPageBean.student.parent.addressTemplate.contactEmail1}
+                                        </span>
+                                    </pnx:primeDIV>
+                                    <pnx:primeDIV labelDiv="col-md-2" label="Phone No : " contentDiv="col-md-4">
+                                        <span class="default-page-text">
+                                           #{studentPageBean.student.parent.addressTemplate.contactPhoneNo1}
+                                        </span>
+                                    </pnx:primeDIV>
+                                </div>
+                                <div class="row default-row-padding">
+                                    <pnx:primeDIV labelDiv="col-md-2" label="Street : " contentDiv="col-md-10">
+                                        <span class="default-page-text">
+                                           #{studentPageBean.student.parent.addressTemplate.street}
+                                        </span>
+                                    </pnx:primeDIV>
+                                </div>
+                                
+                                <div class="row default-row-padding">
+                                    <pnx:primeDIV labelDiv="col-md-2" label="City : " contentDiv="col-md-4">
+                                        <span class="default-page-text">
+                                           #{studentPageBean.student.parent.addressTemplate.city}
+                                        </span>
+                                    </pnx:primeDIV>
+                                    <pnx:primeDIV labelDiv="col-md-2" label="Nearest Bstop : " contentDiv="col-md-4">
+                                        <span class="default-page-text">
+                                           #{studentPageBean.student.parent.addressTemplate.nearestBusStop}
+                                        </span>
+                                    </pnx:primeDIV>
+                                </div>
                             </div>
+                        </ui:define>
+                    </pnx:pageDivider>
+                </c:when>
+                <c:when test="#{displayMode=='list'}">
+                    <pnx:pageDivider id="list-students" separator="false">
+                        <ui:define name="properties">
+                            <p:dataTable id="studentsTable" var="aStudent" value="#{studentPageBean.students}" 
+                                         paginatorPosition="bottom" paginator="true" rows="40" rowIndexVar="rowIndex"
+                                         paginatorTemplate=" {CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}">
+
+                                <p:column headerText="No" style="text-align: center;width: 35px;">
+                                    <h:outputText value="#{rowIndex+1}"/>
+                                </p:column>
+
+                                <p:column headerText="Surname" style="text-align: left;">
+                                    <h:outputText value="#{aStudent.surname}"/>
+                                </p:column>
+
+                                <p:column headerText="Other Names" style="text-align: left;">
+                                    <h:outputText value="#{aStudent.othernames}"/>
+                                </p:column>
+
+                                <p:column headerText="Gender" style="text-align: center;">
+                                    <h:outputText value="#{genericBean.gender(aStudent.gender)}"/>
+                                </p:column>
+
+                                <p:column headerText="Email" style="text-align: center;">
+                                    <h:outputText value="#{aStudent.email}"/>
+                                </p:column>
+
+                                <p:column headerText="Phone No" style="text-align: center;">
+                                    <h:outputText value="#{aStudent.phoneNo}"/>
+                                </p:column>
+
+                                <p:column headerText="Age" style="text-align: center;">
+                                    <h:outputText value="#{aStudent.age}"/>
+                                </p:column>
+
+                                <p:column headerText="Actions" style="text-align: center;width: 80px;">
+                                    <p:commandButton update="@form" icon="view-icon"
+                                                     action="#{studentPageBean.setPageResource(peaResource.VIEW_STUDENT,aStudent)}"
+                                                     title="View" class="img-button"/>
+
+                                    <span class="pnx-horizontal-seperator">|</span>
+
+                                    <p:commandButton update="@form" icon="edit-icon"
+                                                     action="#{studentPageBean.setPageResource(peaResource.EDIT_STUDENT,aStudent)}"
+                                                     title="Edit" class="img-button"/>
+                                </p:column>
+                            </p:dataTable>
                         </ui:define>
                     </pnx:pageDivider>
                 </c:when>

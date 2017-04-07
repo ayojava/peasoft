@@ -6,6 +6,9 @@
 package org.javasoft.peasoft.entity.brainChallenge;
 
 import java.io.Serializable;
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.ZoneId;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,11 +19,13 @@ import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
+import javax.validation.constraints.Past;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.OrderBy;
 import org.hibernate.validator.constraints.Email;
 
 /**
@@ -37,6 +42,7 @@ public class Student implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @OrderBy(clause = "surname asc")
     private String surname;
 
     private String othernames;
@@ -51,13 +57,14 @@ public class Student implements Serializable {
     private String otherPhoneNo;
     
     @OneToOne()
-    @Cascade(CascadeType.DELETE)
+    @Cascade({CascadeType.DELETE})
     private StudentRecord studentRecord;
     
     @OneToOne
-    @Cascade(CascadeType.DELETE)
+    @Cascade({CascadeType.DELETE , CascadeType.PERSIST})
     private Parent parent;
 
+    @Past
     @Temporal(TemporalType.TIMESTAMP)
     private Date dateOfBirth;
     
@@ -76,6 +83,12 @@ public class Student implements Serializable {
         StringBuilder builder = new StringBuilder();
         builder = builder.append(surname).append("  ").append(othernames);
         return builder.toString();
+    }
+    
+    public int getAge(){
+        LocalDate startDate= dateOfBirth.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        Period currentAge = Period.between(startDate, LocalDate.now());
+        return currentAge.getYears();
     }
 
 }

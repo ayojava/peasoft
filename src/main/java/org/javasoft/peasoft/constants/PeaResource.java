@@ -5,8 +5,6 @@
  */
 package org.javasoft.peasoft.constants;
 
-import org.apache.commons.lang3.math.NumberUtils;
-
 /**
  *
  * @author ayojava
@@ -69,6 +67,8 @@ public interface PeaResource {
     public static final String SSS2 ="SSS 2";
     
     public static final String SSS3 ="SSS 3";
+    
+    public static final String DISPLAY_DATE_FORMAT_DAYS = "dd-MM-yyyy";
     
     
     void setPageResource(String pageResource);

@@ -12,6 +12,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.PrePersist;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
@@ -66,5 +67,11 @@ public class Marks implements Serializable {
     @CreationTimestamp
     private Date createDate;
     
-    
+    @PrePersist
+    public void prePersist(){
+        mathScore = englishScore = currentAffairsScore = ictScore = totalAcademicScore = 0.0;
+        communicationSkill = personalAppearance = selfAwareness =plansAndGoals = 0.0;
+        bookKnowledge = confidenceLevel = totalInterviewScore = 0.0;
+    }
+        
 }
