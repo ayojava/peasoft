@@ -21,6 +21,7 @@ import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 import javax.validation.constraints.Past;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
@@ -35,6 +36,7 @@ import org.hibernate.validator.constraints.Email;
 @Data
 @Entity
 @NoArgsConstructor
+@EqualsAndHashCode(of = "id") 
 public class Student implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -42,6 +44,9 @@ public class Student implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @Column(nullable = false, unique = true ,updatable = false)
+    private String identificationNo;
+    
     @OrderBy(clause = "surname asc")
     private String surname;
 
@@ -78,6 +83,8 @@ public class Student implements Serializable {
     @Column(updatable = false)
     @CreationTimestamp
     private Date createDate;
+    
+    
     
     public String getFullName(){
         StringBuilder builder = new StringBuilder();

@@ -72,7 +72,8 @@ public class StudentPageBean extends AbstractBean implements Serializable {
             AddressTemplate addressTemplate = new AddressTemplate();
             parent.setAddressTemplate(addressTemplate);
             student = new Student();
-            schools = schoolFacade.findAll();
+            student.setParent(parent);
+            schools = schoolFacade.fetchJoinSchools();
             super.setPageResource(appendFolderPath("student", NEW_STUDENT));
         } else if (StringUtils.equals(EDIT_STUDENT, pageResource)) {
 
@@ -94,7 +95,9 @@ public class StudentPageBean extends AbstractBean implements Serializable {
 
     public void saveStudent() {
         try {
+            log.info("Got Here------------------- 1");
             studentFacade.saveStudent(student, studentRecord, school);
+            log.info("Came Back------------------- 1");
             Messages.addGlobalInfo("Save Operation Successful");
             cleanup();
             setPageResource(LIST_STUDENTS);

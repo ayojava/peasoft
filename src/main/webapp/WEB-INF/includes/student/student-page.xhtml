@@ -25,7 +25,7 @@ and open the template in the editor.
                                     </pnx:primeDIV>
                                     <pnx:primeDIV labelDiv="col-md-2" labelID="otherNameLbl" label="Other Names : "
                                                   contentDiv="col-md-4" targetID="othernamesTxt">
-                                        <p:inputText id="othernamesTxt" required="true" autocomplete="off" size="60"
+                                        <p:inputText id="othernamesTxt" required="true" autocomplete="off" size="40"
                                                      value="#{studentPageBean.student.othernames}"/>
                                     </pnx:primeDIV>
                                 </div>
@@ -37,7 +37,7 @@ and open the template in the editor.
                                     </pnx:primeDIV>
                                     <pnx:primeDIV labelDiv="col-md-2" labelID="alternatePhoneNoLbl" label="Alternate Phone No : "
                                                   contentDiv="col-md-4" targetID="alternatePhoneNoTxt">
-                                        <p:inputText id="alternatePhoneNoTxt" required="false" autocomplete="off" size="60"
+                                        <p:inputText id="alternatePhoneNoTxt" required="false" autocomplete="off" size="40"
                                                      value="#{studentPageBean.student.otherPhoneNo}"/>
                                     </pnx:primeDIV>
                                 </div>
@@ -77,7 +77,8 @@ and open the template in the editor.
                                     <div class="row default-row-padding">
                                         <pnx:primeDIV labelDiv="col-md-2" labelID="schoolLbl" label="School  : "
                                                       contentDiv="col-md-10" targetID="selSchool">
-                                            <p:selectOneMenu id="selSchool" value="#{studentPageBean.school}" required="true">
+                                            <p:selectOneMenu id="selSchool" value="#{studentPageBean.school}" required="true"
+                                                             converter="omnifaces.SelectItemsConverter">
                                                 <f:selectItem itemLabel="-- Select--" itemValue="#{null}" />
                                                 <f:selectItems value="#{studentPageBean.schools}" var="aSchool" itemLabel="#{aSchool.name}" itemValue="#{aSchool}"/>
                                             </p:selectOneMenu>
@@ -137,7 +138,7 @@ and open the template in the editor.
 
                                     <pnx:primeDIV labelDiv="col-md-2" labelID="parentPhoneNoLbl" label="Phone No : "
                                                   contentDiv="col-md-4" targetID="parentPhoneNoTxt">
-                                        <p:inputText id="parentPhoneNoTxt" required="false" autocomplete="off" size="40"
+                                        <p:inputText id="parentPhoneNoTxt" required="true" autocomplete="off" size="40"
                                                      value="#{studentPageBean.student.parent.addressTemplate.contactPhoneNo1}"/>
                                     </pnx:primeDIV>
                                 </div>
@@ -170,14 +171,26 @@ and open the template in the editor.
                         <ui:define name="properties">
                             <div class="default-page-border">
                                 <div class="row default-row-padding">
+                                    <pnx:primeDIV labelDiv="col-md-2" label="Registration No : " contentDiv="col-md-4">
+                                        <span class="default-page-text">
+                                           #{studentPageBean.student.identificationNo}
+                                        </span>
+                                    </pnx:primeDIV>
                                     <pnx:primeDIV labelDiv="col-md-2" label="Student Name : " contentDiv="col-md-4">
                                         <span class="default-page-text">
                                            #{studentPageBean.student.fullName}
                                         </span>
                                     </pnx:primeDIV>
+                                </div>
+                                <div class="row default-row-padding">    
                                     <pnx:primeDIV labelDiv="col-md-2" label="Date Of Birth : " contentDiv="col-md-4">
                                         <span class="default-page-text">
                                            #{of:formatDate(studentPageBean.student.dateOfBirth,peaResource.DISPLAY_DATE_FORMAT_DAYS)}
+                                        </span>
+                                    </pnx:primeDIV>
+                                    <pnx:primeDIV labelDiv="col-md-2" label="Age : " contentDiv="col-md-4">
+                                        <span class="default-page-text">
+                                            #{studentPageBean.student.age}
                                         </span>
                                     </pnx:primeDIV>
                                 </div>

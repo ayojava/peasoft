@@ -5,12 +5,393 @@ To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
-    <head>
-        <title>TODO supply a title</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    </head>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui" xmlns:of="http://omnifaces.org/functions"
+      xmlns:o="http://omnifaces.org/ui" xmlns:pnx="http://www.javasoft.org/primefacesExt/primefacelets"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <body>
-        <div>TODO write content</div>
+        <ui:composition>
+            <c:choose>
+                <c:when test="#{displayMode=='edit'}">
+                    <pnx:pageDivider id="edit-student-records" separator="false">
+                        <ui:define name="properties">
+                            <div class="default-page-border">
+                                <div class="row default-row-padding">
+                                    <pnx:primeDIV labelDiv="col-md-2" label="Identification No : "   contentDiv="col-md-4">
+                                        <span class="default-page-text">
+                                            #{studentRecordPageBean.studentRecord.identificationNo}
+                                        </span>
+                                    </pnx:primeDIV>
+                                    <pnx:primeDIV labelDiv="col-md-2" label="Status : "   contentDiv="col-md-4">
+                                        <span class="default-page-text">
+                                            #{studentRecordPageBean.studentRecord.status}
+                                        </span>
+                                    </pnx:primeDIV>
+                                </div>
+                                <div class="row default-row-padding">
+                                    <pnx:primeDIV labelDiv="col-md-2" label="Full Name : "   contentDiv="col-md-4">
+                                        <span class="default-page-text">
+                                            #{studentRecordPageBean.studentRecord.student.fullName}
+                                        </span>
+                                    </pnx:primeDIV>
+                                    <pnx:primeDIV labelDiv="col-md-2" label="Status : "   contentDiv="col-md-4">
+                                        <span class="default-page-text">
+                                            #{studentRecordPageBean.studentRecord.student.gender}
+                                        </span>
+                                    </pnx:primeDIV>
+                                </div>
+                                <div class="row default-row-padding">
+                                    <div class="col-md-12">
+                                        <hr size="0" class="pnx-tableRow-Separator" />
+                                    </div>
+                                </div>
+                                <div class="row default-row-padding">
+                                    <pnx:primeDIV labelDiv="col-md-2" label="School Name : "   contentDiv="col-md-4">
+                                        <span class="default-page-text">
+                                            #{studentRecordPageBean.studentRecord.school.name}
+                                        </span>
+                                    </pnx:primeDIV>
+                                    <pnx:primeDIV labelDiv="col-md-2" label="Identification No : "   contentDiv="col-md-4">
+                                        <span class="default-page-text">
+                                            #{studentRecordPageBean.studentRecord.school.identificationNo}
+                                        </span>
+                                    </pnx:primeDIV>                                      
+                                </div>
+                                <div class="row default-row-padding">
+                                    <pnx:primeDIV labelDiv="col-md-2" label="Class : "   contentDiv="col-md-4">
+                                        <span class="default-page-text">
+                                            #{studentRecordPageBean.studentRecord.sss}
+                                        </span>
+                                    </pnx:primeDIV>
+                                    <pnx:primeDIV labelDiv="col-md-2" label="Department : "   contentDiv="col-md-4">
+                                        <span class="default-page-text">
+                                            #{studentRecordPageBean.studentRecord.department}
+                                        </span>
+                                    </pnx:primeDIV>
+                                </div>
+                                <div class="row default-row-padding">
+                                    <div class="col-md-12">
+                                        <hr size="0" class="pnx-tableRow-Separator" />
+                                    </div>
+                                </div>
+                                <div class="row default-row-padding">
+                                    <pnx:primeDIV labelDiv="col-md-2" labelID="mathsLbl" label="Maths Score : "
+                                                  contentDiv="col-md-4" targetID="mathsTxt">
+                                        
+                                        <p:inputNumber id="mathsTxt" value="#{studentRecordPageBean.studentRecord.marks.mathScore}"
+                                                       maxlength="4" minValue="0.0" maxValue="100.0" validatorMessage="Invalid Score"
+                                                       emptyValue="zero" required="true"/>
+                                    </pnx:primeDIV>
+                                    <pnx:primeDIV labelDiv="col-md-2" labelID="englishLbl" label="English Score : "
+                                                  contentDiv="col-md-4" targetID="englishTxt">
+                                                                               
+                                        <p:inputNumber id="englishTxt" value="#{studentRecordPageBean.studentRecord.marks.englishScore}"
+                                                       maxlength="4" minValue="0.0" maxValue="100.0" validatorMessage="Invalid Score"
+                                                       emptyValue="zero" required="true"/>
+                                    </pnx:primeDIV>
+                                </div>
+                                <div class="row default-row-padding">
+                                    <pnx:primeDIV labelDiv="col-md-2" labelID="currentAffairsLbl" label="Current Affairs Score : "
+                                                  contentDiv="col-md-4" targetID="currentAffairsTxt">
+                         
+                                        <p:inputNumber id="currentAffairsTxt" value="#{studentRecordPageBean.studentRecord.marks.currentAffairsScore}"
+                                                       maxlength="4" minValue="0.0" maxValue="100.0" validatorMessage="Invalid Score"
+                                                       emptyValue="zero" required="true"/>
+                                    </pnx:primeDIV>
+                                    <pnx:primeDIV labelDiv="col-md-2" labelID="ictLbl" label="ICT Score : "
+                                                  contentDiv="col-md-4" targetID="ictTxt">                                       
+                                        <p:inputNumber id="ictTxt" value="#{studentRecordPageBean.studentRecord.marks.ictScore}"
+                                                       maxlength="4" minValue="0.0" maxValue="100.0" validatorMessage="Invalid Score"
+                                                       emptyValue="zero" required="true"/>
+                                    </pnx:primeDIV>
+                                </div>
+                                <div class="row default-row-padding">
+                                    <div class="col-md-12">
+                                        <hr size="0" class="pnx-tableRow-Separator" />
+                                    </div>
+                                </div>
+                                <div class="row default-row-padding">
+                                    <pnx:primeDIV labelDiv="col-md-2" labelID="communicationLbl" label="Communication Skill Score : "
+                                                  contentDiv="col-md-4" targetID="communicationTxt">                                                                
+                                        <p:inputNumber id="communicationTxt" value="#{studentRecordPageBean.studentRecord.marks.communicationSkill}"
+                                                       maxlength="4" minValue="0.0" maxValue="100.0" validatorMessage="Invalid Score"
+                                                       emptyValue="zero" required="true"/>
+                                    </pnx:primeDIV>
+                                    
+                                    <pnx:primeDIV labelDiv="col-md-2" labelID="personalAppearanceLbl" label="Personal Appearance Score : "
+                                                  contentDiv="col-md-4" targetID="personalAppearanceTxt">                                                        
+                                        <p:inputNumber id="personalAppearanceTxt" value="#{studentRecordPageBean.studentRecord.marks.personalAppearance}"
+                                                       maxlength="4" minValue="0.0" maxValue="100.0" validatorMessage="Invalid Score"
+                                                       emptyValue="zero" required="true"/>
+                                    </pnx:primeDIV>
+                                </div>
+                                <div class="row default-row-padding">
+                                    <pnx:primeDIV labelDiv="col-md-2" labelID="selfAwarenessLbl" label="Self Awareness Score : "
+                                                  contentDiv="col-md-4" targetID="selfAwarenessTxt">                                                                
+                                        <p:inputNumber id="selfAwarenessTxt" value="#{studentRecordPageBean.studentRecord.marks.selfAwareness}"
+                                                       maxlength="4" minValue="0.0" maxValue="100.0" validatorMessage="Invalid Score"
+                                                       emptyValue="zero" required="true"/>
+                                    </pnx:primeDIV>
+                                    
+                                    <pnx:primeDIV labelDiv="col-md-2" labelID="plansAndGoalsLbl" label="Plans And Goals Score : "
+                                                  contentDiv="col-md-4" targetID="plansAndGoalsTxt">                                                        
+                                        <p:inputNumber id="plansAndGoalsTxt" value="#{studentRecordPageBean.studentRecord.marks.plansAndGoals}"
+                                                       maxlength="4" minValue="0.0" maxValue="100.0" validatorMessage="Invalid Score"
+                                                       emptyValue="zero" required="true"/>
+                                    </pnx:primeDIV>
+                                </div>
+                                
+                                <div class="row default-row-padding">
+                                    <pnx:primeDIV labelDiv="col-md-2" labelID="bookKnowledgeLbl" label="Book Knowledge Score : "
+                                                  contentDiv="col-md-4" targetID="bookKnowledgeTxt">                                                                
+                                        <p:inputNumber id="bookKnowledgeTxt" value="#{studentRecordPageBean.studentRecord.marks.bookKnowledge}"
+                                                       maxlength="4" minValue="0.0" maxValue="100.0" validatorMessage="Invalid Score"
+                                                       emptyValue="zero" required="true"/>
+                                    </pnx:primeDIV>
+                                    
+                                    <pnx:primeDIV labelDiv="col-md-2" labelID="confidenceLevelLbl" label="Confidence Level Score : "
+                                                  contentDiv="col-md-4" targetID="confidenceLevelTxt">                                                        
+                                        <p:inputNumber id="confidenceLevelTxt" value="#{studentRecordPageBean.studentRecord.marks.confidenceLevel}"
+                                                       maxlength="4" minValue="0.0" maxValue="100.0" validatorMessage="Invalid Score"
+                                                       emptyValue="zero" required="true"/>
+                                    </pnx:primeDIV>
+                                </div>
+                                
+                            </div>
+                        </ui:define>
+                    </pnx:pageDivider>
+                </c:when>
+                <c:when test="#{displayMode=='view'}">
+                    <pnx:pageDivider id="view-student-records" separator="false">
+                        <ui:define name="properties">
+                            <div class="default-page-border">
+                                <div class="row default-row-padding">
+                                    <pnx:primeDIV labelDiv="col-md-2" label="Identification No : "   contentDiv="col-md-4">
+                                        <span class="default-page-text">
+                                            #{studentRecordPageBean.studentRecord.identificationNo}
+                                        </span>
+                                    </pnx:primeDIV>
+                                    <pnx:primeDIV labelDiv="col-md-2" label="Status : "   contentDiv="col-md-4">
+                                        <span class="default-page-text">
+                                            #{studentRecordPageBean.studentRecord.status}
+                                        </span>
+                                    </pnx:primeDIV>
+                                </div>
+                                <div class="row default-row-padding">
+
+                                    <pnx:primeDIV labelDiv="col-md-2" label="Full Name : "   contentDiv="col-md-4">
+                                        <span class="default-page-text">
+                                            #{studentRecordPageBean.studentRecord.student.fullName}
+                                        </span>
+                                    </pnx:primeDIV>
+                                    <pnx:primeDIV labelDiv="col-md-2" label="Gender : "   contentDiv="col-md-4">
+                                        <span class="default-page-text">
+                                            #{studentRecordPageBean.studentRecord.student.gender}
+                                        </span>
+                                    </pnx:primeDIV>
+                                </div>
+                                <div class="row default-row-padding">
+
+                                    <pnx:primeDIV labelDiv="col-md-2" label="Email : "   contentDiv="col-md-4">
+                                        <span class="default-page-text">
+                                            #{studentRecordPageBean.studentRecord.student.email}
+                                        </span>
+                                    </pnx:primeDIV>
+                                    <pnx:primeDIV labelDiv="col-md-2" label="Phone No : "   contentDiv="col-md-4">
+                                        <span class="default-page-text">
+                                            #{studentRecordPageBean.studentRecord.student.phoneNo}
+                                        </span>
+                                    </pnx:primeDIV>    
+                                </div>
+                                <div class="row default-row-padding">
+                                    <div class="col-md-12">
+                                        <hr size="0" class="pnx-tableRow-Separator" />
+                                    </div>
+                                </div>
+                                <div class="row default-row-padding">
+                                    <pnx:primeDIV labelDiv="col-md-2" label="School Name : "   contentDiv="col-md-4">
+                                        <span class="default-page-text">
+                                            #{studentRecordPageBean.studentRecord.school.name}
+                                        </span>
+                                    </pnx:primeDIV>
+                                    <pnx:primeDIV labelDiv="col-md-2" label="Identification No : "   contentDiv="col-md-4">
+                                        <span class="default-page-text">
+                                            #{studentRecordPageBean.studentRecord.school.identificationNo}
+                                        </span>
+                                    </pnx:primeDIV>                                      
+                                </div>
+                                <div class="row default-row-padding">
+                                    <pnx:primeDIV labelDiv="col-md-2" label="Class : "   contentDiv="col-md-4">
+                                        <span class="default-page-text">
+                                            #{studentRecordPageBean.studentRecord.sss}
+                                        </span>
+                                    </pnx:primeDIV>
+                                    <pnx:primeDIV labelDiv="col-md-2" label="Department : "   contentDiv="col-md-4">
+                                        <span class="default-page-text">
+                                            #{studentRecordPageBean.studentRecord.department}
+                                        </span>
+                                    </pnx:primeDIV>
+
+                                </div>
+                                <div class="row default-row-padding">
+                                    <div class="col-md-12">
+                                        <hr size="0" class="pnx-tableRow-Separator" />
+                                    </div>
+                                </div>
+                                <div class="row default-row-padding">
+                                    <pnx:primeDIV labelDiv="col-md-2" label="Maths  : "   contentDiv="col-md-4">
+                                        <span class="default-page-text">
+                                            #{studentRecordPageBean.studentRecord.marks.mathScore}
+                                        </span>
+                                    </pnx:primeDIV>
+                                    <pnx:primeDIV labelDiv="col-md-2" label="English  : "   contentDiv="col-md-4">
+                                        <span class="default-page-text">
+                                            #{studentRecordPageBean.studentRecord.marks.englishScore}
+                                        </span>
+                                    </pnx:primeDIV>
+                                </div>
+                                <div class="row default-row-padding">
+                                    <pnx:primeDIV labelDiv="col-md-2" label="Current Affairs  : "   contentDiv="col-md-4">
+                                        <span class="default-page-text">
+                                            #{studentRecordPageBean.studentRecord.marks.currentAffairsScore}
+                                        </span>
+                                    </pnx:primeDIV>
+                                    <pnx:primeDIV labelDiv="col-md-2" label="ICT  : "   contentDiv="col-md-4">
+                                        <span class="default-page-text">
+                                            #{studentRecordPageBean.studentRecord.marks.ictScore}
+                                        </span>
+                                    </pnx:primeDIV>
+                                </div>
+                                <div class="row default-row-padding">
+                                    <div class="col-md-12">
+                                        <hr size="0" class="pnx-tableRow-Separator" />
+                                    </div>
+                                </div>
+                                <div class="row default-row-padding">
+                                    <pnx:primeDIV labelDiv="col-md-2" label="Communication Skill  : "   contentDiv="col-md-4">
+                                        <span class="default-page-text">
+                                            #{studentRecordPageBean.studentRecord.marks.communicationSkill}
+                                        </span>
+                                    </pnx:primeDIV>
+                                    <pnx:primeDIV labelDiv="col-md-2" label="Personal Appearance  : "   contentDiv="col-md-4">
+                                        <span class="default-page-text">
+                                            #{studentRecordPageBean.studentRecord.marks.personalAppearance}
+                                        </span>
+                                    </pnx:primeDIV>
+                                </div>
+                                <div class="row default-row-padding">
+                                    <pnx:primeDIV labelDiv="col-md-2" label="Self Awareness  : "   contentDiv="col-md-4">
+                                        <span class="default-page-text">
+                                            #{studentRecordPageBean.studentRecord.marks.selfAwareness}
+                                        </span>
+                                    </pnx:primeDIV>
+                                    <pnx:primeDIV labelDiv="col-md-2" label="Plans and Goals  : "   contentDiv="col-md-4">
+                                        <span class="default-page-text">
+                                            #{studentRecordPageBean.studentRecord.marks.plansAndGoals}
+                                        </span>
+                                    </pnx:primeDIV>
+                                </div>
+                                <div class="row default-row-padding">
+                                    <pnx:primeDIV labelDiv="col-md-2" label="Book Knowledge  : "   contentDiv="col-md-4">
+                                        <span class="default-page-text">
+                                            #{studentRecordPageBean.studentRecord.marks.bookKnowledge}
+                                        </span>
+                                    </pnx:primeDIV>
+                                    <pnx:primeDIV labelDiv="col-md-2" label="Confidence Level  : "   contentDiv="col-md-4">
+                                        <span class="default-page-text">
+                                            #{studentRecordPageBean.studentRecord.marks.confidenceLevel}
+                                        </span>
+                                    </pnx:primeDIV>
+                                </div>
+                                <div class="row default-row-padding">
+                                    <div class="col-md-12">
+                                        <hr size="0" class="pnx-tableRow-Separator" />
+                                    </div>
+                                </div>
+                                <div class="row default-row-padding">
+                                    <pnx:primeDIV labelDiv="col-md-2" label="Total Academic Score : "   contentDiv="col-md-4">
+                                        <span class="default-page-text">
+                                            #{studentRecordPageBean.studentRecord.marks.totalAcademicScore}
+                                        </span>
+                                    </pnx:primeDIV>
+                                    <pnx:primeDIV labelDiv="col-md-2" label="Total Interview Score  : "   contentDiv="col-md-4">
+                                        <span class="default-page-text">
+                                            #{studentRecordPageBean.studentRecord.marks.totalInterviewScore}
+                                        </span>
+                                    </pnx:primeDIV>
+                                </div>
+                                <div class="row default-row-padding">
+                                    <pnx:primeDIV labelDiv="col-md-2" label="Total Score : "   contentDiv="col-md-4">
+                                        <span class="default-page-text">
+                                            #{studentRecordPageBean.studentRecord.marks.totalScore}
+                                        </span>
+                                    </pnx:primeDIV>
+                                    <pnx:primeDIV labelDiv="col-md-2" label="Grade  : "   contentDiv="col-md-4">
+                                        <span class="default-page-text">
+                                            #{studentRecordPageBean.studentRecord.grade}
+                                        </span>
+                                    </pnx:primeDIV>
+                                </div>
+                            </div>
+                        </ui:define>
+                    </pnx:pageDivider>
+                </c:when>
+                <c:when test="#{displayMode=='list'}">
+                    <pnx:pageDivider id="list-student-records" separator="false">
+                        <ui:define name="properties">
+                            <p:dataTable id="schoolsTable" var="aRecord" value="#{studentRecordPageBean.studentRecords}" 
+                                         paginatorPosition="bottom" paginator="true" rows="40" rowIndexVar="rowIndex"
+                                         rowStyleClass="#{aRecord.disqualified ? 'bg-danger':null}"
+                                         paginatorTemplate=" {CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}">
+
+                                <p:column headerText="No" style="text-align: center;width: 35px;">
+                                    <h:outputText value="#{rowIndex+1}"/>
+                                </p:column>
+
+                                <p:column headerText="Full Name" style="text-align: left;width: 340px;">
+                                    <h:outputText value="#{aRecord.student.fullName}"/>
+                                </p:column>
+
+                                <p:column headerText="Academic Score" style="text-align: center;">
+                                    <h:outputText value="#{aRecord.marks.totalAcademicScore}"/>
+                                </p:column>
+
+                                <p:column headerText="Interview Score" style="text-align: center;">
+                                    <h:outputText value="#{aRecord.marks.totalInterviewScore}"/>
+                                </p:column>
+
+                                <p:column headerText="Total Score" style="text-align: center;">
+                                    <h:outputText value="#{aRecord.marks.totalScore}"/>
+                                </p:column>
+
+                                <p:column headerText="Status" style="text-align: center;">
+                                    <h:outputText value="#{genericBean.recordStatus(aRecord.status)}"/>
+                                </p:column>
+
+                                <p:column headerText="Grade" style="text-align: center;">
+                                    <h:outputText value="#{genericBean.obtainedGrade(aRecord.grade)}"/>
+                                </p:column>
+
+                                <p:column headerText="Actions" style="text-align: center;width: 80px;">
+                                    <p:commandButton update="@form" icon="view-icon"
+                                                     action="#{studentRecordPageBean.setPageResource(peaResource.VIEW_STUDENT_RECORD,aRecord)}"
+                                                     title="View" class="img-button"/>
+
+                                    <span class="pnx-horizontal-seperator">|</span>
+
+                                    <p:commandButton update="@form" icon="edit-icon"
+                                                     action="#{studentRecordPageBean.setPageResource(peaResource.EDIT_STUDENT_RECORD,aRecord)}"
+                                                     title="Edit" class="img-button"/>
+                                </p:column>
+
+                            </p:dataTable>
+                        </ui:define>
+                    </pnx:pageDivider>
+                </c:when>
+            </c:choose>
+        </ui:composition>
     </body>
 </html>

@@ -22,6 +22,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
@@ -43,6 +44,9 @@ public class StudentRecord implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long recordId;
+    
+    @Column(nullable = false, unique = true ,updatable = false)
+    private String identificationNo;
         
     @NotNull
     private String sss ;
@@ -50,9 +54,9 @@ public class StudentRecord implements Serializable {
     @NotNull
     private String department;
     
-    private String status; // Active , Disqualified
+    private String status; // Active , Disqualified , Declined
     
-    private String grade;//Pending , Success , Fail
+    private String grade;//Pending , Selected , Not Selected
     
     @Valid
     @ManyToOne(fetch = FetchType.EAGER)
@@ -74,6 +78,7 @@ public class StudentRecord implements Serializable {
     public void prePersist(){
         status = ACTIVE;
         grade = PENDING;
+        identificationNo = "SRD"+ RandomStringUtils.randomNumeric(5);
     }
     
     public boolean isDisqualified() {
@@ -81,3 +86,4 @@ public class StudentRecord implements Serializable {
     }
     
 }
+

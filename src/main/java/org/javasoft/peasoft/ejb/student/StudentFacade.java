@@ -11,6 +11,7 @@ import javax.ejb.EJB;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.javasoft.peasoft.ejb.dao.GenericDAO;
 import org.javasoft.peasoft.ejb.school.SchoolFacade;
 import org.javasoft.peasoft.ejb.studentRecord.StudentRecordFacade;
@@ -18,6 +19,7 @@ import org.javasoft.peasoft.entity.brainChallenge.Marks;
 import org.javasoft.peasoft.entity.brainChallenge.School;
 import org.javasoft.peasoft.entity.brainChallenge.Student;
 import org.javasoft.peasoft.entity.brainChallenge.StudentRecord;
+import org.javasoft.peasoft.utils.GlobalRegistry;
 
 /**
  *
@@ -27,6 +29,8 @@ import org.javasoft.peasoft.entity.brainChallenge.StudentRecord;
 @Stateless
 @LocalBean
 public class StudentFacade extends GenericDAO<Student, Long>{
+    
+    private GlobalRegistry globalRegistry;
     
     @EJB
     private StudentRecordFacade studentRecordFacade;
@@ -39,13 +43,18 @@ public class StudentFacade extends GenericDAO<Student, Long>{
     }
     
     public void saveStudent(Student studentObj, StudentRecord record,School schoolObj){
+        globalRegistry = GlobalRegistry.getInstance();
+        
+        studentObj.setIdentificationNo("SD" +StringUtils.leftPad(String.valueOf(globalRegistry.getStudentCount()), 5, "0"));
+        
         Marks markObj = new Marks();
         record.setMarks(markObj);
         StudentRecord recordEntity = studentRecordFacade.persist(record);
         recordEntity.setSchool(schoolObj);
         studentRecordFacade.edit(recordEntity);
         
-        School schoolEntity = schoolFacade.findById(schoolObj.getId());
+        //School schoolEntity = schoolFacade.findById(schoolObj.getId());
+        School schoolEntity = schoolFacade.fetchJoinSchoolRecord(schoolObj);
         if(schoolEntity.getStudentRecords() == null){
             List<StudentRecord> allRecords = new ArrayList<>();
             allRecords.add(recordEntity);
@@ -61,5 +70,7 @@ public class StudentFacade extends GenericDAO<Student, Long>{
         
         recordEntity.setStudent(studentObj);
         studentRecordFacade.edit(recordEntity);
+        
+        globalRegistry.updateStudentCount();
     }
 }

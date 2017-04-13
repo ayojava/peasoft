@@ -89,6 +89,13 @@ and open the template in the editor.
                         <ui:define name="properties">
                             <div class="default-page-border">
                                 <div class="row default-row-padding">
+                                    <pnx:primeDIV labelDiv="col-md-2" label="Identification No : "   contentDiv="col-md-10">
+                                        <span class="default-page-text">
+                                           #{schoolPageBean.school.identificationNo}
+                                        </span>
+                                    </pnx:primeDIV>
+                                </div>
+                                <div class="row default-row-padding">
                                     <pnx:primeDIV labelDiv="col-md-2" label="School Name : "   contentDiv="col-md-10">
                                         <span class="default-page-text">
                                            #{schoolPageBean.school.name}
@@ -137,14 +144,14 @@ and open the template in the editor.
                                     </pnx:primeDIV>
                                 </div>
                                 <div class="row default-row-padding">
-                                    <pnx:primeDIV labelDiv="col-md-2"  label="Success : " contentDiv="col-md-2" >
+                                    <pnx:primeDIV labelDiv="col-md-2"  label="Selected : " contentDiv="col-md-2" >
                                         <span class="default-page-text">
-                                            #{schoolPageBean.successfulStudents}
+                                            #{schoolPageBean.selectedStudents}
                                         </span>
                                     </pnx:primeDIV>
-                                     <pnx:primeDIV labelDiv="col-md-2"  label="Failed : " contentDiv="col-md-2" >
+                                     <pnx:primeDIV labelDiv="col-md-2"  label="Not Selected : " contentDiv="col-md-2" >
                                         <span class="default-page-text">
-                                            #{schoolPageBean.failedStudents}
+                                            #{schoolPageBean.notSelectedStudents}
                                         </span>
                                     </pnx:primeDIV>
                                     <pnx:primeDIV labelDiv="col-md-2"  label="Disqualified : " contentDiv="col-md-2" >

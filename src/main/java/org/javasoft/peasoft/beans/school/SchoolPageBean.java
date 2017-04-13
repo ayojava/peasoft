@@ -38,7 +38,7 @@ public class SchoolPageBean extends AbstractBean implements Serializable {
     private List<School> schools;
    
     @Getter
-    private int disqualifiedStudents , successfulStudents , failedStudents  ;
+    private int disqualifiedStudents , selectedStudents , notSelectedStudents  ;
     
     @Getter
     private int scienceStudents , artStudents , commercialStudents;
@@ -78,18 +78,18 @@ public class SchoolPageBean extends AbstractBean implements Serializable {
     }
     
     private void setDisplayResults(List<StudentRecord> allRecords){
-        disqualifiedStudents = successfulStudents = failedStudents = 0;   
+        disqualifiedStudents = selectedStudents = notSelectedStudents = 0;   
         scienceStudents = artStudents = commercialStudents = 0;
         ss1 = ss2 = 0;
         allRecords.forEach(record->{
             if(StringUtils.equalsIgnoreCase(DISQUALIFIED, record.getStatus())){
                 disqualifiedStudents++;
             }
-            if(StringUtils.equalsIgnoreCase(SUCCESS, record.getGrade())){
-                successfulStudents++;
+            if(StringUtils.equalsIgnoreCase(SELECTED, record.getGrade())){
+                selectedStudents++;
             }
-            if(StringUtils.equalsIgnoreCase(FAIL, record.getGrade())){
-                failedStudents++;
+            if(StringUtils.equalsIgnoreCase(NOT_SELECTED, record.getGrade())){
+                notSelectedStudents++;
             }
             if(StringUtils.equalsIgnoreCase(ARTS, record.getDepartment())){
                 artStudents++;
@@ -111,7 +111,7 @@ public class SchoolPageBean extends AbstractBean implements Serializable {
     
     public void saveSchool(){
         try{
-            schoolFacade.persist(school);
+            schoolFacade.saveSchool(school);
             Messages.addGlobalInfo("Save Operation Successful");
             setPageResource(LIST_SCHOOLS);
         }catch(Exception ex){

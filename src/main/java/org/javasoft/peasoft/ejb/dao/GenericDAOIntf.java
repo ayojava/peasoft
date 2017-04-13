@@ -33,5 +33,7 @@ public interface GenericDAOIntf<T , PK extends Serializable> {
     public int deleteAll (List<T> entity);
     
     public T edit(T entity);
+    
+    public int count();
         
 }

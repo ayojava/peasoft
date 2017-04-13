@@ -13,6 +13,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
@@ -59,7 +60,6 @@ public class Marks implements Serializable {
     
     private double totalInterviewScore;
     
-    @Transient
     private double totalScore;
     
     @Temporal(TemporalType.TIMESTAMP)
@@ -72,6 +72,13 @@ public class Marks implements Serializable {
         mathScore = englishScore = currentAffairsScore = ictScore = totalAcademicScore = 0.0;
         communicationSkill = personalAppearance = selfAwareness =plansAndGoals = 0.0;
         bookKnowledge = confidenceLevel = totalInterviewScore = 0.0;
+    }
+    
+    @PreUpdate
+    public void preUpdate(){
+        totalAcademicScore = mathScore + englishScore + currentAffairsScore + ictScore;
+        totalInterviewScore = communicationSkill + personalAppearance + selfAwareness + plansAndGoals + bookKnowledge + confidenceLevel;
+        totalScore = totalAcademicScore + totalInterviewScore;
     }
         
 }

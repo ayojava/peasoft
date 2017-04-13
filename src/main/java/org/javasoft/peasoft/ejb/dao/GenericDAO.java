@@ -94,5 +94,10 @@ public abstract class GenericDAO<T, PK extends Serializable> implements GenericD
         }
         return count;
     }
+    
+    @Override
+    public int count(){
+        return getCriteria().list().size();
+    }
 
 }

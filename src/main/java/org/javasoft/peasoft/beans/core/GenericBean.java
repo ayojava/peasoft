@@ -10,11 +10,11 @@ import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 import static org.javasoft.peasoft.constants.PeaResource.ACTIVE;
 import static org.javasoft.peasoft.constants.PeaResource.DISQUALIFIED;
-import static org.javasoft.peasoft.constants.PeaResource.FAIL;
 import static org.javasoft.peasoft.constants.PeaResource.FEMALE;
 import static org.javasoft.peasoft.constants.PeaResource.MALE;
+import static org.javasoft.peasoft.constants.PeaResource.NOT_SELECTED;
 import static org.javasoft.peasoft.constants.PeaResource.PENDING;
-import static org.javasoft.peasoft.constants.PeaResource.SUCCESS;
+import static org.javasoft.peasoft.constants.PeaResource.SELECTED;
 
 /**
  *
@@ -36,10 +36,10 @@ public class GenericBean implements Serializable {
     
     public String obtainedGrade(String grade) {
         switch (grade) {
-            case SUCCESS:
-                return "Success";
-            case FAIL:
-                return "Fail";
+            case SELECTED:
+                return "Selected";
+            case NOT_SELECTED:
+                return "Not Selected";
             case PENDING:
                 return "Pending";
         }
