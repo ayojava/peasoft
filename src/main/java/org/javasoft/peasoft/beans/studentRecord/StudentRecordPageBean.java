@@ -73,6 +73,10 @@ public class StudentRecordPageBean extends AbstractBean implements Serializable 
     
     }
     
+    public void scheduleTests(){
+    
+    }
+    
     private void cleanup() {
 
     }

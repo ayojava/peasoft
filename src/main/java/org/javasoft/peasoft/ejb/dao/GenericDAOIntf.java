@@ -35,5 +35,7 @@ public interface GenericDAOIntf<T , PK extends Serializable> {
     public T edit(T entity);
     
     public int count();
+    
+    public T findOne();
         
 }

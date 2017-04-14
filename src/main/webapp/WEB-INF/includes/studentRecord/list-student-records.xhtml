@@ -21,6 +21,10 @@ and open the template in the editor.
                     </ui:decorate> 
                 </ui:define>
                 <ui:define name="pageButtonsTop">
+                    <p:commandButton styleClass="pnx-round-button" id="scheduleTopBtn" value="Schedule" 
+                                     ajax="false" update="@form" action="#{studentRecordPageBean.scheduleTests()}" 
+                                     icon="fa fa-fw fa-tasks" title="Schedule Slots"/> 
+                    <p:spacer width="10px"/>
                     <p:commandButton styleClass="pnx-round-button" id="markTopBtn" value="Mark" 
                                      ajax="false" update="@form" action="#{studentRecordPageBean.markScores()}" 
                                      icon="fa fa-fw fa-plus" title="Mark Scores"/> 
@@ -31,8 +35,8 @@ and open the template in the editor.
                                      title="Back to Home Page"/>  
                     <p:spacer width="10px"/>
                     
-                    <p:blockUI block="schoolsTable" trigger="markTopBtn">
-                        Marking In Progress
+                    <p:blockUI block="schoolsTable" trigger="markTopBtn,scheduleTopBtn">
+                        In Progress
                         <p:graphicImage name="icon/pics/ajax-loading-bar.gif" library="images" />
                     </p:blockUI>
                     

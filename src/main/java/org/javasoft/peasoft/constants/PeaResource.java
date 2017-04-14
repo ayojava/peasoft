@@ -50,6 +50,8 @@ public interface PeaResource {
 
     public static final String VIEW_STUDENT_RECORD = "view-student-record";
     
+    /*=========== ENV-SETTINGS ===========*/
+    public static final String EDIT_ENV_SETTINGS = "edit-env-settings";
     
     //===============================
     public static final String ACTIVE ="AC";
