@@ -21,6 +21,17 @@ and open the template in the editor.
                     <p:separator />
                     <p:menuitem id="studentMenu" value="Students"  icon="fa fa-users fa-1g"
                                 action="#{studentPageBean.setPageResource(peaResource.LIST_STUDENTS)}" update=":homeForm"/>
+                    <p:separator />
+                    <p:menuitem id="studentRecordMenu" value="Student Records"  icon="fa fa-cubes fa-1g"
+                                action="#{studentRecordPageBean.setPageResource(peaResource.LIST_STUDENT_RECORDS)}" update=":homeForm"/>
+                    <p:separator />
+                    <p:submenu id="resultsModule" label="Results"  icon="fa fa-globe fa-1g">
+                        <p:menuitem value="Selected " icon="fa fa-indent fa-1g" 
+                                     update=":homeForm"/>
+                        <p:separator />
+                        <p:menuitem value="Not Selected" icon="fa fa-outdent fa-1g" 
+                                    update=":homeForm"/>
+                    </p:submenu>
                 </p:tieredMenu>
             </o:form>
         </div>

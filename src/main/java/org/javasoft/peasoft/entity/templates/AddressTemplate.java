@@ -7,6 +7,7 @@ package org.javasoft.peasoft.entity.templates;
 
 import java.io.Serializable;
 import javax.persistence.Embeddable;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -37,7 +38,13 @@ public class AddressTemplate implements Serializable {
     @Email
     private String contactEmail1;
 
-    
     private String contactEmail2;
+    
+    @Transient
+    private String fullAddress;
+    
+    public String getFullAddress(){
+        return street + "   " + city ;
+    }
 
 }

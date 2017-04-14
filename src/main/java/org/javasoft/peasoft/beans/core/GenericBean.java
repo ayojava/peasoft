@@ -9,11 +9,14 @@ import java.io.Serializable;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 import static org.javasoft.peasoft.constants.PeaResource.ACTIVE;
+import static org.javasoft.peasoft.constants.PeaResource.ARTS;
+import static org.javasoft.peasoft.constants.PeaResource.COMMERCIAL;
 import static org.javasoft.peasoft.constants.PeaResource.DISQUALIFIED;
 import static org.javasoft.peasoft.constants.PeaResource.FEMALE;
 import static org.javasoft.peasoft.constants.PeaResource.MALE;
 import static org.javasoft.peasoft.constants.PeaResource.NOT_SELECTED;
 import static org.javasoft.peasoft.constants.PeaResource.PENDING;
+import static org.javasoft.peasoft.constants.PeaResource.SCIENCE;
 import static org.javasoft.peasoft.constants.PeaResource.SELECTED;
 
 /**
@@ -52,6 +55,18 @@ public class GenericBean implements Serializable {
                 return "Male" ;
             case FEMALE:
                 return "Female" ;
+        }
+        return "";
+    }
+    
+    public String department(String department){
+        switch (department) {
+            case ARTS:
+                return "Arts" ;
+            case COMMERCIAL:
+                return "Commercial" ;
+            case SCIENCE:
+                return "Science" ;
         }
         return "";
     }

@@ -23,7 +23,9 @@ import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 import javax.validation.Valid;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.Formula;
 import org.hibernate.annotations.OrderBy;
@@ -36,6 +38,8 @@ import org.javasoft.peasoft.entity.templates.AddressTemplate;
 @Data
 @Entity
 @NoArgsConstructor
+@EqualsAndHashCode(of = "id")
+@ToString(exclude = "studentRecords")
 public class School implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -68,16 +72,5 @@ public class School implements Serializable {
 
     @Formula("(select count(*) from School_StudentRecord s where s.schoolId = id)")
     private int studentCount;
-    
-    @Transient
-    private String schoolAddress;
-    
-    
-    
-    public String getSchoolAddress(){
-        StringBuilder builder = new StringBuilder();
-        builder= builder.append(addressTemplate.getStreet()).append(" ,").append(addressTemplate.getCity());
-        return builder.toString();
-    }
-    
+        
 }

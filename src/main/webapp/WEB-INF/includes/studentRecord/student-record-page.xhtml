@@ -25,10 +25,13 @@ and open the template in the editor.
                                             #{studentRecordPageBean.studentRecord.identificationNo}
                                         </span>
                                     </pnx:primeDIV>
-                                    <pnx:primeDIV labelDiv="col-md-2" label="Status : "   contentDiv="col-md-4">
-                                        <span class="default-page-text">
-                                            #{studentRecordPageBean.studentRecord.status}
-                                        </span>
+                                    <pnx:primeDIV labelDiv="col-md-2" label="Status : "   contentDiv="col-md-4"
+                                                  targetID="selStatus">
+                                        <p:selectOneRadio id="selStatus" value="#{studentPageBean.studentRecord.status}" required="true">
+                                            <f:selectItem itemValue="#{peaResource.ACTIVE}" itemLabel="Active" />
+                                            <f:selectItem itemValue="#{peaResource.DECLINED}" itemLabel="Declined" />
+                                            <f:selectItem itemValue="#{peaResource.DISQUALIFIED}" itemLabel="Disqualified" />
+                                        </p:selectOneRadio>
                                     </pnx:primeDIV>
                                 </div>
                                 <div class="row default-row-padding">

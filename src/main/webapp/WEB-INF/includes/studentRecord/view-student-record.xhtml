@@ -12,6 +12,36 @@ and open the template in the editor.
       xmlns:o="http://omnifaces.org/ui" xmlns:pnx="http://www.javasoft.org/primefacesExt/primefacelets"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <body>
-        <div>TODO write content</div>
+        <ui:composition>
+            <pnx:pageLayout pageTitle="View Student Record" headerClass="pnx-page-title-text" requiredIcon="false" 
+                pageSeparatorTop="true" pageSeparatorBottom="true" pageMode="view">
+                    
+                <ui:define name="pageContent">
+                    <ui:decorate template="student-record-page.xhtml">
+                        <ui:param name="displayMode" value="view"/>
+                    </ui:decorate> 
+                </ui:define>
+                <ui:define name="pageButtonsTop">
+                    <p:commandButton styleClass="pnx-round-button" id="editTopBtn" value="Edit" 
+                                     ajax="false" update="@form" action="#{studentRecordPageBean.setPageResource(peaResource.EDIT_STUDENT_RECORD)}" icon="fa fa-fw fa-edit"
+                                     title="Edit Student Record"/>  
+                    <p:spacer width="10px"/>
+                    <p:commandButton styleClass="pnx-round-button" id="closeTopBtn" value="Close" immediate="true"
+                                     ajax="false" update="@form" action="#{studentRecordPageBean.setPageResource(peaResource.LIST_STUDENT_RECORDS)}" 
+                                     title="Return to List of Student Records" icon="fa fa-fw fa-list "/>  
+                    <p:spacer width="10px"/>   
+                </ui:define>
+                <ui:define name="pageButtonsBottom">
+                    <p:commandButton styleClass="pnx-round-button" id="editBottomBtn" value="Edit" 
+                                     ajax="false" update="@form" action="#{studentRecordPageBean.setPageResource(peaResource.EDIT_STUDENT_RECORD)}" icon="fa fa-fw fa-edit"
+                                     title="Edit Student Record"/>  
+                    <p:spacer width="10px"/>
+                    <p:commandButton styleClass="pnx-round-button" id="closeBottomBtn" value="Close" immediate="true"
+                                     ajax="false" update="@form" action="#{studentRecordPageBean.setPageResource(peaResource.LIST_STUDENT_RECORDS)}" 
+                                     title="Return to List of Student Records" icon="fa fa-fw fa-list "/>  
+                    <p:spacer width="10px"/>   
+                </ui:define>
+            </pnx:pageLayout>
+        </ui:composition>
     </body>
 </html>

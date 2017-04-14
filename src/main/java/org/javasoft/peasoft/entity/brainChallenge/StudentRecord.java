@@ -21,6 +21,7 @@ import javax.persistence.TemporalType;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -28,6 +29,7 @@ import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 import org.hibernate.annotations.CreationTimestamp;
 import static org.javasoft.peasoft.constants.PeaResource.ACTIVE;
+import static org.javasoft.peasoft.constants.PeaResource.DECLINED;
 import static org.javasoft.peasoft.constants.PeaResource.DISQUALIFIED;
 import static org.javasoft.peasoft.constants.PeaResource.PENDING;
 
@@ -38,6 +40,7 @@ import static org.javasoft.peasoft.constants.PeaResource.PENDING;
 @Data
 @Entity
 @NoArgsConstructor
+@EqualsAndHashCode(of = "recordId")
 public class StudentRecord implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -83,6 +86,10 @@ public class StudentRecord implements Serializable {
     
     public boolean isDisqualified() {
         return StringUtils.equalsIgnoreCase(status, DISQUALIFIED);
+    }
+    
+    public boolean isDeclined(){
+        return StringUtils.equalsIgnoreCase(status, DECLINED);
     }
     
 }

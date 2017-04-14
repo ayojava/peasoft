@@ -73,12 +73,14 @@ public class StudentPageBean extends AbstractBean implements Serializable {
             parent.setAddressTemplate(addressTemplate);
             student = new Student();
             student.setParent(parent);
-            schools = schoolFacade.fetchJoinSchools();
+            //schools = schoolFacade.fetchJoinSchools();
+            schools = schoolFacade.findAll();
             super.setPageResource(appendFolderPath("student", NEW_STUDENT));
         } else if (StringUtils.equals(EDIT_STUDENT, pageResource)) {
-
+             schools = schoolFacade.findAll();
+            super.setPageResource(appendFolderPath("student", EDIT_STUDENT));
         } else if (StringUtils.equals(VIEW_STUDENT, pageResource)) {
-
+            super.setPageResource(appendFolderPath("student", VIEW_STUDENT));
         } else if (StringUtils.equals(LIST_STUDENTS, pageResource)) {
             students = studentFacade.findAll();
             super.setPageResource(appendFolderPath("student", LIST_STUDENTS));
@@ -90,14 +92,14 @@ public class StudentPageBean extends AbstractBean implements Serializable {
 
     public void setPageResource(String pageResource, Student studentObj) {
         student = studentObj;
+        studentRecord =student.getStudentRecord();
+        school = studentRecord.getSchool();
         setPageResource(pageResource);
     }
 
     public void saveStudent() {
         try {
-            log.info("Got Here------------------- 1");
             studentFacade.saveStudent(student, studentRecord, school);
-            log.info("Came Back------------------- 1");
             Messages.addGlobalInfo("Save Operation Successful");
             cleanup();
             setPageResource(LIST_STUDENTS);
@@ -108,7 +110,15 @@ public class StudentPageBean extends AbstractBean implements Serializable {
     }
 
     public void editStudent() {
-
+        try{
+            studentFacade.editStudent(student, studentRecord, school);
+            Messages.addGlobalInfo("Edit Operation Successful");
+            cleanup();
+            setPageResource(LIST_STUDENTS);
+        }catch (Exception ex) {
+            log.error("An Error has Occurred :::", ex);
+            Messages.addGlobalError("An Error has Occured");
+        }
     }
 
     private void cleanup() {

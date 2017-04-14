@@ -42,9 +42,10 @@ public class SchoolFacade extends GenericDAO<School, Long>{
    
    public void saveSchool(School schoolObj){
        globalRegistry = GlobalRegistry.getInstance();
+       globalRegistry.updateSchoolCount();
        String identificationNo = "SC"+ StringUtils.leftPad(String.valueOf(globalRegistry.getSchoolCount()), 5, "0");
        schoolObj.setIdentificationNo(identificationNo);
        persist(schoolObj);
-       globalRegistry.updateSchoolCount();
+       
    }
 }

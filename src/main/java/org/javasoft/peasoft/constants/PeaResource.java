@@ -56,6 +56,8 @@ public interface PeaResource {
     
     public static final String DISQUALIFIED ="DQ";
     
+    public static final String DECLINED ="DC";
+    
     public static final String SELECTED ="S";
     
     public static final String NOT_SELECTED ="N";

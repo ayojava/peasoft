@@ -27,44 +27,53 @@ import org.javasoft.peasoft.entity.brainChallenge.StudentRecord;
 @Slf4j
 @Named("studentRecordPageBean")
 @ViewScoped
-public class StudentRecordPageBean extends AbstractBean implements Serializable{
+public class StudentRecordPageBean extends AbstractBean implements Serializable {
 
 //add a mark button which blocks user input and handles bulk txn in hibernate    
     @Getter @Setter
     private StudentRecord studentRecord;
-    
+
     @Getter
     private List<StudentRecord> studentRecords;
 
     @EJB
     private StudentRecordFacade studentRecordFacade;
-    
+
     @Override
     @PostConstruct
     public void init() {
         super.init();
     }
-    
+
     @Override
     public void setPageResource(String pageResource) {
-        if(StringUtils.equals(LIST_STUDENT_RECORDS, pageResource)){
-            
-        }else  if (StringUtils.equals(VIEW_HOME_PAGE, pageResource)) {
+        if (StringUtils.equals(EDIT_STUDENT_RECORD, pageResource)) {
+            super.setPageResource(appendFolderPath("studentRecord", EDIT_STUDENT_RECORD));
+        } else if (StringUtils.equals(VIEW_STUDENT_RECORD, pageResource)) {
+            super.setPageResource(appendFolderPath("studentRecord", VIEW_STUDENT_RECORD));
+        } else if (StringUtils.equals(LIST_STUDENT_RECORDS, pageResource)) {
+            studentRecords = studentRecordFacade.findAll();
+            super.setPageResource(appendFolderPath("studentRecord", LIST_STUDENT_RECORDS));
+        } else if (StringUtils.equals(VIEW_HOME_PAGE, pageResource)) {
             setHomePageResource();
             cleanup();
         }
     }
-    
+
     public void setPageResource(String pageResource, StudentRecord studentRecordObj) {
         studentRecord = studentRecordObj;
         setPageResource(pageResource);
     }
-    
-    public void editStudentRecord(){
+
+    public void editStudentRecord() {
+
+    }
+
+    public void markScores(){
     
     }
     
-    private void cleanup(){
-        
+    private void cleanup() {
+
     }
 }

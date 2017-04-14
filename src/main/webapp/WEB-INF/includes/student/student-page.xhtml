@@ -63,48 +63,46 @@ and open the template in the editor.
                                     <pnx:primeDIV labelDiv="col-md-2" labelID="dateOfBirthLbl" label="Date Of Birth : "
                                                   contentDiv="col-md-10" targetID="selDateOfBirth">
                                         <p:calendar id="selDateOfBirth" value="#{studentPageBean.student.dateOfBirth}" effect="clip"
-                                                    showOn="both" navigator="true"/>
+                                                    showOn="both" navigator="true" mindate="1/1/1995"/>
                                     </pnx:primeDIV>
                                 </div>
 
-                                <c:if test="#{displayMode=='new'}">
-                                    <div class="row default-row-padding">
-                                        <div class="col-md-12">
-                                            <hr size="0" class="pnx-tableRow-Separator"/>
-                                        </div>
+                                <div class="row default-row-padding">
+                                    <div class="col-md-12">
+                                        <hr size="0" class="pnx-tableRow-Separator"/>
                                     </div>
+                                </div>
 
-                                    <div class="row default-row-padding">
-                                        <pnx:primeDIV labelDiv="col-md-2" labelID="schoolLbl" label="School  : "
-                                                      contentDiv="col-md-10" targetID="selSchool">
-                                            <p:selectOneMenu id="selSchool" value="#{studentPageBean.school}" required="true"
-                                                             converter="omnifaces.SelectItemsConverter">
-                                                <f:selectItem itemLabel="-- Select--" itemValue="#{null}" />
-                                                <f:selectItems value="#{studentPageBean.schools}" var="aSchool" itemLabel="#{aSchool.name}" itemValue="#{aSchool}"/>
-                                            </p:selectOneMenu>
+                                <div class="row default-row-padding">
+                                    <pnx:primeDIV labelDiv="col-md-2" labelID="schoolLbl" label="School  : "
+                                                  contentDiv="col-md-10" targetID="selSchool">
+                                        <p:selectOneMenu id="selSchool" value="#{studentPageBean.school}" required="true"
+                                                         converter="omnifaces.SelectItemsConverter">
+                                            <f:selectItem itemLabel="-- Select--" itemValue="#{null}" />
+                                            <f:selectItems value="#{studentPageBean.schools}" var="aSchool" itemLabel="#{aSchool.name}" itemValue="#{aSchool}"/>
+                                        </p:selectOneMenu>
 
-                                        </pnx:primeDIV>
-                                    </div>
+                                    </pnx:primeDIV>
+                                </div>
 
-                                    <div class="row default-row-padding">
-                                        <pnx:primeDIV labelDiv="col-md-2" labelID="classLbl" label="Class   : "
-                                                      contentDiv="col-md-4" targetID="selClass">
-                                            <p:selectOneRadio id="selClass" value="#{studentPageBean.studentRecord.sss}" required="true">
-                                                <f:selectItem itemValue="#{peaResource.SSS1}" itemLabel="SSS 1" />
-                                                <f:selectItem itemValue="#{peaResource.SSS2}" itemLabel="SSS 2" />
-                                                <f:selectItem itemValue="#{peaResource.SSS3}" itemLabel="SSS 3" />
-                                            </p:selectOneRadio>
-                                        </pnx:primeDIV>
-                                        <pnx:primeDIV labelDiv="col-md-2" labelID="deptLbl" label="Department   : "
-                                                      contentDiv="col-md-4" targetID="selDept">
-                                            <p:selectOneRadio id="selDept" value="#{studentPageBean.studentRecord.department}" required="true">
-                                                <f:selectItem itemValue="#{peaResource.ARTS}" itemLabel="Arts" />
-                                                <f:selectItem itemValue="#{peaResource.COMMERCIAL}" itemLabel="Commercial" />
-                                                <f:selectItem itemValue="#{peaResource.SCIENCE}" itemLabel="Science" />
-                                            </p:selectOneRadio>
-                                        </pnx:primeDIV>
-                                    </div>
-                                </c:if>
+                                <div class="row default-row-padding">
+                                    <pnx:primeDIV labelDiv="col-md-2" labelID="classLbl" label="Class   : "
+                                                  contentDiv="col-md-4" targetID="selClass">
+                                        <p:selectOneRadio id="selClass" value="#{studentPageBean.studentRecord.sss}" required="true">
+                                            <f:selectItem itemValue="#{peaResource.SSS1}" itemLabel="SSS 1" />
+                                            <f:selectItem itemValue="#{peaResource.SSS2}" itemLabel="SSS 2" />
+                                            <f:selectItem itemValue="#{peaResource.SSS3}" itemLabel="SSS 3" />
+                                        </p:selectOneRadio>
+                                    </pnx:primeDIV>
+                                    <pnx:primeDIV labelDiv="col-md-2" labelID="deptLbl" label="Department   : "
+                                                  contentDiv="col-md-4" targetID="selDept">
+                                        <p:selectOneRadio id="selDept" value="#{studentPageBean.studentRecord.department}" required="true">
+                                            <f:selectItem itemValue="#{peaResource.ARTS}" itemLabel="Arts" />
+                                            <f:selectItem itemValue="#{peaResource.COMMERCIAL}" itemLabel="Commercial" />
+                                            <f:selectItem itemValue="#{peaResource.SCIENCE}" itemLabel="Science" />
+                                        </p:selectOneRadio>
+                                    </pnx:primeDIV>
+                                </div>
 
                                 <div class="row default-row-padding">
                                     <div class="col-md-12">
@@ -173,19 +171,19 @@ and open the template in the editor.
                                 <div class="row default-row-padding">
                                     <pnx:primeDIV labelDiv="col-md-2" label="Registration No : " contentDiv="col-md-4">
                                         <span class="default-page-text">
-                                           #{studentPageBean.student.identificationNo}
+                                            #{studentPageBean.student.identificationNo}
                                         </span>
                                     </pnx:primeDIV>
                                     <pnx:primeDIV labelDiv="col-md-2" label="Student Name : " contentDiv="col-md-4">
                                         <span class="default-page-text">
-                                           #{studentPageBean.student.fullName}
+                                            #{studentPageBean.student.fullName}
                                         </span>
                                     </pnx:primeDIV>
                                 </div>
                                 <div class="row default-row-padding">    
                                     <pnx:primeDIV labelDiv="col-md-2" label="Date Of Birth : " contentDiv="col-md-4">
                                         <span class="default-page-text">
-                                           #{of:formatDate(studentPageBean.student.dateOfBirth,peaResource.DISPLAY_DATE_FORMAT_DAYS)}
+                                            #{of:formatDate(studentPageBean.student.dateOfBirth,peaResource.DISPLAY_DATE_FORMAT_DAYS)}
                                         </span>
                                     </pnx:primeDIV>
                                     <pnx:primeDIV labelDiv="col-md-2" label="Age : " contentDiv="col-md-4">
@@ -197,79 +195,100 @@ and open the template in the editor.
                                 <div class="row default-row-padding">
                                     <pnx:primeDIV labelDiv="col-md-2" label="Gender : " contentDiv="col-md-4">
                                         <span class="default-page-text">
-                                           #{genericBean.gender(studentPageBean.student.gender)}
+                                            #{genericBean.gender(studentPageBean.student.gender)}
                                         </span>
                                     </pnx:primeDIV>
                                     <pnx:primeDIV labelDiv="col-md-2" label="Email : " contentDiv="col-md-4">
                                         <span class="default-page-text">
-                                           #{studentPageBean.student.email}
+                                            #{studentPageBean.student.email}
                                         </span>
                                     </pnx:primeDIV>
                                 </div>
                                 <div class="row default-row-padding">
                                     <pnx:primeDIV labelDiv="col-md-2" label="Phone No : " contentDiv="col-md-4">
                                         <span class="default-page-text">
-                                           #{studentPageBean.student.phoneNo}
+                                            #{studentPageBean.student.phoneNo}
                                         </span>
                                     </pnx:primeDIV>
                                     <pnx:primeDIV labelDiv="col-md-2" label="Other Phone No : " contentDiv="col-md-4">
                                         <span class="default-page-text">
-                                           #{studentPageBean.student.otherPhoneNo}
+                                            #{studentPageBean.student.otherPhoneNo}
                                         </span>
                                     </pnx:primeDIV>
                                 </div>
-                                
+
                                 <div class="row default-row-padding">
                                     <div class="col-md-12">
                                         <hr size="0" class="pnx-tableRow-Separator"/>
                                     </div>
                                 </div>
-                                
+
+                                <div class="row default-row-padding">
+                                    <pnx:primeDIV labelDiv="col-md-2" label="School  : " contentDiv="col-md-10">
+                                        <span class="default-page-text">
+                                            #{studentPageBean.school.name}
+                                        </span>
+                                    </pnx:primeDIV>
+                                </div>
+                                <div class="row default-row-padding">
+                                    <pnx:primeDIV labelDiv="col-md-2" label="Address : " contentDiv="col-md-10">
+                                        <span class="default-page-text">
+                                            #{studentPageBean.school.addressTemplate.fullAddress}
+                                        </span>
+                                    </pnx:primeDIV>
+                                </div>
+                                <div class="row default-row-padding">
+                                    <pnx:primeDIV labelDiv="col-md-2" label="Class : " contentDiv="col-md-4">
+                                        <span class="default-page-text">
+                                            #{studentPageBean.studentRecord.sss}
+                                        </span>
+                                    </pnx:primeDIV>
+                                    <pnx:primeDIV labelDiv="col-md-2" label="Department : " contentDiv="col-md-4">
+                                        <span class="default-page-text">
+                                            #{genericBean.department(studentPageBean.studentRecord.department)}
+                                        </span>
+                                    </pnx:primeDIV>
+                                </div>
+
+                                <div class="row default-row-padding">
+                                    <div class="col-md-12">
+                                        <hr size="0" class="pnx-tableRow-Separator"/>
+                                    </div>
+                                </div>
+
                                 <div class="row default-row-padding">
                                     <pnx:primeDIV labelDiv="col-md-2" label="Parent Name : " contentDiv="col-md-4">
                                         <span class="default-page-text">
-                                           #{studentPageBean.student.parent.name}
+                                            #{studentPageBean.student.parent.name}
                                         </span>
                                     </pnx:primeDIV>
                                     <pnx:primeDIV labelDiv="col-md-2" label="Occupation : " contentDiv="col-md-4">
                                         <span class="default-page-text">
-                                           #{studentPageBean.student.parent.occupation}
+                                            #{studentPageBean.student.parent.occupation}
                                         </span>
                                     </pnx:primeDIV>
                                 </div>
-                                
+
                                 <div class="row default-row-padding">
                                     <pnx:primeDIV labelDiv="col-md-2" label="Email : " contentDiv="col-md-4">
                                         <span class="default-page-text">
-                                           #{studentPageBean.student.parent.addressTemplate.contactEmail1}
+                                            #{studentPageBean.student.parent.addressTemplate.contactEmail1}
                                         </span>
                                     </pnx:primeDIV>
                                     <pnx:primeDIV labelDiv="col-md-2" label="Phone No : " contentDiv="col-md-4">
                                         <span class="default-page-text">
-                                           #{studentPageBean.student.parent.addressTemplate.contactPhoneNo1}
+                                            #{studentPageBean.student.parent.addressTemplate.contactPhoneNo1}
                                         </span>
                                     </pnx:primeDIV>
                                 </div>
                                 <div class="row default-row-padding">
-                                    <pnx:primeDIV labelDiv="col-md-2" label="Street : " contentDiv="col-md-10">
+                                    <pnx:primeDIV labelDiv="col-md-2" label="Address : " contentDiv="col-md-10">
                                         <span class="default-page-text">
-                                           #{studentPageBean.student.parent.addressTemplate.street}
+                                            #{studentPageBean.student.parent.addressTemplate.fullAddress}
                                         </span>
                                     </pnx:primeDIV>
                                 </div>
-                                
-                                <div class="row default-row-padding">
-                                    <pnx:primeDIV labelDiv="col-md-2" label="City : " contentDiv="col-md-4">
-                                        <span class="default-page-text">
-                                           #{studentPageBean.student.parent.addressTemplate.city}
-                                        </span>
-                                    </pnx:primeDIV>
-                                    <pnx:primeDIV labelDiv="col-md-2" label="Nearest Bstop : " contentDiv="col-md-4">
-                                        <span class="default-page-text">
-                                           #{studentPageBean.student.parent.addressTemplate.nearestBusStop}
-                                        </span>
-                                    </pnx:primeDIV>
-                                </div>
+
                             </div>
                         </ui:define>
                     </pnx:pageDivider>
