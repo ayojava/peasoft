@@ -6,6 +6,7 @@
 package org.javasoft.peasoft.beans.school;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -14,8 +15,11 @@ import javax.inject.Named;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.time.DateFormatUtils;
 import org.javasoft.peasoft.beans.core.AbstractBean;
+import org.javasoft.peasoft.ejb.school.AsyncSchoolFacade;
 import org.javasoft.peasoft.ejb.school.SchoolFacade;
 import org.javasoft.peasoft.entity.brainChallenge.School;
 import org.javasoft.peasoft.entity.brainChallenge.StudentRecord;
@@ -48,6 +52,9 @@ public class SchoolPageBean extends AbstractBean implements Serializable {
     
     @EJB
     private SchoolFacade schoolFacade;
+    
+    @EJB
+    private AsyncSchoolFacade asyncSchoolFacade;
 
     @Override
     @PostConstruct
@@ -61,16 +68,16 @@ public class SchoolPageBean extends AbstractBean implements Serializable {
             school = new School();
             AddressTemplate addressTemplate = new AddressTemplate();
             school.setAddressTemplate(addressTemplate);
-            super.setPageResource(appendFolderPath("school", NEW_SCHOOL));
+            super.setPageResource(appendFolderPath(SCHOOL_FOLDER, NEW_SCHOOL));
         } else if (StringUtils.equals(EDIT_SCHOOL, pageResource)) {
-            super.setPageResource(appendFolderPath("school", EDIT_SCHOOL));
+            super.setPageResource(appendFolderPath(SCHOOL_FOLDER, EDIT_SCHOOL));
         } else if (StringUtils.equals(VIEW_SCHOOL, pageResource)) {
             school = schoolFacade.fetchJoinSchoolRecord(school);
             setDisplayResults(school.getStudentRecords());
-            super.setPageResource(appendFolderPath("school", VIEW_SCHOOL));
+            super.setPageResource(appendFolderPath(SCHOOL_FOLDER, VIEW_SCHOOL));
         } else if (StringUtils.equals(LIST_SCHOOLS, pageResource)) {
             schools = schoolFacade.findAll();
-            super.setPageResource(appendFolderPath("school", LIST_SCHOOLS));
+            super.setPageResource(appendFolderPath(SCHOOL_FOLDER, LIST_SCHOOLS));
         }else  if (StringUtils.equals(VIEW_HOME_PAGE, pageResource)) {
             setHomePageResource();
             cleanup();
@@ -129,6 +136,20 @@ public class SchoolPageBean extends AbstractBean implements Serializable {
             log.error("An Error has Occurred :::", ex);
             Messages.addGlobalError("An Error has Occured");
         }
+    }
+    
+    public void generateAllSchoolsList(){
+        String fileName = DateFormatUtils.format(new Date(), "yyyyMMdd")+"_"+ RandomStringUtils.randomNumeric(5)+".xls"; 
+        asyncSchoolFacade.asyncSchoolListExcelDocument(fileName);
+        Messages.addGlobalInfo("Excel Sheet In Progress");
+    }
+    
+    public void generateResultBySchool(){
+    
+    }
+    
+    public void generateResultBySchoolAndMail(){
+    
     }
    
     private void cleanup(){

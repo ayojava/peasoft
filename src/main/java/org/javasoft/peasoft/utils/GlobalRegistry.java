@@ -5,6 +5,7 @@
  */
 package org.javasoft.peasoft.utils;
 
+import java.io.File;
 import lombok.Data;
 
 /**
@@ -15,7 +16,6 @@ import lombok.Data;
 public class GlobalRegistry {
     
     private GlobalRegistry(){
-    
     }
     
     private static GlobalRegistry globalRegistry;
@@ -31,11 +31,22 @@ public class GlobalRegistry {
     
     private int studentCount;
     
+    private String initFilePath;
+    
     public void updateSchoolCount(){
         schoolCount++;
     }
     
     public void updateStudentCount(){
         studentCount++;
+    }
+    
+    public File createFile(String dir, String fileName)
+    {
+        File parentDest = dir != null ?new File(dir): new File(".");
+        if(!parentDest.exists()){
+            parentDest.mkdir();
+        }
+        return new File(parentDest,fileName);
     }
 }

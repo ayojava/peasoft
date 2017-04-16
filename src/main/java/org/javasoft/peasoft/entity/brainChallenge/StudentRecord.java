@@ -29,9 +29,16 @@ import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 import org.hibernate.annotations.CreationTimestamp;
 import static org.javasoft.peasoft.constants.PeaResource.ACTIVE;
+import static org.javasoft.peasoft.constants.PeaResource.ARTS;
+import static org.javasoft.peasoft.constants.PeaResource.COMMERCIAL;
 import static org.javasoft.peasoft.constants.PeaResource.DECLINED;
 import static org.javasoft.peasoft.constants.PeaResource.DISQUALIFIED;
+import static org.javasoft.peasoft.constants.PeaResource.NOT_SELECTED;
 import static org.javasoft.peasoft.constants.PeaResource.PENDING;
+import static org.javasoft.peasoft.constants.PeaResource.SCIENCE;
+import static org.javasoft.peasoft.constants.PeaResource.SELECTED;
+import static org.javasoft.peasoft.constants.PeaResource.SSS1;
+import static org.javasoft.peasoft.constants.PeaResource.SSS2;
 
 /**
  *
@@ -90,6 +97,34 @@ public class StudentRecord implements Serializable {
     
     public boolean isDeclined(){
         return StringUtils.equalsIgnoreCase(status, DECLINED);
+    }
+    
+    public boolean isSSS1(){
+        return StringUtils.equalsIgnoreCase(sss, SSS1);
+    }
+    
+    public boolean isSSS2(){
+        return StringUtils.equalsIgnoreCase(sss, SSS2);
+    }
+    
+    public boolean isSelected(){
+        return StringUtils.equalsIgnoreCase(grade, SELECTED);
+    }
+    
+    public boolean isNotSelected(){
+        return StringUtils.equalsIgnoreCase(grade, NOT_SELECTED);
+    }
+    
+    public boolean isArts(){
+        return StringUtils.equalsIgnoreCase(department, ARTS);
+    }
+    
+    public boolean isCommercial(){
+        return StringUtils.equalsIgnoreCase(department, SCIENCE);
+    }
+    
+    public boolean isScience(){
+        return StringUtils.equalsIgnoreCase(department, COMMERCIAL);
     }
     
 }

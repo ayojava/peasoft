@@ -10,6 +10,7 @@ import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.hibernate.Criteria;
 import org.hibernate.FetchMode;
 import org.hibernate.criterion.Restrictions;
 import org.javasoft.peasoft.ejb.dao.GenericDAO;
@@ -32,7 +33,7 @@ public class SchoolFacade extends GenericDAO<School, Long>{
     }
     
    public List<School> fetchJoinSchools(){
-       return getCriteria().setFetchMode("studentRecords", FetchMode.JOIN).list();
+       return getCriteria().setFetchMode("studentRecords", FetchMode.JOIN).setResultTransformer(Criteria.DISTINCT_ROOT_ENTITY).list();
    }
    
    public School fetchJoinSchoolRecord(School school){
@@ -48,4 +49,6 @@ public class SchoolFacade extends GenericDAO<School, Long>{
        persist(schoolObj);
        
    }
+   
+   
 }

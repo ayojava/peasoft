@@ -48,12 +48,12 @@ public class StudentRecordPageBean extends AbstractBean implements Serializable 
     @Override
     public void setPageResource(String pageResource) {
         if (StringUtils.equals(EDIT_STUDENT_RECORD, pageResource)) {
-            super.setPageResource(appendFolderPath("studentRecord", EDIT_STUDENT_RECORD));
+            super.setPageResource(appendFolderPath(STUDENT_RECORD_FOLDER, EDIT_STUDENT_RECORD));
         } else if (StringUtils.equals(VIEW_STUDENT_RECORD, pageResource)) {
-            super.setPageResource(appendFolderPath("studentRecord", VIEW_STUDENT_RECORD));
+            super.setPageResource(appendFolderPath(STUDENT_RECORD_FOLDER, VIEW_STUDENT_RECORD));
         } else if (StringUtils.equals(LIST_STUDENT_RECORDS, pageResource)) {
             studentRecords = studentRecordFacade.findAll();
-            super.setPageResource(appendFolderPath("studentRecord", LIST_STUDENT_RECORDS));
+            super.setPageResource(appendFolderPath(STUDENT_RECORD_FOLDER, LIST_STUDENT_RECORDS));
         } else if (StringUtils.equals(VIEW_HOME_PAGE, pageResource)) {
             setHomePageResource();
             cleanup();

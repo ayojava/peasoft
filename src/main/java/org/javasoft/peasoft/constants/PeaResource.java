@@ -16,6 +16,8 @@ public interface PeaResource {
     public static final String DEFAULT_HOME_PATH = "/WEB-INF/includes/home";
     
     public static final String DEFAULT_MENU_PATH = "/WEB-INF/includes/menu";
+    
+    public static final String CONTENT_HTML = "text/html";
 
     public static final String PAGE_EXTENSION = ".xhtml";
     
@@ -83,6 +85,14 @@ public interface PeaResource {
     public static final String SSS3 ="SSS 3";
     
     public static final String DISPLAY_DATE_FORMAT_DAYS = "dd-MM-yyyy";
+    
+    public static final String SCHOOL_FOLDER ="school";
+    
+    public static final String STUDENT_FOLDER ="student";
+    
+    public static final String STUDENT_RECORD_FOLDER ="studentRecord";
+    
+    
     
     
     void setPageResource(String pageResource);

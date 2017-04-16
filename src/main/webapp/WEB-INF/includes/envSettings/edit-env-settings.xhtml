@@ -16,29 +16,29 @@ and open the template in the editor.
             <pnx:pageLayout pageTitle="Edit Settings" headerClass="pnx-page-title-text" requiredIcon="true" 
                             pageSeparatorTop="true" pageSeparatorBottom="true" pageMode="edit">
                 <ui:define name="pageContent">
-                    <ui:decorate template="settings-page.xhtml">
+                    <ui:decorate template="env-settings-page.xhtml">
                         <ui:param name="displayMode" value="edit"/>
                     </ui:decorate> 
                 </ui:define>
                 <ui:define name="pageButtonsTop">
                     <p:commandButton styleClass="pnx-round-button" id="editTopBtn" value="Edit" 
-                                     ajax="false" update="@form" action="#{studentPageBean.editStudent()}" icon="fa fa-fw fa-edit"
+                                     ajax="false" update="@form" action="#{envSettingsPageBean.editEnvSettings()}" icon="fa fa-fw fa-edit"
                                      title="Edit Settings"/>  
                     <p:spacer width="10px"/>
                     <p:commandButton styleClass="pnx-round-button" id="closeTopBtn" value="Home" 
                                      immediate="true" ajax="false" update="@form" icon="fa fa-fw fa-home"
-                                     action="#{schoolPageBean.setPageResource(peaResource.VIEW_HOME_PAGE)}" 
+                                     action="#{envSettingsPageBean.setPageResource(peaResource.VIEW_HOME_PAGE)}" 
                                      title="Back to Home Page"/>  
                     <p:spacer width="10px"/>   
                 </ui:define>
                 <ui:define name="pageButtonsBottom">
                     <p:commandButton styleClass="pnx-round-button" id="editBottomBtn" value="Edit" 
-                                     ajax="false" update="@form" action="#{studentPageBean.editStudent()}" icon="fa fa-fw fa-edit"
+                                     ajax="false" update="@form" action="#{envSettingsPageBean.editEnvSettings()}" icon="fa fa-fw fa-edit"
                                      title="Edit Settings"/>  
                     <p:spacer width="10px"/>
                     <p:commandButton styleClass="pnx-round-button" id="closeBottomBtn" value="Home" 
                                      immediate="true" ajax="false" update="@form" icon="fa fa-fw fa-home"
-                                     action="#{schoolPageBean.setPageResource(peaResource.VIEW_HOME_PAGE)}" 
+                                     action="#{envSettingsPageBean.setPageResource(peaResource.VIEW_HOME_PAGE)}" 
                                      title="Back to Home Page"/>  
                     <p:spacer width="10px"/>   
                 </ui:define>
