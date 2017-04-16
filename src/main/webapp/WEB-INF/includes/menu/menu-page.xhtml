@@ -27,11 +27,14 @@ and open the template in the editor.
                     <p:separator />
                     <p:submenu id="resultsModule" label="Results"  icon="fa fa-globe fa-1g">
                         <p:menuitem value="Selected " icon="fa fa-indent fa-1g" 
-                                     update=":homeForm"/>
+                                     update=":homeForm" id="selectedMenu"/>
                         <p:separator />
                         <p:menuitem value="Not Selected" icon="fa fa-outdent fa-1g" 
-                                    update=":homeForm"/>
+                                    update=":homeForm" id="notSelectedMenu"/>
                     </p:submenu>
+                    <p:separator />
+                    <p:menuitem value="Settings"  icon="fa fa-wrench fa-1g" update=":homeForm"
+                                action="#{envSettingsPageBean.setPageResource(peaResource.EDIT_ENV_SETTINGS)}"/>
                 </p:tieredMenu>
             </o:form>
         </div>

@@ -34,5 +34,6 @@ public class AsyncSchoolFacade extends GenericDAO<School, Long>{
     public void asyncSchoolListExcelDocument(String fileName){
         SchoolListExcelReport schoolListExcelReport = new SchoolListExcelReport();
         schoolListExcelReport.populateExcelSheet("schoolList", schoolFacade.fetchJoinSchools(),fileName);
+        schoolListExcelReport.destroy();
     }
 }

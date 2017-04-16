@@ -19,7 +19,23 @@ and open the template in the editor.
                     <pnx:pageDivider id="settings" separator="false">
                         <ui:define name="properties">
                             <div class="default-page-border">
-                                
+                                <div class="row default-row-padding">
+                                    <pnx:primeDIV labelDiv="col-md-2" labelID="slotsLbl" label="Slots : "
+                                                  contentDiv="col-md-2" targetID="slotsTxt">
+                                        <p:spinner value="#{envSettingsPageBean.envSettings.slots}" id="slotsTxt"
+                                                   min="1" max="3"/>
+                                    </pnx:primeDIV>
+                                    <pnx:primeDIV labelDiv="col-md-2" labelID="startTimeLbl" label="Start Time : "
+                                                  contentDiv="col-md-2" targetID="startTimeTxt">
+                                        <p:spinner value="#{envSettingsPageBean.envSettings.startTime}" id="startTimeTxt"
+                                                   min="5" max="24"/>
+                                    </pnx:primeDIV>
+                                    <pnx:primeDIV labelDiv="col-md-2" labelID="durationLbl" label="Duration : "
+                                                  contentDiv="col-md-2" targetID="durationTxt">
+                                        <p:spinner value="#{envSettingsPageBean.envSettings.slotDuration}" id="durationTxt"
+                                                   min="1" max="4"/>
+                                    </pnx:primeDIV>
+                                </div>
                             </div>
                         </ui:define>
                     </pnx:pageDivider>

@@ -29,7 +29,7 @@ public class EnvSettings implements Serializable {
 
     private int slots;
     
-    private String startTimes;
+    private String startTime;
     
     private int slotDuration;
     

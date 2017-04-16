@@ -28,16 +28,20 @@ public abstract class ExcelProcessor {
 
     private Sheet currentSheet;
 
-    private int rowPosition = 1;
+    protected int rowPosition;
+
+    private int colPosition ;
 
     private CellStyle headerTitleStyle, columnTitleStyle, cellContentStyle;
-    
+
     protected GlobalRegistry globalRegistry;
-    
-    public void init(){
-        globalRegistry= GlobalRegistry.getInstance();
+
+    public void init() {
+        globalRegistry = GlobalRegistry.getInstance();
+        rowPosition = 1;
+        colPosition = 0;
     }
-    
+
     public void populateSheetHeaders(String... titles) {
         Stream.of(titles).forEach(
                 aTitle -> {
@@ -45,7 +49,7 @@ public abstract class ExcelProcessor {
                     Cell cell = row.createCell(1);
                     cell.setCellStyle(getSheetHeaderStyle());
                     cell.setCellValue(aTitle);
-                    row.setHeightInPoints(30f);
+                    row.setHeightInPoints(25f);
                     rowPosition++;
                 }
         );
@@ -56,15 +60,26 @@ public abstract class ExcelProcessor {
         Row row = currentSheet.createRow(rowPosition);
         //row.setHeightInPoints(18f);
 
-        for (int x = 0; x < columnHeaders.length; x++) {
-            if (columnHeaders[x] == null) {
-                continue;
-            }
-            Cell cell = row.createCell(x);
-            cell.setCellStyle(getColumnTitleStyle());
-            cell.setCellValue(columnHeaders[x]);
-            currentSheet.autoSizeColumn(x);
-        }
+//        for (int x = 0; x < columnHeaders.length; x++) {
+//            if (columnHeaders[x] == null) {
+//                continue;
+//            }
+//            Cell cell = row.createCell(x);
+//            cell.setCellStyle(getColumnTitleStyle());
+//            cell.setCellValue(columnHeaders[x]);
+//            currentSheet.autoSizeColumn(x);
+//        }
+
+        Stream.of(columnHeaders).forEach(
+                aColumnHeader -> {
+                    Cell cell = row.createCell(colPosition);
+                    cell.setCellStyle(getColumnTitleStyle());
+                    cell.setCellValue(aColumnHeader);
+                    currentSheet.autoSizeColumn(colPosition);
+                    colPosition++;
+                }
+        );
+        colPosition = 0;
         rowPosition++;
     }
 

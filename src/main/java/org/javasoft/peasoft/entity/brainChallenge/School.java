@@ -51,6 +51,8 @@ public class School implements Serializable {
     @OrderBy(clause = "name asc")
     private String name ;
     
+    private boolean examVenue;
+    
     @Valid
     @Column
     @Embedded

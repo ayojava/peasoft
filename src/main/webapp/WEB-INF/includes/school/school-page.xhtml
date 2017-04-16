@@ -19,9 +19,14 @@ and open the template in the editor.
                             <div class="default-page-border">
                                 <div class="row default-row-padding">
                                     <pnx:primeDIV labelDiv="col-md-2" labelID="nameLbl" label="School Name : "
-                                                  contentDiv="col-md-10" targetID="nameTxt">
+                                                  contentDiv="col-md-6" targetID="nameTxt">
                                         <p:inputText id="nameTxt" required="true" autocomplete="off" size="100"
                                                      value="#{schoolPageBean.school.name}"/>
+                                    </pnx:primeDIV>
+                                    <pnx:primeDIV labelDiv="col-md-2" labelID="venueLbl" label="Venue : "
+                                                  contentDiv="col-md-2" targetID="venueChkBox">
+                                        <p:selectBooleanCheckbox id="venueChkBox" itemLabel="Exam Venue : " 
+                                                                 value="#{schoolPageBean.school.examVenue}"/>
                                     </pnx:primeDIV>
                                 </div>
                                 <div class="row default-row-padding">
@@ -89,9 +94,14 @@ and open the template in the editor.
                         <ui:define name="properties">
                             <div class="default-page-border">
                                 <div class="row default-row-padding">
-                                    <pnx:primeDIV labelDiv="col-md-2" label="Identification No : "   contentDiv="col-md-10">
+                                    <pnx:primeDIV labelDiv="col-md-2" label="Identification No : "   contentDiv="col-md-4">
                                         <span class="default-page-text">
                                            #{schoolPageBean.school.identificationNo}
+                                        </span>
+                                    </pnx:primeDIV>
+                                    <pnx:primeDIV labelDiv="col-md-2" label="Exam Venue : "   contentDiv="col-md-4">
+                                        <span class="default-page-text">
+                                           #{schoolPageBean.school.examVenue}
                                         </span>
                                     </pnx:primeDIV>
                                 </div>
@@ -101,6 +111,7 @@ and open the template in the editor.
                                            #{schoolPageBean.school.name}
                                         </span>
                                     </pnx:primeDIV>
+                                    
                                 </div>
                                 <div class="row default-row-padding">
                                     <pnx:primeDIV labelDiv="col-md-2"  label="Address : " contentDiv="col-md-10" >
