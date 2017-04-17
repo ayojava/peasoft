@@ -21,6 +21,11 @@ and open the template in the editor.
                     </ui:decorate> 
                 </ui:define>
                 <ui:define name="pageButtonsTop">
+                    <p:commandButton styleClass="pnx-round-button" id="excelTopBtn" value="Generate" 
+                                     ajax="false" update="@form" action="#{schoolPageBean.generateResultBySchool()}" 
+                                     icon="fa fa-fw fa-file-excel-o"
+                                     title="Generate List in Excel"/>  
+                    <p:spacer width="10px"/>
                     <p:commandButton styleClass="pnx-round-button" id="editTopBtn" value="Edit" 
                                      ajax="false" update="@form" action="#{schoolPageBean.setPageResource(peaResource.EDIT_SCHOOL)}" icon="fa fa-fw fa-edit"
                                      title="Edit School"/>  
@@ -31,6 +36,11 @@ and open the template in the editor.
                     <p:spacer width="10px"/>   
                 </ui:define>
                 <ui:define name="pageButtonsBottom">
+                    <p:commandButton styleClass="pnx-round-button" id="excelBottomBtn" value="Generate" 
+                                     ajax="false" update="@form" action="#{schoolPageBean.generateResultBySchool()}" 
+                                     icon="fa fa-fw fa-file-excel-o"
+                                     title="Generate List in Excel"/>  
+                    <p:spacer width="10px"/>
                     <p:commandButton styleClass="pnx-round-button" id="editBottomBtn" value="Edit" 
                                      ajax="false" update="@form" action="#{schoolPageBean.setPageResource(peaResource.EDIT_SCHOOL)}" icon="fa fa-fw fa-edit"
                                      title="Edit School"/>  

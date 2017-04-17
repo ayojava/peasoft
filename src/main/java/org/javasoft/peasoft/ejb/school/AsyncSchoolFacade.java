@@ -12,6 +12,7 @@ import javax.ejb.Stateless;
 import lombok.extern.slf4j.Slf4j;
 import org.javasoft.peasoft.ejb.dao.GenericDAO;
 import org.javasoft.peasoft.entity.brainChallenge.School;
+import org.javasoft.peasoft.excel.school.SchoolAndStudentRecordsListExcelReport;
 import org.javasoft.peasoft.excel.school.SchoolListExcelReport;
 
 /**
@@ -35,5 +36,11 @@ public class AsyncSchoolFacade extends GenericDAO<School, Long>{
         SchoolListExcelReport schoolListExcelReport = new SchoolListExcelReport();
         schoolListExcelReport.populateExcelSheet("schoolList", schoolFacade.fetchJoinSchools(),fileName);
         schoolListExcelReport.destroy();
+    }
+    
+    public void asyncSchoolAndStudentsRecordsExcelDocument(String fileName, School schoolObj){
+        SchoolAndStudentRecordsListExcelReport report = new SchoolAndStudentRecordsListExcelReport();
+        report.populateExcelSheet("SchoolRecordsList", fileName, schoolObj);
+        report.destroy();
     }
 }

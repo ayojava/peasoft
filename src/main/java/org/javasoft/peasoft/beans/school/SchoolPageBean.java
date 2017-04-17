@@ -145,7 +145,9 @@ public class SchoolPageBean extends AbstractBean implements Serializable {
     }
     
     public void generateResultBySchool(){
-    
+        String fileName = DateFormatUtils.format(new Date(), "yyyyMMdd")+"_"+ RandomStringUtils.randomNumeric(5)+".xls"; 
+        asyncSchoolFacade.asyncSchoolAndStudentsRecordsExcelDocument(fileName, school);
+        Messages.addGlobalInfo("Excel Sheet In Progress");
     }
     
     public void generateResultBySchoolAndMail(){
