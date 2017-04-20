@@ -17,6 +17,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.javasoft.peasoft.beans.core.AbstractBean;
 import org.javasoft.peasoft.ejb.envSettings.EnvSettingsFacade;
 import org.javasoft.peasoft.entity.settings.EnvSettings;
+import org.javasoft.peasoft.entity.settings.SMSSettings;
 import org.omnifaces.util.Messages;
 
 /**
@@ -44,6 +45,12 @@ public class envSettingsPageBean extends AbstractBean implements Serializable {
     public void setPageResource(String pageResource) {
         if (StringUtils.equals(EDIT_ENV_SETTINGS, pageResource)) {
             envSettings = envSettingsFacade.findOne();
+            if(envSettings == null){
+                envSettings = new EnvSettings();
+                SMSSettings smsSettings = new SMSSettings();
+                envSettings.setSmsSettings(smsSettings);
+            }
+            //log.info("EnvSettings :: {} " ,  envSettings);
             super.setPageResource(appendFolderPath("envSettings", EDIT_ENV_SETTINGS));
         }else  if (StringUtils.equals(VIEW_HOME_PAGE, pageResource)) {
             setHomePageResource();

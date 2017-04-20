@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.javasoft.peasoft.entity.email;
+package org.javasoft.peasoft.entity.data;
 
 import java.io.Serializable;
 import javax.persistence.Entity;
@@ -21,7 +21,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @Entity
-public class Email implements Serializable {
+public class EmailData implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id

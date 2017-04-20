@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.javasoft.peasoft.entity.brainChallenge;
+package org.javasoft.peasoft.entity.core;
 
 import java.io.Serializable;
 import java.util.Date;

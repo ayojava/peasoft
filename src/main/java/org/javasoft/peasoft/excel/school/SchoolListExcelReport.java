@@ -16,8 +16,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import static org.javasoft.peasoft.constants.PeaResource.SCHOOL_FOLDER;
-import org.javasoft.peasoft.entity.brainChallenge.School;
-import org.javasoft.peasoft.entity.brainChallenge.StudentRecord;
+import org.javasoft.peasoft.entity.core.School;
+import org.javasoft.peasoft.entity.core.StudentRecord;
 import org.javasoft.peasoft.excel.ExcelProcessor;
 
 /**

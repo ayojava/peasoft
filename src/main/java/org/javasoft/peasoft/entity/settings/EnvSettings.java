@@ -10,6 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -32,6 +33,9 @@ public class EnvSettings implements Serializable {
     private String startTime;
     
     private int slotDuration;
+    
+    @OneToOne
+    private SMSSettings smsSettings;
     
     
     

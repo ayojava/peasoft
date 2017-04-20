@@ -16,10 +16,10 @@ import org.apache.commons.lang3.StringUtils;
 import org.javasoft.peasoft.ejb.dao.GenericDAO;
 import org.javasoft.peasoft.ejb.school.SchoolFacade;
 import org.javasoft.peasoft.ejb.studentRecord.StudentRecordFacade;
-import org.javasoft.peasoft.entity.brainChallenge.Marks;
-import org.javasoft.peasoft.entity.brainChallenge.School;
-import org.javasoft.peasoft.entity.brainChallenge.Student;
-import org.javasoft.peasoft.entity.brainChallenge.StudentRecord;
+import org.javasoft.peasoft.entity.core.Marks;
+import org.javasoft.peasoft.entity.core.School;
+import org.javasoft.peasoft.entity.core.Student;
+import org.javasoft.peasoft.entity.core.StudentRecord;
 import org.javasoft.peasoft.utils.GlobalRegistry;
 
 /**

@@ -8,6 +8,8 @@ package org.javasoft.peasoft.beans.core;
 import java.io.File;
 import javax.inject.Inject;
 import org.apache.commons.lang3.text.StrBuilder;
+import org.apache.deltaspike.core.api.message.Message;
+import org.apache.deltaspike.core.api.message.MessageContext;
 import org.javasoft.peasoft.constants.PeaResource;
 
 /**
@@ -17,6 +19,9 @@ import org.javasoft.peasoft.constants.PeaResource;
 public abstract class AbstractBean<T> implements PeaResource{
     
     private String pageResource;
+    
+    @Inject
+    private MessageContext messageContext;
     
     @Inject
     private NavigatorBean navigatorBean;
@@ -53,5 +58,8 @@ public abstract class AbstractBean<T> implements PeaResource{
         return pageResource;
     }
     
+    protected Message getMessage(String propertyFile) {
+        return messageContext.messageSource(propertyFile).message();
+    }
     
 }

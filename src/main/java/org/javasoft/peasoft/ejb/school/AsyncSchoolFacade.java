@@ -11,7 +11,7 @@ import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import lombok.extern.slf4j.Slf4j;
 import org.javasoft.peasoft.ejb.dao.GenericDAO;
-import org.javasoft.peasoft.entity.brainChallenge.School;
+import org.javasoft.peasoft.entity.core.School;
 import org.javasoft.peasoft.excel.school.SchoolAndStudentRecordsListExcelReport;
 import org.javasoft.peasoft.excel.school.SchoolListExcelReport;
 

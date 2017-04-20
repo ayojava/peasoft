@@ -92,6 +92,12 @@ public interface PeaResource {
     
     public static final String STUDENT_RECORD_FOLDER ="studentRecord";
     
+    public static final String SENDER ="PEAF";
+    
+    public static final String SUCCESS ="S";
+    
+    public static final String FAIL ="F";
+    
     
     
     

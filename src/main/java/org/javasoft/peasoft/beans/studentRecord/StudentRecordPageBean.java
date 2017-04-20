@@ -18,7 +18,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.javasoft.peasoft.beans.core.AbstractBean;
 import static org.javasoft.peasoft.constants.PeaResource.VIEW_HOME_PAGE;
 import org.javasoft.peasoft.ejb.studentRecord.StudentRecordFacade;
-import org.javasoft.peasoft.entity.brainChallenge.StudentRecord;
+import org.javasoft.peasoft.entity.core.StudentRecord;
 
 /**
  *

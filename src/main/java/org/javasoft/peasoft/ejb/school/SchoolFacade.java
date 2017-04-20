@@ -14,7 +14,7 @@ import org.hibernate.Criteria;
 import org.hibernate.FetchMode;
 import org.hibernate.criterion.Restrictions;
 import org.javasoft.peasoft.ejb.dao.GenericDAO;
-import org.javasoft.peasoft.entity.brainChallenge.School;
+import org.javasoft.peasoft.entity.core.School;
 import org.javasoft.peasoft.utils.GlobalRegistry;
 
 /**

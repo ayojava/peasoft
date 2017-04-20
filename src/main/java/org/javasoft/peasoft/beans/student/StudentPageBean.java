@@ -18,10 +18,10 @@ import org.apache.commons.lang3.StringUtils;
 import org.javasoft.peasoft.beans.core.AbstractBean;
 import org.javasoft.peasoft.ejb.school.SchoolFacade;
 import org.javasoft.peasoft.ejb.student.StudentFacade;
-import org.javasoft.peasoft.entity.brainChallenge.Parent;
-import org.javasoft.peasoft.entity.brainChallenge.School;
-import org.javasoft.peasoft.entity.brainChallenge.Student;
-import org.javasoft.peasoft.entity.brainChallenge.StudentRecord;
+import org.javasoft.peasoft.entity.core.Parent;
+import org.javasoft.peasoft.entity.core.School;
+import org.javasoft.peasoft.entity.core.Student;
+import org.javasoft.peasoft.entity.core.StudentRecord;
 import org.javasoft.peasoft.entity.templates.AddressTemplate;
 import org.omnifaces.util.Messages;
 

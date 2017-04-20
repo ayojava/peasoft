@@ -21,8 +21,8 @@ import org.apache.commons.lang3.time.DateFormatUtils;
 import org.javasoft.peasoft.beans.core.AbstractBean;
 import org.javasoft.peasoft.ejb.school.AsyncSchoolFacade;
 import org.javasoft.peasoft.ejb.school.SchoolFacade;
-import org.javasoft.peasoft.entity.brainChallenge.School;
-import org.javasoft.peasoft.entity.brainChallenge.StudentRecord;
+import org.javasoft.peasoft.entity.core.School;
+import org.javasoft.peasoft.entity.core.StudentRecord;
 import org.javasoft.peasoft.entity.templates.AddressTemplate;
 import org.omnifaces.util.Messages;
 

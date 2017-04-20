@@ -20,20 +20,86 @@ and open the template in the editor.
                         <ui:define name="properties">
                             <div class="default-page-border">
                                 <div class="row default-row-padding">
+                                    <div class="col-md-12">
+                                        <span class="text-center">
+                                            Interview Slot Settings
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="row default-row-padding">
                                     <pnx:primeDIV labelDiv="col-md-2" labelID="slotsLbl" label="Slots : "
                                                   contentDiv="col-md-2" targetID="slotsTxt">
-                                        <p:spinner value="#{envSettingsPageBean.envSettings.slots}" id="slotsTxt"
-                                                   min="1" max="3"/>
+                                        <p:inputText id="slotsTxt" maxlength="3" size="5" value="#{envSettingsPageBean.envSettings.slots}">
+                                            <f:validateLongRange minimum="1" maximum="4"/>
+                                        </p:inputText>
                                     </pnx:primeDIV>
                                     <pnx:primeDIV labelDiv="col-md-2" labelID="startTimeLbl" label="Start Time : "
                                                   contentDiv="col-md-2" targetID="startTimeTxt">
-                                        <p:spinner value="#{envSettingsPageBean.envSettings.startTime}" id="startTimeTxt"
-                                                   min="5" max="24"/>
+                                        <p:inputText id="startTimeTxt" maxlength="3" size="5" value="#{envSettingsPageBean.envSettings.startTime}">
+                                            <f:validateLongRange minimum="5" maximum="24"/>
+                                        </p:inputText>
                                     </pnx:primeDIV>
                                     <pnx:primeDIV labelDiv="col-md-2" labelID="durationLbl" label="Duration : "
                                                   contentDiv="col-md-2" targetID="durationTxt">
-                                        <p:spinner value="#{envSettingsPageBean.envSettings.slotDuration}" id="durationTxt"
-                                                   min="1" max="4"/>
+                                        <p:inputText id="durationTxt" maxlength="3" size="5" value="#{envSettingsPageBean.envSettings.slotDuration}">
+                                            <f:validateLongRange minimum="1" maximum="4"/>
+                                        </p:inputText>
+                                        
+                                    </pnx:primeDIV>
+                                </div>
+                                <div class="row default-row-padding">
+                                    <div class="col-md-12">
+                                        <hr size="0" class="pnx-tableRow-Separator"/>
+                                    </div>
+                                </div>
+                                
+                                <div class="row default-row-padding">
+                                    <div class="col-md-12">
+                                        <span class="text-center">
+                                            SMS Settings
+                                        </span>
+                                    </div>
+                                </div>
+                                
+                                <div class="row default-row-padding">
+                                    <pnx:primeDIV labelDiv="col-md-2" labelID="userNameLbl" label="Username : "
+                                                  contentDiv="col-md-2" targetID="userNameTxt">
+                                        <p:inputText id="userNameTxt" required="true" autocomplete="off" 
+                                                     value="#{envSettingsPageBean.envSettings.smsSettings.username}"/>
+                                    </pnx:primeDIV>
+                                    <pnx:primeDIV labelDiv="col-md-2" labelID="passwordLbl" label="Password : "
+                                                  contentDiv="col-md-2" targetID="passwordTxt">
+                                        <p:password id="passwordTxt" required="true" autocomplete="off" 
+                                                    value="#{envSettingsPageBean.envSettings.smsSettings.password}"/>
+                                    </pnx:primeDIV>
+                                    <pnx:primeDIV labelDiv="col-md-2" labelID="portLbl" label="Port : "
+                                                  contentDiv="col-md-2" targetID="portTxt">
+                                        <p:inputText id="portTxt" required="true" autocomplete="off" maxlength="4" size="7"
+                                                     value="#{envSettingsPageBean.envSettings.smsSettings.port}">
+                                            <f:convertNumber integerOnly="true" type="number"/>
+                                        </p:inputText>
+                                    </pnx:primeDIV>
+                                </div>
+                                
+                                <div class="row default-row-padding">
+                                   <pnx:primeDIV labelDiv="col-md-2" labelID="serverLbl" label="Server : "
+                                                  contentDiv="col-md-2" targetID="serverTxt">
+                                        <p:inputText id="serverTxt" required="true" autocomplete="off" 
+                                                     value="#{envSettingsPageBean.envSettings.smsSettings.source}"/>
+                                    </pnx:primeDIV> 
+                                    <pnx:primeDIV labelDiv="col-md-2" labelID="smsTypeLbl" label="SMS Type : "
+                                                  contentDiv="col-md-2" targetID="selSMSType">
+                                        <p:selectOneMenu id="selSMSType" value="#{envSettingsPageBean.envSettings.smsSettings.type}">
+                                            <f:selectItem itemValue="#{null}" itemLabel="-Select-" />
+                                            <f:selectItem itemValue="0" itemLabel="PlainText" />
+                                            <f:selectItem itemValue="1" itemLabel="Flash" />
+                                            <f:selectItem itemValue="2" itemLabel="Unicode" />
+                                            <f:selectItem itemValue="6" itemLabel="Unicode Flash" />
+                                        </p:selectOneMenu>
+                                    </pnx:primeDIV>
+                                    <pnx:primeDIV labelDiv="col-md-2" labelID="deliveryReportLbl" label="Delivery Report : "
+                                                  contentDiv="col-md-2" targetID="deliveryReportSwitch">
+                                        <p:selectBooleanCheckbox id="deliveryReportSwitch" value="#{envSettingsPageBean.envSettings.smsSettings.deliveryReport}" />
                                     </pnx:primeDIV>
                                 </div>
                             </div>
@@ -41,6 +107,6 @@ and open the template in the editor.
                     </pnx:pageDivider>
                 </c:when>
             </c:choose>
-                            
+        </ui:composition>                    
     </body>
 </html>
