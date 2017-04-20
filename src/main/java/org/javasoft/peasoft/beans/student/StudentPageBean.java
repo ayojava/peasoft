@@ -10,19 +10,25 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.view.ViewScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.javasoft.peasoft.beans.core.AbstractBean;
+import org.javasoft.peasoft.beans.core.util.EmailUtilBean;
+import org.javasoft.peasoft.beans.core.util.SMSUtilBean;
 import org.javasoft.peasoft.ejb.school.SchoolFacade;
 import org.javasoft.peasoft.ejb.student.StudentFacade;
 import org.javasoft.peasoft.entity.core.Parent;
 import org.javasoft.peasoft.entity.core.School;
 import org.javasoft.peasoft.entity.core.Student;
 import org.javasoft.peasoft.entity.core.StudentRecord;
+import org.javasoft.peasoft.entity.data.EmailData;
+import org.javasoft.peasoft.entity.data.SMSData;
 import org.javasoft.peasoft.entity.templates.AddressTemplate;
+import org.javasoft.peasoft.service.StudentService;
 import org.omnifaces.util.Messages;
 
 /**
@@ -57,6 +63,14 @@ public class StudentPageBean extends AbstractBean implements Serializable {
 
     @EJB
     private StudentFacade studentFacade;
+    
+    private StudentService studentService;
+    
+    @Inject
+    private EmailUtilBean emailUtilBean;
+    
+    @Inject
+    private SMSUtilBean smsUtilBean;
 
     @Override
     @PostConstruct
@@ -99,7 +113,11 @@ public class StudentPageBean extends AbstractBean implements Serializable {
 
     public void saveStudent() {
         try {
-            studentFacade.saveStudent(student, studentRecord, school);
+            Student result = studentFacade.saveStudent(student, studentRecord, school);
+            studentService = new StudentService();
+            EmailData emailData = studentService.generateWelcomeEmail(student, emailUtilBean, school.getName());
+            SMSData smsData = studentService.generateWelcomeSMS(smsUtilBean, student);
+            
             Messages.addGlobalInfo("Save Operation Successful");
             cleanup();
             setPageResource(LIST_STUDENTS);

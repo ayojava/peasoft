@@ -15,7 +15,7 @@ import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.javasoft.peasoft.beans.core.AbstractBean;
-import org.javasoft.peasoft.ejb.envSettings.EnvSettingsFacade;
+import org.javasoft.peasoft.ejb.settings.EnvSettingsFacade;
 import org.javasoft.peasoft.entity.settings.EnvSettings;
 import org.javasoft.peasoft.entity.settings.SMSSettings;
 import org.omnifaces.util.Messages;

@@ -45,6 +45,6 @@ public class EmailData implements Serializable {
     
     private String recipientType ; // student or school
     
-    private String recipientID;
+    private Long recipientID;
     
 }

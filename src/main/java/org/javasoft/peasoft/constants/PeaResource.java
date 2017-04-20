@@ -98,7 +98,7 @@ public interface PeaResource {
     
     public static final String FAIL ="F";
     
-    
+    public static final String SEPARATOR ="|";
     
     
     void setPageResource(String pageResource);

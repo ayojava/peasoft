@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.javasoft.peasoft.beans.core;
+package org.javasoft.peasoft.beans.core.util;
 
 import java.io.Serializable;
 import javax.annotation.PostConstruct;
@@ -11,7 +11,8 @@ import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.deltaspike.core.api.message.Message;
-import static org.javasoft.peasoft.utils.EmailTemplate.EMAIL_TEMPLATE_FILE;
+import org.javasoft.peasoft.beans.core.AbstractBean;
+import static org.javasoft.peasoft.utils.template.EmailTemplate.EMAIL_TEMPLATE_FILE;
 
 
 /**

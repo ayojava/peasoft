@@ -13,7 +13,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import lombok.Data;
@@ -43,7 +43,9 @@ public class SMSData implements Serializable {
     
     private String responseMessage;
     
-    @OneToOne
+    private String status ;
+    
+    @ManyToOne
     private Student student;
        
     private String recipientPhoneNo;

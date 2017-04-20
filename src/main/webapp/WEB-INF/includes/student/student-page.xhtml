@@ -32,13 +32,17 @@ and open the template in the editor.
                                 <div class="row default-row-padding">
                                     <pnx:primeDIV labelDiv="col-md-2" labelID="phoneNoLbl" label="Phone No : "
                                                   contentDiv="col-md-4" targetID="phoneNoTxt">
-                                        <p:inputText id="phoneNoTxt" required="true" autocomplete="off" size="40"
-                                                     value="#{studentPageBean.student.phoneNo}"/>
+                                        <p:inputText id="phoneNoTxt" required="true" autocomplete="off" maxlength="11"
+                                                     value="#{studentPageBean.student.phoneNo}">
+                                            <f:validateLength minimum="11" maximum="11" />
+                                        </p:inputText>
                                     </pnx:primeDIV>
                                     <pnx:primeDIV labelDiv="col-md-2" labelID="alternatePhoneNoLbl" label="Alternate Phone No : "
                                                   contentDiv="col-md-4" targetID="alternatePhoneNoTxt">
-                                        <p:inputText id="alternatePhoneNoTxt" required="false" autocomplete="off" size="40"
-                                                     value="#{studentPageBean.student.otherPhoneNo}"/>
+                                        <p:inputText id="alternatePhoneNoTxt" required="false" autocomplete="off" maxlength="11"
+                                                     value="#{studentPageBean.student.otherPhoneNo}">
+                                            <f:validateLength minimum="11" maximum="11" />
+                                        </p:inputText>
                                     </pnx:primeDIV>
                                 </div>
                                 <div class="row default-row-padding">

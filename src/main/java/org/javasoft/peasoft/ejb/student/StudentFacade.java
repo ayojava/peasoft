@@ -71,7 +71,7 @@ public class StudentFacade extends GenericDAO<Student, Long> {
         }
     }
 
-    public void saveStudent(Student studentObj, StudentRecord record, School schoolObj) {
+    public Student saveStudent(Student studentObj, StudentRecord record, School schoolObj) {
         globalRegistry = GlobalRegistry.getInstance();
         globalRegistry.updateSchoolCount();
         studentObj.setIdentificationNo("SD" + StringUtils.leftPad(String.valueOf(globalRegistry.getStudentCount()), 5, "0"));
@@ -100,5 +100,7 @@ public class StudentFacade extends GenericDAO<Student, Long> {
         studentRecordFacade.edit(recordEntity);
 
         globalRegistry.updateStudentCount();
+        
+        return studentEntity;
     }
 }
