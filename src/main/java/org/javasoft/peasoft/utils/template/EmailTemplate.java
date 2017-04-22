@@ -13,6 +13,7 @@ public interface EmailTemplate {
     
     public static final String EMAIL_TEMPLATE_FILE ="org.javasoft.peasoft.i18n.emailTemplate";
     
+    
     public static final String TABLE_HEADER_TEMPLATE ="{table.header}";
     
     public static final String INNER_TABLE_TOP_TEMPLATE ="{innerTable.top}";

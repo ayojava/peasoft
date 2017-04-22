@@ -73,7 +73,9 @@ public class StudentFacade extends GenericDAO<Student, Long> {
 
     public Student saveStudent(Student studentObj, StudentRecord record, School schoolObj) {
         globalRegistry = GlobalRegistry.getInstance();
-        globalRegistry.updateSchoolCount();
+        log.info("Before School Count :: {}" ,globalRegistry.getSchoolCount());
+        globalRegistry.updateStudentCount();
+        log.info("After School Count :: {}" ,globalRegistry.getSchoolCount());
         studentObj.setIdentificationNo("SD" + StringUtils.leftPad(String.valueOf(globalRegistry.getStudentCount()), 5, "0"));
 
         Marks markObj = new Marks();

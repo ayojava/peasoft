@@ -19,6 +19,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.javasoft.peasoft.beans.core.AbstractBean;
 import org.javasoft.peasoft.beans.core.util.EmailUtilBean;
 import org.javasoft.peasoft.beans.core.util.SMSUtilBean;
+import org.javasoft.peasoft.ejb.data.EmailDataFacade;
+import org.javasoft.peasoft.ejb.data.SMSDataFacade;
 import org.javasoft.peasoft.ejb.school.SchoolFacade;
 import org.javasoft.peasoft.ejb.student.StudentFacade;
 import org.javasoft.peasoft.entity.core.Parent;
@@ -40,16 +42,20 @@ import org.omnifaces.util.Messages;
 @ViewScoped
 public class StudentPageBean extends AbstractBean implements Serializable {
 
-    @Getter @Setter
+    @Getter
+    @Setter
     private StudentRecord studentRecord;
 
-    @Getter @Setter
+    @Getter
+    @Setter
     private Parent parent;
 
-    @Getter @Setter
+    @Getter
+    @Setter
     private Student student;
 
-    @Getter @Setter
+    @Getter
+    @Setter
     private School school;
 
     @Getter
@@ -63,14 +69,20 @@ public class StudentPageBean extends AbstractBean implements Serializable {
 
     @EJB
     private StudentFacade studentFacade;
-    
+
     private StudentService studentService;
-    
+
     @Inject
     private EmailUtilBean emailUtilBean;
-    
+
     @Inject
     private SMSUtilBean smsUtilBean;
+
+    @EJB
+    private SMSDataFacade smsDataFacade;
+
+    @EJB
+    private EmailDataFacade emailDataFacade;
 
     @Override
     @PostConstruct
@@ -91,7 +103,7 @@ public class StudentPageBean extends AbstractBean implements Serializable {
             schools = schoolFacade.findAll();
             super.setPageResource(appendFolderPath(STUDENT_FOLDER, NEW_STUDENT));
         } else if (StringUtils.equals(EDIT_STUDENT, pageResource)) {
-             schools = schoolFacade.findAll();
+            schools = schoolFacade.findAll();
             super.setPageResource(appendFolderPath(STUDENT_FOLDER, EDIT_STUDENT));
         } else if (StringUtils.equals(VIEW_STUDENT, pageResource)) {
             super.setPageResource(appendFolderPath(STUDENT_FOLDER, VIEW_STUDENT));
@@ -106,19 +118,57 @@ public class StudentPageBean extends AbstractBean implements Serializable {
 
     public void setPageResource(String pageResource, Student studentObj) {
         student = studentObj;
-        studentRecord =student.getStudentRecord();
+        studentRecord = student.getStudentRecord();
         school = studentRecord.getSchool();
         setPageResource(pageResource);
     }
 
     public void saveStudent() {
+        Student studentObj = null;
         try {
-            Student result = studentFacade.saveStudent(student, studentRecord, school);
+            studentObj = studentFacade.saveStudent(student, studentRecord, school);
             studentService = new StudentService();
-            EmailData emailData = studentService.generateWelcomeEmail(student, emailUtilBean, school.getName());
-            SMSData smsData = studentService.generateWelcomeSMS(smsUtilBean, student);
-            
+
             Messages.addGlobalInfo("Save Operation Successful");
+            
+            setPageResource(LIST_STUDENTS);
+
+        } catch (Exception ex) {
+            log.error("An Error has Occurred :::", ex);
+            Messages.addGlobalError("An Error has Occured");
+        }
+
+        EmailData emailData = studentService.generateWelcomeEmail(studentObj, emailUtilBean, school.getName());
+        
+        SMSData smsData = studentService.generateWelcomeSMS(smsUtilBean, student);
+        smsData.setRecipientPhoneNo(appendCountryCode(studentObj.getPhoneNo()));
+        smsDataFacade.persist(smsData); // use generics
+        
+        if(StringUtils.isNotBlank(studentObj.getOtherPhoneNo())){
+            smsData.setId(null);
+            smsData.setRecipientPhoneNo(appendCountryCode(studentObj.getOtherPhoneNo()));
+            smsDataFacade.persist(smsData);
+        }
+        if(StringUtils.isNotBlank(studentObj.getParent().getAddressTemplate().getContactPhoneNo1())){
+            smsData.setId(null);
+            smsData.setRecipientPhoneNo(appendCountryCode(studentObj.getParent().getAddressTemplate().getContactPhoneNo1()));
+            smsDataFacade.persist(smsData);
+        }
+        if(StringUtils.isNotBlank(studentObj.getParent().getAddressTemplate().getContactPhoneNo2())){
+            smsData.setId(null);
+            smsData.setRecipientPhoneNo(appendCountryCode(studentObj.getParent().getAddressTemplate().getContactPhoneNo2()));
+            smsDataFacade.persist(smsData);
+        }
+        
+        emailDataFacade.persist(emailData);
+        
+        cleanup();
+    }
+
+    public void editStudent() {
+        try {
+            studentFacade.editStudent(student, studentRecord, school);
+            Messages.addGlobalInfo("Edit Operation Successful");
             cleanup();
             setPageResource(LIST_STUDENTS);
         } catch (Exception ex) {
@@ -127,22 +177,14 @@ public class StudentPageBean extends AbstractBean implements Serializable {
         }
     }
 
-    public void editStudent() {
-        try{
-            studentFacade.editStudent(student, studentRecord, school);
-            Messages.addGlobalInfo("Edit Operation Successful");
-            cleanup();
-            setPageResource(LIST_STUDENTS);
-        }catch (Exception ex) {
-            log.error("An Error has Occurred :::", ex);
-            Messages.addGlobalError("An Error has Occured");
-        }
+    private String appendCountryCode(String phoneNo){
+        return "+234" +StringUtils.right(phoneNo ,10);
     }
-
+    
     private void cleanup() {
         school = null;
         studentRecord = null;
-        school = null;
+        
     }
 }
 

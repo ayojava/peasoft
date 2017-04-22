@@ -30,14 +30,16 @@ public class EmailUtilBean extends AbstractBean{
     @PostConstruct
     public void init() {
         super.init();
-        message = getMessage(EMAIL_TEMPLATE_FILE);
+        
     }
     
      public   String showMessageFromTemplate(String template, String... args) { 
+         message = getMessage(EMAIL_TEMPLATE_FILE);
         return  message.template(template).argument((Serializable[]) args).toString();
     }
     
     public String showMessageFromTemplate(String template) {
+        message = getMessage(EMAIL_TEMPLATE_FILE);
         return message.template(template).toString();
     }
 }

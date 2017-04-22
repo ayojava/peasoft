@@ -13,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.Transient;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
 
 /**
@@ -49,6 +50,9 @@ public class SMSSettings implements Serializable {
     }
     
     public boolean isDeliveryReport(){
+        if(StringUtils.isBlank(dlr)){
+            return false;
+        }
         return NumberUtils.INTEGER_ONE == Integer.valueOf(dlr);
     }
 }

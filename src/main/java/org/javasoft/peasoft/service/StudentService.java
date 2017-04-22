@@ -7,11 +7,12 @@ package org.javasoft.peasoft.service;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.javasoft.peasoft.beans.core.GenericBean;
 import org.javasoft.peasoft.beans.core.util.EmailUtilBean;
 import org.javasoft.peasoft.beans.core.util.SMSUtilBean;
 import static org.javasoft.peasoft.constants.PeaResource.PENDING;
-import static org.javasoft.peasoft.constants.PeaResource.SCHOOL_FOLDER;
 import static org.javasoft.peasoft.constants.PeaResource.SEPARATOR;
+import static org.javasoft.peasoft.constants.PeaResource.STUDENT_FOLDER;
 import org.javasoft.peasoft.entity.core.Student;
 import org.javasoft.peasoft.entity.data.EmailData;
 import org.javasoft.peasoft.entity.data.SMSData;
@@ -25,6 +26,7 @@ import static org.javasoft.peasoft.utils.template.EmailTemplate.TABLE_HEADER_TEM
 import static org.javasoft.peasoft.utils.template.EmailTemplate.TABLE_ROW_EVEN_TEMPLATE;
 import static org.javasoft.peasoft.utils.template.EmailTemplate.TABLE_ROW_ODD_TEMPLATE;
 import static org.javasoft.peasoft.utils.template.SMSTemplate.REGISTRATION_DETAILS_SMS_TEMPLATE;
+import org.omnifaces.util.Beans;
 
 /**
  *
@@ -41,13 +43,17 @@ public class StudentService {
         SMSData smsData = new SMSData();
         smsData.setMessage(smsMsg);
         smsData.setStatus(PENDING);
+        
         smsData.setStudent(studentObj);
         return smsData;
     }
     
     public EmailData generateWelcomeEmail(Student studentObj,EmailUtilBean emailUtilBean, String schoolName){
         
+        GenericBean genericBean = Beans.getInstance(GenericBean.class);
+        
         String mailSubject = emailUtilBean.showMessageFromTemplate(REGISTRATION_DETAILS_SUBJECT_TEMPLATE,studentObj.getFullName() );
+        log.info("Mail Subject :: {}" , mailSubject);
         
         StringBuilder msgBody = new StringBuilder();
         msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(TABLE_HEADER_TEMPLATE));
@@ -58,17 +64,27 @@ public class StudentService {
         msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(TABLE_ROW_ODD_TEMPLATE,"Identification No : ",studentObj.getIdentificationNo()));
         msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(TABLE_ROW_EVEN_TEMPLATE,"Full Name : ",studentObj.getFullName()));
         
-        msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(TABLE_ROW_ODD_TEMPLATE," Gender : ",studentObj.getGender()));
-        msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(TABLE_ROW_EVEN_TEMPLATE," Phone No : ",studentObj.getPhoneNo()));
+        msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(TABLE_ROW_ODD_TEMPLATE," Gender : ",genericBean.gender(studentObj.getGender())));
         
+        String phoneNos = studentObj.getPhoneNo();
+        if(StringUtils.isNotBlank(studentObj.getOtherPhoneNo())){
+            phoneNos = phoneNos + " , " + studentObj.getOtherPhoneNo();
+        }
+        msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(TABLE_ROW_EVEN_TEMPLATE," Phone No : ",phoneNos));
+        phoneNos=StringUtils.EMPTY;
         msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(TABLE_ROW_ODD_TEMPLATE," School Name : ",schoolName));
         msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(TABLE_ROW_EVEN_TEMPLATE," Class : ",studentObj.getStudentRecord().getSss()));
         
-        msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(TABLE_ROW_ODD_TEMPLATE," Department : ",studentObj.getStudentRecord().getDepartment()));
+        msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(TABLE_ROW_ODD_TEMPLATE," Department : ",genericBean.department(studentObj.getStudentRecord().getDepartment())));
         msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(TABLE_ROW_EVEN_TEMPLATE," Parent Name : ",studentObj.getParent().getName()));
         
         msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(TABLE_ROW_ODD_TEMPLATE," Occupation : ",studentObj.getParent().getOccupation()));
-        msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(TABLE_ROW_EVEN_TEMPLATE," Parent Phone No : ",studentObj.getParent().getAddressTemplate().getContactPhoneNo1()));
+        
+        phoneNos= studentObj.getParent().getAddressTemplate().getContactPhoneNo1();
+        if(StringUtils.isNotBlank(studentObj.getParent().getAddressTemplate().getContactPhoneNo2())){
+           phoneNos = phoneNos + " , " + studentObj.getParent().getAddressTemplate().getContactPhoneNo2();
+        }
+        msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(TABLE_ROW_EVEN_TEMPLATE," Parent Phone No(s) : ",phoneNos));
         
         msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(TABLE_ROW_ODD_TEMPLATE," Parent Email : ",studentObj.getParent().getAddressTemplate().getContactEmail1()));
         msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(TABLE_ROW_EVEN_TEMPLATE," Parent Address  : ",studentObj.getParent().getAddressTemplate().getFullAddress()));
@@ -85,17 +101,11 @@ public class StudentService {
       
         String contactEmail1 = studentObj.getParent().getAddressTemplate().getContactEmail1();
         log.info("Contact Email 1 :: {} " , contactEmail1);
-        
-        String contactEmail2 = studentObj.getParent().getAddressTemplate().getContactEmail2();
-        log.info("Contact Email 2 :: {} " , contactEmail2);
-        
-        if(StringUtils.isNotBlank(contactEmail1)){
+                
+        if(StringUtils.isNotBlank(contactEmail1) && !StringUtils.equalsIgnoreCase(studentObj.getEmail(), contactEmail1)){
             recipientEmails= recipientEmails.append(SEPARATOR).append(contactEmail1);
         }
-        if(StringUtils.isNotBlank(contactEmail2)){
-            recipientEmails= recipientEmails.append(SEPARATOR).append(contactEmail2);
-        }
-        
+
         log.info("\n Recipient Emails :: {} " , recipientEmails.toString());
         EmailData emailData = new EmailData();
         emailData.setMailMessage(msgBody.toString());
@@ -104,7 +114,8 @@ public class StudentService {
         emailData.setRecipientID(studentObj.getId());
         emailData.setRecipientName(studentObj.getFullName());
         emailData.setStatus(PENDING);
-        emailData.setRecipientType(SCHOOL_FOLDER);
+        emailData.setMailSubject(mailSubject);
+        emailData.setRecipientType(STUDENT_FOLDER);
         return emailData;
     }
     
