@@ -6,6 +6,7 @@
 package org.javasoft.peasoft.entity.settings;
 
 import java.io.Serializable;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -34,7 +35,7 @@ public class EnvSettings implements Serializable {
     
     private int slotDuration;
     
-    @OneToOne
+    @OneToOne(cascade = {CascadeType.PERSIST,CascadeType.MERGE})
     private SMSSettings smsSettings;
     
     

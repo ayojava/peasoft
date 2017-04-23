@@ -14,19 +14,19 @@ and open the template in the editor.
         <ui:composition>
             <c:choose>
                 <c:when test="#{displayMode=='new' or displayMode=='edit'}">
-                    <pnx:pageDivider id="school" separator="false">
+                    <pnx:pageDivider id="school" separator="false">exit
+                        
                         <ui:define name="properties">
                             <div class="default-page-border">
                                 <div class="row default-row-padding">
                                     <pnx:primeDIV labelDiv="col-md-2" labelID="nameLbl" label="School Name : "
-                                                  contentDiv="col-md-6" targetID="nameTxt">
-                                        <p:inputText id="nameTxt" required="true" autocomplete="off" size="100"
+                                                  contentDiv="col-md-7" targetID="nameTxt">
+                                        <p:inputText id="nameTxt" required="true" autocomplete="off" 
                                                      value="#{schoolPageBean.school.name}"/>
                                     </pnx:primeDIV>
-                                    <pnx:primeDIV labelDiv="col-md-2" labelID="venueLbl" label="Venue : "
-                                                  contentDiv="col-md-2" targetID="venueChkBox">
-                                        <p:selectBooleanCheckbox id="venueChkBox" itemLabel="Exam Venue : " 
-                                                                 value="#{schoolPageBean.school.examVenue}"/>
+                                    <pnx:primeDIV labelDiv="col-md-2" labelID="venueLbl" label="Exam Venue : "
+                                                  contentDiv="col-md-1" targetID="venueChkBox">
+                                        <p:selectBooleanCheckbox id="venueChkBox" value="#{schoolPageBean.school.examVenue}"/>
                                     </pnx:primeDIV>
                                 </div>
                                 <div class="row default-row-padding">

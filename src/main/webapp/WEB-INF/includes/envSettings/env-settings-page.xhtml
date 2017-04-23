@@ -69,7 +69,7 @@ and open the template in the editor.
                                     </pnx:primeDIV>
                                     <pnx:primeDIV labelDiv="col-md-2" labelID="passwordLbl" label="Password : "
                                                   contentDiv="col-md-2" targetID="passwordTxt">
-                                        <p:password id="passwordTxt" required="true" autocomplete="off" 
+                                        <p:password id="passwordTxt" required="true" autocomplete="off" redisplay="true"
                                                     value="#{envSettingsPageBean.envSettings.smsSettings.password}"/>
                                     </pnx:primeDIV>
                                     <pnx:primeDIV labelDiv="col-md-2" labelID="portLbl" label="Port : "
@@ -99,7 +99,7 @@ and open the template in the editor.
                                     </pnx:primeDIV>
                                     <pnx:primeDIV labelDiv="col-md-2" labelID="deliveryReportLbl" label="Delivery Report : "
                                                   contentDiv="col-md-2" targetID="deliveryReportSwitch">
-                                        <p:selectBooleanCheckbox id="deliveryReportSwitch" value="#{envSettingsPageBean.envSettings.smsSettings.deliveryReport}" />
+                                        <p:selectBooleanCheckbox id="deliveryReportSwitch" value="#{envSettingsPageBean.envSettings.smsSettings.dlr}" />
                                     </pnx:primeDIV>
                                 </div>
                             </div>

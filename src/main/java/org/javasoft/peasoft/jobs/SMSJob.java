@@ -16,7 +16,7 @@ import org.quartz.JobExecutionException;
  * @author ayojava
  */
 @Slf4j
-@Scheduled(cronExpression = "0 0/25 * * * ?")
+@Scheduled(cronExpression = "0 0/3 * * * ?")
 public class SMSJob implements Job{
 
     @Override

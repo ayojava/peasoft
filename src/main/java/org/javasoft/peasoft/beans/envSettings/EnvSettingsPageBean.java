@@ -27,7 +27,7 @@ import org.omnifaces.util.Messages;
 @Slf4j
 @Named("envSettingsPageBean")
 @ViewScoped
-public class envSettingsPageBean extends AbstractBean implements Serializable {
+public class EnvSettingsPageBean extends AbstractBean implements Serializable {
     
     @Getter @Setter
     private EnvSettings envSettings;

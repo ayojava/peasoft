@@ -10,10 +10,15 @@ import javax.ejb.EJB;
 import javax.ejb.LocalBean;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
+import javax.inject.Inject;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.deltaspike.scheduler.spi.Scheduler;
 import org.javasoft.peasoft.ejb.school.SchoolFacade;
 import org.javasoft.peasoft.ejb.student.StudentFacade;
+import org.javasoft.peasoft.jobs.EmailJob;
+import org.javasoft.peasoft.jobs.SMSJob;
 import org.javasoft.peasoft.utils.GlobalRegistry;
+import org.quartz.Job;
 
 /**
  *
@@ -32,11 +37,16 @@ public class SingletonFacade {
     
     @EJB
     private StudentFacade studentFacade;
+    
+    @Inject
+    private Scheduler<Job> jobScheduler;
 
     @PostConstruct
     public void initialize() {
         globalRegistry = GlobalRegistry.getInstance();
         initCount();
+        jobScheduler.registerNewJob(EmailJob.class);
+        jobScheduler.registerNewJob(SMSJob.class);
     }
     
     private void initCount(){
