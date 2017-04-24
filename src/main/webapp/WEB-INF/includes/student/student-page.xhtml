@@ -67,7 +67,8 @@ and open the template in the editor.
                                     <pnx:primeDIV labelDiv="col-md-2" labelID="dateOfBirthLbl" label="Date Of Birth : "
                                                   contentDiv="col-md-10" targetID="selDateOfBirth">
                                         <p:calendar id="selDateOfBirth" value="#{studentPageBean.student.dateOfBirth}" effect="clip"
-                                                    showOn="both" navigator="true" mindate="1/1/95"/>
+                                                    showOn="both" navigator="true" required="true"
+                                                    yearRange="c-20:c+0"/>
                                     </pnx:primeDIV>
                                 </div>
 
@@ -316,7 +317,7 @@ and open the template in the editor.
                                     <h:outputText value="#{aStudent.othernames}"/>
                                 </p:column>
 
-                                <p:column headerText="Gender" style="text-align: center;">
+                                <p:column headerText="Gender" style="text-align: center;width:90px">
                                     <h:outputText value="#{genericBean.gender(aStudent.gender)}"/>
                                 </p:column>
 
@@ -328,7 +329,7 @@ and open the template in the editor.
                                     <h:outputText value="#{aStudent.phoneNo}"/>
                                 </p:column>
 
-                                <p:column headerText="Age" style="text-align: center;">
+                                <p:column headerText="Age" style="text-align: center;width:90px">
                                     <h:outputText value="#{aStudent.age}"/>
                                 </p:column>
 

@@ -38,6 +38,9 @@ public class EnvSettings implements Serializable {
     @OneToOne(cascade = {CascadeType.PERSIST,CascadeType.MERGE})
     private SMSSettings smsSettings;
     
+    @OneToOne(cascade = {CascadeType.PERSIST,CascadeType.MERGE})
+    private EmailSettings emailSettings;
+    
     
     
 }

@@ -10,6 +10,8 @@ import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 import static org.javasoft.peasoft.constants.PeaResource.ACTIVE;
 import static org.javasoft.peasoft.constants.PeaResource.ARTS;
+import static org.javasoft.peasoft.constants.PeaResource.BATCH_A;
+import static org.javasoft.peasoft.constants.PeaResource.BATCH_B;
 import static org.javasoft.peasoft.constants.PeaResource.COMMERCIAL;
 import static org.javasoft.peasoft.constants.PeaResource.DISQUALIFIED;
 import static org.javasoft.peasoft.constants.PeaResource.FEMALE;
@@ -67,6 +69,16 @@ public class GenericBean implements Serializable {
                 return "Commercial" ;
             case SCIENCE:
                 return "Science" ;
+        }
+        return "";
+    }
+    
+    public String batch(String batch){
+        switch(batch){
+            case BATCH_A :
+                return "Batch A" ;
+            case BATCH_B :
+                return "Batch B" ;
         }
         return "";
     }

@@ -25,6 +25,7 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
+import org.hibernate.annotations.ColumnTransformer;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.OrderBy;
 import org.hibernate.validator.constraints.Email;
@@ -48,13 +49,16 @@ public class Student implements Serializable {
     private String identificationNo;
     
     @OrderBy(clause = "surname asc")
+    @ColumnTransformer(write = "UPPER(?)")
     private String surname;
 
+    @ColumnTransformer(write = "UPPER(?)")
     private String othernames;
 
     private String gender;
 
     @Email
+    @ColumnTransformer(write = "UPPER(?)")
     private String email;
 
     private String phoneNo;

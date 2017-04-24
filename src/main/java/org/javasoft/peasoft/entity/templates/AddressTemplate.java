@@ -11,6 +11,7 @@ import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.ColumnTransformer;
 import org.hibernate.validator.constraints.Email;
 
 /**
@@ -23,12 +24,15 @@ import org.hibernate.validator.constraints.Email;
 public class AddressTemplate implements Serializable {
 
     @NotNull
+    @ColumnTransformer(write = "UPPER(?)")
     private String street;
 
     @NotNull
+    @ColumnTransformer(write = "UPPER(?)")
     private String city;
 
     @NotNull
+    @ColumnTransformer(write = "UPPER(?)")
     private String nearestBusStop;
 
     private String contactPhoneNo1;
@@ -36,6 +40,7 @@ public class AddressTemplate implements Serializable {
     private String contactPhoneNo2;
 
     @Email
+    @ColumnTransformer(write = "UPPER(?)")
     private String contactEmail1;
 
     private String contactEmail2;

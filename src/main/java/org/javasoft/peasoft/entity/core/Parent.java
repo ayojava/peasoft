@@ -20,6 +20,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.ColumnTransformer;
 import org.hibernate.annotations.CreationTimestamp;
 import org.javasoft.peasoft.entity.templates.AddressTemplate;
 
@@ -41,9 +42,11 @@ public class Parent implements Serializable {
     private Long id;
 
     @NotNull
+    @ColumnTransformer(write = "UPPER(?)")
     private String name;
     
     @NotNull
+    @ColumnTransformer(write = "UPPER(?)")
     private String occupation;
     
     @Valid

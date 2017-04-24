@@ -16,6 +16,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.javasoft.peasoft.beans.core.AbstractBean;
 import org.javasoft.peasoft.ejb.settings.EnvSettingsFacade;
+import org.javasoft.peasoft.entity.settings.EmailSettings;
 import org.javasoft.peasoft.entity.settings.EnvSettings;
 import org.javasoft.peasoft.entity.settings.SMSSettings;
 import org.omnifaces.util.Messages;
@@ -49,6 +50,8 @@ public class EnvSettingsPageBean extends AbstractBean implements Serializable {
                 envSettings = new EnvSettings();
                 SMSSettings smsSettings = new SMSSettings();
                 envSettings.setSmsSettings(smsSettings);
+                EmailSettings emailSettings = new EmailSettings();
+                envSettings.setEmailSettings(emailSettings);
             }
             //log.info("EnvSettings :: {} " ,  envSettings);
             super.setPageResource(appendFolderPath("envSettings", EDIT_ENV_SETTINGS));

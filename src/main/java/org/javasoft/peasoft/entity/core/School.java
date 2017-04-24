@@ -24,6 +24,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import org.hibernate.annotations.ColumnTransformer;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.Formula;
 import org.hibernate.annotations.OrderBy;
@@ -49,6 +50,7 @@ public class School implements Serializable {
     private String identificationNo;
     
     @OrderBy(clause = "name asc")
+    @ColumnTransformer(write = "UPPER(?)")
     private String name ;
     
     private boolean examVenue;

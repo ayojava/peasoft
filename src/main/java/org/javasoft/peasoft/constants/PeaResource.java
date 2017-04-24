@@ -98,6 +98,10 @@ public interface PeaResource {
     
     public static final String FAIL ="F";
     
+    public static final String BATCH_A ="A";
+    
+    public static final String BATCH_B ="B";
+    
     public static final String SEPARATOR ="|";
     
     

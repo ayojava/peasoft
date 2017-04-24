@@ -44,7 +44,7 @@ and open the template in the editor.
                                         <p:inputText id="durationTxt" maxlength="3" size="5" value="#{envSettingsPageBean.envSettings.slotDuration}">
                                             <f:validateLongRange minimum="1" maximum="4"/>
                                         </p:inputText>
-                                        
+
                                     </pnx:primeDIV>
                                 </div>
                                 <div class="row default-row-padding">
@@ -52,7 +52,7 @@ and open the template in the editor.
                                         <hr size="0" class="pnx-tableRow-Separator"/>
                                     </div>
                                 </div>
-                                
+
                                 <div class="row default-row-padding">
                                     <div class="col-md-12">
                                         <span class="text-center">
@@ -60,7 +60,7 @@ and open the template in the editor.
                                         </span>
                                     </div>
                                 </div>
-                                
+
                                 <div class="row default-row-padding">
                                     <pnx:primeDIV labelDiv="col-md-2" labelID="userNameLbl" label="Username : "
                                                   contentDiv="col-md-2" targetID="userNameTxt">
@@ -80,9 +80,9 @@ and open the template in the editor.
                                         </p:inputText>
                                     </pnx:primeDIV>
                                 </div>
-                                
+
                                 <div class="row default-row-padding">
-                                   <pnx:primeDIV labelDiv="col-md-2" labelID="serverLbl" label="Server : "
+                                    <pnx:primeDIV labelDiv="col-md-2" labelID="serverLbl" label="Server : "
                                                   contentDiv="col-md-2" targetID="serverTxt">
                                         <p:inputText id="serverTxt" required="true" autocomplete="off" 
                                                      value="#{envSettingsPageBean.envSettings.smsSettings.source}"/>
@@ -102,6 +102,19 @@ and open the template in the editor.
                                         <p:selectBooleanCheckbox id="deliveryReportSwitch" value="#{envSettingsPageBean.envSettings.smsSettings.dlr}" />
                                     </pnx:primeDIV>
                                 </div>
+
+                                <div class="row default-row-padding">
+                                    <div class="col-md-12">
+                                        <span class="text-center">
+                                            Email Settings
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <div class="row default-row-padding">
+
+                                </div>
+
                             </div>
                         </ui:define>
                     </pnx:pageDivider>

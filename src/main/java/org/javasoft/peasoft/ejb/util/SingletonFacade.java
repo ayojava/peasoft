@@ -45,8 +45,8 @@ public class SingletonFacade {
     public void initialize() {
         globalRegistry = GlobalRegistry.getInstance();
         initCount();
-        jobScheduler.registerNewJob(EmailJob.class);
-        jobScheduler.registerNewJob(SMSJob.class);
+       // jobScheduler.registerNewJob(EmailJob.class);
+        //jobScheduler.registerNewJob(SMSJob.class);
     }
     
     private void initCount(){

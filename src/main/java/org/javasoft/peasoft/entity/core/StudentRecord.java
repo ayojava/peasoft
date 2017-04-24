@@ -62,6 +62,9 @@ public class StudentRecord implements Serializable {
     private String sss ;
     
     @NotNull
+    private String examBatch;
+    
+    @NotNull
     private String department;
     
     private String status; // Active , Disqualified , Declined

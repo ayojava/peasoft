@@ -15,11 +15,13 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.javasoft.peasoft.ejb.dao.GenericDAO;
 import org.javasoft.peasoft.ejb.school.SchoolFacade;
+import org.javasoft.peasoft.ejb.settings.EnvSettingsFacade;
 import org.javasoft.peasoft.ejb.studentRecord.StudentRecordFacade;
 import org.javasoft.peasoft.entity.core.Marks;
 import org.javasoft.peasoft.entity.core.School;
 import org.javasoft.peasoft.entity.core.Student;
 import org.javasoft.peasoft.entity.core.StudentRecord;
+import org.javasoft.peasoft.entity.settings.EnvSettings;
 import org.javasoft.peasoft.utils.GlobalRegistry;
 
 /**
@@ -38,6 +40,9 @@ public class StudentFacade extends GenericDAO<Student, Long> {
 
     @EJB
     private SchoolFacade schoolFacade;
+    
+    @EJB
+    private EnvSettingsFacade envSettingsFacade;
 
     public StudentFacade() {
         super(Student.class);
@@ -73,10 +78,11 @@ public class StudentFacade extends GenericDAO<Student, Long> {
 
     public Student saveStudent(Student studentObj, StudentRecord record, School schoolObj) {
         globalRegistry = GlobalRegistry.getInstance();
-        log.info("Before School Count :: {}" ,globalRegistry.getSchoolCount());
         globalRegistry.updateStudentCount();
-        log.info("After School Count :: {}" ,globalRegistry.getSchoolCount());
         studentObj.setIdentificationNo("SD" + StringUtils.leftPad(String.valueOf(globalRegistry.getStudentCount()), 5, "0"));
+        
+        EnvSettings envSettings = envSettingsFacade.findOne();
+        
 
         Marks markObj = new Marks();
         record.setMarks(markObj);
