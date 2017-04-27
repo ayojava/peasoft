@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.javasoft.peasoft.excel.school;
+package org.javasoft.peasoft.excel.batch;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -12,12 +12,10 @@ import java.io.IOException;
 import java.util.List;
 import lombok.Cleanup;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.javasoft.peasoft.beans.core.GenericBean;
-import static org.javasoft.peasoft.constants.PeaResource.SCHOOL_FOLDER;
-import org.javasoft.peasoft.entity.core.School;
+import static org.javasoft.peasoft.constants.PeaResource.ENV_SETTINGS_FOLDER;
 import org.javasoft.peasoft.entity.core.Student;
 import org.javasoft.peasoft.entity.core.StudentRecord;
 import org.javasoft.peasoft.excel.ExcelProcessor;
@@ -28,29 +26,26 @@ import org.omnifaces.util.Beans;
  * @author ayojava
  */
 @Slf4j
-public class SchoolAndBatchListExcelReport extends ExcelProcessor {
-
-    private School school;
-
+public class BatchListExcelReport extends ExcelProcessor{
+    
     private int rowCount = 1;
 
-    private String[] columnHeaders = {"S/N", "Name", "Gender", "Class", "Department", "Status", "Batch"};
-
+    private String[] columnHeaders = {"S/N","Reg No" ,"Name", " Gender "," School " ," Class ", " Department ", " Batch "};
+    
     private String fileName;
-
-    public boolean populateExcelSheet(String sheetName, String fileName, School schoolObj) {
-        if (schoolObj == null || schoolObj.getStudentRecords().isEmpty() || StringUtils.isBlank(sheetName) || StringUtils.isBlank(fileName)) {
-            log.error("=== SheetName or School is not supplied . Excel sheet can't be generated");
-            return false;
-        }
+    
+    private List<StudentRecord> studentRecords;
+    
+    public boolean populateExcelSheet(List<StudentRecord> records, String sheetName, String fileName){
+        
         init();
         this.fileName = fileName;
         setCurrentSheet(sheetName);
-        school = schoolObj;
-        String schoolName = "NAME  : " + school.getName();
-        String schoolAddress = "ADDRESS  : " + school.getAddressTemplate().getFullAddress();
-        populateSheetHeaders(schoolName, schoolAddress);
+        String batchName ="";
+        String timeSlot ="";
+        populateSheetHeaders(batchName ,timeSlot);
         populateColumnHeaders(columnHeaders);
+        studentRecords = records;
         try {
             writeExcelData();
         } catch (IOException ex) {
@@ -59,22 +54,21 @@ public class SchoolAndBatchListExcelReport extends ExcelProcessor {
         }
         return true;
     }
-
+    
     private void writeExcelData() throws IOException {
-
+        
         @Cleanup
         ByteArrayOutputStream outStream = new ByteArrayOutputStream();
         
-        List<StudentRecord> studentRecords = school.getStudentRecords();
-        
         GenericBean genericBean = Beans.getInstance(GenericBean.class);
+        
+        //{"S/N","Reg No" ,"Name", " Gender "," School " ," Class ", " Department ", " Batch "};
         
         studentRecords.forEach((StudentRecord aRecord) -> {
             Student student = aRecord.getStudent();
             String[] rowValues = {
-                String.valueOf(rowCount), student.getFullName(),  genericBean .gender(student.getGender()), aRecord.getSss(),
-                genericBean.department(aRecord.getDepartment()),genericBean.recordStatus(aRecord.getStatus()), 
-                genericBean.batch(aRecord.getExamBatch())
+                String.valueOf(rowCount),aRecord.getIdentificationNo() ,student.getFullName(),genericBean.gender(student.getGender()),
+                aRecord.getSchool().getName(),aRecord.getSss(), genericBean.department(aRecord.getDepartment()),genericBean.batch(aRecord.getExamBatch())
             };
             
             Row row = getCurrentSheet().createRow(rowPosition);
@@ -88,20 +82,12 @@ public class SchoolAndBatchListExcelReport extends ExcelProcessor {
         });
         writeTo(outStream);
         
-        log.info(" Directory ::: [ {} ]    FileName ::: [ {} ]" ,globalRegistry.getInitFilePath() + SCHOOL_FOLDER, fileName );
-        File filePath = globalRegistry.createFile(globalRegistry.getInitFilePath() + SCHOOL_FOLDER, fileName);
+        log.info(" Directory ::: [ {} ]    FileName ::: [ {} ]" ,globalRegistry.getInitFilePath() + ENV_SETTINGS_FOLDER, fileName );
+        File filePath = globalRegistry.createFile(globalRegistry.getInitFilePath() + ENV_SETTINGS_FOLDER, fileName);
         
         @Cleanup
         FileOutputStream fileStream = new FileOutputStream(filePath);
         outStream.writeTo(fileStream);
         outStream.flush();
     }
-    
-    @Override
-    public void destroy(){
-        super.destroy();
-        school = null;
-        columnHeaders = null;
-    }
-    }
-
+}

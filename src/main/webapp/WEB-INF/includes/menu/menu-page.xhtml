@@ -7,7 +7,8 @@ and open the template in the editor.
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"   
       xmlns:o="http://omnifaces.org/ui" xmlns:p="http://primefaces.org/ui" xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:body>
         <div class="col-md-12" style="margin-top: 2px;">
             <o:form id="NavMenuForm">
@@ -24,6 +25,18 @@ and open the template in the editor.
                     <p:separator />
                     <p:menuitem id="studentRecordMenu" value="Student Records"  icon="fa fa-cubes fa-1g"
                                 action="#{studentRecordPageBean.setPageResource(peaResource.LIST_STUDENT_RECORDS)}" update=":homeForm"/>
+                    <p:separator />
+                    <p:submenu id="batchModule" label="Batch"  icon="fa fa-globe fa-1g">
+                        <p:menuitem value="Batch A " icon="fa fa-indent fa-1g" update=":homeForm" id="batchA"
+                                    action="#{studentRecordPageBean.setPageResource(peaResource.LIST_EXAM_BATCH)}">
+                            <f:param name="batch" value="#{peaResource.BATCH_A}"/>
+                        </p:menuitem>
+                        <p:separator />
+                        <p:menuitem value="Batch B" icon="fa fa-outdent fa-1g" update=":homeForm" id="batchB"
+                                    action="#{studentRecordPageBean.setPageResource(peaResource.LIST_EXAM_BATCH)}">
+                            <f:param name="batch" value="#{peaResource.BATCH_B}"/>
+                        </p:menuitem>
+                    </p:submenu>
                     <p:separator />
                     <p:submenu id="resultsModule" label="Results"  icon="fa fa-globe fa-1g">
                         <p:menuitem value="Selected " icon="fa fa-indent fa-1g" 

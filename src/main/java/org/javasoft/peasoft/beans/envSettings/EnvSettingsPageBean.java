@@ -54,7 +54,7 @@ public class EnvSettingsPageBean extends AbstractBean implements Serializable {
                 envSettings.setEmailSettings(emailSettings);
             }
             //log.info("EnvSettings :: {} " ,  envSettings);
-            super.setPageResource(appendFolderPath("envSettings", EDIT_ENV_SETTINGS));
+            super.setPageResource(appendFolderPath(ENV_SETTINGS_FOLDER, EDIT_ENV_SETTINGS));
         }else  if (StringUtils.equals(VIEW_HOME_PAGE, pageResource)) {
             setHomePageResource();
         }

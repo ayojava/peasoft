@@ -55,6 +55,9 @@ public interface PeaResource {
     /*=========== ENV-SETTINGS ===========*/
     public static final String EDIT_ENV_SETTINGS = "edit-env-settings";
     
+    /*=========== STUDENT-RECORD ===========*/
+    public static final String LIST_EXAM_BATCH = "list-exam-batch";
+    
     //===============================
     public static final String ACTIVE ="AC";
     
@@ -90,7 +93,11 @@ public interface PeaResource {
     
     public static final String STUDENT_FOLDER ="student";
     
-    public static final String STUDENT_RECORD_FOLDER ="studentRecord";
+    public static final String STUDENT_RECORD_FOLDER ="student-record";
+    
+    public static final String EXAM_BATCH_FOLDER ="exam-batch";
+    
+    public static final String ENV_SETTINGS_FOLDER ="env-settings";
     
     public static final String SENDER ="PEAF";
     
@@ -103,6 +110,7 @@ public interface PeaResource {
     public static final String BATCH_B ="B";
     
     public static final String SEPARATOR ="|";
+    
     
     
     void setPageResource(String pageResource);

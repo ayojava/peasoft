@@ -72,11 +72,7 @@ public class StudentRecordPageBean extends AbstractBean implements Serializable 
     public void markScores(){
     
     }
-    
-    public void scheduleStudent(){
-    
-    }
-    
+        
     private void cleanup() {
 
     }

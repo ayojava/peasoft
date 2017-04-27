@@ -13,35 +13,28 @@ and open the template in the editor.
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <body>
         <ui:composition>
-            <pnx:pageLayout pageTitle="List Student Records" headerClass="pnx-page-title-text" requiredIcon="false" 
+            <pnx:pageLayout pageTitle="Batch - #{requestScope['batch']} " headerClass="pnx-page-title-text" requiredIcon="false" 
                             pageSeparatorTop="true" pageSeparatorBottom="true" pageMode="list">
                 <ui:define name="pageContent">
-                    <ui:decorate template="student-record-page.xhtml">
+                    <ui:decorate template="exam-batch-page.xhtml">
                         <ui:param name="displayMode" value="list"/>
-                    </ui:decorate> 
+                    </ui:decorate>
                 </ui:define>
                 <ui:define name="pageButtonsTop">
-                    <p:commandButton styleClass="pnx-round-button" id="scheduleTopBtn" value="Schedule" 
-                                     ajax="false" update="@form" action="#{studentRecordPageBean.scheduleTests()}" 
-                                     icon="fa fa-fw fa-tasks" title="Schedule Slots"/> 
+                    <p:commandButton styleClass="pnx-round-button" id="excelTopBtn" value="Generate" 
+                                     ajax="false" update="@form" action="#{schoolPageBean.generateAllSchoolsList()}" 
+                                     icon="fa fa-fw fa-file-excel-o" title="Generate List in Excel "/> 
                     <p:spacer width="10px"/>
-                    <p:commandButton styleClass="pnx-round-button" id="markTopBtn" value="Mark" 
-                                     ajax="false" update="@form" action="#{studentRecordPageBean.markScores()}" 
-                                     icon="fa fa-fw fa-plus" title="Mark Scores"/> 
+                    <p:commandButton styleClass="pnx-round-button" id="sendNotificationBtn" value="Email/SMS" 
+                                     ajax="false" update="@form" action="#{schoolPageBean.setPageResource(peaResource.NEW_SCHOOL)}" 
+                                     icon="fa fa-fw fa-bell-o" title="Send Notification"/> 
                     <p:spacer width="10px"/>
                     <p:commandButton styleClass="pnx-round-button" id="closeTopBtn" value="Home" 
                                      immediate="true" ajax="false" update="@form" icon="fa fa-fw fa-home"
-                                     action="#{studentRecordPageBean.setPageResource(peaResource.VIEW_HOME_PAGE)}" 
+                                     action="#{examBatchPageBean.setPageResource(peaResource.VIEW_HOME_PAGE)}" 
                                      title="Back to Home Page"/>  
                     <p:spacer width="10px"/>
-                    
-                    <p:blockUI block="schoolsTable" trigger="markTopBtn,scheduleTopBtn">
-                        In Progress
-                        <p:graphicImage name="icon/pics/ajax-loading-bar.gif" library="images" />
-                    </p:blockUI>
-                    
                 </ui:define>
-                
             </pnx:pageLayout>
         </ui:composition>
     </body>

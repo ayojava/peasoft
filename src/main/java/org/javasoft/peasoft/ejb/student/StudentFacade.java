@@ -13,6 +13,8 @@ import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import static org.javasoft.peasoft.constants.PeaResource.BATCH_A;
+import static org.javasoft.peasoft.constants.PeaResource.BATCH_B;
 import org.javasoft.peasoft.ejb.dao.GenericDAO;
 import org.javasoft.peasoft.ejb.school.SchoolFacade;
 import org.javasoft.peasoft.ejb.settings.EnvSettingsFacade;
@@ -86,6 +88,7 @@ public class StudentFacade extends GenericDAO<Student, Long> {
 
         Marks markObj = new Marks();
         record.setMarks(markObj);
+        record.setExamBatch(globalRegistry.getStudentCount() % 2 == 0 ? BATCH_A : BATCH_B);
         StudentRecord recordEntity = studentRecordFacade.persist(record);
         recordEntity.setSchool(schoolObj);
         studentRecordFacade.edit(recordEntity);
@@ -107,7 +110,7 @@ public class StudentFacade extends GenericDAO<Student, Long> {
         recordEntity.setStudent(studentObj);
         studentRecordFacade.edit(recordEntity);
 
-        globalRegistry.updateStudentCount();
+        //globalRegistry.updateStudentCount();
         
         return studentEntity;
     }
