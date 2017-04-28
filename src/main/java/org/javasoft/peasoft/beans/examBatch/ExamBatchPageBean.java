@@ -49,7 +49,7 @@ public class ExamBatchPageBean extends AbstractBean implements Serializable {
             batch = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("batch");
             log.info("Batch ::: {} ", batch);
             studentRecords = examBatchFacade.findStudentRecordByBatch(batch);
-            super.setPageResource(appendFolderPath(STUDENT_RECORD_FOLDER, LIST_EXAM_BATCH));
+            super.setPageResource(appendFolderPath(EXAM_BATCH_FOLDER, LIST_EXAM_BATCH));
         } else if (StringUtils.equals(VIEW_HOME_PAGE, pageResource)) {
             setHomePageResource();
             cleanup();

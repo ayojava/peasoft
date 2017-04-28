@@ -108,7 +108,7 @@ public class StudentPageBean extends AbstractBean implements Serializable {
         } else if (StringUtils.equals(VIEW_STUDENT, pageResource)) {
             super.setPageResource(appendFolderPath(STUDENT_FOLDER, VIEW_STUDENT));
         } else if (StringUtils.equals(LIST_STUDENTS, pageResource)) {
-            students = studentFacade.findAll();
+            students = studentFacade.findAll("surname");
             super.setPageResource(appendFolderPath(STUDENT_FOLDER, LIST_STUDENTS));
         } else if (StringUtils.equals(VIEW_HOME_PAGE, pageResource)) {
             setHomePageResource();

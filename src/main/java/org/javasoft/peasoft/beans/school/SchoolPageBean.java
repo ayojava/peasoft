@@ -76,7 +76,7 @@ public class SchoolPageBean extends AbstractBean implements Serializable {
             setDisplayResults(school.getStudentRecords());
             super.setPageResource(appendFolderPath(SCHOOL_FOLDER, VIEW_SCHOOL));
         } else if (StringUtils.equals(LIST_SCHOOLS, pageResource)) {
-            schools = schoolFacade.findAll();
+            schools = schoolFacade.findAll("name");
             super.setPageResource(appendFolderPath(SCHOOL_FOLDER, LIST_SCHOOLS));
         }else  if (StringUtils.equals(VIEW_HOME_PAGE, pageResource)) {
             setHomePageResource();

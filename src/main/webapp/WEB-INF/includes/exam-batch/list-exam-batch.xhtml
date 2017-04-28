@@ -13,7 +13,7 @@ and open the template in the editor.
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
     <body>
         <ui:composition>
-            <pnx:pageLayout pageTitle="Batch - #{requestScope['batch']} " headerClass="pnx-page-title-text" requiredIcon="false" 
+            <pnx:pageLayout pageTitle="Batch - #{param.batch} " headerClass="pnx-page-title-text" requiredIcon="false" 
                             pageSeparatorTop="true" pageSeparatorBottom="true" pageMode="list">
                 <ui:define name="pageContent">
                     <ui:decorate template="exam-batch-page.xhtml">

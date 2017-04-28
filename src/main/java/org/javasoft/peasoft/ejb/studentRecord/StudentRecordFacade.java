@@ -9,7 +9,6 @@ import java.util.List;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import lombok.extern.slf4j.Slf4j;
-import org.hibernate.criterion.Restrictions;
 import static org.javasoft.peasoft.constants.PeaResource.NOT_SELECTED;
 import static org.javasoft.peasoft.constants.PeaResource.SELECTED;
 import org.javasoft.peasoft.ejb.dao.GenericDAO;

@@ -41,7 +41,7 @@ and open the template in the editor.
                                                   contentDiv="col-md-4" targetID="alternatePhoneNoTxt">
                                         <p:inputText id="alternatePhoneNoTxt" required="false" autocomplete="off" maxlength="11"
                                                      value="#{studentPageBean.student.otherPhoneNo}">
-                                            <f:validateLength minimum="11" maximum="11" />
+                                            
                                         </p:inputText>
                                     </pnx:primeDIV>
                                 </div>
@@ -141,16 +141,25 @@ and open the template in the editor.
 
                                     <pnx:primeDIV labelDiv="col-md-2" labelID="parentPhoneNoLbl" label="Phone No : "
                                                   contentDiv="col-md-4" targetID="parentPhoneNoTxt">
-                                        <p:inputText id="parentPhoneNoTxt" required="true" autocomplete="off" size="40"
-                                                     value="#{studentPageBean.student.parent.addressTemplate.contactPhoneNo1}"/>
+                                        <p:inputText id="parentPhoneNoTxt" required="true" autocomplete="off" maxlength="11"
+                                                     value="#{studentPageBean.student.parent.addressTemplate.contactPhoneNo1}">
+                                            <f:validateLength minimum="11" maximum="11" />
+                                        </p:inputText>
                                     </pnx:primeDIV>
                                 </div>
 
                                 <div class="row default-row-padding">
                                     <pnx:primeDIV labelDiv="col-md-2" labelID="streetLbl" label="Street : "
-                                                  contentDiv="col-md-10" targetID="streetTxt">
-                                        <p:inputText id="streetTxt" required="true" autocomplete="off" size="100"
+                                                  contentDiv="col-md-4" targetID="streetTxt">
+                                        <p:inputText id="streetTxt" required="true" autocomplete="off" size="40"
                                                      value="#{studentPageBean.student.parent.addressTemplate.street}"/>
+                                    </pnx:primeDIV>
+                                    <pnx:primeDIV labelDiv="col-md-2" labelID="parentOtherPhoneNoLbl" label="Other Phone No : "
+                                                  contentDiv="col-md-4" targetID="parentOtherPhoneNoTxt">
+                                        <p:inputText id="parentOtherPhoneNoTxt" required="true" autocomplete="off" maxlength="11"
+                                                     value="#{studentPageBean.student.parent.addressTemplate.contactPhoneNo2}">
+                                            <f:validateLength minimum="11" maximum="11" />
+                                        </p:inputText>
                                     </pnx:primeDIV>
                                 </div>
                                 <div class="row default-row-padding">

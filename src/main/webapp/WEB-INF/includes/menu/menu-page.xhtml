@@ -28,12 +28,12 @@ and open the template in the editor.
                     <p:separator />
                     <p:submenu id="batchModule" label="Batch"  icon="fa fa-globe fa-1g">
                         <p:menuitem value="Batch A " icon="fa fa-indent fa-1g" update=":homeForm" id="batchA"
-                                    action="#{studentRecordPageBean.setPageResource(peaResource.LIST_EXAM_BATCH)}">
+                                    action="#{examBatchPageBean.setPageResource(peaResource.LIST_EXAM_BATCH)}">
                             <f:param name="batch" value="#{peaResource.BATCH_A}"/>
                         </p:menuitem>
                         <p:separator />
                         <p:menuitem value="Batch B" icon="fa fa-outdent fa-1g" update=":homeForm" id="batchB"
-                                    action="#{studentRecordPageBean.setPageResource(peaResource.LIST_EXAM_BATCH)}">
+                                    action="#{examBatchPageBean.setPageResource(peaResource.LIST_EXAM_BATCH)}">
                             <f:param name="batch" value="#{peaResource.BATCH_B}"/>
                         </p:menuitem>
                     </p:submenu>

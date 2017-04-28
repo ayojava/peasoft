@@ -49,7 +49,7 @@ public class School implements Serializable {
     @Column(nullable = false, unique = true ,updatable = false)
     private String identificationNo;
     
-    @OrderBy(clause = "name asc")
+    
     @ColumnTransformer(write = "UPPER(?)")
     private String name ;
     

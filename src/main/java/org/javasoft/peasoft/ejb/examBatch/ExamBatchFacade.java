@@ -9,6 +9,7 @@ import java.util.List;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import lombok.extern.slf4j.Slf4j;
+import org.hibernate.Criteria;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 import org.javasoft.peasoft.ejb.dao.GenericDAO;
@@ -28,6 +29,8 @@ public class ExamBatchFacade extends GenericDAO<StudentRecord, Long> {
     }
     
     public List<StudentRecord> findStudentRecordByBatch(String batch){
-        return getCriteria().add(Restrictions.eq("examBatch", batch)).addOrder(Order.asc("student.surname")).list();
+        Criteria recordCriteria =getCriteria().add(Restrictions.eq("examBatch", batch));
+        recordCriteria.createAlias("student", "student");
+        return recordCriteria.addOrder(Order.asc("student.surname")).list();
     }
 }

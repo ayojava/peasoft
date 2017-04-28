@@ -16,13 +16,27 @@ import static org.javasoft.peasoft.constants.PeaResource.STUDENT_FOLDER;
 import org.javasoft.peasoft.entity.core.Student;
 import org.javasoft.peasoft.entity.data.EmailData;
 import org.javasoft.peasoft.entity.data.SMSData;
-import static org.javasoft.peasoft.utils.template.EmailTemplate.FOOTER_ENQUIRY_MAIL_TEMPLATE;
-import static org.javasoft.peasoft.utils.template.EmailTemplate.FOOTER_SOCIAL_MEDIA_TEMPLATE;
+import static org.javasoft.peasoft.utils.template.EmailTemplate.HEADER_CLOSE_DIV_TEMPLATE;
+import static org.javasoft.peasoft.utils.template.EmailTemplate.HEADER_OPEN_DIV_TEMPLATE;
 import static org.javasoft.peasoft.utils.template.EmailTemplate.INNER_TABLE_BOTTOM_TEMPLATE;
 import static org.javasoft.peasoft.utils.template.EmailTemplate.INNER_TABLE_TOP_TEMPLATE;
+import static org.javasoft.peasoft.utils.template.EmailTemplate.OUTER_TABLE_BRAINCHALLENGE_EMAIL_TEMPLATE;
+import static org.javasoft.peasoft.utils.template.EmailTemplate.OUTER_TABLE_BRAINCHALLENGE_TELEPHONE_TEMPLATE;
+import static org.javasoft.peasoft.utils.template.EmailTemplate.OUTER_TABLE_BRAINCHALLENGE_WEBSITE_TEMPLATE;
+import static org.javasoft.peasoft.utils.template.EmailTemplate.OUTER_TABLE_CLOSE_BODY_TEMPLATE;
+import static org.javasoft.peasoft.utils.template.EmailTemplate.OUTER_TABLE_CLOSE_FOOTER_TEMPLATE;
+import static org.javasoft.peasoft.utils.template.EmailTemplate.OUTER_TABLE_CLOSE_TABLE_TEMPLATE;
+import static org.javasoft.peasoft.utils.template.EmailTemplate.OUTER_TABLE_ENQUIRY_TEMPLATE;
+import static org.javasoft.peasoft.utils.template.EmailTemplate.OUTER_TABLE_FACEBOOK_TEMPLATE;
+import static org.javasoft.peasoft.utils.template.EmailTemplate.OUTER_TABLE_INSTAGRAM_TEMPLATE;
+import static org.javasoft.peasoft.utils.template.EmailTemplate.OUTER_TABLE_OFFICE_ADDRESS_TEMPLATE;
+import static org.javasoft.peasoft.utils.template.EmailTemplate.OUTER_TABLE_OPEN_BODY_TEMPLATE;
+import static org.javasoft.peasoft.utils.template.EmailTemplate.OUTER_TABLE_OPEN_FOOTER_TEMPLATE;
+import static org.javasoft.peasoft.utils.template.EmailTemplate.OUTER_TABLE_OPEN_TABLE_TEMPLATE;
+import static org.javasoft.peasoft.utils.template.EmailTemplate.OUTER_TABLE_TWITTER_TEMPLATE;
+import static org.javasoft.peasoft.utils.template.EmailTemplate.OUTER_TABLE_WEBSITE_TEMPLATE;
 import static org.javasoft.peasoft.utils.template.EmailTemplate.REGISTRATION_DETAILS_SUBJECT_TEMPLATE;
 import static org.javasoft.peasoft.utils.template.EmailTemplate.REGISTRATION_DETAILS_TOP__TEMPLATE;
-import static org.javasoft.peasoft.utils.template.EmailTemplate.TABLE_HEADER_TEMPLATE;
 import static org.javasoft.peasoft.utils.template.EmailTemplate.TABLE_ROW_EVEN_TEMPLATE;
 import static org.javasoft.peasoft.utils.template.EmailTemplate.TABLE_ROW_ODD_TEMPLATE;
 import static org.javasoft.peasoft.utils.template.SMSTemplate.REGISTRATION_DETAILS_SMS_TEMPLATE;
@@ -53,10 +67,13 @@ public class StudentService {
         GenericBean genericBean = Beans.getInstance(GenericBean.class);
         
         String mailSubject = emailUtilBean.showMessageFromTemplate(REGISTRATION_DETAILS_SUBJECT_TEMPLATE,studentObj.getFullName() );
-        log.info("Mail Subject :: {}" , mailSubject);
+        //log.info("Mail Subject :: {}" , mailSubject);
         
         StringBuilder msgBody = new StringBuilder();
-        msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(TABLE_HEADER_TEMPLATE));
+        msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(HEADER_OPEN_DIV_TEMPLATE));
+        msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(OUTER_TABLE_OPEN_TABLE_TEMPLATE));
+        msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(OUTER_TABLE_OPEN_BODY_TEMPLATE));
+        
         msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(REGISTRATION_DETAILS_TOP__TEMPLATE,studentObj.getSurname()));
         
         msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(INNER_TABLE_TOP_TEMPLATE));
@@ -90,23 +107,44 @@ public class StudentService {
         msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(TABLE_ROW_EVEN_TEMPLATE," Parent Address  : ",studentObj.getParent().getAddressTemplate().getFullAddress()));
         
         msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(INNER_TABLE_BOTTOM_TEMPLATE));
-        msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(FOOTER_SOCIAL_MEDIA_TEMPLATE));
-        msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(FOOTER_ENQUIRY_MAIL_TEMPLATE));
         
+        msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(OUTER_TABLE_CLOSE_BODY_TEMPLATE));
+        
+        msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(OUTER_TABLE_OPEN_FOOTER_TEMPLATE));
+        
+        msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(OUTER_TABLE_ENQUIRY_TEMPLATE));
+        msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(OUTER_TABLE_BRAINCHALLENGE_EMAIL_TEMPLATE));
+        msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(OUTER_TABLE_BRAINCHALLENGE_TELEPHONE_TEMPLATE));
+        msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(OUTER_TABLE_BRAINCHALLENGE_WEBSITE_TEMPLATE));
+        
+        msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(OUTER_TABLE_OFFICE_ADDRESS_TEMPLATE));
+        msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(OUTER_TABLE_FACEBOOK_TEMPLATE));
+        msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(OUTER_TABLE_INSTAGRAM_TEMPLATE));
+        msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(OUTER_TABLE_TWITTER_TEMPLATE));
+        msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(OUTER_TABLE_WEBSITE_TEMPLATE));
+        
+        msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(OUTER_TABLE_CLOSE_FOOTER_TEMPLATE));
+        msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(OUTER_TABLE_CLOSE_TABLE_TEMPLATE));
+        msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(HEADER_CLOSE_DIV_TEMPLATE));
+        
+//        msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(FOOTER_SOCIAL_MEDIA_TEMPLATE));
+//        msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(FOOTER_ENQUIRY_MAIL_TEMPLATE));
+        /*
         log.info("\nMail Subject :: {}\n\n " , mailSubject);
+        */
         log.info("Mail Body :: {}\n\n " , msgBody.toString());
         
         StringBuilder recipientEmails = new StringBuilder();
         recipientEmails= recipientEmails.append(studentObj.getEmail());
       
         String contactEmail1 = studentObj.getParent().getAddressTemplate().getContactEmail1();
-        log.info("Contact Email 1 :: {} " , contactEmail1);
+       // log.info("Contact Email 1 :: {} " , contactEmail1);
                 
         if(StringUtils.isNotBlank(contactEmail1) && !StringUtils.equalsIgnoreCase(studentObj.getEmail(), contactEmail1)){
             recipientEmails= recipientEmails.append(SEPARATOR).append(contactEmail1);
         }
 
-        log.info("\n Recipient Emails :: {} " , recipientEmails.toString());
+        //log.info("\n Recipient Emails :: {} " , recipientEmails.toString());
         EmailData emailData = new EmailData();
         emailData.setMailMessage(msgBody.toString());
         emailData.setAttachment(false);
