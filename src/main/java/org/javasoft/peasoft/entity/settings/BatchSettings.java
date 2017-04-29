@@ -41,7 +41,7 @@ public class BatchSettings implements Serializable {
     
     private int batchB_Stop;
         
-    @OneToOne ()
+    @OneToOne
     private School examCentre;
     
     @Future

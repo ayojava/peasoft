@@ -14,4 +14,7 @@ public interface SMSTemplate {
     public static final String SMS_TEMPLATE_FILE ="org.javasoft.peasoft.i18n.smsTemplate";
     
     public static final String REGISTRATION_DETAILS_SMS_TEMPLATE ="{registrationDetails.sms}";
+    
+    public static final String BATCH_DETAILS_SMS_TEMPLATE ="{batchDetails.sms}";
+    //batchDetails.sms
 }

@@ -8,16 +8,18 @@ package org.javasoft.peasoft.service;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateFormatUtils;
-import org.javasoft.peasoft.beans.core.GenericBean;
 import org.javasoft.peasoft.beans.core.util.EmailUtilBean;
+import org.javasoft.peasoft.beans.core.util.SMSUtilBean;
 import static org.javasoft.peasoft.constants.PeaResource.BATCH_A;
 import static org.javasoft.peasoft.constants.PeaResource.EXAM_BATCH_FOLDER;
 import static org.javasoft.peasoft.constants.PeaResource.FULL_DATE_FORMAT;
+import static org.javasoft.peasoft.constants.PeaResource.FULL_DATE_FORMAT_SMS;
 import static org.javasoft.peasoft.constants.PeaResource.PENDING;
 import static org.javasoft.peasoft.constants.PeaResource.SEPARATOR;
 import org.javasoft.peasoft.entity.core.Student;
 import org.javasoft.peasoft.entity.core.StudentRecord;
 import org.javasoft.peasoft.entity.data.EmailData;
+import org.javasoft.peasoft.entity.data.SMSData;
 import org.javasoft.peasoft.entity.settings.BatchSettings;
 import static org.javasoft.peasoft.utils.template.EmailTemplate.EXAMINATION_CENTER_SUBJECT_TEMPLATE;
 import static org.javasoft.peasoft.utils.template.EmailTemplate.EXAMINATION_CENTER_TOP_TEMPLATE;
@@ -39,7 +41,7 @@ import static org.javasoft.peasoft.utils.template.EmailTemplate.OUTER_TABLE_TWIT
 import static org.javasoft.peasoft.utils.template.EmailTemplate.OUTER_TABLE_WEBSITE_TEMPLATE;
 import static org.javasoft.peasoft.utils.template.EmailTemplate.TABLE_ROW_EVEN_TEMPLATE;
 import static org.javasoft.peasoft.utils.template.EmailTemplate.TABLE_ROW_ODD_TEMPLATE;
-import org.omnifaces.util.Beans;
+import static org.javasoft.peasoft.utils.template.SMSTemplate.BATCH_DETAILS_SMS_TEMPLATE;
 
 /**
  *
@@ -47,10 +49,31 @@ import org.omnifaces.util.Beans;
  */
 @Slf4j
 public class ExamBatchService {
+    
+    public SMSData generateNotificationSMS(SMSUtilBean smsUtilBean, StudentRecord studentRecord , BatchSettings batchSetting){
+        
+        Student studentObj = studentRecord.getStudent();
+        String schoolDesc = studentRecord.getSchool().getName() + " " + studentRecord.getSchool().getAddressTemplate().getNearestBusStop();
+        
+        String startTime  = (StringUtils.equalsIgnoreCase(studentRecord.getExamBatch(), BATCH_A))? 
+                batchSetting.getBatchA_Start() +" a.m" : batchSetting.getBatchB_Start() + " p.m ";
+        
+          String smsMsg = smsUtilBean.showMessageFromTemplate(BATCH_DETAILS_SMS_TEMPLATE, 
+                studentObj.getFullName(),DateFormatUtils.format(batchSetting.getExamDate(), FULL_DATE_FORMAT_SMS),
+                schoolDesc,startTime,studentRecord.getExamBatch());
+        
+        log.info("smsMsg :: {} " , smsMsg);
+        
+        SMSData smsData = new SMSData();
+        smsData.setMessage(smsMsg);
+        smsData.setStatus(PENDING);
+        
+        smsData.setStudent(studentObj);
+        return smsData;
+        //  Good Day %s,The Quiz and Interview will come up on %s  at %s ,Your Exam slot starts at %s - %s. 
+    }
 
     public EmailData generateNotificationEmail(EmailUtilBean emailUtilBean, StudentRecord studentRecord, BatchSettings batchSetting) {
-
-        GenericBean genericBean = Beans.getInstance(GenericBean.class);
 
         Student studentObj = studentRecord.getStudent();
 
@@ -78,6 +101,7 @@ public class ExamBatchService {
         } else {
             timeAlloted = batchSetting.getBatchB_Start() + " p.m   - " + batchSetting.getBatchB_Stop() + " p.m";
         }
+        
         msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(TABLE_ROW_EVEN_TEMPLATE, " Time Alloted : ", timeAlloted));
         
         msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(TABLE_ROW_ODD_TEMPLATE, " Date  : ", DateFormatUtils.format(batchSetting.getExamDate(), FULL_DATE_FORMAT)));
