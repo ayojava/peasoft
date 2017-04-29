@@ -22,29 +22,52 @@ and open the template in the editor.
                                 <div class="row default-row-padding">
                                     <div class="col-md-12">
                                         <span class="text-center">
-                                            Interview Slot Settings
+                                            Interview Slot Settings (AM / PM Hour Format)
                                         </span>
                                     </div>
                                 </div>
                                 <div class="row default-row-padding">
-                                    <pnx:primeDIV labelDiv="col-md-2" labelID="slotsLbl" label="Slots : "
-                                                  contentDiv="col-md-2" targetID="slotsTxt">
-                                        <p:inputText id="slotsTxt" maxlength="3" size="5" value="#{envSettingsPageBean.envSettings.slots}">
-                                            <f:validateLongRange minimum="1" maximum="4"/>
+                                    <pnx:primeDIV labelDiv="col-md-2" labelID="batchAStartLbl" label="Batch A Start : "
+                                                  contentDiv="col-md-1" targetID="batchAStartTxt">
+                                        <p:inputText id="batchAStartTxt" maxlength="3" size="4" value="#{envSettingsPageBean.envSettings.batchSettings.batchA_Start}">
+                                            <f:validateLongRange minimum="1" maximum="24"/>
                                         </p:inputText>
                                     </pnx:primeDIV>
-                                    <pnx:primeDIV labelDiv="col-md-2" labelID="startTimeLbl" label="Start Time : "
-                                                  contentDiv="col-md-2" targetID="startTimeTxt">
-                                        <p:inputText id="startTimeTxt" maxlength="3" size="5" value="#{envSettingsPageBean.envSettings.startTime}">
-                                            <f:validateLongRange minimum="5" maximum="24"/>
+                                    <pnx:primeDIV labelDiv="col-md-2" labelID="batchAEndLbl" label="Batch A End : "
+                                                  contentDiv="col-md-1" targetID="batchAEndTxt">
+                                        <p:inputText id="batchAEndTxt" maxlength="3" size="4" value="#{envSettingsPageBean.envSettings.batchSettings.batchA_Stop}">
+                                            <f:validateLongRange minimum="1" maximum="24"/>
                                         </p:inputText>
                                     </pnx:primeDIV>
-                                    <pnx:primeDIV labelDiv="col-md-2" labelID="durationLbl" label="Duration : "
-                                                  contentDiv="col-md-2" targetID="durationTxt">
-                                        <p:inputText id="durationTxt" maxlength="3" size="5" value="#{envSettingsPageBean.envSettings.slotDuration}">
-                                            <f:validateLongRange minimum="1" maximum="4"/>
+                                    <pnx:primeDIV labelDiv="col-md-2" labelID="batchBStartLbl" label="Batch B Start : "
+                                                  contentDiv="col-md-1" targetID="batchBStartTxt">
+                                        <p:inputText id="batchBStartTxt" maxlength="3" size="4" value="#{envSettingsPageBean.envSettings.batchSettings.batchB_Start}">
+                                            <f:validateLongRange minimum="1" maximum="24"/>
                                         </p:inputText>
+                                    </pnx:primeDIV>
+                                    <pnx:primeDIV labelDiv="col-md-2" labelID="batchBEndLbl" label="Batch B End : "
+                                                  contentDiv="col-md-1" targetID="batchBEndTxt">
+                                        <p:inputText id="batchBEndTxt" maxlength="3" size="4" value="#{envSettingsPageBean.envSettings.batchSettings.batchB_Stop}">
+                                            <f:validateLongRange minimum="1" maximum="24"/>
+                                        </p:inputText>
+                                    </pnx:primeDIV>
 
+                                </div>
+                                <div class="row default-row-padding">
+                                    <pnx:primeDIV labelDiv="col-md-2" labelID="schoolLbl" label="Exam Centre  : "
+                                                  contentDiv="col-md-4" targetID="selExamCentre">
+                                        <p:selectOneMenu id="selExamCentre" value="#{envSettingsPageBean.envSettings.batchSettings.examCentre}" required="true"
+                                                         converter="omnifaces.SelectItemsConverter">
+                                            <f:selectItem itemLabel="-- Select--" itemValue="#{null}" />
+                                            <f:selectItems value="#{envSettingsPageBean.schools}" var="aSchool" itemLabel="#{aSchool.name}" itemValue="#{aSchool}"/>
+                                        </p:selectOneMenu>
+
+                                    </pnx:primeDIV>
+                                    <pnx:primeDIV labelDiv="col-md-2" labelID="examDate" label="Exam Date  : "
+                                                  contentDiv="col-md-4" targetID="selExamDate">
+                                        <p:calendar id="selExamDate" value="#{envSettingsPageBean.envSettings.batchSettings.examDate}" effect="clip"
+                                                    showOn="both" navigator="true" required="true"
+                                                    yearRange="c+0:c+0"/>
                                     </pnx:primeDIV>
                                 </div>
                                 <div class="row default-row-padding">

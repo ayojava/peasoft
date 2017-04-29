@@ -6,6 +6,7 @@
 package org.javasoft.peasoft.beans.envSettings;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.view.ViewScoped;
@@ -15,7 +16,10 @@ import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.javasoft.peasoft.beans.core.AbstractBean;
+import org.javasoft.peasoft.ejb.school.SchoolFacade;
 import org.javasoft.peasoft.ejb.settings.EnvSettingsFacade;
+import org.javasoft.peasoft.entity.core.School;
+import org.javasoft.peasoft.entity.settings.BatchSettings;
 import org.javasoft.peasoft.entity.settings.EmailSettings;
 import org.javasoft.peasoft.entity.settings.EnvSettings;
 import org.javasoft.peasoft.entity.settings.SMSSettings;
@@ -35,6 +39,12 @@ public class EnvSettingsPageBean extends AbstractBean implements Serializable {
     
     @EJB
     private EnvSettingsFacade envSettingsFacade;
+    
+    @Getter
+    private List<School> schools;
+
+    @EJB
+    private SchoolFacade schoolFacade;
 
     @Override
     @PostConstruct
@@ -52,8 +62,13 @@ public class EnvSettingsPageBean extends AbstractBean implements Serializable {
                 envSettings.setSmsSettings(smsSettings);
                 EmailSettings emailSettings = new EmailSettings();
                 envSettings.setEmailSettings(emailSettings);
+                BatchSettings batchSettings = new BatchSettings();
+                School examCentre = new School();
+                batchSettings.setExamCentre(examCentre);
+                envSettings.setBatchSettings(batchSettings);
             }
             //log.info("EnvSettings :: {} " ,  envSettings);
+            schools = schoolFacade.findAll("name");
             super.setPageResource(appendFolderPath(ENV_SETTINGS_FOLDER, EDIT_ENV_SETTINGS));
         }else  if (StringUtils.equals(VIEW_HOME_PAGE, pageResource)) {
             setHomePageResource();

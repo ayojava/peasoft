@@ -100,7 +100,7 @@ public class StudentPageBean extends AbstractBean implements Serializable {
             student = new Student();
             student.setParent(parent);
             //schools = schoolFacade.fetchJoinSchools();
-            schools = schoolFacade.findAll();
+            schools = schoolFacade.findAll("name");
             super.setPageResource(appendFolderPath(STUDENT_FOLDER, NEW_STUDENT));
         } else if (StringUtils.equals(EDIT_STUDENT, pageResource)) {
             schools = schoolFacade.findAll();

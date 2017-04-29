@@ -52,9 +52,7 @@ public class School implements Serializable {
     
     @ColumnTransformer(write = "UPPER(?)")
     private String name ;
-    
-    private boolean examVenue;
-    
+       
     @Valid
     @Column
     @Embedded

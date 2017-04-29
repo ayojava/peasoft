@@ -20,22 +20,17 @@ and open the template in the editor.
                             <div class="default-page-border">
                                 <div class="row default-row-padding">
                                     <pnx:primeDIV labelDiv="col-md-2" labelID="nameLbl" label="School Name : "
-                                                  contentDiv="col-md-7" targetID="nameTxt">
-                                        <p:inputText id="nameTxt" required="true" autocomplete="off" size="70"
+                                                  contentDiv="col-md-4" targetID="nameTxt">
+                                        <p:inputText id="nameTxt" required="true" autocomplete="off" size="40"
                                                      value="#{schoolPageBean.school.name}"/>
                                     </pnx:primeDIV>
-                                    <pnx:primeDIV labelDiv="col-md-2" labelID="venueLbl" label="Exam Venue : "
-                                                  contentDiv="col-md-1" targetID="venueChkBox">
-                                        <p:selectBooleanCheckbox id="venueChkBox" value="#{schoolPageBean.school.examVenue}"/>
-                                    </pnx:primeDIV>
-                                </div>
-                                <div class="row default-row-padding">
                                     <pnx:primeDIV labelDiv="col-md-2" labelID="streetLbl" label="Street : "
-                                                  contentDiv="col-md-10" targetID="streetTxt">
-                                        <p:inputText id="streetTxt" required="true" autocomplete="off" size="100"
+                                                  contentDiv="col-md-4" targetID="streetTxt">
+                                        <p:inputText id="streetTxt" required="true" autocomplete="off" size="40"
                                                      value="#{schoolPageBean.school.addressTemplate.street}"/>
                                     </pnx:primeDIV>
                                 </div>
+                                
                                 <div class="row default-row-padding">
                                     <pnx:primeDIV labelDiv="col-md-2" labelID="cityLbl" label="City : "
                                                   contentDiv="col-md-4" targetID="cityTxt">

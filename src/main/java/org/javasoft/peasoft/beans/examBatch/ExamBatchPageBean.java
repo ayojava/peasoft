@@ -18,6 +18,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.javasoft.peasoft.beans.core.AbstractBean;
 import org.javasoft.peasoft.ejb.data.NotificationFacade;
 import org.javasoft.peasoft.ejb.examBatch.ExamBatchFacade;
+import org.javasoft.peasoft.entity.core.School;
 import org.javasoft.peasoft.entity.core.StudentRecord;
 import org.omnifaces.util.Messages;
 
@@ -32,11 +33,17 @@ public class ExamBatchPageBean extends AbstractBean implements Serializable {
 
     @Getter
     private List<StudentRecord> studentRecords;
+    
+    @Getter
+    private List<School> schools;
 
     private String batch;
     
     @Getter
-    private int count;
+    private int notificationCnt;
+    
+    @Getter
+    private int guidelineCnt;
 
     @EJB
     private ExamBatchFacade examBatchFacade;
@@ -56,7 +63,8 @@ public class ExamBatchPageBean extends AbstractBean implements Serializable {
             batch = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("batch");
             log.info("Batch ::: {} ", batch);
             studentRecords = examBatchFacade.findStudentRecordByBatch(batch);
-            count = notificationFacade.pendingNotificationCount();
+            notificationCnt = notificationFacade.pendingNotificationCount();
+            guidelineCnt= notificationFacade.pendingGuidelinesCount();
             super.setPageResource(appendFolderPath(EXAM_BATCH_FOLDER, LIST_EXAM_BATCH));
         } else if (StringUtils.equals(VIEW_HOME_PAGE, pageResource)) {
             setHomePageResource();
@@ -91,8 +99,9 @@ public class ExamBatchPageBean extends AbstractBean implements Serializable {
     
     }
     
-    public void sendNotification(){
+    public void scheduleNotification(){
     
+        //get a list of pending student records
     }
     
     private void cleanup() {

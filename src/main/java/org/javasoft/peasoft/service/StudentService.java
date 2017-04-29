@@ -74,7 +74,7 @@ public class StudentService {
         msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(OUTER_TABLE_OPEN_TABLE_TEMPLATE));
         msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(OUTER_TABLE_OPEN_BODY_TEMPLATE));
         
-        msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(REGISTRATION_DETAILS_TOP__TEMPLATE,studentObj.getSurname()));
+        msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(REGISTRATION_DETAILS_TOP__TEMPLATE,studentObj.getFullName()));
         
         msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(INNER_TABLE_TOP_TEMPLATE));
         
@@ -132,7 +132,7 @@ public class StudentService {
         /*
         log.info("\nMail Subject :: {}\n\n " , mailSubject);
         */
-        log.info("Mail Body :: {}\n\n " , msgBody.toString());
+        //log.info("Mail Body :: {}\n\n " , msgBody.toString());
         
         StringBuilder recipientEmails = new StringBuilder();
         recipientEmails= recipientEmails.append(studentObj.getEmail());

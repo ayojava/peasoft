@@ -38,6 +38,8 @@ public class Notification implements Serializable {
     
     private boolean resultNotification;
     
+    private boolean guidelineNotification;
+    
     @OneToOne
     private StudentRecord studentRecord;
     

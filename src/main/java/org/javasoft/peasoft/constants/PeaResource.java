@@ -89,6 +89,8 @@ public interface PeaResource {
     
     public static final String DISPLAY_DATE_FORMAT_DAYS = "dd-MM-yyyy";
     
+    public static final String FULL_DATE_FORMAT = "EEEE dd MMMM yyyy";
+    
     public static final String SCHOOL_FOLDER ="school";
     
     public static final String STUDENT_FOLDER ="student";

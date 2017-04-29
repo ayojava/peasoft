@@ -33,4 +33,11 @@ public class NotificationFacade extends GenericDAO<Notification, Long>{
         criteria.setProjection(Projections.rowCount());
         return (criteria.list().isEmpty() ? 0 : (Integer) criteria.list().get(0));
     }
+    
+    public int pendingGuidelinesCount(){
+        Criteria criteria = getCriteria();
+        criteria.add(Restrictions.eq("guidelineNotification", false));
+        criteria.setProjection(Projections.rowCount());
+        return (criteria.list().isEmpty() ? 0 : (Integer) criteria.list().get(0));
+    }
 }
