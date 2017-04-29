@@ -27,6 +27,7 @@ public class StudentRecordFacade extends GenericDAO<StudentRecord, Long>{
         super(StudentRecord.class);
     }
     
+    //will not be necessary, just do a limit query
     public List<StudentRecord> markResults(double cutOffMark){
         List<StudentRecord> allRecords = findAll();
         

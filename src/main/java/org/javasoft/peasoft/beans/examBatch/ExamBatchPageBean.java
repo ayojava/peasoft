@@ -16,6 +16,7 @@ import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.javasoft.peasoft.beans.core.AbstractBean;
+import org.javasoft.peasoft.ejb.data.NotificationFacade;
 import org.javasoft.peasoft.ejb.examBatch.ExamBatchFacade;
 import org.javasoft.peasoft.entity.core.StudentRecord;
 import org.omnifaces.util.Messages;
@@ -33,9 +34,15 @@ public class ExamBatchPageBean extends AbstractBean implements Serializable {
     private List<StudentRecord> studentRecords;
 
     private String batch;
+    
+    @Getter
+    private int count;
 
     @EJB
     private ExamBatchFacade examBatchFacade;
+    
+    @EJB
+    private NotificationFacade notificationFacade;
 
     @Override
     @PostConstruct
@@ -49,6 +56,7 @@ public class ExamBatchPageBean extends AbstractBean implements Serializable {
             batch = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("batch");
             log.info("Batch ::: {} ", batch);
             studentRecords = examBatchFacade.findStudentRecordByBatch(batch);
+            count = notificationFacade.pendingNotificationCount();
             super.setPageResource(appendFolderPath(EXAM_BATCH_FOLDER, LIST_EXAM_BATCH));
         } else if (StringUtils.equals(VIEW_HOME_PAGE, pageResource)) {
             setHomePageResource();
