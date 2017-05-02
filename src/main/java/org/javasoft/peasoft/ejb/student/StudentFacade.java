@@ -16,6 +16,7 @@ import org.apache.commons.lang3.StringUtils;
 import static org.javasoft.peasoft.constants.PeaResource.BATCH_A;
 import static org.javasoft.peasoft.constants.PeaResource.BATCH_B;
 import org.javasoft.peasoft.ejb.dao.GenericDAO;
+import org.javasoft.peasoft.ejb.data.NotificationFacade;
 import org.javasoft.peasoft.ejb.school.SchoolFacade;
 import org.javasoft.peasoft.ejb.settings.EnvSettingsFacade;
 import org.javasoft.peasoft.ejb.studentRecord.StudentRecordFacade;
@@ -23,6 +24,7 @@ import org.javasoft.peasoft.entity.core.Marks;
 import org.javasoft.peasoft.entity.core.School;
 import org.javasoft.peasoft.entity.core.Student;
 import org.javasoft.peasoft.entity.core.StudentRecord;
+import org.javasoft.peasoft.entity.data.Notification;
 import org.javasoft.peasoft.entity.settings.EnvSettings;
 import org.javasoft.peasoft.utils.GlobalRegistry;
 
@@ -45,6 +47,9 @@ public class StudentFacade extends GenericDAO<Student, Long> {
     
     @EJB
     private EnvSettingsFacade envSettingsFacade;
+    
+    @EJB
+    private NotificationFacade notificationFacade;
 
     public StudentFacade() {
         super(Student.class);
@@ -109,6 +114,10 @@ public class StudentFacade extends GenericDAO<Student, Long> {
 
         recordEntity.setStudent(studentObj);
         studentRecordFacade.edit(recordEntity);
+        
+        Notification notification = new Notification();
+        notification.setStudentRecord(recordEntity);
+        notificationFacade.persist(notification);
 
         //globalRegistry.updateStudentCount();
         

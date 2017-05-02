@@ -56,7 +56,7 @@ public class StudentService {
         
         SMSData smsData = new SMSData();
         smsData.setMessage(smsMsg);
-        smsData.setStatus(PENDING);
+        //smsData.setStatus(PENDING);
         
         smsData.setStudent(studentObj);
         return smsData;
@@ -151,7 +151,7 @@ public class StudentService {
         emailData.setRecipientEmail(recipientEmails.toString()); //
         emailData.setRecipientID(studentObj.getId());
         emailData.setRecipientName(studentObj.getFullName());
-        emailData.setStatus(PENDING);
+        
         emailData.setMailSubject(mailSubject);
         emailData.setRecipientType(STUDENT_FOLDER);
         return emailData;

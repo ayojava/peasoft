@@ -66,7 +66,7 @@ public class ExamBatchService {
         
         SMSData smsData = new SMSData();
         smsData.setMessage(smsMsg);
-        smsData.setStatus(PENDING);
+        //smsData.setStatus(PENDING);
         
         smsData.setStudent(studentObj);
         return smsData;
@@ -140,7 +140,7 @@ public class ExamBatchService {
         emailData.setRecipientEmail(recipientEmails.toString()); //
         emailData.setRecipientID(studentObj.getId());
         emailData.setRecipientName(studentObj.getFullName());
-        emailData.setStatus(PENDING);
+        
         emailData.setMailSubject(mailSubject);
         emailData.setMailMessage(msgBody.toString());
         emailData.setRecipientType(EXAM_BATCH_FOLDER);

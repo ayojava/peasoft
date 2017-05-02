@@ -139,17 +139,17 @@ public class SchoolPageBean extends AbstractBean implements Serializable {
     }
     
     public void generateAllSchoolsList(){
-        if(schools==null || schools.isEmpty()){
+        if(schools == null || schools.isEmpty()){
             Messages.addGlobalWarn("No School Available");
             return;
         }
-        String fileName = DateFormatUtils.format(new Date(), "yyyyMMdd")+"_"+ RandomStringUtils.randomNumeric(5)+".xls"; 
+        String fileName = DateFormatUtils.format(new Date(), DISPLAY_DATE_FORMAT_DAYS)+"_"+ RandomStringUtils.randomNumeric(5)+".xls"; 
         asyncSchoolFacade.asyncSchoolListExcelDocument(fileName);
         Messages.addGlobalInfo("Excel Sheet In Progress");
     }
     
     public void generateResultBySchool(){
-        String fileName = DateFormatUtils.format(new Date(), "yyyyMMdd")+"_"+ RandomStringUtils.randomNumeric(5)+".xls"; 
+        String fileName = DateFormatUtils.format(new Date(), DISPLAY_DATE_FORMAT_DAYS)+"_"+ RandomStringUtils.randomNumeric(5)+".xls"; 
         asyncSchoolFacade.asyncSchoolAndStudentsRecordsExcelDocument(fileName, school);
         Messages.addGlobalInfo("Excel Sheet In Progress");
     }

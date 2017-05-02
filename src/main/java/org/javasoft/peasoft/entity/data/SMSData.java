@@ -14,12 +14,14 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
+import javax.persistence.PrePersist;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import static org.javasoft.peasoft.constants.PeaResource.PENDING;
 import org.javasoft.peasoft.entity.core.Student;
 
 /**
@@ -55,7 +57,9 @@ public class SMSData implements Serializable {
     @CreationTimestamp
     private Date createDate;
     
-    @Temporal(TemporalType.TIMESTAMP)
-    @UpdateTimestamp
-    private Date lastUpdateDate;
+        
+    @PrePersist
+    public void prePersist(){
+        setStatus(PENDING);
+    }
 }

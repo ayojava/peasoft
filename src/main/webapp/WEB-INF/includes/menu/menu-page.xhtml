@@ -46,6 +46,15 @@ and open the template in the editor.
                                     update=":homeForm" id="notSelectedMenu"/>
                     </p:submenu>
                     <p:separator />
+                    <p:submenu id="notificationsModule" label="Messages"  icon="fa fa-envelope fa-1g">
+                        <p:menuitem value="Email " icon="fa fa-inbox fa-1g" update=":homeForm" id="email"
+                                    action="#{messagesPageBean.setPageResource(peaResource.LIST_EMAILS)}"/>
+                            
+                        <p:separator />
+                        <p:menuitem value="SMS" icon="fa fa-sort fa-1g" update=":homeForm" id="sms"
+                                    action="#{messagesPageBean.setPageResource(peaResource.LIST_SMS)}"/>
+                    </p:submenu>
+                    <p:separator />
                     <p:menuitem value="Settings"  icon="fa fa-wrench fa-1g" update=":homeForm"
                                 action="#{envSettingsPageBean.setPageResource(peaResource.EDIT_ENV_SETTINGS)}"/>
                 </p:tieredMenu>

@@ -58,6 +58,14 @@ public interface PeaResource {
     /*=========== STUDENT-RECORD ===========*/
     public static final String LIST_EXAM_BATCH = "list-exam-batch";
     
+    public static final String LIST_EXAM_BATCH_OTHER = "list-exam-batch-other";
+    
+    /*=========== EMAIL ===========*/
+    public static final String LIST_EMAILS = "list-emails";
+    
+    /*=========== SMS ===========*/
+    public static final String LIST_SMS = "list-sms";
+    
     //===============================
     public static final String ACTIVE ="AC";
     
@@ -101,6 +109,8 @@ public interface PeaResource {
     
     public static final String EXAM_BATCH_FOLDER ="exam-batch";
     
+    public static final String MESSAGES_FOLDER ="messages";
+    
     public static final String ENV_SETTINGS_FOLDER ="env-settings";
     
     public static final String SENDER ="PEAF";
@@ -114,6 +124,8 @@ public interface PeaResource {
     public static final String BATCH_B ="B";
     
     public static final String SEPARATOR ="|";
+    
+    public static final int BATCH_SIZE = 50;
     
     
     

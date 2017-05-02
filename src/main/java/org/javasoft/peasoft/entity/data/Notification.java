@@ -13,6 +13,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
+import javax.persistence.PrePersist;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import lombok.Data;
@@ -47,5 +48,10 @@ public class Notification implements Serializable {
     @Column(updatable = false)
     @CreationTimestamp
     private Date createDate;
+    
+    @PrePersist
+    public void init(){
+        batchNotification = resultNotification = guidelineNotification = false;
+    }
     
 }

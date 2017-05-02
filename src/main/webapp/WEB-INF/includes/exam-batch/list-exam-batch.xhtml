@@ -14,7 +14,7 @@ and open the template in the editor.
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <body>
         <ui:composition>
-            <pnx:pageLayout pageTitle="Batch - #{param.batch} " headerClass="pnx-page-title-text" requiredIcon="false" 
+            <pnx:pageLayout pageTitle="Batch - #{examBatchPageBean.batch} " headerClass="pnx-page-title-text" requiredIcon="false" 
                             pageSeparatorTop="true" pageSeparatorBottom="true" pageMode="list">
                 <ui:define name="pageContent">
                     <ui:decorate template="exam-batch-page.xhtml">
@@ -27,14 +27,14 @@ and open the template in the editor.
                                      icon="fa fa-fw fa-file-excel-o" title="Generate List in Excel "/> 
                     <c:if test="#{examBatchPageBean.notificationCnt gt 0}">
                         <p:spacer width="10px"/>
-                        <p:commandButton styleClass="pnx-round-button" id="sendNotificationBtn" value="Email/SMS [#{examBatchPageBean.count}]" 
+                        <p:commandButton styleClass="pnx-round-button" id="sendNotificationBtn" value="Email/SMS [#{examBatchPageBean.notificationCnt}]" 
                                          ajax="false" update="@form" action="#{examBatchPageBean.scheduleNotification()}" 
                                          icon="fa fa-fw fa-bell-o" title="Schedule Notification"/> 
                     </c:if>
                     <c:if test="#{examBatchPageBean.guidelineCnt gt 0}">
                         <p:spacer width="10px"/>
-                        <p:commandButton styleClass="pnx-round-button" id="sendGuidelineBtn" value="Guidelines [#{examBatchPageBean.count}]" 
-                                         ajax="false" update="@form" action="#{examBatchPageBean.scheduleNotification()}" 
+                        <p:commandButton styleClass="pnx-round-button" id="sendGuidelineBtn" value="Guidelines [#{examBatchPageBean.guidelineCnt}]" 
+                                         ajax="false" update="@form" action="#{examBatchPageBean.scheduleGuidelines()}" 
                                          icon="fa fa-fw fa-bell-o" title="Schedule Guideline"/> 
                     </c:if>
 

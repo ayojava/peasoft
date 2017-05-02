@@ -6,13 +6,21 @@
 package org.javasoft.peasoft.entity.data;
 
 import java.io.Serializable;
+import java.util.Date;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
+import javax.persistence.PrePersist;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+import static org.javasoft.peasoft.constants.PeaResource.PENDING;
 
 /**
  *
@@ -46,5 +54,19 @@ public class EmailData implements Serializable {
     private String recipientType ; // student or school
     
     private Long recipientID;
+    
+    @PrePersist
+    public void prePersist(){
+        setStatus(PENDING);
+    }
+    
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(updatable = false)
+    @CreationTimestamp
+    private Date createDate;
+    
+    @Temporal(TemporalType.TIMESTAMP)
+    @UpdateTimestamp
+    private Date sentDate;
     
 }
