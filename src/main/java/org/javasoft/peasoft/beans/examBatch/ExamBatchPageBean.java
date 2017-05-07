@@ -56,10 +56,10 @@ public class ExamBatchPageBean extends AbstractBean implements Serializable {
     private String batch;
 
     @Getter
-    private int notificationCnt;
+    private Long notificationCnt;
 
     @Getter
-    private int guidelineCnt;
+    private Long guidelineCnt;
 
     @EJB
     private ExamBatchFacade examBatchFacade;

@@ -27,7 +27,6 @@ import lombok.ToString;
 import org.hibernate.annotations.ColumnTransformer;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.Formula;
-import org.hibernate.annotations.OrderBy;
 import org.javasoft.peasoft.entity.templates.AddressTemplate;
 
 /**

@@ -65,12 +65,14 @@ public class StudentFacade extends GenericDAO<Student, Long> {
             studentRecordFacade.edit(record);
         } else {
             log.info("========= Different School Entity ====== ");
+            oldSchoolEntity =schoolFacade.fetchJoinSchoolRecord(oldSchoolEntity);
             oldSchoolEntity.getStudentRecords().remove(record);
             schoolFacade.edit(oldSchoolEntity);
 
             record.setSchool(schoolObj);
             studentRecordFacade.edit(record);
 
+            schoolObj = schoolFacade.fetchJoinSchoolRecord(schoolObj);
             if (schoolObj.getStudentRecords() == null) {
                 List<StudentRecord> allRecords = new ArrayList<>();
                 allRecords.add(record);
@@ -85,12 +87,11 @@ public class StudentFacade extends GenericDAO<Student, Long> {
 
     public Student saveStudent(Student studentObj, StudentRecord record, School schoolObj) {
         globalRegistry = GlobalRegistry.getInstance();
+        log.info("Before Student Update -> [ {} ]" , globalRegistry.getStudentCount());
         globalRegistry.updateStudentCount();
+        log.info("Ater Student Update -> [ {} ]" , globalRegistry.getStudentCount());
         studentObj.setIdentificationNo("SD" + StringUtils.leftPad(String.valueOf(globalRegistry.getStudentCount()), 5, "0"));
-        
-        EnvSettings envSettings = envSettingsFacade.findOne();
-        
-
+       
         Marks markObj = new Marks();
         record.setMarks(markObj);
         record.setExamBatch(globalRegistry.getStudentCount() % 2 == 0 ? BATCH_A : BATCH_B);

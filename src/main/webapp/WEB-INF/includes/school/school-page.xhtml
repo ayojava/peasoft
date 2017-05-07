@@ -94,20 +94,13 @@ and open the template in the editor.
                                            #{schoolPageBean.school.identificationNo}
                                         </span>
                                     </pnx:primeDIV>
-                                    <pnx:primeDIV labelDiv="col-md-2" label="Exam Venue : "   contentDiv="col-md-4">
-                                        <span class="default-page-text">
-                                           #{schoolPageBean.school.examVenue}
-                                        </span>
-                                    </pnx:primeDIV>
-                                </div>
-                                <div class="row default-row-padding">
-                                    <pnx:primeDIV labelDiv="col-md-2" label="School Name : "   contentDiv="col-md-10">
+                                    <pnx:primeDIV labelDiv="col-md-2" label="School Name : "   contentDiv="col-md-4">
                                         <span class="default-page-text">
                                            #{schoolPageBean.school.name}
                                         </span>
                                     </pnx:primeDIV>
-                                    
                                 </div>
+                                
                                 <div class="row default-row-padding">
                                     <pnx:primeDIV labelDiv="col-md-2"  label="Address : " contentDiv="col-md-10" >
                                         <span class="default-page-text">
@@ -181,23 +174,27 @@ and open the template in the editor.
                                     <h:outputText value="#{rowIndex+1}"/>
                                 </p:column>
                                 
-                                <p:column headerText="Student Name" style="text-align: left;width: 340px;">
+                                <p:column headerText="Student Name" style="text-align: left;width: 320px;">
                                     <h:outputText value="#{studentRecord.student.fullName}"/>
                                 </p:column>
                                 
-                                <p:column headerText="Academic Score" style="text-align: center;">
+                                <p:column headerText="Batch" style="text-align: center;">
+                                    <h:outputText value="#{genericBean.batch(studentRecord.examBatch)}"/>
+                                </p:column>
+                                
+                                <p:column headerText="Academic Score" style="text-align: left;">
                                     <h:outputText value="#{studentRecord.marks.totalAcademicScore}"/>
                                 </p:column>
                                 
-                                <p:column headerText="Interview Score" style="text-align: center;">
+                                <p:column headerText="Interview Score" style="text-align: left;">
                                     <h:outputText value="#{studentRecord.marks.totalInterviewScore}"/>
                                 </p:column>
                                 
-                                <p:column headerText="Total Score" style="text-align: center;">
+                                <p:column headerText="Total Score" style="text-align: left;">
                                     <h:outputText value="#{studentRecord.marks.totalScore}"/>
                                 </p:column>
                                 
-                                <p:column headerText="Status" style="text-align: center;">
+                                <p:column headerText="Status" style="text-align: left;">
                                     <h:outputText value="#{genericBean.recordStatus(studentRecord.status)}"/>
                                 </p:column>
                                 

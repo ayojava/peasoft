@@ -52,7 +52,8 @@ public class SingletonFacade {
     private void initCount(){
         int schoolCount = schoolFacade.count();
         int studentCount = studentFacade.count();
-        globalRegistry.setSchoolCount(schoolCount == 0 ? 1 : schoolCount);
-        globalRegistry.setStudentCount(studentCount == 0 ? 1 : studentCount);
+        log.info("School Count -> [ {} ]    Student Count -> [ {} ]" , schoolCount , studentCount);
+        globalRegistry.setSchoolCount(schoolCount);
+        globalRegistry.setStudentCount(studentCount);
     }
 }

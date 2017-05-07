@@ -29,18 +29,18 @@ public class NotificationFacade extends GenericDAO<Notification, Long>{
         super(Notification.class);
     }
     
-    public int pendingNotificationCount(){
+    public Long pendingNotificationCount(){
         Criteria criteria = getCriteria();
         criteria.add(Restrictions.eq("batchNotification", false));
         criteria.setProjection(Projections.rowCount());
-        return (criteria.list().isEmpty() ? 0 : (Integer) criteria.list().get(0));
+        return (criteria.list().isEmpty() ? 0 : (Long) criteria.list().get(0));
     }
     
-    public int pendingGuidelinesCount(){
+    public Long pendingGuidelinesCount(){
         Criteria criteria = getCriteria();
         criteria.add(Restrictions.eq("guidelineNotification", false));
         criteria.setProjection(Projections.rowCount());
-        return (criteria.list().isEmpty() ? 0 : (Integer) criteria.list().get(0));
+        return (criteria.list().isEmpty() ? 0 : (Long) criteria.list().get(0));
     }
     
     public List<Notification> getPendingNotification(){

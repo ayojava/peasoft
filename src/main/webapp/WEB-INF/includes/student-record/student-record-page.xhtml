@@ -172,14 +172,19 @@ and open the template in the editor.
                         <ui:define name="properties">
                             <div class="default-page-border">
                                 <div class="row default-row-padding">
-                                    <pnx:primeDIV labelDiv="col-md-2" label="Identification No : "   contentDiv="col-md-4">
+                                    <pnx:primeDIV labelDiv="col-md-2" label="Identification No : "   contentDiv="col-md-2">
                                         <span class="default-page-text">
                                             #{studentRecordPageBean.studentRecord.identificationNo}
                                         </span>
                                     </pnx:primeDIV>
-                                    <pnx:primeDIV labelDiv="col-md-2" label="Status : "   contentDiv="col-md-4">
+                                    <pnx:primeDIV labelDiv="col-md-2" label="Batch : "   contentDiv="col-md-2">
                                         <span class="default-page-text">
-                                            #{studentRecordPageBean.studentRecord.status}
+                                            #{genericBean.batch(studentRecordPageBean.studentRecord.examBatch)}
+                                        </span>
+                                    </pnx:primeDIV>
+                                    <pnx:primeDIV labelDiv="col-md-2" label="Status : "   contentDiv="col-md-2">
+                                        <span class="default-page-text">
+                                            #{genericBean.recordStatus(studentRecordPageBean.studentRecord.status)}
                                         </span>
                                     </pnx:primeDIV>
                                 </div>
@@ -192,7 +197,7 @@ and open the template in the editor.
                                     </pnx:primeDIV>
                                     <pnx:primeDIV labelDiv="col-md-2" label="Gender : "   contentDiv="col-md-4">
                                         <span class="default-page-text">
-                                            #{studentRecordPageBean.studentRecord.student.gender}
+                                            #{genericBean.gender(studentRecordPageBean.studentRecord.student.gender)}
                                         </span>
                                     </pnx:primeDIV>
                                 </div>
@@ -205,7 +210,8 @@ and open the template in the editor.
                                     </pnx:primeDIV>
                                     <pnx:primeDIV labelDiv="col-md-2" label="Phone No : "   contentDiv="col-md-4">
                                         <span class="default-page-text">
-                                            #{studentRecordPageBean.studentRecord.student.phoneNo}
+                                            #{studentRecordPageBean.studentRecord.student.phoneNo} ,
+                                            #{studentRecordPageBean.studentRecord.student.otherPhoneNo}
                                         </span>
                                     </pnx:primeDIV>    
                                 </div>
@@ -234,7 +240,7 @@ and open the template in the editor.
                                     </pnx:primeDIV>
                                     <pnx:primeDIV labelDiv="col-md-2" label="Department : "   contentDiv="col-md-4">
                                         <span class="default-page-text">
-                                            #{studentRecordPageBean.studentRecord.department}
+                                            #{genericBean.department(studentRecordPageBean.studentRecord.department)}
                                         </span>
                                     </pnx:primeDIV>
 
@@ -334,7 +340,7 @@ and open the template in the editor.
                                     </pnx:primeDIV>
                                     <pnx:primeDIV labelDiv="col-md-2" label="Grade  : "   contentDiv="col-md-4">
                                         <span class="default-page-text">
-                                            #{studentRecordPageBean.studentRecord.grade}
+                                            #{genericBean.obtainedGrade(studentRecordPageBean.studentRecord.grade)}
                                         </span>
                                     </pnx:primeDIV>
                                 </div>
@@ -354,10 +360,14 @@ and open the template in the editor.
                                     <h:outputText value="#{rowIndex+1}"/>
                                 </p:column>
 
-                                <p:column headerText="Full Name" style="text-align: left;width: 340px;">
+                                <p:column headerText="Full Name" style="text-align: left;width: 300px;">
                                     <h:outputText value="#{aRecord.student.fullName}"/>
                                 </p:column>
 
+                                <p:column headerText="Batch" style="text-align: center;">
+                                    <h:outputText value="#{genericBean.batch(aRecord.examBatch)}"/>
+                                </p:column>
+                                
                                 <p:column headerText="Academic Score" style="text-align: center;">
                                     <h:outputText value="#{aRecord.marks.totalAcademicScore}"/>
                                 </p:column>

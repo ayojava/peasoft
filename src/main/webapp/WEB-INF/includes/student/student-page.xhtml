@@ -19,12 +19,12 @@ and open the template in the editor.
                             <div class="default-page-border">
                                 <div class="row default-row-padding">
                                     <pnx:primeDIV labelDiv="col-md-2" labelID="nameLbl" label="Surname : "
-                                                  contentDiv="col-md-4" targetID="surnameTxt">
-                                        <p:inputText id="surnameTxt" required="true" autocomplete="off" size="40"
+                                                  contentDiv="col-md-3" targetID="surnameTxt">
+                                        <p:inputText id="surnameTxt" required="true" autocomplete="off" size="30"
                                                      value="#{studentPageBean.student.surname}"/>
                                     </pnx:primeDIV>
                                     <pnx:primeDIV labelDiv="col-md-2" labelID="otherNameLbl" label="Other Names : "
-                                                  contentDiv="col-md-4" targetID="othernamesTxt">
+                                                  contentDiv="col-md-5" targetID="othernamesTxt">
                                         <p:inputText id="othernamesTxt" required="true" autocomplete="off" size="40"
                                                      value="#{studentPageBean.student.othernames}"/>
                                     </pnx:primeDIV>
@@ -55,7 +55,7 @@ and open the template in the editor.
                                     </pnx:primeDIV>
                                     <pnx:primeDIV labelDiv="col-md-2" labelID="emailLbl" label="Email  : "
                                                   contentDiv="col-md-4" targetID="emailTxt">
-                                        <p:inputText id="emailTxt" required="false" autocomplete="off" size="40"
+                                        <p:inputText id="emailTxt" required="true" autocomplete="off" size="40" 
                                                      value="#{studentPageBean.student.email}"
                                                      validatorMessage="Invalid Email Format">
                                             <f:validateRegex 
@@ -139,7 +139,7 @@ and open the template in the editor.
                                         </p:inputText>
                                     </pnx:primeDIV>
 
-                                    <pnx:primeDIV labelDiv="col-md-2" labelID="parentPhoneNoLbl" label="Phone No : "
+                                    <pnx:primeDIV labelDiv="col-md-2" labelID="parentPhoneNoLbl" label="Phone No ( Father ) : "
                                                   contentDiv="col-md-4" targetID="parentPhoneNoTxt">
                                         <p:inputText id="parentPhoneNoTxt" required="true" autocomplete="off" maxlength="11"
                                                      value="#{studentPageBean.student.parent.addressTemplate.contactPhoneNo1}">
@@ -154,7 +154,7 @@ and open the template in the editor.
                                         <p:inputText id="streetTxt" required="true" autocomplete="off" size="40"
                                                      value="#{studentPageBean.student.parent.addressTemplate.street}"/>
                                     </pnx:primeDIV>
-                                    <pnx:primeDIV labelDiv="col-md-2" labelID="parentOtherPhoneNoLbl" label="Other Phone No : "
+                                    <pnx:primeDIV labelDiv="col-md-2" labelID="parentOtherPhoneNoLbl" label="Phone No ( Mother ) : "
                                                   contentDiv="col-md-4" targetID="parentOtherPhoneNoTxt">
                                         <p:inputText id="parentOtherPhoneNoTxt" required="true" autocomplete="off" maxlength="11"
                                                      value="#{studentPageBean.student.parent.addressTemplate.contactPhoneNo2}">
@@ -291,7 +291,8 @@ and open the template in the editor.
                                     </pnx:primeDIV>
                                     <pnx:primeDIV labelDiv="col-md-2" label="Phone No : " contentDiv="col-md-4">
                                         <span class="default-page-text">
-                                            #{studentPageBean.student.parent.addressTemplate.contactPhoneNo1}
+                                            #{studentPageBean.student.parent.addressTemplate.contactPhoneNo1} ,
+                                            #{studentPageBean.student.parent.addressTemplate.contactPhoneNo2}
                                         </span>
                                     </pnx:primeDIV>
                                 </div>
