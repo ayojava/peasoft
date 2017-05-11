@@ -7,6 +7,7 @@ package org.javasoft.peasoft.utils;
 
 import java.io.File;
 import lombok.Data;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  *
@@ -48,5 +49,14 @@ public class GlobalRegistry {
             parentDest.mkdir();
         }
         return new File(parentDest,fileName);
+    }
+    
+    ///home/ayojava/programs/wildfly-9.0/standalone/tmp/vfs/temp/temp1e240292d5ed8f67/content-e7f2aa42b02e46d4 
+    public static void main(String[] args){
+    
+        String realPath="/home/ayojava/programs/wildfly-9.0/standalone/tmp/vfs/temp/temp1e240292d5ed8f67/content-e7f2aa42b02e46d4 ";
+        int position = StringUtils.indexOf(realPath, "tmp");
+        System.out.println("Real Path  " + StringUtils.substring(realPath, 0,position));
+        
     }
 }

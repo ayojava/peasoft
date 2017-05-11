@@ -34,6 +34,8 @@ public interface EmailTemplate {
     public static final String OUTER_TABLE_CLOSE_BODY_TEMPLATE = "{outerTable.closeBodyTag}";
 
     public static final String OUTER_TABLE_OPEN_FOOTER_TEMPLATE = "{outerTable.openFooterTag}";
+    
+    public static final String OUTER_TABLE_GUIDELINE_TEMPLATE = "{outerTable.guideline}";
 
     public static final String OUTER_TABLE_ENQUIRY_TEMPLATE = "{outerTable.enquiry}";
 

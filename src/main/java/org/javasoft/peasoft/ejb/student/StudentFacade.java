@@ -61,10 +61,10 @@ public class StudentFacade extends GenericDAO<Student, Long> {
 
         School oldSchoolEntity = record.getSchool();
         if (Objects.deepEquals(oldSchoolEntity, schoolObj)) {
-            log.info("========= Same School Entity ====== ");
+            
             studentRecordFacade.edit(record);
         } else {
-            log.info("========= Different School Entity ====== ");
+            
             oldSchoolEntity =schoolFacade.fetchJoinSchoolRecord(oldSchoolEntity);
             oldSchoolEntity.getStudentRecords().remove(record);
             schoolFacade.edit(oldSchoolEntity);
@@ -87,9 +87,9 @@ public class StudentFacade extends GenericDAO<Student, Long> {
 
     public Student saveStudent(Student studentObj, StudentRecord record, School schoolObj) {
         globalRegistry = GlobalRegistry.getInstance();
-        log.info("Before Student Update -> [ {} ]" , globalRegistry.getStudentCount());
+        
         globalRegistry.updateStudentCount();
-        log.info("Ater Student Update -> [ {} ]" , globalRegistry.getStudentCount());
+        
         studentObj.setIdentificationNo("SD" + StringUtils.leftPad(String.valueOf(globalRegistry.getStudentCount()), 5, "0"));
        
         Marks markObj = new Marks();

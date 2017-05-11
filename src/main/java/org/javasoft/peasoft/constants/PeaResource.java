@@ -111,6 +111,8 @@ public interface PeaResource {
     
     public static final String MESSAGES_FOLDER ="messages";
     
+    public static final String GUIDELINES_FOLDER ="guidelines";
+    
     public static final String ENV_SETTINGS_FOLDER ="env-settings";
     
     public static final String SENDER ="PEAF";

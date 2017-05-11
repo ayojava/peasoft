@@ -49,4 +49,11 @@ public class NotificationFacade extends GenericDAO<Notification, Long>{
         criteria.setMaxResults(BATCH_SIZE);
         return  criteria.list();
     }
+    
+    public List<Notification> getPendingGuidelines(){
+        Criteria criteria = getCriteria();
+        criteria.add(Restrictions.eq("guidelineNotification", false));
+        criteria.setMaxResults(BATCH_SIZE);
+        return  criteria.list();
+    }
 }

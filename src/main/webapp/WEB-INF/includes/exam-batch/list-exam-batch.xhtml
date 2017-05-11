@@ -27,10 +27,11 @@ and open the template in the editor.
                                      icon="fa fa-fw fa-file-excel-o" title="Generate List in Excel "/> 
                     <c:if test="#{examBatchPageBean.notificationCnt gt 0}">
                         <p:spacer width="10px"/>
-                        <p:commandButton styleClass="pnx-round-button" id="sendNotificationBtn" value="Email/SMS [#{examBatchPageBean.notificationCnt}]" 
+                        <p:commandButton styleClass="pnx-round-button" id="sendNotificationBtn" value="Notifications [#{examBatchPageBean.notificationCnt}]" 
                                          ajax="false" update="@form" action="#{examBatchPageBean.scheduleNotification()}" 
                                          icon="fa fa-fw fa-bell-o" title="Schedule Notification"/> 
                     </c:if>
+                    
                     <c:if test="#{examBatchPageBean.guidelineCnt gt 0}">
                         <p:spacer width="10px"/>
                         <p:commandButton styleClass="pnx-round-button" id="sendGuidelineBtn" value="Guidelines [#{examBatchPageBean.guidelineCnt}]" 

@@ -26,7 +26,8 @@ public class ServletLifecycleEvents implements ServletContextListener{
     public void contextInitialized(ServletContextEvent sce) {
         ServletContext context = sce.getServletContext();
         String realPath = context.getRealPath("/");
-        int position = StringUtils.indexOf(realPath, "wildfly");
+        log.info("Context Path ::: {} ",realPath);
+        int position = StringUtils.indexOf(realPath, "tmp");
         globalRegistry = GlobalRegistry.getInstance();
         globalRegistry.setInitFilePath(StringUtils.substring(realPath, 0,position));
                 

@@ -19,6 +19,7 @@ import org.javasoft.peasoft.beans.core.AbstractBean;
 import static org.javasoft.peasoft.constants.PeaResource.VIEW_HOME_PAGE;
 import org.javasoft.peasoft.ejb.studentRecord.StudentRecordFacade;
 import org.javasoft.peasoft.entity.core.StudentRecord;
+import org.omnifaces.util.Messages;
 
 /**
  *
@@ -66,7 +67,15 @@ public class StudentRecordPageBean extends AbstractBean implements Serializable 
     }
 
     public void editStudentRecord() {
-
+        try {
+            studentRecordFacade.edit(studentRecord);
+            Messages.addGlobalInfo("Edit Operation Successful");
+            cleanup();
+            setPageResource(LIST_STUDENT_RECORDS);
+        } catch (Exception ex) {
+            log.error("An Error has Occurred :::", ex);
+            Messages.addGlobalError("An Error has Occured");
+        }
     }
 
     public void markScores(){

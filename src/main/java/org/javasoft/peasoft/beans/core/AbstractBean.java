@@ -11,6 +11,7 @@ import org.apache.commons.lang3.text.StrBuilder;
 import org.apache.deltaspike.core.api.message.Message;
 import org.apache.deltaspike.core.api.message.MessageContext;
 import org.javasoft.peasoft.constants.PeaResource;
+import org.javasoft.peasoft.utils.GlobalRegistry;
 
 /**
  *
@@ -26,8 +27,10 @@ public abstract class AbstractBean<T> implements PeaResource{
     @Inject
     private NavigatorBean navigatorBean;
     
+    protected GlobalRegistry registry ;
+    
     protected void init() {
-        
+        registry =GlobalRegistry.getInstance();
     }
     
     private void setContentPath(String pagePath) {

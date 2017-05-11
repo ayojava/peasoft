@@ -9,6 +9,8 @@ import java.util.List;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import lombok.extern.slf4j.Slf4j;
+import org.hibernate.Criteria;
+import org.hibernate.criterion.Order;
 import static org.javasoft.peasoft.constants.PeaResource.NOT_SELECTED;
 import static org.javasoft.peasoft.constants.PeaResource.SELECTED;
 import org.javasoft.peasoft.ejb.dao.GenericDAO;
@@ -42,5 +44,9 @@ public class StudentRecordFacade extends GenericDAO<StudentRecord, Long>{
        return   findAll();
     }
     
-    
+    @Override
+    public List<StudentRecord> findAll() {
+        Criteria criteria = getCriteria().createAlias("student", "student");
+        return criteria.addOrder(Order.asc("student.surname")).list();
+    }
 }

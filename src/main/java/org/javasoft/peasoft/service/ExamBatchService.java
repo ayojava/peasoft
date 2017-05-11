@@ -14,7 +14,6 @@ import static org.javasoft.peasoft.constants.PeaResource.BATCH_A;
 import static org.javasoft.peasoft.constants.PeaResource.EXAM_BATCH_FOLDER;
 import static org.javasoft.peasoft.constants.PeaResource.FULL_DATE_FORMAT;
 import static org.javasoft.peasoft.constants.PeaResource.FULL_DATE_FORMAT_SMS;
-import static org.javasoft.peasoft.constants.PeaResource.PENDING;
 import static org.javasoft.peasoft.constants.PeaResource.SEPARATOR;
 import org.javasoft.peasoft.entity.core.Student;
 import org.javasoft.peasoft.entity.core.StudentRecord;
@@ -25,17 +24,21 @@ import static org.javasoft.peasoft.utils.template.EmailTemplate.EXAMINATION_CENT
 import static org.javasoft.peasoft.utils.template.EmailTemplate.EXAMINATION_CENTER_TOP_TEMPLATE;
 import static org.javasoft.peasoft.utils.template.EmailTemplate.HEADER_CLOSE_DIV_TEMPLATE;
 import static org.javasoft.peasoft.utils.template.EmailTemplate.HEADER_OPEN_DIV_TEMPLATE;
+import static org.javasoft.peasoft.utils.template.EmailTemplate.INNER_TABLE_BOTTOM_TEMPLATE;
 import static org.javasoft.peasoft.utils.template.EmailTemplate.INNER_TABLE_TOP_TEMPLATE;
 import static org.javasoft.peasoft.utils.template.EmailTemplate.OUTER_TABLE_BRAINCHALLENGE_EMAIL_TEMPLATE;
 import static org.javasoft.peasoft.utils.template.EmailTemplate.OUTER_TABLE_BRAINCHALLENGE_TELEPHONE_TEMPLATE;
 import static org.javasoft.peasoft.utils.template.EmailTemplate.OUTER_TABLE_BRAINCHALLENGE_WEBSITE_TEMPLATE;
+import static org.javasoft.peasoft.utils.template.EmailTemplate.OUTER_TABLE_CLOSE_BODY_TEMPLATE;
 import static org.javasoft.peasoft.utils.template.EmailTemplate.OUTER_TABLE_CLOSE_FOOTER_TEMPLATE;
 import static org.javasoft.peasoft.utils.template.EmailTemplate.OUTER_TABLE_CLOSE_TABLE_TEMPLATE;
 import static org.javasoft.peasoft.utils.template.EmailTemplate.OUTER_TABLE_ENQUIRY_TEMPLATE;
 import static org.javasoft.peasoft.utils.template.EmailTemplate.OUTER_TABLE_FACEBOOK_TEMPLATE;
+import static org.javasoft.peasoft.utils.template.EmailTemplate.OUTER_TABLE_GUIDELINE_TEMPLATE;
 import static org.javasoft.peasoft.utils.template.EmailTemplate.OUTER_TABLE_INSTAGRAM_TEMPLATE;
 import static org.javasoft.peasoft.utils.template.EmailTemplate.OUTER_TABLE_OFFICE_ADDRESS_TEMPLATE;
 import static org.javasoft.peasoft.utils.template.EmailTemplate.OUTER_TABLE_OPEN_BODY_TEMPLATE;
+import static org.javasoft.peasoft.utils.template.EmailTemplate.OUTER_TABLE_OPEN_FOOTER_TEMPLATE;
 import static org.javasoft.peasoft.utils.template.EmailTemplate.OUTER_TABLE_OPEN_TABLE_TEMPLATE;
 import static org.javasoft.peasoft.utils.template.EmailTemplate.OUTER_TABLE_TWITTER_TEMPLATE;
 import static org.javasoft.peasoft.utils.template.EmailTemplate.OUTER_TABLE_WEBSITE_TEMPLATE;
@@ -73,7 +76,8 @@ public class ExamBatchService {
         //  Good Day %s,The Quiz and Interview will come up on %s  at %s ,Your Exam slot starts at %s - %s. 
     }
 
-    public EmailData generateNotificationEmail(EmailUtilBean emailUtilBean, StudentRecord studentRecord, BatchSettings batchSetting) {
+    public EmailData generateNotificationEmail(EmailUtilBean emailUtilBean, StudentRecord studentRecord, BatchSettings batchSetting,
+            String attachmentFilePath) {
 
         Student studentObj = studentRecord.getStudent();
 
@@ -109,7 +113,17 @@ public class ExamBatchService {
         msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(TABLE_ROW_EVEN_TEMPLATE, " Venue : ", batchSetting.getExamCentre().getName()));
         
         msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(TABLE_ROW_ODD_TEMPLATE, " Address  : ", batchSetting.getExamCentre().getAddressTemplate().getFullAddress()));
+        //
         
+        msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(INNER_TABLE_BOTTOM_TEMPLATE));
+        
+        msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(OUTER_TABLE_CLOSE_BODY_TEMPLATE));
+        
+        //
+        
+        msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(OUTER_TABLE_OPEN_FOOTER_TEMPLATE));
+        
+        msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(OUTER_TABLE_GUIDELINE_TEMPLATE));
         msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(OUTER_TABLE_ENQUIRY_TEMPLATE));
         msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(OUTER_TABLE_BRAINCHALLENGE_EMAIL_TEMPLATE));
         msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(OUTER_TABLE_BRAINCHALLENGE_TELEPHONE_TEMPLATE));
@@ -134,13 +148,13 @@ public class ExamBatchService {
         if(StringUtils.isNotBlank(contactEmail1) && !StringUtils.equalsIgnoreCase(studentObj.getEmail(), contactEmail1)){
             recipientEmails= recipientEmails.append(SEPARATOR).append(contactEmail1);
         }
-        //
+        //GUIDELINE_FOLDER
         EmailData emailData = new EmailData();
-        emailData.setAttachment(false);
+        emailData.setAttachment(true);
         emailData.setRecipientEmail(recipientEmails.toString()); //
         emailData.setRecipientID(studentObj.getId());
         emailData.setRecipientName(studentObj.getFullName());
-        
+        emailData.setAttachmentFile(attachmentFilePath);
         emailData.setMailSubject(mailSubject);
         emailData.setMailMessage(msgBody.toString());
         emailData.setRecipientType(EXAM_BATCH_FOLDER);

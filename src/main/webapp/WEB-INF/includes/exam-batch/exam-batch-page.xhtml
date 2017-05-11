@@ -29,15 +29,15 @@ and open the template in the editor.
                                          paginatorPosition="bottom" paginator="true" rows="40" rowIndexVar="rowIndex"
                                          paginatorTemplate=" {CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}">
                                 
-                                <p:column headerText="No" style="text-align: center;width: 35px;">
+                                <p:column headerText="No" style="text-align: center;width: 40px;">
                                     <h:outputText value="#{rowIndex+1}"/>
                                 </p:column>
                                 
-                                <p:column headerText="Identification No" style="text-align: center;">
+                                <p:column headerText="Identification No" style="text-align: left;">
                                     <h:outputText value="#{aRecord.identificationNo}"/>
                                 </p:column>
 
-                                <p:column headerText="Full Name" style="text-align: left;width: 340px;">
+                                <p:column headerText="Full Name" style="text-align: left;width: 300px;">
                                     <h:outputText value="#{aRecord.student.fullName}"/>
                                 </p:column>
                                 

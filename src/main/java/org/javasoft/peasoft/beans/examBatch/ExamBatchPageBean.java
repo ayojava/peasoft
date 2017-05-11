@@ -5,6 +5,7 @@
  */
 package org.javasoft.peasoft.beans.examBatch;
 
+import java.io.File;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -35,6 +36,7 @@ import org.javasoft.peasoft.entity.data.SMSData;
 import org.javasoft.peasoft.entity.settings.BatchSettings;
 import org.javasoft.peasoft.excel.batch.BatchListExcelReport;
 import org.javasoft.peasoft.service.ExamBatchService;
+import org.javasoft.peasoft.utils.GlobalRegistry;
 import org.omnifaces.util.Messages;
 
 /**
@@ -116,7 +118,8 @@ public class ExamBatchPageBean extends AbstractBean implements Serializable {
     public void resendNotification(StudentRecord aRecord) {
         try {
             BatchSettings batchSetting = batchSettingsFacade.findOne();
-            EmailData emailData = examBatchService.generateNotificationEmail(emailUtilBean, aRecord, batchSetting);
+            EmailData emailData = examBatchService.generateNotificationEmail(emailUtilBean, aRecord, batchSetting,
+                                registry.getInitFilePath()+GUIDELINES_FOLDER+File.separator+"guideline.pdf");
             emailDataFacade.persist(emailData);
             Messages.addGlobalInfo("Notification Scheduled Successfully");
         } catch (Exception ex) {
@@ -149,7 +152,7 @@ public class ExamBatchPageBean extends AbstractBean implements Serializable {
             batchListExcelReport = new BatchListExcelReport();
             String fileName
                     = DateFormatUtils.format(new Date(),DISPLAY_DATE_FORMAT_DAYS) + "_" + RandomStringUtils.randomNumeric(3) + "_" + batch + ".xls";
-           if( !batchListExcelReport.populateExcelSheet(studentRecords, "Batch :: " + batch, fileName)){
+           if( !batchListExcelReport.populateExcelSheet(studentRecords, "Batch " + batch, fileName)){
                throw new Exception();
            }
         } catch (Exception ex) {
@@ -162,10 +165,12 @@ public class ExamBatchPageBean extends AbstractBean implements Serializable {
         try {
             BatchSettings batchSetting = batchSettingsFacade.findOne();
             List<Notification> pendingNotifications = notificationFacade.getPendingNotification();
+            
             pendingNotifications.forEach(
                     aNotification -> {
                         StudentRecord aRecord = aNotification.getStudentRecord();
-                        EmailData emailData = examBatchService.generateNotificationEmail(emailUtilBean, aRecord, batchSetting);
+                        EmailData emailData = examBatchService.generateNotificationEmail(emailUtilBean, aRecord, batchSetting,
+                                registry.getInitFilePath()+GUIDELINES_FOLDER+File.separator+"guideline.pdf");
                         SMSData smsData = examBatchService.generateNotificationSMS(smsUtilBean, aRecord, batchSetting);
 
                         emailDataFacade.persist(emailData);
@@ -185,23 +190,23 @@ public class ExamBatchPageBean extends AbstractBean implements Serializable {
 
     public void scheduleGuidelines() {
         try {
-            BatchSettings batchSetting = batchSettingsFacade.findOne();
-            List<Notification> pendingNotifications = notificationFacade.getPendingNotification();
-            pendingNotifications.forEach(
-                    aNotification -> {
-                        StudentRecord aRecord = aNotification.getStudentRecord();
-                        EmailData emailData = examBatchService.generateNotificationEmail(emailUtilBean, aRecord, batchSetting);
-                        SMSData smsData = examBatchService.generateNotificationSMS(smsUtilBean, aRecord, batchSetting);
-
-                        emailDataFacade.persist(emailData);
-                        smsDataFacade.persist(smsData);
-
-                        aNotification.setGuidelineNotification(true);
-                        notificationFacade.edit(aNotification);
-                    }
-            );
-            Messages.addGlobalInfo("Guidelines Scheduled Successfully");
-            setPageResource(LIST_EXAM_BATCH_OTHER);
+//            BatchSettings batchSetting = batchSettingsFacade.findOne();
+//            List<Notification> pendingGuidelines = notificationFacade.getPendingGuidelines();
+//            pendingGuidelines.forEach(
+//                    aNotification -> {
+//                        StudentRecord aRecord = aNotification.getStudentRecord();
+//                        EmailData emailData = examBatchService.generateNotificationEmail(emailUtilBean, aRecord, batchSetting);
+//                        SMSData smsData = examBatchService.generateNotificationSMS(smsUtilBean, aRecord, batchSetting);
+//
+//                        emailDataFacade.persist(emailData);
+//                        smsDataFacade.persist(smsData);
+//
+//                        aNotification.setGuidelineNotification(true);
+//                        notificationFacade.edit(aNotification);
+//                    }
+//            );
+//            Messages.addGlobalInfo("Guidelines Scheduled Successfully");
+//            setPageResource(LIST_EXAM_BATCH_OTHER);
         } catch (Exception ex) {
             log.error("An Error has Occurred :::", ex);
             Messages.addGlobalError("An Error has Occured");
@@ -212,3 +217,5 @@ public class ExamBatchPageBean extends AbstractBean implements Serializable {
         studentRecords = null;
     }
 }
+
+//Adeola Adeku...saka junction beside keystone bank, first turning on my right , second building to the left
