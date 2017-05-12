@@ -39,11 +39,13 @@ and open the template in the editor.
                     </p:submenu>
                     <p:separator />
                     <p:submenu id="resultsModule" label="Results"  icon="fa fa-globe fa-1g">
-                        <p:menuitem value="Selected " icon="fa fa-indent fa-1g" 
-                                     update=":homeForm" id="selectedMenu"/>
+                        <p:menuitem value="Selected " icon="fa fa-indent fa-1g" update=":homeForm" id="selectedMenu">
+                            <f:param name="result" value="#{peaResource.SELECTED}"/>
+                        </p:menuitem>
                         <p:separator />
-                        <p:menuitem value="Not Selected" icon="fa fa-outdent fa-1g" 
-                                    update=":homeForm" id="notSelectedMenu"/>
+                        <p:menuitem value="Not Selected" icon="fa fa-outdent fa-1g" update=":homeForm" id="notSelectedMenu">
+                            <f:param name="result" value="#{peaResource.NOT_SELECTED}"/>
+                        </p:menuitem>
                     </p:submenu>
                     <p:separator />
                     <p:submenu id="notificationsModule" label="Messages"  icon="fa fa-envelope fa-1g">

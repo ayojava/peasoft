@@ -55,6 +55,10 @@ public interface PeaResource {
     /*=========== ENV-SETTINGS ===========*/
     public static final String EDIT_ENV_SETTINGS = "edit-env-settings";
     
+    /*=========== RESULTS ===========*/
+    public static final String LIST_RESULTS = "list-results";
+    
+       
     /*=========== STUDENT-RECORD ===========*/
     public static final String LIST_EXAM_BATCH = "list-exam-batch";
     
@@ -77,7 +81,7 @@ public interface PeaResource {
     
     public static final String SENT ="ST";
     
-    public static final String NOT_SELECTED ="N";
+    public static final String NOT_SELECTED ="NSD";
     
     public static final String PENDING ="P";
     
@@ -110,6 +114,8 @@ public interface PeaResource {
     public static final String STUDENT_RECORD_FOLDER ="student-record";
     
     public static final String EXAM_BATCH_FOLDER ="exam-batch";
+    
+    public static final String RESULTS_FOLDER ="results";
     
     public static final String MESSAGES_FOLDER ="messages";
     
