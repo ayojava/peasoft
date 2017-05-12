@@ -58,6 +58,10 @@ public interface PeaResource {
     /*=========== RESULTS ===========*/
     public static final String LIST_RESULTS = "list-results";
     
+    public static final String LIST_RESULTS_OTHER = "list-results-other";
+    
+    public static final String VIEW_RESULT = "view-result";
+    
        
     /*=========== STUDENT-RECORD ===========*/
     public static final String LIST_EXAM_BATCH = "list-exam-batch";

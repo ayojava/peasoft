@@ -25,28 +25,46 @@ import org.javasoft.peasoft.entity.core.StudentRecord;
 @Slf4j
 @Named("resultsPageBean")
 @ViewScoped
-public class ResultsPageBean extends AbstractBean implements Serializable{
-    
+public class ResultsPageBean extends AbstractBean implements Serializable {
+
+    @Getter
+    private StudentRecord studentRecord;
+
     @Getter
     private List<StudentRecord> studentRecords;
-    
+
     @EJB
     private ResultsFacade resultsFacade;
-    
+
     @Getter
     private String grade;
-    
+
     @Override
     public void setPageResource(String pageResource) {
         if (StringUtils.equals(LIST_RESULTS, pageResource)) {
             grade = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("result");
             studentRecords = resultsFacade.findStudentRecordByGrade(grade);
             super.setPageResource(appendFolderPath(RESULTS_FOLDER, LIST_RESULTS));
-        }else if (StringUtils.equals(VIEW_HOME_PAGE, pageResource)) {
+        } else if (StringUtils.equals(VIEW_RESULT, pageResource)) {
+            super.setPageResource(appendFolderPath(RESULTS_FOLDER, VIEW_RESULT));//
+        } else if (StringUtils.equals(LIST_RESULTS_OTHER, pageResource)) {
+            studentRecords = resultsFacade.findStudentRecordByGrade(grade);
+            super.setPageResource(appendFolderPath(RESULTS_FOLDER, LIST_RESULTS));
+        } else if (StringUtils.equals(VIEW_HOME_PAGE, pageResource)) {
             setHomePageResource();
             cleanup();
         }
     }
+
+    public void setPageResource(String pageResource, StudentRecord studentRecordObj) {
+        studentRecord = studentRecordObj;
+        setPageResource(pageResource);
+    }
+
+    public void changeGrade(StudentRecord studentRecord){
+    
+    }
+    
     
     private void cleanup() {
         studentRecords = null;
