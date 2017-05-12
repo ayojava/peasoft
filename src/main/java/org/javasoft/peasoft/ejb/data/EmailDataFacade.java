@@ -5,9 +5,11 @@
  */
 package org.javasoft.peasoft.ejb.data;
 
+import java.util.List;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import lombok.extern.slf4j.Slf4j;
+import org.hibernate.criterion.Order;
 import org.javasoft.peasoft.ejb.dao.GenericDAO;
 import org.javasoft.peasoft.entity.data.EmailData;
 
@@ -22,5 +24,10 @@ public class EmailDataFacade extends GenericDAO<EmailData, Long>{
 
     public EmailDataFacade(){
         super(EmailData.class);
+    }
+    
+    @Override
+    public List<EmailData> findAll(){
+         return getCriteria().addOrder(Order.asc("recipientName")).list();
     }
 }

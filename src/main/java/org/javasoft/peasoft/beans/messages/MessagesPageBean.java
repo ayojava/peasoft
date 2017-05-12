@@ -50,10 +50,10 @@ public class MessagesPageBean extends AbstractBean implements Serializable{
     @Override
     public void setPageResource(String pageResource) {
         if (StringUtils.equals(LIST_EMAILS, pageResource)) {
-         //
+         emailData = emailDataFacade.findAll();
          super.setPageResource(appendFolderPath(MESSAGES_FOLDER, LIST_EMAILS));
         }else if (StringUtils.equals(LIST_SMS, pageResource)) {
-        
+        smsData = smsDataFacade.findAll();
          super.setPageResource(appendFolderPath(MESSAGES_FOLDER, LIST_SMS));
         }else if (StringUtils.equals(VIEW_HOME_PAGE, pageResource)) {
             setHomePageResource();

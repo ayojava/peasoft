@@ -23,6 +23,7 @@ import javax.validation.constraints.Past;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 import org.hibernate.annotations.ColumnTransformer;
@@ -92,7 +93,7 @@ public class Student implements Serializable {
     
     public String getFullName(){
         StringBuilder builder = new StringBuilder();
-        builder = builder.append(surname).append("  ").append(othernames);
+        builder = builder.append(StringUtils.capitalize(surname)).append("  ").append(othernames);
         return builder.toString();
     }
     

@@ -32,7 +32,7 @@ and open the template in the editor.
                                          icon="fa fa-fw fa-bell-o" title="Schedule Notification"/> 
                     </c:if>
                     
-                    <c:if test="#{examBatchPageBean.guidelineCnt gt 0}">
+                    <c:if test="#{false}">
                         <p:spacer width="10px"/>
                         <p:commandButton styleClass="pnx-round-button" id="sendGuidelineBtn" value="Guidelines [#{examBatchPageBean.guidelineCnt}]" 
                                          ajax="false" update="@form" action="#{examBatchPageBean.scheduleGuidelines()}" 

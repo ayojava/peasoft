@@ -51,13 +51,13 @@ and open the template in the editor.
                                 
                                 <p:column headerText="Actions" style="text-align: center;width: 80px;">
                                     <p:commandButton update="@form" icon="email-sms-icon"
-                                                     action="#{studentPageBean.setPageResource(peaResource.VIEW_STUDENT,aStudent)}"
+                                                     action="#{examBatchPageBean.resendNotification(aRecord)}"
                                                      title="Send Notification" class="img-button"/>
 
                                     <span class="pnx-horizontal-seperator">|</span>
 
                                     <p:commandButton update="@form" icon="edit-icon"
-                                                     action="#{studentPageBean.setPageResource(peaResource.EDIT_STUDENT,aStudent)}"
+                                                     action="#{examBatchPageBean.changeBatch(aRecord)}"
                                                      title="Change Batch" class="img-button"/>
                                 </p:column>
 

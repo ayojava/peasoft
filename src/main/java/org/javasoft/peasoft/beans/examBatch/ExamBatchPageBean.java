@@ -36,7 +36,6 @@ import org.javasoft.peasoft.entity.data.SMSData;
 import org.javasoft.peasoft.entity.settings.BatchSettings;
 import org.javasoft.peasoft.excel.batch.BatchListExcelReport;
 import org.javasoft.peasoft.service.ExamBatchService;
-import org.javasoft.peasoft.utils.GlobalRegistry;
 import org.omnifaces.util.Messages;
 
 /**
@@ -102,12 +101,12 @@ public class ExamBatchPageBean extends AbstractBean implements Serializable {
             log.info("Batch ::: {} ", batch);
             studentRecords = examBatchFacade.findStudentRecordByBatch(batch);
             notificationCnt = notificationFacade.pendingNotificationCount();
-            guidelineCnt = notificationFacade.pendingGuidelinesCount();
+            //guidelineCnt = notificationFacade.pendingGuidelinesCount();
             super.setPageResource(appendFolderPath(EXAM_BATCH_FOLDER, LIST_EXAM_BATCH));
         } else if (StringUtils.equals(LIST_EXAM_BATCH_OTHER, pageResource)) {
             studentRecords = examBatchFacade.findStudentRecordByBatch(batch);
             notificationCnt = notificationFacade.pendingNotificationCount();
-            guidelineCnt = notificationFacade.pendingGuidelinesCount();
+            //guidelineCnt = notificationFacade.pendingGuidelinesCount();
             super.setPageResource(appendFolderPath(EXAM_BATCH_FOLDER, LIST_EXAM_BATCH));
         } else if (StringUtils.equals(VIEW_HOME_PAGE, pageResource)) {
             setHomePageResource();
@@ -133,10 +132,11 @@ public class ExamBatchPageBean extends AbstractBean implements Serializable {
             String oldBatch = aRecord.getExamBatch();
             aRecord.setExamBatch(StringUtils.equalsIgnoreCase(batch, BATCH_A) ? BATCH_B : BATCH_A);
             String newBatch = aRecord.getExamBatch();
+            log.info("Old Batch :: {} ==== New Batch :: {} " , oldBatch , newBatch);
             examBatchFacade.edit(aRecord);
             //send New Notification
             Messages.addGlobalInfo("Edit Operation Successful");
-            setPageResource(LIST_EXAM_BATCH);
+            setPageResource(LIST_EXAM_BATCH_OTHER);
         } catch (Exception ex) {
             log.error("An Error has Occurred :::", ex);
             Messages.addGlobalError("An Error has Occured");

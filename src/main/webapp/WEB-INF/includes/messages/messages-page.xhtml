@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core" xmlns:p="http://primefaces.org/ui" xmlns:of="http://omnifaces.org/functions"
+      xmlns:o="http://omnifaces.org/ui" xmlns:pnx="http://www.javasoft.org/primefacesExt/primefacelets"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets" xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <body>
+        <ui:composition>
+            <c:choose>
+                <c:when test="#{displayMode=='list-emails'}">
+                    <pnx:pageDivider id="list-emails" separator="false">
+                        <ui:define name="properties">
+                            <p:dataTable id="emailTable" var="emailData" value="#{messagesPageBean.emailData}" 
+                                         paginatorPosition="bottom" paginator="true" rows="40" rowIndexVar="rowIndex"
+                                         paginatorTemplate=" {CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}">
+
+                                <p:column headerText="No" style="text-align: center;width: 35px;">
+                                    <h:outputText value="#{rowIndex+1}"/>
+                                </p:column>
+
+                                <p:column headerText="Recipient Name" style="text-align: left;width: 250px;">
+                                    <h:outputText value="#{emailData.recipientName}"/>
+                                </p:column>
+                                
+                                <p:column headerText="Subject" style="text-align: left;width: 300px;">
+                                    <h:outputText value="#{emailData.mailSubject}"/>
+                                </p:column>
+
+                                <p:column headerText="Recipient Email" style="text-align: left;width: 200px;">
+                                    <h:outputText value="#{emailData.recipientEmail}"/>
+                                </p:column>
+                                
+                                <p:column headerText="Recipient Type" style="text-align: center;">
+                                    <h:outputText value="#{emailData.recipientType}"/>
+                                </p:column>
+                                
+                                <p:column headerText="Status" style="text-align: center;">
+                                    <h:outputText value="#{genericBean.recordStatus(emailData.status)}"/>
+                                </p:column>
+                                
+                                <p:column headerText="Date" style="text-align: center;">
+                                    <h:outputText value="#{of:formatDate(emailData.createDate,peaResource.DISPLAY_DATE_FORMAT_DAYS)}"/>
+                                </p:column>
+                            
+                            </p:dataTable>
+                        </ui:define>
+                    </pnx:pageDivider>
+                </c:when>
+                <c:when test="#{displayMode=='list-sms'}">
+                    <pnx:pageDivider id="list-sms" separator="false">
+                        <ui:define name="properties">
+                            <p:dataTable id="smsTable" var="smsData" value="#{messagesPageBean.smsData}" 
+                                         paginatorPosition="bottom" paginator="true" rows="40" rowIndexVar="rowIndex"
+                                         paginatorTemplate=" {CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}">
+                                
+                                <p:column headerText="No" style="text-align: center;width: 35px;">
+                                    <h:outputText value="#{rowIndex+1}"/>
+                                </p:column>
+                                
+                                <p:column headerText="Recipient Name" style="text-align: left;width: 280px;">
+                                    <h:outputText value="#{smsData.student.fullName}"/>
+                                </p:column>
+                                
+                                <p:column headerText="Recipient No" style="text-align: left;">
+                                    <h:outputText value="#{smsData.recipientPhoneNo}"/>
+                                </p:column>
+                                
+                                <p:column headerText="Response Message" style="text-align: left;">
+                                    <h:outputText value="#{smsData.responseMessage}"/>
+                                </p:column>
+                                
+                                <p:column headerText="Status" style="text-align: center;">
+                                    <h:outputText value="#{genericBean.recordStatus(smsData.status)}"/>
+                                </p:column>
+                                
+                                <p:column headerText="Date" style="text-align: center;">
+                                    <h:outputText value="#{of:formatDate(smsData.createDate,peaResource.DISPLAY_DATE_FORMAT_DAYS)}"/>
+                                </p:column>
+                                
+                            </p:dataTable>
+                        </ui:define>
+                    </pnx:pageDivider>
+                </c:when>
+            </c:choose>
+        </ui:composition>
+    </body>
+</html>
+

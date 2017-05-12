@@ -73,7 +73,9 @@ public interface PeaResource {
     
     public static final String DECLINED ="DC";
     
-    public static final String SELECTED ="S";
+    public static final String SELECTED ="SD";
+    
+    public static final String SENT ="ST";
     
     public static final String NOT_SELECTED ="N";
     

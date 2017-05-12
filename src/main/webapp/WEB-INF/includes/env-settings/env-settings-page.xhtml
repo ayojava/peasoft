@@ -105,9 +105,9 @@ and open the template in the editor.
                                 </div>
 
                                 <div class="row default-row-padding">
-                                    <pnx:primeDIV labelDiv="col-md-2" labelID="serverLbl" label="Server : "
-                                                  contentDiv="col-md-2" targetID="serverTxt">
-                                        <p:inputText id="serverTxt" required="true" autocomplete="off" 
+                                    <pnx:primeDIV labelDiv="col-md-2" labelID="sourceLbl" label="Server : "
+                                                  contentDiv="col-md-2" targetID="sourceTxt">
+                                        <p:inputText id="sourceTxt" required="true" autocomplete="off" 
                                                      value="#{envSettingsPageBean.envSettings.smsSettings.source}"/>
                                     </pnx:primeDIV> 
                                     <pnx:primeDIV labelDiv="col-md-2" labelID="smsTypeLbl" label="SMS Type : "
@@ -125,7 +125,11 @@ and open the template in the editor.
                                         <p:selectBooleanCheckbox id="deliveryReportSwitch" value="#{envSettingsPageBean.envSettings.smsSettings.dlr}" />
                                     </pnx:primeDIV>
                                 </div>
-
+                                <div class="row default-row-padding">
+                                    <div class="col-md-12">
+                                        <hr size="0" class="pnx-tableRow-Separator"/>
+                                    </div>
+                                </div>
                                 <div class="row default-row-padding">
                                     <div class="col-md-12">
                                         <span class="text-center">
@@ -135,7 +139,37 @@ and open the template in the editor.
                                 </div>
 
                                 <div class="row default-row-padding">
-
+                                    <pnx:primeDIV labelDiv="col-md-2" labelID="serverLbl" label="Server : "
+                                                  contentDiv="col-md-4" targetID="serverTxt">
+                                        <p:inputText id="serverTxt" required="true" autocomplete="off" size="40"
+                                                     value="#{envSettingsPageBean.envSettings.emailSettings.server}"/>
+                                    </pnx:primeDIV> 
+                                    
+                                    <pnx:primeDIV labelDiv="col-md-2" labelID="emailPortLbl" label="Port No : "
+                                                  contentDiv="col-md-1" targetID="emailPortTxt">
+                                        <p:inputText id="emailPortTxt" required="true" autocomplete="off" maxlength="4"
+                                                     value="#{envSettingsPageBean.envSettings.emailSettings.port}"
+                                                     converter="javax.faces.Integer" size="5"/>
+                                    </pnx:primeDIV>
+                                    
+                                    <pnx:primeDIV labelDiv="col-md-2" labelID="debugLbl" label="Debug : "
+                                                  contentDiv="col-md-1">
+                                        <p:selectBooleanCheckbox value="#{envSettingsPageBean.envSettings.emailSettings.debug}"/>
+                                    </pnx:primeDIV>
+                                </div>
+                                
+                                <div class="row default-row-padding">
+                                    <pnx:primeDIV labelDiv="col-md-2" labelID="senderLbl" label="Sender : "
+                                                  contentDiv="col-md-4" targetID="senderTxt">
+                                        <p:inputText id="senderTxt" required="true" autocomplete="off" size="40"
+                                                     value="#{envSettingsPageBean.envSettings.emailSettings.sender}"/>
+                                    </pnx:primeDIV> 
+                                    
+                                    <pnx:primeDIV labelDiv="col-md-2" labelID="emailPasswordLbl" label="Password : "
+                                                  contentDiv="col-md-4" targetID="emailPasswordTxt">
+                                        <p:password id="emailPasswordTxt" required="true" autocomplete="off" size="40"
+                                                     value="#{envSettingsPageBean.envSettings.emailSettings.sender}"/>
+                                    </pnx:primeDIV> 
                                 </div>
 
                             </div>

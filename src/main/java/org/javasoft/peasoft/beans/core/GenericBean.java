@@ -20,6 +20,7 @@ import static org.javasoft.peasoft.constants.PeaResource.NOT_SELECTED;
 import static org.javasoft.peasoft.constants.PeaResource.PENDING;
 import static org.javasoft.peasoft.constants.PeaResource.SCIENCE;
 import static org.javasoft.peasoft.constants.PeaResource.SELECTED;
+import static org.javasoft.peasoft.constants.PeaResource.SENT;
 
 /**
  *
@@ -35,6 +36,10 @@ public class GenericBean implements Serializable {
                 return "Active";
             case DISQUALIFIED:
                 return "Disqualified";
+            case SENT:
+                return "Sent";
+            case PENDING:
+                return "Pending";
         }
         return "";
     }
