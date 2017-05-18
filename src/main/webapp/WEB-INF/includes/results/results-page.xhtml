@@ -13,6 +13,187 @@ and open the template in the editor.
     <body>
         <ui:composition>
             <c:choose>
+                <c:when test="#{displayMode=='view'}">
+                    <pnx:pageDivider id="view-student-records" separator="false">
+                        <ui:define name="properties">
+                            <div class="default-page-border">
+                                <div class="row default-row-padding">
+                                    <pnx:primeDIV labelDiv="col-md-2" label="Identification No : "   contentDiv="col-md-2">
+                                        <span class="default-page-text">
+                                            #{resultsPageBean.studentRecord.identificationNo}
+                                        </span>
+                                    </pnx:primeDIV>
+                                    <pnx:primeDIV labelDiv="col-md-2" label="Batch : "   contentDiv="col-md-2">
+                                        <span class="default-page-text">
+                                            #{genericBean.batch(resultsPageBean.studentRecord.examBatch)}
+                                        </span>
+                                    </pnx:primeDIV>
+                                    <pnx:primeDIV labelDiv="col-md-2" label="Status : "   contentDiv="col-md-2">
+                                        <span class="default-page-text">
+                                            #{genericBean.recordStatus(resultsPageBean.studentRecord.status)}
+                                        </span>
+                                    </pnx:primeDIV>
+                                </div>
+                                <div class="row default-row-padding">
+
+                                    <pnx:primeDIV labelDiv="col-md-2" label="Full Name : "   contentDiv="col-md-4">
+                                        <span class="default-page-text">
+                                            #{resultsPageBean.studentRecord.student.fullName}
+                                        </span>
+                                    </pnx:primeDIV>
+                                    <pnx:primeDIV labelDiv="col-md-2" label="Gender : "   contentDiv="col-md-4">
+                                        <span class="default-page-text">
+                                            #{genericBean.gender(resultsPageBean.studentRecord.student.gender)}
+                                        </span>
+                                    </pnx:primeDIV>
+                                </div>
+                                <div class="row default-row-padding">
+
+                                    <pnx:primeDIV labelDiv="col-md-2" label="Email : "   contentDiv="col-md-4">
+                                        <span class="default-page-text">
+                                            #{resultsPageBean.studentRecord.student.email}
+                                        </span>
+                                    </pnx:primeDIV>
+                                    <pnx:primeDIV labelDiv="col-md-2" label="Phone No : "   contentDiv="col-md-4">
+                                        <span class="default-page-text">
+                                            #{resultsPageBean.studentRecord.student.phoneNo} ,
+                                            #{resultsPageBean.studentRecord.student.otherPhoneNo}
+                                        </span>
+                                    </pnx:primeDIV>    
+                                </div>
+                                <div class="row default-row-padding">
+                                    <div class="col-md-12">
+                                        <hr size="0" class="pnx-tableRow-Separator" />
+                                    </div>
+                                </div>
+                                <div class="row default-row-padding">
+                                    <pnx:primeDIV labelDiv="col-md-2" label="School Name : "   contentDiv="col-md-4">
+                                        <span class="default-page-text">
+                                            #{resultsPageBean.studentRecord.school.name}
+                                        </span>
+                                    </pnx:primeDIV>
+                                    <pnx:primeDIV labelDiv="col-md-2" label="Identification No : "   contentDiv="col-md-4">
+                                        <span class="default-page-text">
+                                            #{resultsPageBean.studentRecord.school.identificationNo}
+                                        </span>
+                                    </pnx:primeDIV>                                      
+                                </div>
+                                <div class="row default-row-padding">
+                                    <pnx:primeDIV labelDiv="col-md-2" label="Class : "   contentDiv="col-md-4">
+                                        <span class="default-page-text">
+                                            #{resultsPageBean.studentRecord.sss}
+                                        </span>
+                                    </pnx:primeDIV>
+                                    <pnx:primeDIV labelDiv="col-md-2" label="Department : "   contentDiv="col-md-4">
+                                        <span class="default-page-text">
+                                            #{genericBean.department(resultsPageBean.studentRecord.department)}
+                                        </span>
+                                    </pnx:primeDIV>
+
+                                </div>
+                                <div class="row default-row-padding">
+                                    <div class="col-md-12">
+                                        <hr size="0" class="pnx-tableRow-Separator" />
+                                    </div>
+                                </div>
+                                <div class="row default-row-padding">
+                                    <pnx:primeDIV labelDiv="col-md-2" label="Maths  : "   contentDiv="col-md-4">
+                                        <span class="default-page-text">
+                                            #{genericBean.formatDecimalPlaces(resultsPageBean.studentRecord.marks.mathScore)}
+                                        </span>
+                                    </pnx:primeDIV>
+                                    <pnx:primeDIV labelDiv="col-md-2" label="English  : "   contentDiv="col-md-4">
+                                        <span class="default-page-text">
+                                            #{genericBean.formatDecimalPlaces(resultsPageBean.studentRecord.marks.englishScore)}
+                                        </span>
+                                    </pnx:primeDIV>
+                                </div>
+                                <div class="row default-row-padding">
+                                    <pnx:primeDIV labelDiv="col-md-2" label="Current Affairs  : "   contentDiv="col-md-4">
+                                        <span class="default-page-text">
+                                            #{genericBean.formatDecimalPlaces(resultsPageBean.studentRecord.marks.currentAffairsScore)}
+                                        </span>
+                                    </pnx:primeDIV>
+                                    <pnx:primeDIV labelDiv="col-md-2" label="ICT  : "   contentDiv="col-md-4">
+                                        <span class="default-page-text">
+                                            #{genericBean.formatDecimalPlaces(resultsPageBean.studentRecord.marks.ictScore)}
+                                        </span>
+                                    </pnx:primeDIV>
+                                </div>
+                                <div class="row default-row-padding">
+                                    <div class="col-md-12">
+                                        <hr size="0" class="pnx-tableRow-Separator" />
+                                    </div>
+                                </div>
+                                <div class="row default-row-padding">
+                                    <pnx:primeDIV labelDiv="col-md-2" label="Communication Skill  : "   contentDiv="col-md-4">
+                                        <span class="default-page-text">
+                                            #{genericBean.formatDecimalPlaces(resultsPageBean.studentRecord.marks.communicationSkill)}
+                                        </span>
+                                    </pnx:primeDIV>
+                                    <pnx:primeDIV labelDiv="col-md-2" label="Personal Appearance  : "   contentDiv="col-md-4">
+                                        <span class="default-page-text">
+                                            #{genericBean.formatDecimalPlaces(resultsPageBean.studentRecord.marks.personalAppearance)}
+                                        </span>
+                                    </pnx:primeDIV>
+                                </div>
+                                <div class="row default-row-padding">
+                                    <pnx:primeDIV labelDiv="col-md-2" label="Self Awareness  : "   contentDiv="col-md-4">
+                                        <span class="default-page-text">
+                                            #{genericBean.formatDecimalPlaces(resultsPageBean.studentRecord.marks.selfAwareness)}
+                                        </span>
+                                    </pnx:primeDIV>
+                                    <pnx:primeDIV labelDiv="col-md-2" label="Plans and Goals  : "   contentDiv="col-md-4">
+                                        <span class="default-page-text">
+                                            #{genericBean.formatDecimalPlaces(resultsPageBean.studentRecord.marks.plansAndGoals)}
+                                        </span>
+                                    </pnx:primeDIV>
+                                </div>
+                                <div class="row default-row-padding">
+                                    <pnx:primeDIV labelDiv="col-md-2" label="Book Knowledge  : "   contentDiv="col-md-4">
+                                        <span class="default-page-text">
+                                            #{genericBean.formatDecimalPlaces(resultsPageBean.studentRecord.marks.bookKnowledge)}
+                                        </span>
+                                    </pnx:primeDIV>
+                                    <pnx:primeDIV labelDiv="col-md-2" label="Confidence Level  : "   contentDiv="col-md-4">
+                                        <span class="default-page-text">
+                                            #{genericBean.formatDecimalPlaces(resultsPageBean.studentRecord.marks.confidenceLevel)}
+                                        </span>
+                                    </pnx:primeDIV>
+                                </div>
+                                <div class="row default-row-padding">
+                                    <div class="col-md-12">
+                                        <hr size="0" class="pnx-tableRow-Separator" />
+                                    </div>
+                                </div>
+                                <div class="row default-row-padding">
+                                    <pnx:primeDIV labelDiv="col-md-2" label="Total Academic Score : "   contentDiv="col-md-4">
+                                        <span class="default-page-text">
+                                            #{genericBean.formatDecimalPlaces(resultsPageBean.studentRecord.marks.totalAcademicScore)}
+                                        </span>
+                                    </pnx:primeDIV>
+                                    <pnx:primeDIV labelDiv="col-md-2" label="Total Interview Score  : "   contentDiv="col-md-4">
+                                        <span class="default-page-text">
+                                            #{genericBean.formatDecimalPlaces(resultsPageBean.studentRecord.marks.totalInterviewScore)}
+                                        </span>
+                                    </pnx:primeDIV>
+                                </div>
+                                <div class="row default-row-padding">
+                                    <pnx:primeDIV labelDiv="col-md-2" label="Total Score : "   contentDiv="col-md-4">
+                                        <span class="default-page-text">
+                                            #{genericBean.formatDecimalPlaces(resultsPageBean.studentRecord.marks.totalScore)}
+                                        </span>
+                                    </pnx:primeDIV>
+                                    <pnx:primeDIV labelDiv="col-md-2" label="Grade  : "   contentDiv="col-md-4">
+                                        <span class="default-page-text">
+                                            #{genericBean.obtainedGrade(resultsPageBean.studentRecord.grade)}
+                                        </span>
+                                    </pnx:primeDIV>
+                                </div>
+                            </div>
+                        </ui:define>
+                    </pnx:pageDivider>
+                </c:when>
                 <c:when test="#{displayMode=='list'}">
                     <pnx:pageDivider id="list-results" separator="false">
                         <ui:define name="properties">
@@ -28,6 +209,10 @@ and open the template in the editor.
                                     <h:outputText value="#{aRecord.student.fullName}"/>
                                 </p:column>
                                 
+                                <p:column headerText="Department" style="text-align: left;">
+                                    <h:outputText value="#{genericBean.department(aRecord.department)}"/>
+                                </p:column>
+                                
                                 <p:column headerText="Class" style="text-align: left;">
                                     <h:outputText value="#{aRecord.sss}"/>
                                 </p:column>
@@ -41,15 +226,15 @@ and open the template in the editor.
                                 </p:column>
                                 
                                 <p:column headerText="Academic Score" style="text-align: center;">
-                                    <h:outputText value="#{aRecord.marks.totalAcademicScore}"/>
+                                    <h:outputText value="#{genericBean.formatDecimalPlaces(aRecord.marks.totalAcademicScore)}"/>
                                 </p:column>
 
                                 <p:column headerText="Interview Score" style="text-align: center;">
-                                    <h:outputText value="#{aRecord.marks.totalInterviewScore}"/>
+                                    <h:outputText value="#{genericBean.formatDecimalPlaces(aRecord.marks.totalInterviewScore)}"/>
                                 </p:column>
 
                                 <p:column headerText="Total Score" style="text-align: center;">
-                                    <h:outputText value="#{aRecord.marks.totalScore}"/>
+                                    <h:outputText value="#{genericBean.formatDecimalPlaces(aRecord.marks.totalScore)}"/>
                                 </p:column>
                                 
                                 <p:column headerText="Actions" style="text-align: center;width: 80px;">

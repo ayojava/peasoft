@@ -73,11 +73,11 @@ public class Marks implements Serializable {
         bookKnowledge = confidenceLevel = totalInterviewScore = 0.0;
     }
     
-    @PreUpdate
-    public void preUpdate(){
-        totalAcademicScore = mathScore + englishScore + currentAffairsScore + ictScore;
-        totalInterviewScore = communicationSkill + personalAppearance + selfAwareness + plansAndGoals + bookKnowledge + confidenceLevel;
-        totalScore = totalAcademicScore + totalInterviewScore;
+    
+    public void computeMarks(){
+        totalAcademicScore =  (mathScore + englishScore + currentAffairsScore + ictScore )/4;
+        totalInterviewScore = (communicationSkill + personalAppearance + selfAwareness + plansAndGoals + bookKnowledge + confidenceLevel)/6;
+        totalScore = (totalAcademicScore + totalInterviewScore)/2;
     }
         
 }

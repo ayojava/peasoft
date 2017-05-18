@@ -6,6 +6,7 @@
 package org.javasoft.peasoft.ejb.studentRecord;
 
 import java.util.List;
+import static java.util.stream.Collectors.toList;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import lombok.extern.slf4j.Slf4j;
@@ -23,30 +24,57 @@ import org.javasoft.peasoft.entity.core.StudentRecord;
 @Slf4j
 @Stateless
 @LocalBean
-public class StudentRecordFacade extends GenericDAO<StudentRecord, Long>{
-    
-    public StudentRecordFacade(){
+public class StudentRecordFacade extends GenericDAO<StudentRecord, Long> {
+
+    public StudentRecordFacade() {
         super(StudentRecord.class);
     }
-    
+
     //will not be necessary, just do a limit query
-    public List<StudentRecord> markResults(double cutOffMark){
+    public List<StudentRecord> markResults(double cutOffMark) {
         List<StudentRecord> allRecords = findAll();
-        
+
         allRecords.forEach((StudentRecord record) -> {
-            record.setGrade((record.getMarks().getTotalScore() >= cutOffMark)?SELECTED :NOT_SELECTED);
+            record.setGrade((record.getMarks().getTotalScore() >= cutOffMark) ? SELECTED : NOT_SELECTED);
             edit(record);
-            if(record.getRecordId() % 50 ==0){
+            if (record.getRecordId() % 50 == 0) {
                 getHibernateSession().flush();
                 getHibernateSession().clear();
             }
-        }); 
-       return   findAll();
+        });
+        return findAll();
     }
-    
+
+    public void markResults(List<StudentRecord> allRecords) {
+        List<StudentRecord> selectedStudents = allRecords.stream().filter(StudentRecord::isActive).limit(24).collect(toList());
+
+        List<StudentRecord> notSelectedStudents = allRecords.stream().filter(StudentRecord::isActive).skip(24).collect(toList());
+
+        selectedStudents.forEach(
+                (StudentRecord record) -> {
+                    record.setGrade(SELECTED);
+                    edit(record);
+                }
+        );
+        
+        notSelectedStudents.forEach(
+                (StudentRecord record) -> {
+                    record.setGrade(NOT_SELECTED);
+                    edit(record);
+                }
+        );
+
+    }
+
     @Override
     public List<StudentRecord> findAll() {
         Criteria criteria = getCriteria().createAlias("student", "student");
         return criteria.addOrder(Order.asc("student.surname")).list();
+    }
+
+    public List<StudentRecord> orderByMarks() {
+        Criteria recordCriteria = getCriteria();
+        recordCriteria.createAlias("marks", "marks");
+        return recordCriteria.addOrder(Order.desc("marks.totalScore")).list();
     }
 }

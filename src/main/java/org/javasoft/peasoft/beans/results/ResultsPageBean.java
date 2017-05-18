@@ -62,7 +62,12 @@ public class ResultsPageBean extends AbstractBean implements Serializable {
     }
 
     public void changeGrade(StudentRecord studentRecord){
-    
+        try{
+        
+        }
+        catch(Exception ex){
+        
+        }
     }
     
     

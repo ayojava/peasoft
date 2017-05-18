@@ -262,24 +262,24 @@ and open the template in the editor.
                                 <div class="row default-row-padding">
                                     <pnx:primeDIV labelDiv="col-md-2" label="Maths  : "   contentDiv="col-md-4">
                                         <span class="default-page-text">
-                                            #{studentRecordPageBean.studentRecord.marks.mathScore}
+                                            #{genericBean.formatDecimalPlaces(studentRecordPageBean.studentRecord.marks.mathScore)}
                                         </span>
                                     </pnx:primeDIV>
                                     <pnx:primeDIV labelDiv="col-md-2" label="English  : "   contentDiv="col-md-4">
                                         <span class="default-page-text">
-                                            #{studentRecordPageBean.studentRecord.marks.englishScore}
+                                            #{genericBean.formatDecimalPlaces(studentRecordPageBean.studentRecord.marks.englishScore)}
                                         </span>
                                     </pnx:primeDIV>
                                 </div>
                                 <div class="row default-row-padding">
                                     <pnx:primeDIV labelDiv="col-md-2" label="Current Affairs  : "   contentDiv="col-md-4">
                                         <span class="default-page-text">
-                                            #{studentRecordPageBean.studentRecord.marks.currentAffairsScore}
+                                            #{genericBean.formatDecimalPlaces(studentRecordPageBean.studentRecord.marks.currentAffairsScore)}
                                         </span>
                                     </pnx:primeDIV>
                                     <pnx:primeDIV labelDiv="col-md-2" label="ICT  : "   contentDiv="col-md-4">
                                         <span class="default-page-text">
-                                            #{studentRecordPageBean.studentRecord.marks.ictScore}
+                                            #{genericBean.formatDecimalPlaces(studentRecordPageBean.studentRecord.marks.ictScore)}
                                         </span>
                                     </pnx:primeDIV>
                                 </div>
@@ -291,36 +291,36 @@ and open the template in the editor.
                                 <div class="row default-row-padding">
                                     <pnx:primeDIV labelDiv="col-md-2" label="Communication Skill  : "   contentDiv="col-md-4">
                                         <span class="default-page-text">
-                                            #{studentRecordPageBean.studentRecord.marks.communicationSkill}
+                                            #{genericBean.formatDecimalPlaces(studentRecordPageBean.studentRecord.marks.communicationSkill)}
                                         </span>
                                     </pnx:primeDIV>
                                     <pnx:primeDIV labelDiv="col-md-2" label="Personal Appearance  : "   contentDiv="col-md-4">
                                         <span class="default-page-text">
-                                            #{studentRecordPageBean.studentRecord.marks.personalAppearance}
+                                            #{genericBean.formatDecimalPlaces(studentRecordPageBean.studentRecord.marks.personalAppearance)}
                                         </span>
                                     </pnx:primeDIV>
                                 </div>
                                 <div class="row default-row-padding">
                                     <pnx:primeDIV labelDiv="col-md-2" label="Self Awareness  : "   contentDiv="col-md-4">
                                         <span class="default-page-text">
-                                            #{studentRecordPageBean.studentRecord.marks.selfAwareness}
+                                            #{genericBean.formatDecimalPlaces(studentRecordPageBean.studentRecord.marks.selfAwareness)}
                                         </span>
                                     </pnx:primeDIV>
                                     <pnx:primeDIV labelDiv="col-md-2" label="Plans and Goals  : "   contentDiv="col-md-4">
                                         <span class="default-page-text">
-                                            #{studentRecordPageBean.studentRecord.marks.plansAndGoals}
+                                            #{genericBean.formatDecimalPlaces(studentRecordPageBean.studentRecord.marks.plansAndGoals)}
                                         </span>
                                     </pnx:primeDIV>
                                 </div>
                                 <div class="row default-row-padding">
                                     <pnx:primeDIV labelDiv="col-md-2" label="Book Knowledge  : "   contentDiv="col-md-4">
                                         <span class="default-page-text">
-                                            #{studentRecordPageBean.studentRecord.marks.bookKnowledge}
+                                            #{genericBean.formatDecimalPlaces(studentRecordPageBean.studentRecord.marks.bookKnowledge)}
                                         </span>
                                     </pnx:primeDIV>
                                     <pnx:primeDIV labelDiv="col-md-2" label="Confidence Level  : "   contentDiv="col-md-4">
                                         <span class="default-page-text">
-                                            #{studentRecordPageBean.studentRecord.marks.confidenceLevel}
+                                            #{genericBean.formatDecimalPlaces(studentRecordPageBean.studentRecord.marks.confidenceLevel)}
                                         </span>
                                     </pnx:primeDIV>
                                 </div>
@@ -332,19 +332,19 @@ and open the template in the editor.
                                 <div class="row default-row-padding">
                                     <pnx:primeDIV labelDiv="col-md-2" label="Total Academic Score : "   contentDiv="col-md-4">
                                         <span class="default-page-text">
-                                            #{studentRecordPageBean.studentRecord.marks.totalAcademicScore}
+                                            #{genericBean.formatDecimalPlaces(studentRecordPageBean.studentRecord.marks.totalAcademicScore)}
                                         </span>
                                     </pnx:primeDIV>
                                     <pnx:primeDIV labelDiv="col-md-2" label="Total Interview Score  : "   contentDiv="col-md-4">
                                         <span class="default-page-text">
-                                            #{studentRecordPageBean.studentRecord.marks.totalInterviewScore}
+                                            #{genericBean.formatDecimalPlaces(studentRecordPageBean.studentRecord.marks.totalInterviewScore)}
                                         </span>
                                     </pnx:primeDIV>
                                 </div>
                                 <div class="row default-row-padding">
                                     <pnx:primeDIV labelDiv="col-md-2" label="Total Score : "   contentDiv="col-md-4">
                                         <span class="default-page-text">
-                                            #{studentRecordPageBean.studentRecord.marks.totalScore}
+                                            #{genericBean.formatDecimalPlaces(studentRecordPageBean.studentRecord.marks.totalScore)}
                                         </span>
                                     </pnx:primeDIV>
                                     <pnx:primeDIV labelDiv="col-md-2" label="Grade  : "   contentDiv="col-md-4">
@@ -372,30 +372,36 @@ and open the template in the editor.
                                 <p:column headerText="Full Name" style="text-align: left;width: 250px;">
                                     <h:outputText value="#{aRecord.student.fullName}"/>
                                 </p:column>
-
+                                
+                                <p:column headerText="Department" style="text-align: center;">
+                                    <h:outputText value="#{genericBean.obtainedGrade(aRecord.grade)}"/>
+                                </p:column>
+                                
+                                <p:column headerText="Class" style="text-align: center;">
+                                    <h:outputText value="#{genericBean.obtainedGrade(aRecord.grade)}"/>
+                                </p:column>
+                                
                                 <p:column headerText="Batch" style="text-align: center;">
                                     <h:outputText value="#{genericBean.batch(aRecord.examBatch)}"/>
                                 </p:column>
                                 
                                 <p:column headerText="Academic Score" style="text-align: center;">
-                                    <h:outputText value="#{aRecord.marks.totalAcademicScore}"/>
+                                    <h:outputText value="#{genericBean.formatDecimalPlaces(aRecord.marks.totalAcademicScore)}"/>
                                 </p:column>
 
                                 <p:column headerText="Interview Score" style="text-align: center;">
-                                    <h:outputText value="#{aRecord.marks.totalInterviewScore}"/>
+                                    <h:outputText value="#{genericBean.formatDecimalPlaces(aRecord.marks.totalInterviewScore)}"/>
                                 </p:column>
 
                                 <p:column headerText="Total Score" style="text-align: center;">
-                                    <h:outputText value="#{aRecord.marks.totalScore}"/>
+                                    <h:outputText value="#{genericBean.formatDecimalPlaces(aRecord.marks.totalScore)}"/>
                                 </p:column>
 
                                 <p:column headerText="Status" style="text-align: center;">
                                     <h:outputText value="#{genericBean.recordStatus(aRecord.status)}"/>
                                 </p:column>
 
-                                <p:column headerText="Grade" style="text-align: center;">
-                                    <h:outputText value="#{genericBean.obtainedGrade(aRecord.grade)}"/>
-                                </p:column>
+                                
 
                                 <p:column headerText="Actions" style="text-align: center;width: 80px;">
                                     <p:commandButton update="@form" icon="view-icon"

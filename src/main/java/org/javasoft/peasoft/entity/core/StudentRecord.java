@@ -76,7 +76,7 @@ public class StudentRecord implements Serializable {
     private School school;
     
     @OneToOne
-    @Cascade({CascadeType.DELETE,CascadeType.PERSIST})
+    @Cascade({CascadeType.DELETE,CascadeType.PERSIST,CascadeType.MERGE})
     private Marks marks;
     
     @OneToOne(mappedBy = "studentRecord")
@@ -92,6 +92,10 @@ public class StudentRecord implements Serializable {
         status = ACTIVE;
         grade = PENDING;
         identificationNo = "SRD"+ RandomStringUtils.randomNumeric(5);
+    }
+    
+    public boolean isActive() {
+        return StringUtils.equalsIgnoreCase(status, ACTIVE);
     }
     
     public boolean isDisqualified() {

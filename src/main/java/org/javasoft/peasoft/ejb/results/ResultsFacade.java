@@ -30,7 +30,7 @@ public class ResultsFacade extends GenericDAO<StudentRecord, Long>{
     
     public List<StudentRecord> findStudentRecordByGrade(String grade){
         Criteria recordCriteria =getCriteria().add(Restrictions.eq("grade", grade));
-        recordCriteria.createAlias("Marks", "marks");
+        recordCriteria.createAlias("marks", "marks");
         return recordCriteria.addOrder(Order.desc("marks.totalScore")).list();
     }
 }

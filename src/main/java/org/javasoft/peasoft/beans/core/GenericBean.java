@@ -6,6 +6,8 @@
 package org.javasoft.peasoft.beans.core;
 
 import java.io.Serializable;
+import java.text.DecimalFormat;
+import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 import static org.javasoft.peasoft.constants.PeaResource.ACTIVE;
@@ -29,6 +31,13 @@ import static org.javasoft.peasoft.constants.PeaResource.SENT;
 @Named("genericBean")
 @SessionScoped
 public class GenericBean implements Serializable {
+    
+    private DecimalFormat decimalFormat;
+    
+    @PostConstruct
+    public void init(){
+        decimalFormat = new DecimalFormat("##.##");
+    }
 
     public String recordStatus(String status) {
         switch (status) {
@@ -86,5 +95,9 @@ public class GenericBean implements Serializable {
                 return "Batch B" ;
         }
         return "";
+    }
+    
+    public String formatDecimalPlaces(double value){
+        return decimalFormat.format(value);
     }
 }

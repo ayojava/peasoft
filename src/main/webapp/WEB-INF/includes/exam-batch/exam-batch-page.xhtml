@@ -37,12 +37,16 @@ and open the template in the editor.
                                     <h:outputText value="#{aRecord.identificationNo}"/>
                                 </p:column>
 
-                                <p:column headerText="Full Name" style="text-align: left;width: 300px;">
+                                <p:column headerText="Full Name" style="text-align: left;width: 280px;">
                                     <h:outputText value="#{aRecord.student.fullName}"/>
                                 </p:column>
                                 
                                 <p:column headerText="Class" style="text-align: left;">
                                     <h:outputText value="#{aRecord.sss}"/>
+                                </p:column>
+                                
+                                <p:column headerText="Department" style="text-align: left;">
+                                    <h:outputText value="#{genericBean.department(aRecord.department)}"/>
                                 </p:column>
                                 
                                 <p:column headerText="Gender" style="text-align: center;width:90px">
