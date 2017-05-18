@@ -18,6 +18,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.apache.commons.math3.util.Precision;
 import org.hibernate.annotations.CreationTimestamp;
 
 /**
@@ -75,9 +76,9 @@ public class Marks implements Serializable {
     
     
     public void computeMarks(){
-        totalAcademicScore =  (mathScore + englishScore + currentAffairsScore + ictScore )/4;
-        totalInterviewScore = (communicationSkill + personalAppearance + selfAwareness + plansAndGoals + bookKnowledge + confidenceLevel)/6;
-        totalScore = (totalAcademicScore + totalInterviewScore)/2;
+        totalAcademicScore =  Precision.round(((mathScore + englishScore + currentAffairsScore + ictScore )/4), 2);
+        totalInterviewScore = Precision.round(((communicationSkill + personalAppearance + selfAwareness + plansAndGoals + bookKnowledge + confidenceLevel)/6), 2);
+        totalScore = Precision.round(((totalAcademicScore + totalInterviewScore)/2), 2);
     }
         
 }

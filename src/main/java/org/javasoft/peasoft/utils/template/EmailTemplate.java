@@ -64,5 +64,10 @@ public interface EmailTemplate {
     public static final String EXAMINATION_CENTER_SUBJECT_TEMPLATE = "{examinationCenter.subject}";
     
     public static final String EXAMINATION_CENTER_TOP_TEMPLATE = "{examinationCenter.top}";
+    
+    public static final String SCHOOL_RESULT_DETAILS_SUBJECT_TEMPLATE = "{schoolResultDetails.subject}";
+    
+    public static final String SCHOOL_RESULT_DETAILS_TOP_TEMPLATE = "{schoolResultDetails.top}";
+    
 
 }

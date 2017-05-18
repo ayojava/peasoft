@@ -15,7 +15,7 @@ and open the template in the editor.
             <c:choose>
                 <c:when test="#{displayMode=='new' or displayMode=='edit'}">
                     <pnx:pageDivider id="school" separator="false">
-                        
+
                         <ui:define name="properties">
                             <div class="default-page-border">
                                 <div class="row default-row-padding">
@@ -30,7 +30,7 @@ and open the template in the editor.
                                                      value="#{schoolPageBean.school.addressTemplate.street}"/>
                                     </pnx:primeDIV>
                                 </div>
-                                
+
                                 <div class="row default-row-padding">
                                     <pnx:primeDIV labelDiv="col-md-2" labelID="cityLbl" label="City : "
                                                   contentDiv="col-md-4" targetID="cityTxt">
@@ -75,15 +75,15 @@ and open the template in the editor.
                                                   contentDiv="col-md-4" targetID="alternateEmailTxt">
                                         <p:inputText id="alternateEmailTxt" required="false" autocomplete="off" size="40"
                                                      value="#{schoolPageBean.school.addressTemplate.contactEmail2}"/>
-                                            
-                                          </pnx:primeDIV>    
+
+                                    </pnx:primeDIV>    
                                 </div>
 
                             </div>
                         </ui:define>
                     </pnx:pageDivider>
                 </c:when>
-                
+
                 <c:when test="#{displayMode=='view'}">
                     <pnx:pageDivider id="view-school" separator="false">
                         <ui:define name="properties">
@@ -91,16 +91,16 @@ and open the template in the editor.
                                 <div class="row default-row-padding">
                                     <pnx:primeDIV labelDiv="col-md-2" label="Identification No : "   contentDiv="col-md-4">
                                         <span class="default-page-text">
-                                           #{schoolPageBean.school.identificationNo}
+                                            #{schoolPageBean.school.identificationNo}
                                         </span>
                                     </pnx:primeDIV>
                                     <pnx:primeDIV labelDiv="col-md-2" label="School Name : "   contentDiv="col-md-4">
                                         <span class="default-page-text">
-                                           #{schoolPageBean.school.name}
+                                            #{schoolPageBean.school.name}
                                         </span>
                                     </pnx:primeDIV>
                                 </div>
-                                
+
                                 <div class="row default-row-padding">
                                     <pnx:primeDIV labelDiv="col-md-2"  label="Address : " contentDiv="col-md-10" >
                                         <span class="default-page-text">
@@ -109,12 +109,12 @@ and open the template in the editor.
                                     </pnx:primeDIV>
                                 </div>
                                 <div class="row default-row-padding">
-                                     <pnx:primeDIV labelDiv="col-md-2"  label="Email : " contentDiv="col-md-4" >
+                                    <pnx:primeDIV labelDiv="col-md-2"  label="Email : " contentDiv="col-md-4" >
                                         <span class="default-page-text">
                                             #{schoolPageBean.school.addressTemplate.contactEmail1}
                                         </span>
                                     </pnx:primeDIV>
-                                     <pnx:primeDIV labelDiv="col-md-2"  label="Phone No : " contentDiv="col-md-4" >
+                                    <pnx:primeDIV labelDiv="col-md-2"  label="Phone No : " contentDiv="col-md-4" >
                                         <span class="default-page-text">
                                             #{schoolPageBean.school.addressTemplate.contactPhoneNo1}
                                         </span>
@@ -131,7 +131,7 @@ and open the template in the editor.
                                             #{schoolPageBean.artStudents}
                                         </span>
                                     </pnx:primeDIV>
-                                     <pnx:primeDIV labelDiv="col-md-2"  label="Commercial : " contentDiv="col-md-2" >
+                                    <pnx:primeDIV labelDiv="col-md-2"  label="Commercial : " contentDiv="col-md-2" >
                                         <span class="default-page-text">
                                             #{schoolPageBean.commercialStudents}
                                         </span>
@@ -148,7 +148,7 @@ and open the template in the editor.
                                             #{schoolPageBean.selectedStudents}
                                         </span>
                                     </pnx:primeDIV>
-                                     <pnx:primeDIV labelDiv="col-md-2"  label="Not Selected : " contentDiv="col-md-2" >
+                                    <pnx:primeDIV labelDiv="col-md-2"  label="Not Selected : " contentDiv="col-md-2" >
                                         <span class="default-page-text">
                                             #{schoolPageBean.notSelectedStudents}
                                         </span>
@@ -160,44 +160,52 @@ and open the template in the editor.
                                     </pnx:primeDIV>
                                 </div>
                             </div>
-                            
+
                         </ui:define>
                     </pnx:pageDivider>
                     <pnx:pageDivider id="list-students" separator="true" help="Students List" dividerIconClass="fa fa-male">
                         <ui:define name="properties">
-                            <p:dataTable id="studentRecordsTable" var="studentRecord" value="#{schoolPageBean.school.studentRecords}" 
+                            <p:dataTable id="studentRecordsTable" var="studentRecord" value="#{schoolPageBean.allRecords}" 
                                          paginatorPosition="bottom" paginator="true" rows="40" rowIndexVar="rowIndex"
                                          rowStyleClass="#{studentRecord.disqualified ? 'bg-danger':null}"
                                          paginatorTemplate=" {CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}">
-                                
+
                                 <p:column headerText="No" style="text-align: center;width: 35px;">
                                     <h:outputText value="#{rowIndex+1}"/>
                                 </p:column>
-                                
-                                <p:column headerText="Student Name" style="text-align: left;width: 320px;">
+
+                                <p:column headerText="Student Name" style="text-align: left;width: 280px;">
                                     <h:outputText value="#{studentRecord.student.fullName}"/>
                                 </p:column>
+
+                                <p:column headerText="Class" style="text-align: left;">
+                                    <h:outputText value="#{studentRecord.sss}"/>
+                                </p:column>
                                 
+                                <p:column headerText="Department" style="text-align: left;">
+                                    <h:outputText value="#{genericBean.department(studentRecord.department)}"/>
+                                </p:column>
+
                                 <p:column headerText="Batch" style="text-align: center;">
                                     <h:outputText value="#{genericBean.batch(studentRecord.examBatch)}"/>
                                 </p:column>
-                                
+
                                 <p:column headerText="Academic Score" style="text-align: left;">
                                     <h:outputText value="#{studentRecord.marks.totalAcademicScore}"/>
                                 </p:column>
-                                
+
                                 <p:column headerText="Interview Score" style="text-align: left;">
                                     <h:outputText value="#{studentRecord.marks.totalInterviewScore}"/>
                                 </p:column>
-                                
+
                                 <p:column headerText="Total Score" style="text-align: left;">
                                     <h:outputText value="#{studentRecord.marks.totalScore}"/>
                                 </p:column>
-                                
+
                                 <p:column headerText="Status" style="text-align: left;">
                                     <h:outputText value="#{genericBean.recordStatus(studentRecord.status)}"/>
                                 </p:column>
-                                
+
                                 <p:column headerText="Grade" style="text-align: center;">
                                     <h:outputText value="#{genericBean.obtainedGrade(studentRecord.grade)}"/>
                                 </p:column>
@@ -211,19 +219,19 @@ and open the template in the editor.
                             <p:dataTable id="schoolsTable" var="school" value="#{schoolPageBean.schools}" 
                                          paginatorPosition="bottom" paginator="true" rows="40" rowIndexVar="rowIndex"
                                          paginatorTemplate=" {CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}">
-                                
+
                                 <p:column headerText="No" style="text-align: center;width: 35px;">
                                     <h:outputText value="#{rowIndex+1}"/>
                                 </p:column>
-                                
+
                                 <p:column headerText="School Name" style="text-align: left;width: 340px;">
                                     <h:outputText value="#{school.name}"/>
                                 </p:column>
-                                
+
                                 <p:column headerText="City" style="text-align: center;">
                                     <h:outputText value="#{school.addressTemplate.city}"/>
                                 </p:column>
-                                
+
                                 <p:column headerText="Phone No" style="text-align: center;">
                                     <h:outputText value="#{school.addressTemplate.contactPhoneNo1}"/>
                                 </p:column>
@@ -231,11 +239,11 @@ and open the template in the editor.
                                 <p:column headerText="Email" style="text-align: center;">
                                     <h:outputText value="#{school.addressTemplate.contactEmail1}"/>
                                 </p:column>
-                                
+
                                 <p:column headerText="Students" style="text-align: center;">
                                     <h:outputText value="#{school.studentCount}"/>
                                 </p:column>
-                                
+
                                 <p:column headerText="Actions" style="text-align: center;width: 80px;">
                                     <p:commandButton update="@form" icon="view-icon"
                                                      action="#{schoolPageBean.setPageResource(peaResource.VIEW_SCHOOL,school)}"

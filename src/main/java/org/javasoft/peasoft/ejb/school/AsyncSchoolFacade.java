@@ -5,6 +5,7 @@
  */
 package org.javasoft.peasoft.ejb.school;
 
+import java.util.List;
 import javax.ejb.Asynchronous;
 import javax.ejb.EJB;
 import javax.ejb.LocalBean;
@@ -12,6 +13,7 @@ import javax.ejb.Stateless;
 import lombok.extern.slf4j.Slf4j;
 import org.javasoft.peasoft.ejb.dao.GenericDAO;
 import org.javasoft.peasoft.entity.core.School;
+import org.javasoft.peasoft.entity.core.StudentRecord;
 import org.javasoft.peasoft.excel.school.SchoolAndStudentRecordsListExcelReport;
 import org.javasoft.peasoft.excel.school.SchoolListExcelReport;
 
@@ -38,9 +40,13 @@ public class AsyncSchoolFacade extends GenericDAO<School, Long>{
         schoolListExcelReport.destroy();
     }
     
-    public void asyncSchoolAndStudentsRecordsExcelDocument(String fileName, School schoolObj){
+    public void asyncSchoolAndStudentsRecordsExcelDocument(String fileName, School schoolObj,List<StudentRecord> studentRecord){
         SchoolAndStudentRecordsListExcelReport report = new SchoolAndStudentRecordsListExcelReport();
-        report.populateExcelSheet("SchoolRecordsList", fileName, schoolObj);
+        report.populateExcelSheet("SchoolRecordsList", fileName, schoolObj,studentRecord);
         report.destroy();
+    }
+    
+    public void asyncSchoolAndStudentBatchExcelDocument(){
+    
     }
 }

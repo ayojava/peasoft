@@ -15,12 +15,14 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
+import org.javasoft.peasoft.beans.core.GenericBean;
 import static org.javasoft.peasoft.constants.PeaResource.SCHOOL_FOLDER;
 import org.javasoft.peasoft.entity.core.Marks;
 import org.javasoft.peasoft.entity.core.School;
 import org.javasoft.peasoft.entity.core.Student;
 import org.javasoft.peasoft.entity.core.StudentRecord;
 import org.javasoft.peasoft.excel.ExcelProcessor;
+import org.omnifaces.util.Beans;
 
 /**
  *
@@ -32,15 +34,17 @@ public class SchoolAndStudentRecordsListExcelReport extends ExcelProcessor {
     private School school;
 
     private int rowCount = 1;
+    
+    private List<StudentRecord> studentRecords;
 
     private String[] columnHeaders = {"S/N", "Name", "Gender", "Class", "Department", "Status", "Maths (%)", "English (%)",
         "Current Affairs (%)", "ICT Score (%)", "Communication Skill (%)", "Personal Awareness (%)", "SelfAwareness (%)",
-        "PlansAndGoals (%)", "BookKnowledge (%)", "Confidence Level (%) ", "Total Score (%)", "Grade (%)"};
+        "PlansAndGoals (%)", "BookKnowledge (%)", "Confidence Level (%) ", "Total Score (%)", "Grade "};
 
     private String fileName;
 
-    public boolean populateExcelSheet(String sheetName, String fileName, School schoolObj) {
-        if (schoolObj == null || schoolObj.getStudentRecords().isEmpty() || StringUtils.isBlank(sheetName) || StringUtils.isBlank(fileName)) {
+    public boolean populateExcelSheet(String sheetName, String fileName, School schoolObj, List<StudentRecord> allRecords) {
+        if (schoolObj == null || allRecords.isEmpty() || StringUtils.isBlank(sheetName) || StringUtils.isBlank(fileName)) {
             log.error("=== SheetName or School is not supplied . Excel sheet can't be generated");
             return false;
         }
@@ -54,6 +58,7 @@ public class SchoolAndStudentRecordsListExcelReport extends ExcelProcessor {
         populateSheetHeaders(schoolName, schoolAddress);
         populateColumnHeaders(columnHeaders);
         try {
+            studentRecords = allRecords;
             writeExcelData();
         } catch (IOException ex) {
             log.error("An Error has Occurred :::", ex);
@@ -65,6 +70,8 @@ public class SchoolAndStudentRecordsListExcelReport extends ExcelProcessor {
     private void writeExcelData() throws IOException {
         @Cleanup
         ByteArrayOutputStream outStream = new ByteArrayOutputStream();
+        
+        GenericBean genericBean = Beans.getInstance(GenericBean.class);
 
         //int currentPosition = getRowPosition();
         //int no = 1;
@@ -72,16 +79,16 @@ public class SchoolAndStudentRecordsListExcelReport extends ExcelProcessor {
 //        private String[] columnHeaders = {"S/N" ,"Name" ,"Gender" ,"Class" ,"Department" ,"Status" ,"Maths (%)","English (%)",
 //        "Current Affairs (%)","ICT Score (%)","Communication Skill (%)","Personal Awareness (%)","SelfAwareness (%)",
 //        "PlansAndGoals (%)","BookKnowledge (%)","Confidence Level (%) ","Total Score (%)","Grade (%)"};
-        List<StudentRecord> studentRecords = school.getStudentRecords();
+       // List<StudentRecord> studentRecords = school.getStudentRecords();
         studentRecords.forEach((StudentRecord aRecord) -> {
             Student student = aRecord.getStudent();
             Marks mark = aRecord.getMarks();
             String[] rowValues = {
-                String.valueOf(rowCount), student.getFullName(), student.getGender(), aRecord.getSss(), aRecord.getDepartment(),
-                aRecord.getStatus(), String.valueOf(mark.getMathScore()), String.valueOf(mark.getEnglishScore()), String.valueOf(mark.getCurrentAffairsScore()),
+                String.valueOf(rowCount), student.getFullName(), genericBean.gender(student.getGender()), aRecord.getSss(),genericBean.department(aRecord.getDepartment()),
+                genericBean.recordStatus(aRecord.getStatus()), String.valueOf(mark.getMathScore()), String.valueOf(mark.getEnglishScore()), String.valueOf(mark.getCurrentAffairsScore()),
                 String.valueOf(mark.getIctScore()),String.valueOf(mark.getCommunicationSkill()),String.valueOf(mark.getPersonalAppearance()),
                 String.valueOf(mark.getSelfAwareness()),String.valueOf(mark.getPlansAndGoals()),String.valueOf(mark.getBookKnowledge()),
-                String.valueOf(mark.getConfidenceLevel()),String.valueOf(mark.getTotalScore()),aRecord.getGrade()
+                String.valueOf(mark.getConfidenceLevel()),String.valueOf(mark.getTotalScore()),genericBean.obtainedGrade(aRecord.getGrade())
             };
             
             Row row = getCurrentSheet().createRow(rowPosition);

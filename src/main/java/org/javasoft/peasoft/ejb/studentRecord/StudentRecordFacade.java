@@ -12,9 +12,11 @@ import javax.ejb.Stateless;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Restrictions;
 import static org.javasoft.peasoft.constants.PeaResource.NOT_SELECTED;
 import static org.javasoft.peasoft.constants.PeaResource.SELECTED;
 import org.javasoft.peasoft.ejb.dao.GenericDAO;
+import org.javasoft.peasoft.entity.core.School;
 import org.javasoft.peasoft.entity.core.StudentRecord;
 
 /**
@@ -77,4 +79,18 @@ public class StudentRecordFacade extends GenericDAO<StudentRecord, Long> {
         recordCriteria.createAlias("marks", "marks");
         return recordCriteria.addOrder(Order.desc("marks.totalScore")).list();
     }
+    
+    public List<StudentRecord> orderByMarks(School school) {
+        Criteria recordCriteria = getCriteria();
+        recordCriteria.createAlias("marks", "marks").createAlias("school", "school").add(Restrictions.eq("school.id", school.getId()));
+        return recordCriteria.addOrder(Order.desc("marks.totalScore")).list();
+    }
+    
+    /*
+        public School fetchJoinSchoolRecord(School school){
+       return (School) getCriteria().setFetchMode("studentRecords", FetchMode.JOIN)
+               .add(Restrictions.eq("id", school.getId())).uniqueResult();
+   }
+    */
+    
 }

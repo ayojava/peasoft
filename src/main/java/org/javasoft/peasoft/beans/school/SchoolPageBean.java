@@ -5,12 +5,14 @@
  */
 package org.javasoft.peasoft.beans.school;
 
+import java.io.File;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.view.ViewScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 import lombok.Getter;
 import lombok.Setter;
@@ -19,11 +21,16 @@ import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateFormatUtils;
 import org.javasoft.peasoft.beans.core.AbstractBean;
+import org.javasoft.peasoft.beans.core.util.EmailUtilBean;
+import org.javasoft.peasoft.ejb.data.EmailDataFacade;
 import org.javasoft.peasoft.ejb.school.AsyncSchoolFacade;
 import org.javasoft.peasoft.ejb.school.SchoolFacade;
+import org.javasoft.peasoft.ejb.studentRecord.StudentRecordFacade;
 import org.javasoft.peasoft.entity.core.School;
 import org.javasoft.peasoft.entity.core.StudentRecord;
+import org.javasoft.peasoft.entity.data.EmailData;
 import org.javasoft.peasoft.entity.templates.AddressTemplate;
+import org.javasoft.peasoft.service.SchoolService;
 import org.omnifaces.util.Messages;
 
 /**
@@ -40,6 +47,9 @@ public class SchoolPageBean extends AbstractBean implements Serializable {
 
     @Getter
     private List<School> schools;
+    
+    @Getter
+    private List<StudentRecord> allRecords;
    
     @Getter
     private int disqualifiedStudents , selectedStudents , notSelectedStudents  ;
@@ -48,13 +58,24 @@ public class SchoolPageBean extends AbstractBean implements Serializable {
     private int scienceStudents , artStudents , commercialStudents;
     
     @Getter
-    private int ss1 , ss2 ;
+    private int ss1 , ss2 ,totalStudents;
     
     @EJB
     private SchoolFacade schoolFacade;
     
     @EJB
+    private StudentRecordFacade studentRecordFacade;
+    
+    @EJB
     private AsyncSchoolFacade asyncSchoolFacade;
+    
+    @Inject
+    private EmailUtilBean emailUtilBean;
+    
+    @EJB
+    private EmailDataFacade emailDataFacade;
+    
+    private SchoolService schoolService;
 
     @Override
     @PostConstruct
@@ -72,8 +93,9 @@ public class SchoolPageBean extends AbstractBean implements Serializable {
         } else if (StringUtils.equals(EDIT_SCHOOL, pageResource)) {
             super.setPageResource(appendFolderPath(SCHOOL_FOLDER, EDIT_SCHOOL));
         } else if (StringUtils.equals(VIEW_SCHOOL, pageResource)) {
-            school = schoolFacade.fetchJoinSchoolRecord(school);
-            setDisplayResults(school.getStudentRecords());
+            //school = schoolFacade.fetchJoinSchoolRecord(school);
+            allRecords = studentRecordFacade.orderByMarks(school);
+            setDisplayResults();
             super.setPageResource(appendFolderPath(SCHOOL_FOLDER, VIEW_SCHOOL));
         } else if (StringUtils.equals(LIST_SCHOOLS, pageResource)) {
             schools = schoolFacade.findAll("name");
@@ -84,7 +106,8 @@ public class SchoolPageBean extends AbstractBean implements Serializable {
         }
     }
     
-    private void setDisplayResults(List<StudentRecord> allRecords){
+    private void setDisplayResults(){
+        totalStudents = allRecords.size();
         disqualifiedStudents = selectedStudents = notSelectedStudents = 0;   
         scienceStudents = artStudents = commercialStudents = 0;
         ss1 = ss2 = 0;
@@ -106,6 +129,12 @@ public class SchoolPageBean extends AbstractBean implements Serializable {
             }
             if(StringUtils.equalsIgnoreCase(COMMERCIAL, record.getDepartment())){
                 commercialStudents++;
+            }
+            if(StringUtils.equalsIgnoreCase(SSS1, record.getSss())){
+                ss1++;
+            }
+            if(StringUtils.equalsIgnoreCase(SSS2, record.getSss())){
+                ss2++;
             }
         });
         
@@ -145,12 +174,19 @@ public class SchoolPageBean extends AbstractBean implements Serializable {
         }
         String fileName = DateFormatUtils.format(new Date(), DISPLAY_DATE_FORMAT_DAYS)+"_"+ RandomStringUtils.randomNumeric(5)+".xls"; 
         asyncSchoolFacade.asyncSchoolListExcelDocument(fileName);
+        
         Messages.addGlobalInfo("Excel Sheet In Progress");
     }
     
     public void generateResultBySchool(){
         String fileName = DateFormatUtils.format(new Date(), DISPLAY_DATE_FORMAT_DAYS)+"_"+ RandomStringUtils.randomNumeric(5)+".xls"; 
-        asyncSchoolFacade.asyncSchoolAndStudentsRecordsExcelDocument(fileName, school);
+        asyncSchoolFacade.asyncSchoolAndStudentsRecordsExcelDocument(fileName, school,allRecords);
+        schoolService = new SchoolService();
+        
+        String filePath = registry.getInitFilePath() + SCHOOL_FOLDER+ File.pathSeparator + fileName;
+        EmailData emailData = schoolService.generateResultBySchoolEmail(emailUtilBean, school,totalStudents,selectedStudents, notSelectedStudents, 
+                artStudents, scienceStudents, commercialStudents, ss1, ss2, filePath);
+        emailDataFacade.persist(emailData);
         Messages.addGlobalInfo("Excel Sheet In Progress");
     }
     
@@ -158,9 +194,7 @@ public class SchoolPageBean extends AbstractBean implements Serializable {
     
     }
     
-    public void generateResultBySchoolAndMail(){
     
-    }
    
     private void cleanup(){
         schools = null;
