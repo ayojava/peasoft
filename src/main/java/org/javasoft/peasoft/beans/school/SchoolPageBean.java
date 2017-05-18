@@ -23,7 +23,6 @@ import org.apache.commons.lang3.time.DateFormatUtils;
 import org.javasoft.peasoft.beans.core.AbstractBean;
 import org.javasoft.peasoft.beans.core.util.EmailUtilBean;
 import org.javasoft.peasoft.ejb.data.EmailDataFacade;
-import org.javasoft.peasoft.ejb.school.AsyncSchoolFacade;
 import org.javasoft.peasoft.ejb.school.SchoolFacade;
 import org.javasoft.peasoft.ejb.studentRecord.StudentRecordFacade;
 import org.javasoft.peasoft.entity.core.School;
@@ -65,9 +64,6 @@ public class SchoolPageBean extends AbstractBean implements Serializable {
     
     @EJB
     private StudentRecordFacade studentRecordFacade;
-    
-    @EJB
-    private AsyncSchoolFacade asyncSchoolFacade;
     
     @Inject
     private EmailUtilBean emailUtilBean;
@@ -173,14 +169,14 @@ public class SchoolPageBean extends AbstractBean implements Serializable {
             return;
         }
         String fileName = DateFormatUtils.format(new Date(), DISPLAY_DATE_FORMAT_DAYS)+"_"+ RandomStringUtils.randomNumeric(5)+".xls"; 
-        asyncSchoolFacade.asyncSchoolListExcelDocument(fileName);
+        schoolFacade.asyncSchoolListExcelDocument(fileName);
         
         Messages.addGlobalInfo("Excel Sheet In Progress");
     }
     
     public void generateResultBySchool(){
         String fileName = DateFormatUtils.format(new Date(), DISPLAY_DATE_FORMAT_DAYS)+"_"+ RandomStringUtils.randomNumeric(5)+".xls"; 
-        asyncSchoolFacade.asyncSchoolAndStudentsRecordsExcelDocument(fileName, school,allRecords);
+        schoolFacade.asyncSchoolAndStudentsRecordsExcelDocument(fileName, school,allRecords);
         schoolService = new SchoolService();
         
         String filePath = registry.getInitFilePath() + SCHOOL_FOLDER+ File.pathSeparator + fileName;

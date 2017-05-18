@@ -15,6 +15,9 @@ import org.hibernate.FetchMode;
 import org.hibernate.criterion.Restrictions;
 import org.javasoft.peasoft.ejb.dao.GenericDAO;
 import org.javasoft.peasoft.entity.core.School;
+import org.javasoft.peasoft.entity.core.StudentRecord;
+import org.javasoft.peasoft.excel.school.SchoolAndStudentRecordsListExcelReport;
+import org.javasoft.peasoft.excel.school.SchoolListExcelReport;
 import org.javasoft.peasoft.utils.GlobalRegistry;
 
 /**
@@ -52,5 +55,15 @@ public class SchoolFacade extends GenericDAO<School, Long>{
        
    }
    
-   
+   public void asyncSchoolListExcelDocument(String fileName){
+        SchoolListExcelReport schoolListExcelReport = new SchoolListExcelReport();
+        schoolListExcelReport.populateExcelSheet("schoolList", fetchJoinSchools(),fileName);
+        schoolListExcelReport.destroy();
+    }
+    
+    public void asyncSchoolAndStudentsRecordsExcelDocument(String fileName, School schoolObj,List<StudentRecord> studentRecord){
+        SchoolAndStudentRecordsListExcelReport report = new SchoolAndStudentRecordsListExcelReport();
+        report.populateExcelSheet("SchoolRecordsList", fileName, schoolObj,studentRecord);
+        report.destroy();
+    }
 }
