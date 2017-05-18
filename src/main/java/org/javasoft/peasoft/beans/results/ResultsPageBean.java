@@ -15,8 +15,10 @@ import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.javasoft.peasoft.beans.core.AbstractBean;
+import static org.javasoft.peasoft.constants.PeaResource.LIST_EXAM_BATCH_OTHER;
 import org.javasoft.peasoft.ejb.results.ResultsFacade;
 import org.javasoft.peasoft.entity.core.StudentRecord;
+import org.omnifaces.util.Messages;
 
 /**
  *
@@ -61,12 +63,18 @@ public class ResultsPageBean extends AbstractBean implements Serializable {
         setPageResource(pageResource);
     }
 
-    public void changeGrade(StudentRecord studentRecord){
+    public void changeGrade(StudentRecord aRecord){
         try{
-        
-        }
-        catch(Exception ex){
-        
+            String oldGrade = aRecord.getGrade();
+            aRecord.setGrade(StringUtils.equalsIgnoreCase(oldGrade, SELECTED) ? NOT_SELECTED : SELECTED);
+            String newGrade = aRecord.getGrade();
+            log.info("Old Grade :: {} ==== New Grade :: {} " , oldGrade , newGrade);
+            resultsFacade.edit(aRecord);
+            Messages.addGlobalInfo("Edit Operation Successful");
+            setPageResource(LIST_RESULTS_OTHER);
+        }catch(Exception ex){
+            log.error("An Error has Occurred :::", ex);
+            Messages.addGlobalError("An Error has Occured");
         }
     }
     

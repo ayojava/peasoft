@@ -130,7 +130,7 @@ public class ExamBatchPageBean extends AbstractBean implements Serializable {
     public void changeBatch(StudentRecord aRecord) {
         try {
             String oldBatch = aRecord.getExamBatch();
-            aRecord.setExamBatch(StringUtils.equalsIgnoreCase(batch, BATCH_A) ? BATCH_B : BATCH_A);
+            aRecord.setExamBatch(StringUtils.equalsIgnoreCase(oldBatch, BATCH_A) ? BATCH_B : BATCH_A);
             String newBatch = aRecord.getExamBatch();
             log.info("Old Batch :: {} ==== New Batch :: {} " , oldBatch , newBatch);
             examBatchFacade.edit(aRecord);
