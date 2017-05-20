@@ -15,7 +15,6 @@ import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.javasoft.peasoft.beans.core.AbstractBean;
-import static org.javasoft.peasoft.constants.PeaResource.LIST_EXAM_BATCH_OTHER;
 import org.javasoft.peasoft.ejb.results.ResultsFacade;
 import org.javasoft.peasoft.entity.core.StudentRecord;
 import org.omnifaces.util.Messages;

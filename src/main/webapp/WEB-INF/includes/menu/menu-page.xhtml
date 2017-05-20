@@ -14,8 +14,7 @@ and open the template in the editor.
             <o:form id="NavMenuForm">
                  <o:importConstants type="org.javasoft.peasoft.constants.PeaResource" var="peaResource"/>
                 <p:tieredMenu id="navMenu" style="width: 100% ;border-radius: 8px;" >
-                    <p:menuitem id="headMenu" value="Home"  icon="fa fa-home fa-1g"
-                                action="#{dashBoardPageBean.setPageResource(peaResource.VIEW_HOME_PAGE)}" update=":homeForm"/>
+                    <p:menuitem id="headMenu" value="Home"  icon="fa fa-home fa-1g" update=":homeForm"/>
                     <p:separator />
                     <p:menuitem id="schoolMenu" value="Schools"  icon="fa fa-building fa-1g"
                                 action="#{schoolPageBean.setPageResource(peaResource.LIST_SCHOOLS)}" update=":homeForm"/>

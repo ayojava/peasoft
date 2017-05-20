@@ -8,13 +8,16 @@ package org.javasoft.peasoft.utils;
 import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.util.Date;
+import java.util.Properties;
 import javax.activation.DataHandler;
 import javax.activation.DataSource;
 import javax.activation.FileDataSource;
+import javax.mail.Authenticator;
 import javax.mail.BodyPart;
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.Multipart;
+import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.AddressException;
@@ -32,18 +35,37 @@ import static org.javasoft.peasoft.constants.PeaResource.CONTENT_HTML;
 @Slf4j
 public class EmailService {
 
-    private final String senderEmail;
+    private String senderEmail;
 
-    private final String senderName;
+    private String senderName;
 
-    private final Session mailSession;
+    private  Session mailSession;
 
     private Message mimeMsg;
 
-    public EmailService(String senderEmail, String senderName, Session mailSession) {
+    public void initEmailService(String debug, String mailServer, String portNo,String senderEmail,String senderPassword,
+            String senderName) {
         this.senderEmail = senderEmail;
         this.senderName = senderName;
-        this.mailSession = mailSession;
+        Properties props = new Properties();
+        props.setProperty("mail.transport.protocol", "smtp");
+        props.setProperty("mail.smtp.auth", "true");
+        props.setProperty("mail.smtp.ssl.enabled", "false");
+        props.setProperty("mail.smtp.host", mailServer);
+        props.setProperty("mail.smtp.port", portNo);
+        props.setProperty("mail.smtp.starttls.enable", "true");
+        //props.setProperty("mail.smtp.socketFactory.port", "465");
+        props.setProperty("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
+        props.setProperty("mail.smtp.socketFactory.fallback", "false");
+        props.setProperty("mail.debug", debug);
+
+        mailSession = Session.getInstance(props, new Authenticator() {
+            @Override
+            protected PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication(senderEmail, senderPassword);
+            }
+        });
+
     }
 
     public boolean sendHtmlMessage(String emailSubject, String messageBody, String recipientName, String recipientEmail) {

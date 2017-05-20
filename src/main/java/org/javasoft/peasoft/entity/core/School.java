@@ -20,6 +20,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
@@ -49,6 +50,7 @@ public class School implements Serializable {
     private String identificationNo;
     
     
+    @NotNull
     @ColumnTransformer(write = "UPPER(?)")
     private String name ;
        

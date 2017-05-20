@@ -10,8 +10,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  *
@@ -27,14 +29,22 @@ public class EmailSettings implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @NotNull
     private String sender;
     
+    @NotNull
     private String server;
     
+    @NotNull
     private String password;
     
     private boolean debug;
     
     private int port;
+    
+    
+    public boolean isError(){
+        return (StringUtils.isBlank(sender) || StringUtils.isBlank(server) || StringUtils.isBlank(password));
+    }
     
 }
