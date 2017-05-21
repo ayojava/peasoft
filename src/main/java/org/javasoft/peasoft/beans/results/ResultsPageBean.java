@@ -10,13 +10,20 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.javasoft.peasoft.beans.core.AbstractBean;
+import org.javasoft.peasoft.beans.core.util.EmailUtilBean;
+import org.javasoft.peasoft.ejb.data.EmailDataFacade;
+import org.javasoft.peasoft.ejb.data.NotificationFacade;
 import org.javasoft.peasoft.ejb.results.ResultsFacade;
 import org.javasoft.peasoft.entity.core.StudentRecord;
+import org.javasoft.peasoft.entity.data.EmailData;
+import org.javasoft.peasoft.entity.data.Notification;
+import org.javasoft.peasoft.service.ResultsService;
 import org.omnifaces.util.Messages;
 
 /**
@@ -36,20 +43,36 @@ public class ResultsPageBean extends AbstractBean implements Serializable {
 
     @EJB
     private ResultsFacade resultsFacade;
+    
+    @EJB
+    private NotificationFacade notificationFacade;
+    
+    @EJB
+    private EmailDataFacade examDataFacade;
 
     @Getter
     private String grade;
+    
+    @Getter
+    private int notificationCnt;
+    
+    private ResultsService resultsService;
+    
+    @Inject
+    private EmailUtilBean emailUtilBean;
 
     @Override
     public void setPageResource(String pageResource) {
         if (StringUtils.equals(LIST_RESULTS, pageResource)) {
             grade = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("result");
             studentRecords = resultsFacade.findStudentRecordByGrade(grade);
+            //find notificationCount
             super.setPageResource(appendFolderPath(RESULTS_FOLDER, LIST_RESULTS));
         } else if (StringUtils.equals(VIEW_RESULT, pageResource)) {
             super.setPageResource(appendFolderPath(RESULTS_FOLDER, VIEW_RESULT));//
         } else if (StringUtils.equals(LIST_RESULTS_OTHER, pageResource)) {
             studentRecords = resultsFacade.findStudentRecordByGrade(grade);
+            //find notificationCount
             super.setPageResource(appendFolderPath(RESULTS_FOLDER, LIST_RESULTS));
         } else if (StringUtils.equals(VIEW_HOME_PAGE, pageResource)) {
             setHomePageResource();
@@ -77,8 +100,25 @@ public class ResultsPageBean extends AbstractBean implements Serializable {
         }
     }
     
+    public void scheduleNotification(){
+        resultsService = new ResultsService();
+        List<Notification> notifications = notificationFacade.getPendingResultNotifications(grade);
+        notifications.forEach((Notification aNotification)->{
+            EmailData emailData = resultsService.generateNotificationEmail(emailUtilBean, grade, aNotification.getStudentRecord());
+            examDataFacade.persist(emailData);
+            
+            aNotification.setResultNotification(true);
+            notificationFacade.edit(aNotification);
+        });
+    
+    }
+    
+    public void  generateResultListInExcel() {
+        
+    }
     
     private void cleanup() {
         studentRecords = null;
+        grade = null;
     }
 }

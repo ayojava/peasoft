@@ -134,5 +134,16 @@ public class StudentRecord implements Serializable {
         return StringUtils.equalsIgnoreCase(department, COMMERCIAL);
     }
     
+    public String displayGradeName(){
+        switch(grade){
+            case SELECTED:
+                return " SELECTED ";
+            case NOT_SELECTED:
+                return " NOT SELECTED ";
+            case PENDING:
+                return " PENDING ";
+        }
+        return "";
+    }
 }
 

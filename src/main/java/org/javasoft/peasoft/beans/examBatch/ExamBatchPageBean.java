@@ -100,12 +100,12 @@ public class ExamBatchPageBean extends AbstractBean implements Serializable {
             batch = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("batch");
             log.info("Batch ::: {} ", batch);
             studentRecords = examBatchFacade.findStudentRecordByBatch(batch);
-            notificationCnt = notificationFacade.pendingNotificationCount();
+            notificationCnt = notificationFacade.pendingBatchNotificationCount(batch);
             //guidelineCnt = notificationFacade.pendingGuidelinesCount();
             super.setPageResource(appendFolderPath(EXAM_BATCH_FOLDER, LIST_EXAM_BATCH));
         } else if (StringUtils.equals(LIST_EXAM_BATCH_OTHER, pageResource)) {
             studentRecords = examBatchFacade.findStudentRecordByBatch(batch);
-            notificationCnt = notificationFacade.pendingNotificationCount();
+            notificationCnt = notificationFacade.pendingBatchNotificationCount(batch);
             //guidelineCnt = notificationFacade.pendingGuidelinesCount();
             super.setPageResource(appendFolderPath(EXAM_BATCH_FOLDER, LIST_EXAM_BATCH));
         } else if (StringUtils.equals(VIEW_HOME_PAGE, pageResource)) {
@@ -164,7 +164,7 @@ public class ExamBatchPageBean extends AbstractBean implements Serializable {
     public void scheduleNotification() {
         try {
             BatchSettings batchSetting = batchSettingsFacade.findOne();
-            List<Notification> pendingNotifications = notificationFacade.getPendingNotification();
+            List<Notification> pendingNotifications = notificationFacade.getPendingBatchNotification(batch);
             
             pendingNotifications.forEach(
                     aNotification -> {

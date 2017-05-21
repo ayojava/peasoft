@@ -69,5 +69,14 @@ public interface EmailTemplate {
     
     public static final String SCHOOL_RESULT_DETAILS_TOP_TEMPLATE = "{schoolResultDetails.top}";
     
+    
+    public static final String STUDENT_RESULT_SUBJECT_TEMPLATE = "{studentResult.subject}";
+    
+    public static final String STUDENT_RESULT_TOP_TEMPLATE = "{studentResult.top}";
+    
+    public static final String STUDENT_RESULT_SELECTED_NOTIFICATION_TEMPLATE = "{studentResult.selectedNotification}";
+    
+    public static final String STUDENT_RESULT_NOT_SELECTED_NOTIFICATION_TEMPLATE = "{studentResult.notSelectedNotification}";
+    
 
 }

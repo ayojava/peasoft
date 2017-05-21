@@ -45,14 +45,14 @@ public class SingletonFacade {
     public void initialize() {
         globalRegistry = GlobalRegistry.getInstance();
         initCount();
-       // jobScheduler.registerNewJob(EmailJob.class);
+        jobScheduler.registerNewJob(EmailJob.class);
         //jobScheduler.registerNewJob(SMSJob.class);
     }
     
     private void initCount(){
         int schoolCount = schoolFacade.count();
         int studentCount = studentFacade.count();
-        log.info("School Count -> [ {} ]    Student Count -> [ {} ]" , schoolCount , studentCount);
+        //log.info("School Count -> [ {} ]    Student Count -> [ {} ]" , schoolCount , studentCount);
         globalRegistry.setSchoolCount(schoolCount);
         globalRegistry.setStudentCount(studentCount);
     }

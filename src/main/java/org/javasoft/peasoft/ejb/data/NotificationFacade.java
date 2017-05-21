@@ -29,9 +29,20 @@ public class NotificationFacade extends GenericDAO<Notification, Long>{
         super(Notification.class);
     }
     
-    public Long pendingNotificationCount(){
+    public Long pendingBatchNotificationCount(String examBatch){
         Criteria criteria = getCriteria();
-        criteria.add(Restrictions.eq("batchNotification", false));
+        criteria.add(Restrictions.eq("batchNotification", false));//
+        criteria.createAlias("studentRecord", "studentRecord");
+        criteria.add(Restrictions.eq("studentRecord.examBatch", examBatch));
+        criteria.setProjection(Projections.rowCount());
+        return (criteria.list().isEmpty() ? 0 : (Long) criteria.list().get(0));
+    }
+    
+    public Long pendingResultNotificationCount(String grade){
+        Criteria criteria = getCriteria();
+        criteria.add(Restrictions.eq("resultNotification", false));
+        criteria.createAlias("studentRecord", "studentRecord");
+        criteria.add(Restrictions.eq("studentRecord.grade", grade));
         criteria.setProjection(Projections.rowCount());
         return (criteria.list().isEmpty() ? 0 : (Long) criteria.list().get(0));
     }
@@ -43,11 +54,21 @@ public class NotificationFacade extends GenericDAO<Notification, Long>{
         return (criteria.list().isEmpty() ? 0 : (Long) criteria.list().get(0));
     }
     
-    public List<Notification> getPendingNotification(){
+    public List<Notification> getPendingBatchNotification(String examBatch){
         Criteria criteria = getCriteria();
         criteria.add(Restrictions.eq("batchNotification", false));
+        criteria.createAlias("studentRecord", "studentRecord");
+        criteria.add(Restrictions.eq("studentRecord.examBatch", examBatch));
         criteria.setMaxResults(BATCH_SIZE);
         return  criteria.list();
+    }
+    
+    public List<Notification> getPendingResultNotifications(String grade){
+        Criteria criteria = getCriteria();
+        criteria.add(Restrictions.eq("resultNotification", false));
+        criteria.createAlias("studentRecord", "studentRecord");
+        criteria.add(Restrictions.eq("studentRecord.grade", grade));
+        return criteria.list();
     }
     
     public List<Notification> getPendingGuidelines(){

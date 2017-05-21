@@ -25,6 +25,7 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
+import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import static org.javasoft.peasoft.constants.PeaResource.CONTENT_HTML;
 
@@ -39,6 +40,7 @@ public class EmailService {
 
     private String senderName;
 
+    @Getter
     private  Session mailSession;
 
     private Message mimeMsg;
