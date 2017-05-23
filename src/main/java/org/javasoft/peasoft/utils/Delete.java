@@ -15,6 +15,7 @@ import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  *
@@ -27,8 +28,8 @@ public class Delete {
     private String mailServer;
     
     public Delete(){
-        mailSender="adedapo.conde@peafoundation.org";
-        password="brainchallenge$1";
+        mailSender="adedapo.conde@peafoundation.org"; //brainchallenge2017@peafoundation.org
+        password="brainchallenge$1";//richfaces$1
         mailServer="mail.peafoundation.org";
     }
     
@@ -89,14 +90,17 @@ public class Delete {
 //        String val="/home/ayojava/programs/wildfly-9.0/standalone/tmp/vfs/temp/temp64a9645cacc1341e/content-24fb6dad413ab749";
 //        int position = StringUtils.indexOf(val, "wildfly");
 //        System.out.println("====" + StringUtils.substring(val, 0,position));
+          String val[]=StringUtils.split("ayojava@gmail.com|ayojava@hotmail.com", "|");
+          System.out.println("==== " + val[0] );
+          System.out.println("==== " + val[1] );
         
 //        System.out.println("====" + StringUtils.substring("08023991517" ,1));
 //        System.out.println("====" + StringUtils.right("08023991517" ,10));
-        Delete del = new Delete();
-        try {
-            del.sendMessage(true, "Testing My Mail", "Will This Work", "ayojava@gmail.com");
-        } catch (MessagingException ex) {
-            System.out.println("Exception :: " + ex);
-        }
+//        Delete del = new Delete();
+//        try {
+//            del.sendMessage(true, "Testing My Mail", "Will This Work", "ayojava@gmail.com");
+//        } catch (MessagingException ex) {
+//            System.out.println("Exception :: " + ex);
+//        }
      }
 }

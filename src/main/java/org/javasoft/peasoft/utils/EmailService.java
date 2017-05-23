@@ -27,7 +27,9 @@ import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import static org.javasoft.peasoft.constants.PeaResource.CONTENT_HTML;
+import static org.javasoft.peasoft.constants.PeaResource.SEPARATOR;
 
 /**
  *
@@ -76,11 +78,17 @@ public class EmailService {
         try {
             mimeMsg.setContent(messageBody, CONTENT_HTML);
             mimeMsg.setSubject(emailSubject);
+                        
             InternetAddress fromAddress = new InternetAddress(senderEmail, senderName);
             mimeMsg.setFrom(fromAddress);
 
-            InternetAddress toAddress = new InternetAddress(recipientEmail, recipientName);
-            mimeMsg.addRecipient(Message.RecipientType.TO, toAddress);
+            String recipientEmailArr[] = StringUtils.split(recipientEmail, SEPARATOR);
+            
+            InternetAddress toAddressArr[] = new InternetAddress[recipientEmailArr.length];
+            for(int i=0 ; i < recipientEmailArr.length ; i++){
+                toAddressArr[i] = new InternetAddress(recipientEmailArr[i], recipientName);
+            }
+            mimeMsg.setRecipients(Message.RecipientType.TO, toAddressArr);
             mimeMsg.setSentDate(new Date());
             Transport.send(mimeMsg);
         } catch (MessagingException | UnsupportedEncodingException ex) {
@@ -101,8 +109,13 @@ public class EmailService {
             InternetAddress fromAddress = new InternetAddress(senderEmail, senderName);
             mimeMsg.setFrom(fromAddress);
 
-            InternetAddress toAddress = new InternetAddress(recipientEmail, recipientName);
-            mimeMsg.addRecipient(Message.RecipientType.TO, toAddress);
+            String recipientEmailArr[] = StringUtils.split(recipientEmail, SEPARATOR);
+            
+            InternetAddress toAddressArr[] = new InternetAddress[recipientEmailArr.length];
+            for(int i=0 ; i < recipientEmailArr.length ; i++){
+                toAddressArr[i] = new InternetAddress(recipientEmailArr[i], recipientName);
+            }
+            mimeMsg.setRecipients(Message.RecipientType.TO, toAddressArr);
 
             BodyPart messageBodyPart = new MimeBodyPart();
             messageBodyPart.setContent(messageBody, CONTENT_HTML);

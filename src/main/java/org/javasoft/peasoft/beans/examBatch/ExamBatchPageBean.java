@@ -155,6 +155,7 @@ public class ExamBatchPageBean extends AbstractBean implements Serializable {
            if( !batchListExcelReport.populateExcelSheet(studentRecords, "Batch " + batch, fileName)){
                throw new Exception();
            }
+           Messages.addGlobalInfo("Batch List Successfully Generated");
         } catch (Exception ex) {
             log.error("An Error has Occurred :::", ex);
             Messages.addGlobalError("An Error has Occured");

@@ -15,7 +15,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.javasoft.peasoft.beans.core.GenericBean;
-import static org.javasoft.peasoft.constants.PeaResource.ENV_SETTINGS_FOLDER;
+import static org.javasoft.peasoft.constants.PeaResource.EXAM_BATCH_FOLDER;
 import org.javasoft.peasoft.entity.core.Student;
 import org.javasoft.peasoft.entity.core.StudentRecord;
 import org.javasoft.peasoft.excel.ExcelProcessor;
@@ -82,8 +82,8 @@ public class BatchListExcelReport extends ExcelProcessor{
         });
         writeTo(outStream);
         
-        log.info(" Directory ::: [ {} ]    FileName ::: [ {} ]" ,globalRegistry.getInitFilePath() + ENV_SETTINGS_FOLDER, fileName );
-        File filePath = globalRegistry.createFile(globalRegistry.getInitFilePath() + ENV_SETTINGS_FOLDER, fileName);
+        log.info(" Directory ::: [ {} ]    FileName ::: [ {} ]" ,globalRegistry.getInitFilePath() + EXAM_BATCH_FOLDER, fileName );
+        File filePath = globalRegistry.createFile(globalRegistry.getInitFilePath() + EXAM_BATCH_FOLDER, fileName);
         
         @Cleanup
         FileOutputStream fileStream = new FileOutputStream(filePath);
