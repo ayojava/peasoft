@@ -26,6 +26,7 @@ import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 import lombok.Getter;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import static org.javasoft.peasoft.constants.PeaResource.CONTENT_HTML;
@@ -42,7 +43,7 @@ public class EmailService {
 
     private String senderName;
 
-    @Getter
+    @Getter @Setter
     private  Session mailSession;
 
     private Message mimeMsg;
@@ -79,7 +80,7 @@ public class EmailService {
             mimeMsg.setContent(messageBody, CONTENT_HTML);
             mimeMsg.setSubject(emailSubject);
                         
-            InternetAddress fromAddress = new InternetAddress(senderEmail, senderName);
+            InternetAddress fromAddress = new InternetAddress(senderEmail, "BrainChallenge2017");
             mimeMsg.setFrom(fromAddress);
 
             String recipientEmailArr[] = StringUtils.split(recipientEmail, SEPARATOR);
@@ -106,7 +107,7 @@ public class EmailService {
         try {
             mimeMsg.setContent(messageBody, CONTENT_HTML);
             mimeMsg.setSubject(emailSubject);
-            InternetAddress fromAddress = new InternetAddress(senderEmail, senderName);
+            InternetAddress fromAddress = new InternetAddress(senderEmail, "BrainChallenge2017");
             mimeMsg.setFrom(fromAddress);
 
             String recipientEmailArr[] = StringUtils.split(recipientEmail, SEPARATOR);

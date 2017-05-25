@@ -12,6 +12,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  *
@@ -39,5 +40,7 @@ public class SMSSettings implements Serializable {
 
     private int port;//Port that is to be used like 8080 or 8000
     
-    
+    public boolean isError(){
+        return (StringUtils.isBlank(username) || StringUtils.isBlank(password) || StringUtils.isBlank(type) || StringUtils.isBlank(source));
+    }
 }

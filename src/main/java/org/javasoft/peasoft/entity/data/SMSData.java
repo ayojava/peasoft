@@ -78,7 +78,7 @@ public class SMSData implements Serializable {
     @CreationTimestamp
     private Date createDate;
     
-    public void setResponseMessage(String responseMessage){
+    public void updateResponseMessage(){
         switch(responseCode){
             case CODE_1701:
                 this.responseMessage = MSG_1701;

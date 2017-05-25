@@ -139,6 +139,8 @@ public interface PeaResource {
     
     public static final String SEPARATOR ="|";
     
+    public static final String COLON =":";
+    
     public static final int BATCH_SIZE = 50;
     
     

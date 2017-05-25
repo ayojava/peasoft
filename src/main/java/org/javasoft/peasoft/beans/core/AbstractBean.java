@@ -7,6 +7,7 @@ package org.javasoft.peasoft.beans.core;
 
 import java.io.File;
 import javax.inject.Inject;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.text.StrBuilder;
 import org.apache.deltaspike.core.api.message.Message;
 import org.apache.deltaspike.core.api.message.MessageContext;
@@ -65,4 +66,7 @@ public abstract class AbstractBean<T> implements PeaResource{
         return messageContext.messageSource(propertyFile).message();
     }
     
+    protected String appendCountryCode(String phoneNo){
+        return "+234" +StringUtils.right(phoneNo ,10);
+    }
 }

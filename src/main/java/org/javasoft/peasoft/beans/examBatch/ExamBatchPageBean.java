@@ -8,6 +8,7 @@ package org.javasoft.peasoft.beans.examBatch;
 import java.io.File;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -29,6 +30,7 @@ import org.javasoft.peasoft.ejb.data.SMSDataFacade;
 import org.javasoft.peasoft.ejb.examBatch.ExamBatchFacade;
 import org.javasoft.peasoft.ejb.settings.BatchSettingsFacade;
 import org.javasoft.peasoft.entity.core.School;
+import org.javasoft.peasoft.entity.core.Student;
 import org.javasoft.peasoft.entity.core.StudentRecord;
 import org.javasoft.peasoft.entity.data.EmailData;
 import org.javasoft.peasoft.entity.data.Notification;
@@ -118,7 +120,7 @@ public class ExamBatchPageBean extends AbstractBean implements Serializable {
         try {
             BatchSettings batchSetting = batchSettingsFacade.findOne();
             EmailData emailData = examBatchService.generateNotificationEmail(emailUtilBean, aRecord, batchSetting,
-                                registry.getInitFilePath()+GUIDELINES_FOLDER+File.separator+"guideline.pdf");
+                    registry.getInitFilePath() + GUIDELINES_FOLDER + File.separator + "guideline.pdf");
             emailDataFacade.persist(emailData);
             Messages.addGlobalInfo("Notification Scheduled Successfully");
         } catch (Exception ex) {
@@ -132,7 +134,7 @@ public class ExamBatchPageBean extends AbstractBean implements Serializable {
             String oldBatch = aRecord.getExamBatch();
             aRecord.setExamBatch(StringUtils.equalsIgnoreCase(oldBatch, BATCH_A) ? BATCH_B : BATCH_A);
             String newBatch = aRecord.getExamBatch();
-            log.info("Old Batch :: {} ==== New Batch :: {} " , oldBatch , newBatch);
+            log.info("Old Batch :: {} ==== New Batch :: {} ", oldBatch, newBatch);
             examBatchFacade.edit(aRecord);
             //send New Notification
             Messages.addGlobalInfo("Edit Operation Successful");
@@ -151,11 +153,11 @@ public class ExamBatchPageBean extends AbstractBean implements Serializable {
         try {
             batchListExcelReport = new BatchListExcelReport();
             String fileName
-                    = DateFormatUtils.format(new Date(),DISPLAY_DATE_FORMAT_DAYS) + "_" + RandomStringUtils.randomNumeric(3) + "_" + batch + ".xls";
-           if( !batchListExcelReport.populateExcelSheet(studentRecords, "Batch " + batch, fileName)){
-               throw new Exception();
-           }
-           Messages.addGlobalInfo("Batch List Successfully Generated");
+                    = DateFormatUtils.format(new Date(), DISPLAY_DATE_FORMAT_DAYS) + "_" + RandomStringUtils.randomNumeric(3) + "_" + batch + ".xls";
+            if (!batchListExcelReport.populateExcelSheet(studentRecords, "Batch " + batch, fileName)) {
+                throw new Exception();
+            }
+            Messages.addGlobalInfo("Batch List Successfully Generated");
         } catch (Exception ex) {
             log.error("An Error has Occurred :::", ex);
             Messages.addGlobalError("An Error has Occured");
@@ -166,17 +168,32 @@ public class ExamBatchPageBean extends AbstractBean implements Serializable {
         try {
             BatchSettings batchSetting = batchSettingsFacade.findOne();
             List<Notification> pendingNotifications = notificationFacade.getPendingBatchNotification(batch);
-            
+
             pendingNotifications.forEach(
                     aNotification -> {
                         StudentRecord aRecord = aNotification.getStudentRecord();
                         EmailData emailData = examBatchService.generateNotificationEmail(emailUtilBean, aRecord, batchSetting,
-                                registry.getInitFilePath()+GUIDELINES_FOLDER+File.separator+"guideline.pdf");
-                        SMSData smsData = examBatchService.generateNotificationSMS(smsUtilBean, aRecord, batchSetting);
-
+                                registry.getInitFilePath() + GUIDELINES_FOLDER + File.separator + "guideline.pdf");
                         emailDataFacade.persist(emailData);
-                        smsDataFacade.persist(smsData);
 
+                        Student studentObj = aRecord.getStudent();
+
+                        HashSet<String> phoneNos = new HashSet<>();
+                        phoneNos.add(studentObj.getPhoneNo());
+                        phoneNos.add(studentObj.getOtherPhoneNo());
+                        phoneNos.add(studentObj.getParent().getAddressTemplate().getContactPhoneNo1());
+                        phoneNos.add(studentObj.getParent().getAddressTemplate().getContactPhoneNo2());
+
+                        SMSData smsData = examBatchService.generateNotificationSMS(smsUtilBean, aRecord.getExamBatch(), batchSetting, studentObj);
+
+                        phoneNos.stream().forEach((String phoneNo) -> {
+                            if (StringUtils.isNotBlank(phoneNo)) {
+                                smsData.setId(null);
+                                smsData.setRecipientPhoneNo(appendCountryCode(phoneNo));
+                                smsDataFacade.persist(smsData);
+                            }
+                        });
+                        
                         aNotification.setBatchNotification(true);
                         notificationFacade.edit(aNotification);
                     }

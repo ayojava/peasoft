@@ -90,9 +90,15 @@ public class Delete {
 //        String val="/home/ayojava/programs/wildfly-9.0/standalone/tmp/vfs/temp/temp64a9645cacc1341e/content-24fb6dad413ab749";
 //        int position = StringUtils.indexOf(val, "wildfly");
 //        System.out.println("====" + StringUtils.substring(val, 0,position));
-          String val[]=StringUtils.split("ayojava@gmail.com|ayojava@hotmail.com", "|");
+          String val[]=StringUtils.split("1701|2348023704657|39c7b51e-c068-4343-97ae-7c5b276219e5", "|");
           System.out.println("==== " + val[0] );
           System.out.println("==== " + val[1] );
+          System.out.println("==== " + val[2] );
+          
+          String val2[]=StringUtils.split("BALANCE:58", ":");
+          System.out.println("==== " + val2[0] );
+          System.out.println("==== " + val2[1] );
+          
         
 //        System.out.println("====" + StringUtils.substring("08023991517" ,1));
 //        System.out.println("====" + StringUtils.right("08023991517" ,10));

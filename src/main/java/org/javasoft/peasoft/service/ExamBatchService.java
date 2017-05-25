@@ -52,26 +52,24 @@ import static org.javasoft.peasoft.utils.template.SMSTemplate.BATCH_DETAILS_SMS_
  */
 @Slf4j
 public class ExamBatchService {
-    
-    public SMSData generateNotificationSMS(SMSUtilBean smsUtilBean, StudentRecord studentRecord , BatchSettings batchSetting){
-        
-        Student studentObj = studentRecord.getStudent();
-        String schoolDesc = studentRecord.getSchool().getName() + " " + studentRecord.getSchool().getAddressTemplate().getNearestBusStop();
-        
-        String startTime  = (StringUtils.equalsIgnoreCase(studentRecord.getExamBatch(), BATCH_A))? 
-                batchSetting.getBatchA_Start() +" a.m" : batchSetting.getBatchB_Start() + " p.m ";
-        
-          String smsMsg = smsUtilBean.showMessageFromTemplate(BATCH_DETAILS_SMS_TEMPLATE, 
-                studentObj.getFullName(),DateFormatUtils.format(batchSetting.getExamDate(), FULL_DATE_FORMAT_SMS),
-                schoolDesc,startTime,studentRecord.getExamBatch());
-        
-        log.info("smsMsg :: {} " , smsMsg);
-        
+
+    public SMSData generateNotificationSMS(SMSUtilBean smsUtilBean, String batch, BatchSettings batchSetting, Student studentobj) {
+
+        String schoolDesc = batchSetting.getExamCentre().getName() + " " + batchSetting.getExamCentre().getAddressTemplate().getNearestBusStop();
+
+        String startTime = (StringUtils.equalsIgnoreCase(batch, BATCH_A))
+                ? batchSetting.getBatchA_Start() + " a.m" : batchSetting.getBatchB_Start() + " p.m ";
+
+        String smsMsg = smsUtilBean.showMessageFromTemplate(BATCH_DETAILS_SMS_TEMPLATE, studentobj.getFullName(),
+                DateFormatUtils.format(batchSetting.getExamDate(), FULL_DATE_FORMAT_SMS), schoolDesc, startTime, batch);
+
+        log.info("smsMsg :: {} ", smsMsg);
+
         SMSData smsData = new SMSData();
         smsData.setMessage(smsMsg);
+        smsData.setStudent(studentobj);
         //smsData.setStatus(PENDING);
-        
-        smsData.setStudent(studentObj);
+
         return smsData;
         //  Good Day %s,The Quiz and Interview will come up on %s  at %s ,Your Exam slot starts at %s - %s. 
     }
@@ -105,48 +103,47 @@ public class ExamBatchService {
         } else {
             timeAlloted = batchSetting.getBatchB_Start() + " p.m   - " + batchSetting.getBatchB_Stop() + " p.m";
         }
-        
+
         msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(TABLE_ROW_EVEN_TEMPLATE, " Time Alloted : ", timeAlloted));
-        
+
         msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(TABLE_ROW_ODD_TEMPLATE, " Date  : ", DateFormatUtils.format(batchSetting.getExamDate(), FULL_DATE_FORMAT)));
 
         msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(TABLE_ROW_EVEN_TEMPLATE, " Venue : ", batchSetting.getExamCentre().getName()));
-        
+
         msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(TABLE_ROW_ODD_TEMPLATE, " Address  : ", batchSetting.getExamCentre().getAddressTemplate().getFullAddress()));
         //
-        
+
         msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(INNER_TABLE_BOTTOM_TEMPLATE));
-        
+
         msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(OUTER_TABLE_CLOSE_BODY_TEMPLATE));
-        
+
         //
-        
         msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(OUTER_TABLE_OPEN_FOOTER_TEMPLATE));
-        
+
         msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(OUTER_TABLE_GUIDELINE_TEMPLATE));
         msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(OUTER_TABLE_ENQUIRY_TEMPLATE));
         msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(OUTER_TABLE_BRAINCHALLENGE_EMAIL_TEMPLATE));
         msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(OUTER_TABLE_BRAINCHALLENGE_TELEPHONE_TEMPLATE));
         msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(OUTER_TABLE_BRAINCHALLENGE_WEBSITE_TEMPLATE));
-        
+
         msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(OUTER_TABLE_OFFICE_ADDRESS_TEMPLATE));
         msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(OUTER_TABLE_FACEBOOK_TEMPLATE));
         msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(OUTER_TABLE_INSTAGRAM_TEMPLATE));
         msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(OUTER_TABLE_TWITTER_TEMPLATE));
         msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(OUTER_TABLE_WEBSITE_TEMPLATE));
-        
+
         msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(OUTER_TABLE_CLOSE_FOOTER_TEMPLATE));
         msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(OUTER_TABLE_CLOSE_TABLE_TEMPLATE));
         msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(HEADER_CLOSE_DIV_TEMPLATE));
-        
+
         StringBuilder recipientEmails = new StringBuilder();
-        recipientEmails= recipientEmails.append(studentObj.getEmail());
-      
+        recipientEmails = recipientEmails.append(studentObj.getEmail());
+
         String contactEmail1 = studentObj.getParent().getAddressTemplate().getContactEmail1();
-       // log.info("Contact Email 1 :: {} " , contactEmail1);
-                
-        if(StringUtils.isNotBlank(contactEmail1) && !StringUtils.equalsIgnoreCase(studentObj.getEmail(), contactEmail1)){
-            recipientEmails= recipientEmails.append(SEPARATOR).append(contactEmail1);
+        // log.info("Contact Email 1 :: {} " , contactEmail1);
+
+        if (StringUtils.isNotBlank(contactEmail1) && !StringUtils.equalsIgnoreCase(studentObj.getEmail(), contactEmail1)) {
+            recipientEmails = recipientEmails.append(SEPARATOR).append(contactEmail1);
         }
         //GUIDELINE_FOLDER
         EmailData emailData = new EmailData();

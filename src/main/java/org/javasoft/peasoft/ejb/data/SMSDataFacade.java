@@ -11,6 +11,9 @@ import javax.ejb.Stateless;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Restrictions;
+import static org.javasoft.peasoft.constants.PeaResource.BATCH_SIZE;
+import static org.javasoft.peasoft.constants.PeaResource.PENDING;
 import org.javasoft.peasoft.ejb.dao.GenericDAO;
 import org.javasoft.peasoft.entity.data.SMSData;
 
@@ -31,5 +34,9 @@ public class SMSDataFacade extends GenericDAO<SMSData, Long>{
     public List<SMSData> findAll() {
         Criteria criteria = getCriteria().createAlias("student", "student");
         return criteria.addOrder(Order.asc("student.surname")).list();
+    }
+    
+    public List<SMSData> findPendingSMS(){
+        return getCriteria().add(Restrictions.eq("status", PENDING)).setMaxResults(BATCH_SIZE).list();
     }
 }

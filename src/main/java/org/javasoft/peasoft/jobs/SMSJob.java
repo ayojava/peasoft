@@ -5,8 +5,20 @@
  */
 package org.javasoft.peasoft.jobs;
 
+import java.util.List;
+import javax.ejb.EJB;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.deltaspike.scheduler.api.Scheduled;
+import static org.javasoft.peasoft.constants.PeaResource.COLON;
+import static org.javasoft.peasoft.constants.PeaResource.SENT;
+import static org.javasoft.peasoft.constants.PeaResource.SEPARATOR;
+import org.javasoft.peasoft.ejb.data.SMSDataFacade;
+import org.javasoft.peasoft.ejb.settings.EnvSettingsFacade;
+import org.javasoft.peasoft.entity.data.SMSData;
+import org.javasoft.peasoft.entity.settings.EnvSettings;
+import org.javasoft.peasoft.entity.settings.SMSSettings;
+import org.javasoft.peasoft.utils.SMSService;
 import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
@@ -16,12 +28,68 @@ import org.quartz.JobExecutionException;
  * @author ayojava
  */
 @Slf4j
-@Scheduled(cronExpression = "0 0/3 * * * ?")
-public class SMSJob implements Job{
+@Scheduled(cronExpression = "0 0/10 * * * ?")
+public class SMSJob implements Job {
+
+    @EJB
+    private EnvSettingsFacade envSettingsFacade;
+
+    private SMSService smsService;
+
+    @EJB
+    private SMSDataFacade smsDataFacade;
 
     @Override
     public void execute(JobExecutionContext context) throws JobExecutionException {
-        log.info("======= Called SMS Job ========="); 
+
+        EnvSettings envSettings = envSettingsFacade.findOne();
+        if (envSettings == null) {
+            log.error("Env Settings is pending . Check your  Configuration ");
+            return;
+        }
+
+        SMSSettings smsSettings = envSettings.getSmsSettings();
+        if (smsSettings == null || smsSettings.isError()) {
+            log.error("SMS Settings is pending . Check your SMS Configuration ");
+            return;
+        }
+
+        List<SMSData> pendingSMS = smsDataFacade.findPendingSMS();
+        if (pendingSMS.isEmpty()) {
+            log.warn("====  No Pending SMS =====  ");
+            return;
+        }
+
+        smsService = new SMSService(smsSettings);
+        int creditBalance = -1;//pessimistic
+        try {
+            String creditBalanceMsg = smsService.checkCreditBalance();
+            log.info("========= Credit Balance Message ========= {}", creditBalanceMsg);
+            String[] split = StringUtils.split(creditBalanceMsg, COLON);
+            creditBalance = Integer.parseInt(split[1]);
+            log.info("========= Credit Balance ========= {}", creditBalance);
+        } catch (Exception ex) {
+            log.error("An Error has Occurred while checking balance :::", ex);
+        }
+
+        if (creditBalance <= 0) {
+            log.warn("====  Insufficient Credit Balance =====  ");
+            return;
+        }
+
+        pendingSMS.forEach((SMSData smsDATA) -> {
+            try {
+                String output = smsService.sendSMSMessage(smsDATA);
+                log.info("=========  Output Msg ========= {}", output);
+                String responseMsg[]=StringUtils.split(output, SEPARATOR);
+                smsDATA.setResponseCode(responseMsg[0]);
+                smsDATA.updateResponseMessage();
+                smsDATA.setStatus(SENT);
+                smsDataFacade.edit(smsDATA);
+            } catch (Exception ex) {
+                log.error("An Error has Occurred while Sending message :::", ex);
+            }
+        });
     }
-    
+
 }

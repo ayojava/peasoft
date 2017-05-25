@@ -6,6 +6,7 @@
 package org.javasoft.peasoft.beans.student;
 
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -130,7 +131,7 @@ public class StudentPageBean extends AbstractBean implements Serializable {
             studentService = new StudentService();
 
             Messages.addGlobalInfo("Save Operation Successful");
-            
+
             setPageResource(LIST_STUDENTS);
 
         } catch (Exception ex) {
@@ -139,29 +140,24 @@ public class StudentPageBean extends AbstractBean implements Serializable {
         }
 
         EmailData emailData = studentService.generateWelcomeEmail(studentObj, emailUtilBean, school.getName());
-        
+
+        HashSet<String> phoneNos = new HashSet<>();
+        phoneNos.add(studentObj.getPhoneNo());
+        phoneNos.add(studentObj.getOtherPhoneNo());
+        phoneNos.add(studentObj.getParent().getAddressTemplate().getContactPhoneNo1());
+        phoneNos.add(studentObj.getParent().getAddressTemplate().getContactPhoneNo2());
+
         SMSData smsData = studentService.generateWelcomeSMS(smsUtilBean, student);
-        smsData.setRecipientPhoneNo(appendCountryCode(studentObj.getPhoneNo()));
-        smsDataFacade.persist(smsData); // use generics
-        
-        if(StringUtils.isNotBlank(studentObj.getOtherPhoneNo())){
-            smsData.setId(null);
-            smsData.setRecipientPhoneNo(appendCountryCode(studentObj.getOtherPhoneNo()));
-            smsDataFacade.persist(smsData);
-        }
-        if(StringUtils.isNotBlank(studentObj.getParent().getAddressTemplate().getContactPhoneNo1())){
-            smsData.setId(null);
-            smsData.setRecipientPhoneNo(appendCountryCode(studentObj.getParent().getAddressTemplate().getContactPhoneNo1()));
-            smsDataFacade.persist(smsData);
-        }
-        if(StringUtils.isNotBlank(studentObj.getParent().getAddressTemplate().getContactPhoneNo2())){
-            smsData.setId(null);
-            smsData.setRecipientPhoneNo(appendCountryCode(studentObj.getParent().getAddressTemplate().getContactPhoneNo2()));
-            smsDataFacade.persist(smsData);
-        }
-        
+
+        phoneNos.stream().forEach((String phoneNo) -> {
+            if (StringUtils.isNotBlank(phoneNo)) {
+                smsData.setId(null);
+                smsData.setRecipientPhoneNo(appendCountryCode(phoneNo));
+                smsDataFacade.persist(smsData);
+            }
+        });
+
         emailDataFacade.persist(emailData);
-        
         cleanup();
     }
 
@@ -177,14 +173,10 @@ public class StudentPageBean extends AbstractBean implements Serializable {
         }
     }
 
-    private String appendCountryCode(String phoneNo){
-        return "+234" +StringUtils.right(phoneNo ,10);
-    }
-    
     private void cleanup() {
         school = null;
         studentRecord = null;
-        
+
     }
 }
 
