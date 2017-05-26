@@ -16,6 +16,8 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import org.apache.commons.lang3.StringUtils;
+import static org.javasoft.peasoft.constants.PeaResource.SEPARATOR;
+import org.javasoft.peasoft.entity.data.SMSData;
 
 /**
  *
@@ -90,14 +92,14 @@ public class Delete {
 //        String val="/home/ayojava/programs/wildfly-9.0/standalone/tmp/vfs/temp/temp64a9645cacc1341e/content-24fb6dad413ab749";
 //        int position = StringUtils.indexOf(val, "wildfly");
 //        System.out.println("====" + StringUtils.substring(val, 0,position));
-          String val[]=StringUtils.split("1701|2348023704657|39c7b51e-c068-4343-97ae-7c5b276219e5", "|");
-          System.out.println("==== " + val[0] );
-          System.out.println("==== " + val[1] );
-          System.out.println("==== " + val[2] );
-          
-          String val2[]=StringUtils.split("BALANCE:58", ":");
-          System.out.println("==== " + val2[0] );
-          System.out.println("==== " + val2[1] );
+//          String val[]=StringUtils.split("1701|2348023704657|39c7b51e-c068-4343-97ae-7c5b276219e5", "|");
+//          System.out.println("==== " + val[0] );
+//          System.out.println("==== " + val[1] );
+//          System.out.println("==== " + val[2] );
+//          
+//          String val2[]=StringUtils.split("BALANCE:58", ":");
+//          System.out.println("==== " + val2[0] );
+//          System.out.println("==== " + val2[1] );
           
         
 //        System.out.println("====" + StringUtils.substring("08023991517" ,1));
@@ -108,5 +110,11 @@ public class Delete {
 //        } catch (MessagingException ex) {
 //            System.out.println("Exception :: " + ex);
 //        }
+                SMSData smsDATA = new SMSData();
+                String output = "1701|2348151642533|76f6ddd5-a95a-482a-8a0f-88ef78d3a399";
+                String responseMsg[]=StringUtils.split(output, SEPARATOR);
+                smsDATA.setResponseCode(responseMsg[0]);
+                smsDATA.updateResponseMessage();
+                System.out.println("Response Description " + smsDATA.getResponseMessage());
      }
 }

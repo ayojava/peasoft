@@ -79,29 +79,40 @@ public class SMSData implements Serializable {
     private Date createDate;
     
     public void updateResponseMessage(){
-        switch(responseCode){
+        switch(getResponseCode()){
             case CODE_1701:
                 this.responseMessage = MSG_1701;
+                break;
             case CODE_1702:
                 this.responseMessage = MSG_1702;
+                break;
             case CODE_1703:
                 this.responseMessage = MSG_1703;
+                break;
             case CODE_1704:
                 this.responseMessage = MSG_1704;
+                break;
             case CODE_1705:
                 this.responseMessage = MSG_1705;
+                break;
             case CODE_1706:
                 this.responseMessage = MSG_1706;
+                break;
             case CODE_1707:
                 this.responseMessage = MSG_1707;
+                break;
             case CODE_1708:
                 this.responseMessage = MSG_1708;
+                break;
             case CODE_1709:
                 this.responseMessage = MSG_1709;
+                break;
             case CODE_1710:
                 this.responseMessage = MSG_1710;
+                break;
             case CODE_1025:
                 this.responseMessage = MSG_1025;
+                break;
         }
     }
     
