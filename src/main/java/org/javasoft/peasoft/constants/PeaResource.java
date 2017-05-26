@@ -143,6 +143,8 @@ public interface PeaResource {
     
     public static final int BATCH_SIZE = 50;
     
+    public static final String SENDER_EMAIL ="brainchallenge2017@peafoundation.org";
+    
     
     
     void setPageResource(String pageResource);

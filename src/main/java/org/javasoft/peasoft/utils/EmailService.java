@@ -30,6 +30,7 @@ import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import static org.javasoft.peasoft.constants.PeaResource.CONTENT_HTML;
+import static org.javasoft.peasoft.constants.PeaResource.SENDER_EMAIL;
 import static org.javasoft.peasoft.constants.PeaResource.SEPARATOR;
 
 /**
@@ -80,7 +81,7 @@ public class EmailService {
             mimeMsg.setContent(messageBody, CONTENT_HTML);
             mimeMsg.setSubject(emailSubject);
                         
-            InternetAddress fromAddress = new InternetAddress(senderEmail, "BrainChallenge2017");
+            InternetAddress fromAddress = new InternetAddress(SENDER_EMAIL, "BrainChallenge2017");
             mimeMsg.setFrom(fromAddress);
 
             String recipientEmailArr[] = StringUtils.split(recipientEmail, SEPARATOR);
@@ -107,13 +108,15 @@ public class EmailService {
         try {
             mimeMsg.setContent(messageBody, CONTENT_HTML);
             mimeMsg.setSubject(emailSubject);
-            InternetAddress fromAddress = new InternetAddress(senderEmail, "BrainChallenge2017");
+            InternetAddress fromAddress = new InternetAddress(SENDER_EMAIL, "BrainChallenge2017");
             mimeMsg.setFrom(fromAddress);
 
             String recipientEmailArr[] = StringUtils.split(recipientEmail, SEPARATOR);
+            log.info("Recipient Email Length :::: {}",recipientEmailArr.length);
             
             InternetAddress toAddressArr[] = new InternetAddress[recipientEmailArr.length];
             for(int i=0 ; i < recipientEmailArr.length ; i++){
+                log.info("Email Address :::: {}" , recipientEmailArr[i]);
                 toAddressArr[i] = new InternetAddress(recipientEmailArr[i], recipientName);
             }
             mimeMsg.setRecipients(Message.RecipientType.TO, toAddressArr);
