@@ -53,7 +53,7 @@ public class Student implements Serializable {
     @ColumnTransformer(write = "UPPER(?)")
     private String surname;
 
-    //@ColumnTransformer(write = "UPPER(?)")
+    //@ColumnTransformer(write = "LOWER(?)")
     private String othernames;
 
     private String gender;

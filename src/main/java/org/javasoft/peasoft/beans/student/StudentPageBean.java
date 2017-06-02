@@ -125,10 +125,37 @@ public class StudentPageBean extends AbstractBean implements Serializable {
     }
 
     public void saveStudent() {
+
         Student studentObj = null;
         try {
+
+            if (studentFacade.studentAlreadyExists(student)) {
+                Messages.addGlobalError("Student Details Already Exists");
+                return;
+            }
+
             studentObj = studentFacade.saveStudent(student, studentRecord, school);
             studentService = new StudentService();
+
+            EmailData emailData = studentService.generateWelcomeEmail(studentObj, emailUtilBean, school.getName());
+
+            HashSet<String> phoneNos = new HashSet<>();
+            phoneNos.add(studentObj.getPhoneNo());
+            phoneNos.add(studentObj.getOtherPhoneNo());
+            phoneNos.add(studentObj.getParent().getAddressTemplate().getContactPhoneNo1());
+            phoneNos.add(studentObj.getParent().getAddressTemplate().getContactPhoneNo2());
+
+            SMSData smsData = studentService.generateWelcomeSMS(smsUtilBean, student);
+
+            phoneNos.stream().forEach((String phoneNo) -> {
+                if (StringUtils.isNotBlank(phoneNo)) {
+                    smsData.setId(null);
+                    smsData.setRecipientPhoneNo(appendCountryCode(phoneNo));
+                    smsDataFacade.persist(smsData);
+                }
+            });
+
+            emailDataFacade.persist(emailData);
 
             Messages.addGlobalInfo("Save Operation Successful");
 
@@ -139,25 +166,6 @@ public class StudentPageBean extends AbstractBean implements Serializable {
             Messages.addGlobalError("An Error has Occured");
         }
 
-        EmailData emailData = studentService.generateWelcomeEmail(studentObj, emailUtilBean, school.getName());
-
-        HashSet<String> phoneNos = new HashSet<>();
-        phoneNos.add(studentObj.getPhoneNo());
-        phoneNos.add(studentObj.getOtherPhoneNo());
-        phoneNos.add(studentObj.getParent().getAddressTemplate().getContactPhoneNo1());
-        phoneNos.add(studentObj.getParent().getAddressTemplate().getContactPhoneNo2());
-
-        SMSData smsData = studentService.generateWelcomeSMS(smsUtilBean, student);
-
-        phoneNos.stream().forEach((String phoneNo) -> {
-            if (StringUtils.isNotBlank(phoneNo)) {
-                smsData.setId(null);
-                smsData.setRecipientPhoneNo(appendCountryCode(phoneNo));
-                smsDataFacade.persist(smsData);
-            }
-        });
-
-        emailDataFacade.persist(emailData);
         cleanup();
     }
 

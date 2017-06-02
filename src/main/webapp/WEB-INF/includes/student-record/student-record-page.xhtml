@@ -94,14 +94,14 @@ and open the template in the editor.
                                                   contentDiv="col-md-3" targetID="mathsTxt">
                                         
                                         <p:inputNumber id="mathsTxt" value="#{studentRecordPageBean.studentRecord.marks.mathScore}"
-                                                       maxlength="4" minValue="0.0" maxValue="100.0" validatorMessage="Invalid Score"
+                                                       maxlength="4" minValue="0.0" maxValue="20.0" validatorMessage="Invalid Score"
                                                        emptyValue="zero" required="true"/>
                                     </pnx:primeDIV>
                                     <pnx:primeDIV labelDiv="col-md-3" labelID="englishLbl" label="English Score : "
                                                   contentDiv="col-md-3" targetID="englishTxt">
                                                                                
                                         <p:inputNumber id="englishTxt" value="#{studentRecordPageBean.studentRecord.marks.englishScore}"
-                                                       maxlength="4" minValue="0.0" maxValue="100.0" validatorMessage="Invalid Score"
+                                                       maxlength="4" minValue="0.0" maxValue="20.0" validatorMessage="Invalid Score"
                                                        emptyValue="zero" required="true"/>
                                     </pnx:primeDIV>
                                 </div>
@@ -110,13 +110,13 @@ and open the template in the editor.
                                                   contentDiv="col-md-3" targetID="currentAffairsTxt">
                          
                                         <p:inputNumber id="currentAffairsTxt" value="#{studentRecordPageBean.studentRecord.marks.currentAffairsScore}"
-                                                       maxlength="4" minValue="0.0" maxValue="100.0" validatorMessage="Invalid Score"
+                                                       maxlength="4" minValue="0.0" maxValue="10.0" validatorMessage="Invalid Score"
                                                        emptyValue="zero" required="true"/>
                                     </pnx:primeDIV>
                                     <pnx:primeDIV labelDiv="col-md-3" labelID="ictLbl" label="ICT Score : "
                                                   contentDiv="col-md-3" targetID="ictTxt">                                       
                                         <p:inputNumber id="ictTxt" value="#{studentRecordPageBean.studentRecord.marks.ictScore}"
-                                                       maxlength="4" minValue="0.0" maxValue="100.0" validatorMessage="Invalid Score"
+                                                       maxlength="4" minValue="0.0" maxValue="10.0" validatorMessage="Invalid Score"
                                                        emptyValue="zero" required="true"/>
                                     </pnx:primeDIV>
                                 </div>
@@ -126,17 +126,22 @@ and open the template in the editor.
                                     </div>
                                 </div>
                                 <div class="row default-row-padding">
+                                    <div class="col-md-12">
+                                        Add the Scores from both supervisors  (20 Marks )
+                                    </div>
+                                </div>
+                                <div class="row default-row-padding">
                                     <pnx:primeDIV labelDiv="col-md-3" labelID="communicationLbl" label="Communication Skill Score : "
                                                   contentDiv="col-md-3" targetID="communicationTxt">                                                                
                                         <p:inputNumber id="communicationTxt" value="#{studentRecordPageBean.studentRecord.marks.communicationSkill}"
-                                                       maxlength="4" minValue="0.0" maxValue="100.0" validatorMessage="Invalid Score"
+                                                       maxlength="4" minValue="0.0" maxValue="20.0" validatorMessage="Invalid Score"
                                                        emptyValue="zero" required="true"/>
                                     </pnx:primeDIV>
                                     
                                     <pnx:primeDIV labelDiv="col-md-3" labelID="personalAppearanceLbl" label="Personal Appearance Score : "
                                                   contentDiv="col-md-3" targetID="personalAppearanceTxt">                                                        
                                         <p:inputNumber id="personalAppearanceTxt" value="#{studentRecordPageBean.studentRecord.marks.personalAppearance}"
-                                                       maxlength="4" minValue="0.0" maxValue="100.0" validatorMessage="Invalid Score"
+                                                       maxlength="4" minValue="0.0" maxValue="20.0" validatorMessage="Invalid Score"
                                                        emptyValue="zero" required="true"/>
                                     </pnx:primeDIV>
                                 </div>
@@ -144,14 +149,14 @@ and open the template in the editor.
                                     <pnx:primeDIV labelDiv="col-md-3" labelID="selfAwarenessLbl" label="Self Awareness Score : "
                                                   contentDiv="col-md-3" targetID="selfAwarenessTxt">                                                                
                                         <p:inputNumber id="selfAwarenessTxt" value="#{studentRecordPageBean.studentRecord.marks.selfAwareness}"
-                                                       maxlength="4" minValue="0.0" maxValue="100.0" validatorMessage="Invalid Score"
+                                                       maxlength="4" minValue="0.0" maxValue="20.0" validatorMessage="Invalid Score"
                                                        emptyValue="zero" required="true"/>
                                     </pnx:primeDIV>
                                     
                                     <pnx:primeDIV labelDiv="col-md-3" labelID="plansAndGoalsLbl" label="Plans And Goals Score : "
                                                   contentDiv="col-md-3" targetID="plansAndGoalsTxt">                                                        
                                         <p:inputNumber id="plansAndGoalsTxt" value="#{studentRecordPageBean.studentRecord.marks.plansAndGoals}"
-                                                       maxlength="4" minValue="0.0" maxValue="100.0" validatorMessage="Invalid Score"
+                                                       maxlength="4" minValue="0.0" maxValue="20.0" validatorMessage="Invalid Score"
                                                        emptyValue="zero" required="true"/>
                                     </pnx:primeDIV>
                                 </div>
@@ -160,14 +165,14 @@ and open the template in the editor.
                                     <pnx:primeDIV labelDiv="col-md-3" labelID="bookKnowledgeLbl" label="Book Knowledge Score : "
                                                   contentDiv="col-md-3" targetID="bookKnowledgeTxt">                                                                
                                         <p:inputNumber id="bookKnowledgeTxt" value="#{studentRecordPageBean.studentRecord.marks.bookKnowledge}"
-                                                       maxlength="4" minValue="0.0" maxValue="100.0" validatorMessage="Invalid Score"
+                                                       maxlength="4" minValue="0.0" maxValue="20.0" validatorMessage="Invalid Score"
                                                        emptyValue="zero" required="true"/>
                                     </pnx:primeDIV>
                                     
                                     <pnx:primeDIV labelDiv="col-md-3" labelID="confidenceLevelLbl" label="Confidence Level Score : "
                                                   contentDiv="col-md-3" targetID="confidenceLevelTxt">                                                        
                                         <p:inputNumber id="confidenceLevelTxt" value="#{studentRecordPageBean.studentRecord.marks.confidenceLevel}"
-                                                       maxlength="4" minValue="0.0" maxValue="100.0" validatorMessage="Invalid Score"
+                                                       maxlength="4" minValue="0.0" maxValue="20.0" validatorMessage="Invalid Score"
                                                        emptyValue="zero" required="true"/>
                                     </pnx:primeDIV>
                                 </div>

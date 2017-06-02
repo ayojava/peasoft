@@ -66,4 +66,9 @@ public class SchoolFacade extends GenericDAO<School, Long>{
         report.populateExcelSheet("SchoolRecordsList", fileName, schoolObj,studentRecord);
         report.destroy();
     }
+    
+    public boolean schoolAlreadyExists(School schoolObj){
+        List<School> allSchools = findAll();
+        return allSchools.stream().anyMatch(s-> StringUtils.equalsIgnoreCase(s.getName(), schoolObj.getName()));
+    }
 }

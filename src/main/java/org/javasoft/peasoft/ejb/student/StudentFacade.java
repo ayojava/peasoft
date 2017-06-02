@@ -13,6 +13,9 @@ import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.hibernate.Criteria;
+import org.hibernate.criterion.Criterion;
+import org.hibernate.criterion.Restrictions;
 import static org.javasoft.peasoft.constants.PeaResource.BATCH_A;
 import static org.javasoft.peasoft.constants.PeaResource.BATCH_B;
 import org.javasoft.peasoft.ejb.dao.GenericDAO;
@@ -25,7 +28,6 @@ import org.javasoft.peasoft.entity.core.School;
 import org.javasoft.peasoft.entity.core.Student;
 import org.javasoft.peasoft.entity.core.StudentRecord;
 import org.javasoft.peasoft.entity.data.Notification;
-import org.javasoft.peasoft.entity.settings.EnvSettings;
 import org.javasoft.peasoft.utils.GlobalRegistry;
 
 /**
@@ -85,6 +87,13 @@ public class StudentFacade extends GenericDAO<Student, Long> {
         }
     }
 
+    public boolean studentAlreadyExists(Student studentObj){
+        List<Student> allStudents = findAll();
+        return allStudents.stream().anyMatch(s-> StringUtils.equalsIgnoreCase(s.getSurname(), studentObj.getSurname())
+                && StringUtils.equalsIgnoreCase(s.getOthernames(), studentObj.getOthernames()));
+       
+    }
+    
     public Student saveStudent(Student studentObj, StudentRecord record, School schoolObj) {
         globalRegistry = GlobalRegistry.getInstance();
         

@@ -143,6 +143,11 @@ public class SchoolPageBean extends AbstractBean implements Serializable {
     
     public void saveSchool(){
         try{
+            if(schoolFacade.schoolAlreadyExists(school)){
+                Messages.addGlobalError("School Details Already Exists");
+                return;
+            }
+            
             schoolFacade.saveSchool(school);
             Messages.addGlobalInfo("Save Operation Successful");
             setPageResource(LIST_SCHOOLS);
