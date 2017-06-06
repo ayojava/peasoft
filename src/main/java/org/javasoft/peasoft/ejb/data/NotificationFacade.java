@@ -10,8 +10,10 @@ import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.Criteria;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
+import static org.javasoft.peasoft.constants.PeaResource.ACTIVE;
 import static org.javasoft.peasoft.constants.PeaResource.BATCH_SIZE;
 import org.javasoft.peasoft.ejb.dao.GenericDAO;
 import org.javasoft.peasoft.entity.data.Notification;
@@ -76,5 +78,16 @@ public class NotificationFacade extends GenericDAO<Notification, Long>{
         criteria.add(Restrictions.eq("guidelineNotification", false));
         criteria.setMaxResults(BATCH_SIZE);
         return  criteria.list();
+    }
+    
+    public List<Notification> getPendingAcademyNotificationOrderByMarksAndStatus(){
+        
+        Criteria criteria = getCriteria();
+        //criteria.add(Restrictions.eq("resultNotification", false));
+        criteria.createAlias("studentRecord", "studentRecord");
+        criteria.createAlias("studentRecord.marks", "marks");
+        criteria.add(Restrictions.eq("studentRecord.status", ACTIVE));
+        criteria.addOrder(Order.desc("marks.totalScore"));
+        return criteria.list();
     }
 }

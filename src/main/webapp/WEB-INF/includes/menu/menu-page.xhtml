@@ -37,6 +37,18 @@ and open the template in the editor.
                         </p:menuitem>
                     </p:submenu>
                     <p:separator />
+                    <p:submenu id="academyModule" label="Academy"  icon="fa fa-cubes fa-1g">
+                        <p:menuitem value="Selected " icon="fa fa-indent fa-1g" update=":homeForm" id="selAcademy"
+                                    action="#{academyPageBean.setPageResource(peaResource.LIST_ACADEMY_RECORDS)}">
+                            <f:param name="status" value="#{peaResource.SELECTED}"/>
+                        </p:menuitem>
+                        <p:separator />
+                        <p:menuitem value="Not Selected" icon="fa fa-outdent fa-1g" update=":homeForm" id="notSelAcademy"
+                                    action="#{academyPageBean.setPageResource(peaResource.LIST_ACADEMY_RECORDS)}">
+                            <f:param name="status" value="#{peaResource.NOT_SELECTED}"/>
+                        </p:menuitem>
+                    </p:submenu>
+                    <p:separator />
                     <p:submenu id="resultsModule" label="Results"  icon="fa fa-globe fa-1g">
                         <p:menuitem value="Selected " icon="fa fa-indent fa-1g" update=":homeForm" id="selectedMenu"
                                     action="#{resultsPageBean.setPageResource(peaResource.LIST_RESULTS)}">

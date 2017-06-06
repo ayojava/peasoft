@@ -99,9 +99,9 @@ public class ExamBatchService {
         String timeAlloted = "";
 
         if (StringUtils.equalsIgnoreCase(studentRecord.getExamBatch(), BATCH_A)) {
-            timeAlloted = batchSetting.getBatchA_Start() + " a.m   - " + batchSetting.getBatchA_Stop() + " p.m";
+            timeAlloted = batchSetting.getBatchA_Start() + " a.m   - " + batchSetting.getBatchA_Stop() + " a.m";
         } else {
-            timeAlloted = batchSetting.getBatchB_Start() + " p.m   - " + batchSetting.getBatchB_Stop() + " p.m";
+            timeAlloted = batchSetting.getBatchB_Start() + " a.m   - " + batchSetting.getBatchB_Stop() + " a.m";
         }
 
         msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(TABLE_ROW_EVEN_TEMPLATE, " Time Alloted : ", timeAlloted));

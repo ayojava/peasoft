@@ -33,7 +33,7 @@ and open the template in the editor.
                                     <h:outputText value="#{rowIndex+1}"/>
                                 </p:column>
                                 
-                                <p:column headerText="Identification No" style="text-align: left;width: 100px;">
+                                <p:column headerText="Id No" style="text-align: left;width: 100px;">
                                     <h:outputText value="#{aRecord.identificationNo}"/>
                                 </p:column>
 
@@ -55,6 +55,10 @@ and open the template in the editor.
                                 
                                 <p:column headerText="Gender" style="text-align: center;width:90px">
                                     <h:outputText value="#{genericBean.gender(aRecord.student.gender)}"/>
+                                </p:column>
+                                
+                                <p:column headerText="Exam Class" style="text-align: center;width:90px">
+                                    <h:outputText value="#{aRecord.examClass}"/>
                                 </p:column>
                                 
                                 <p:column headerText="Actions" style="text-align: center;width: 80px;">

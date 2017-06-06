@@ -44,7 +44,14 @@ public class BatchSettings implements Serializable {
     @OneToOne
     private School examCentre;
     
+    @OneToOne
+    private School interviewCentre;
+    
     @Future
     @Temporal(TemporalType.DATE)
     private Date examDate;
+    
+    @Future
+    @Temporal(TemporalType.DATE)
+    private Date interviewDate;
 }

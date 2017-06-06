@@ -52,6 +52,9 @@ public interface PeaResource {
 
     public static final String VIEW_STUDENT_RECORD = "view-student-record";
     
+    /*=========== ACADEMY ===========*/
+    public static final String LIST_ACADEMY_RECORDS = "list-academy-records";
+    
     /*=========== ENV-SETTINGS ===========*/
     public static final String EDIT_ENV_SETTINGS = "edit-env-settings";
     
@@ -63,7 +66,7 @@ public interface PeaResource {
     public static final String VIEW_RESULT = "view-result";
     
        
-    /*=========== STUDENT-RECORD ===========*/
+    /*=========== EXAM-BATCH ===========*/
     public static final String LIST_EXAM_BATCH = "list-exam-batch";
     
     public static final String LIST_EXAM_BATCH_OTHER = "list-exam-batch-other";

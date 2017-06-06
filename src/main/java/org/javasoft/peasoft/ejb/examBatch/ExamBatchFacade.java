@@ -29,7 +29,7 @@ public class ExamBatchFacade extends GenericDAO<StudentRecord, Long> {
     }
     
     public List<StudentRecord> findStudentRecordByBatch(String batch){
-        Criteria recordCriteria =getCriteria().add(Restrictions.eq("examBatch", batch));
+        Criteria recordCriteria = getCriteria().add(Restrictions.eq("examBatch", batch));
         recordCriteria.createAlias("student", "student");
         return recordCriteria.addOrder(Order.asc("student.surname")).list();
     }
