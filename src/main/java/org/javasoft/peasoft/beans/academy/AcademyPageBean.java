@@ -13,17 +13,24 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.javasoft.peasoft.beans.core.AbstractBean;
+import org.javasoft.peasoft.beans.core.util.EmailUtilBean;
 import static org.javasoft.peasoft.constants.PeaResource.VIEW_HOME_PAGE;
+import org.javasoft.peasoft.ejb.data.EmailDataFacade;
 import org.javasoft.peasoft.ejb.data.NotificationFacade;
+import org.javasoft.peasoft.ejb.settings.BatchSettingsFacade;
 import org.javasoft.peasoft.ejb.studentRecord.StudentRecordFacade;
 import org.javasoft.peasoft.entity.core.Student;
 import org.javasoft.peasoft.entity.core.StudentRecord;
+import org.javasoft.peasoft.entity.data.EmailData;
 import org.javasoft.peasoft.entity.data.Notification;
+import org.javasoft.peasoft.entity.settings.BatchSettings;
+import org.javasoft.peasoft.service.AcademyService;
 import org.omnifaces.util.Messages;
 
 /**
@@ -40,16 +47,30 @@ public class AcademyPageBean extends AbstractBean implements Serializable {
 
     @EJB
     private StudentRecordFacade studentRecordFacade;
+    
+    @EJB
+    private BatchSettingsFacade batchSettingsFacade;
 
     @EJB
     private NotificationFacade notificationFacade;
+    
+    @EJB
+    private EmailDataFacade emailDataFacade;
+    
+    @Inject
+    private EmailUtilBean emailUtilBean;
+    
+    private BatchSettings batchSetting;
 
     private String status;
+    
+    private AcademyService academyService;
 
     @Override
     @PostConstruct
     public void init() {
         super.init();
+        academyService = new AcademyService();
     }
 
     @Override
@@ -73,6 +94,7 @@ public class AcademyPageBean extends AbstractBean implements Serializable {
         try {
             List<Notification> notificationList = notificationFacade.getPendingAcademyNotificationOrderByMarksAndStatus();
             log.info("Total Notification List ==== {}", notificationList.size());
+            batchSetting = batchSettingsFacade.findOne();
             if (StringUtils.equalsIgnoreCase(status, SELECTED)) {
                 pendingSelectedNotifications(notificationList);
             } else {
@@ -94,14 +116,17 @@ public class AcademyPageBean extends AbstractBean implements Serializable {
         for (int i = 0; i <= cntSize; i++) {
             Notification aNotification = pendingNotSelectedNotification.get(i);
             StudentRecord aRecord = aNotification.getStudentRecord();
-
+            EmailData emailData =academyService.generateNotificationEmail(emailUtilBean, aRecord, batchSetting, false);
+            emailDataFacade.persist(emailData);
+            
             Student studentObj = aRecord.getStudent();
-
             HashSet<String> phoneNos = new HashSet<>();
             phoneNos.add(studentObj.getPhoneNo());
             phoneNos.add(studentObj.getOtherPhoneNo());
             phoneNos.add(studentObj.getParent().getAddressTemplate().getContactPhoneNo1());
             phoneNos.add(studentObj.getParent().getAddressTemplate().getContactPhoneNo2());
+            
+            
 
             aNotification.setBatchNotification(true);
             notificationFacade.edit(aNotification);

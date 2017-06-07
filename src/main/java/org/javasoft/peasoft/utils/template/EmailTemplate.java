@@ -34,7 +34,7 @@ public interface EmailTemplate {
     public static final String OUTER_TABLE_CLOSE_BODY_TEMPLATE = "{outerTable.closeBodyTag}";
 
     public static final String OUTER_TABLE_OPEN_FOOTER_TEMPLATE = "{outerTable.openFooterTag}";
-    
+
     public static final String OUTER_TABLE_GUIDELINE_TEMPLATE = "{outerTable.guideline}";
 
     public static final String OUTER_TABLE_ENQUIRY_TEMPLATE = "{outerTable.enquiry}";
@@ -60,23 +60,34 @@ public interface EmailTemplate {
     public static final String OUTER_TABLE_CLOSE_TABLE_TEMPLATE = "{outerTable.closeTableTag}";
 
     public static final String HEADER_CLOSE_DIV_TEMPLATE = "{header.closeDivTag}";
-    
-    public static final String EXAMINATION_CENTER_SUBJECT_TEMPLATE = "{examinationCenter.subject}";
-    
-    public static final String EXAMINATION_CENTER_TOP_TEMPLATE = "{examinationCenter.top}";
-    
-    public static final String SCHOOL_RESULT_DETAILS_SUBJECT_TEMPLATE = "{schoolResultDetails.subject}";
-    
-    public static final String SCHOOL_RESULT_DETAILS_TOP_TEMPLATE = "{schoolResultDetails.top}";
-    
-    
-    public static final String STUDENT_RESULT_SUBJECT_TEMPLATE = "{studentResult.subject}";
-    
-    public static final String STUDENT_RESULT_TOP_TEMPLATE = "{studentResult.top}";
-    
-    public static final String STUDENT_RESULT_SELECTED_NOTIFICATION_TEMPLATE = "{studentResult.selectedNotification}";
-    
-    public static final String STUDENT_RESULT_NOT_SELECTED_NOTIFICATION_TEMPLATE = "{studentResult.notSelectedNotification}";
-    
 
+    public static final String EXAMINATION_CENTER_SUBJECT_TEMPLATE = "{examinationCenter.subject}";
+
+    public static final String EXAMINATION_CENTER_TOP_TEMPLATE = "{examinationCenter.top}";
+
+    public static final String SCHOOL_RESULT_DETAILS_SUBJECT_TEMPLATE = "{schoolResultDetails.subject}";
+
+    public static final String SCHOOL_RESULT_DETAILS_TOP_TEMPLATE = "{schoolResultDetails.top}";
+
+    public static final String STUDENT_RESULT_SUBJECT_TEMPLATE = "{studentResult.subject}";
+
+    public static final String STUDENT_RESULT_TOP_TEMPLATE = "{studentResult.top}";
+
+    public static final String STUDENT_RESULT_SELECTED_NOTIFICATION_TEMPLATE = "{studentResult.selectedNotification}";
+
+    public static final String STUDENT_RESULT_NOT_SELECTED_NOTIFICATION_TEMPLATE = "{studentResult.notSelectedNotification}";
+
+    //
+    //academy.top
+    //academy.notSelectedNotification
+    //academy.selectedNotification
+    public static final String ACADEMY_SUBJECT_TEMPLATE = "{academy.subject}";
+
+    public static final String ACADEMY_TOP_TEMPLATE = "{academy.top}";
+
+    public static final String ACADEMY_NOT_SELECTED_NOTIFICATION_TEMPLATE = "{academy.notSelectedNotification}";
+
+    public static final String ACADEMY_SELECTED_NOTIFICATION_TEMPLATE = "{academy.selectedNotification}";
+
+    public static final String ACADEMY_VENUE_TEMPLATE = "{academy.venue}";
 }
