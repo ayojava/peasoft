@@ -7,6 +7,7 @@ package org.javasoft.peasoft.entity.data;
 
 import java.io.Serializable;
 import java.util.Date;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -43,7 +44,7 @@ public class Notification implements Serializable {
     
     private boolean academyNotification;
     
-    @OneToOne
+    @OneToOne(cascade = CascadeType.MERGE)
     private StudentRecord studentRecord;
     
     @Temporal(TemporalType.TIMESTAMP)

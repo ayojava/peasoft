@@ -21,21 +21,24 @@ and open the template in the editor.
                     </ui:decorate> 
                 </ui:define>
                 <ui:define name="pageButtonsTop">
-                    
+                    <!--
                     <p:commandButton styleClass="pnx-round-button" id="markTopBtn" value="Mark" 
                                      ajax="false" update="@form" action="#{studentRecordPageBean.markScores()}" 
                                      icon="fa fa-fw fa-plus" title="Mark Scores"/> 
+                    
                     <p:spacer width="10px"/>
+                    <p:blockUI block="studentsRecordTable" trigger="markTopBtn">
+                        In Progress
+                        <p:graphicImage name="icon/pics/ajax-loading-bar.gif" library="images" />
+                    </p:blockUI>
+                    -->
                     <p:commandButton styleClass="pnx-round-button" id="closeTopBtn" value="Home" 
                                      immediate="true" ajax="false" update="@form" icon="fa fa-fw fa-home"
                                      action="#{studentRecordPageBean.setPageResource(peaResource.VIEW_HOME_PAGE)}" 
                                      title="Back to Home Page"/>  
                     <p:spacer width="10px"/>
                     
-                    <p:blockUI block="studentsRecordTable" trigger="markTopBtn">
-                        In Progress
-                        <p:graphicImage name="icon/pics/ajax-loading-bar.gif" library="images" />
-                    </p:blockUI>
+                    
                     
                 </ui:define>
                 

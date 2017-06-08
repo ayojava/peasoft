@@ -15,6 +15,10 @@ import static org.javasoft.peasoft.constants.PeaResource.EXAM_BATCH_FOLDER;
 import static org.javasoft.peasoft.constants.PeaResource.FULL_DATE_FORMAT;
 import static org.javasoft.peasoft.constants.PeaResource.FULL_DATE_FORMAT_SMS;
 import static org.javasoft.peasoft.constants.PeaResource.SEPARATOR;
+import static org.javasoft.peasoft.constants.TimeSlotResource.QUIZ_BATCH_A_END;
+import static org.javasoft.peasoft.constants.TimeSlotResource.QUIZ_BATCH_A_START;
+import static org.javasoft.peasoft.constants.TimeSlotResource.QUIZ_BATCH_B_END;
+import static org.javasoft.peasoft.constants.TimeSlotResource.QUIZ_BATCH_B_START;
 import org.javasoft.peasoft.entity.core.Student;
 import org.javasoft.peasoft.entity.core.StudentRecord;
 import org.javasoft.peasoft.entity.data.EmailData;
@@ -57,11 +61,12 @@ public class ExamBatchService {
 
         String schoolDesc = batchSetting.getExamCentre().getName() + " " + batchSetting.getExamCentre().getAddressTemplate().getNearestBusStop();
 
-        String startTime = (StringUtils.equalsIgnoreCase(batch, BATCH_A))
-                ? batchSetting.getBatchA_Start() + " a.m" : batchSetting.getBatchB_Start() + " p.m ";
+        String startTime = (StringUtils.equalsIgnoreCase(batch, BATCH_A))? QUIZ_BATCH_A_START : QUIZ_BATCH_B_START;
+        
+        String endTime = (StringUtils.equalsIgnoreCase(batch, BATCH_A))? QUIZ_BATCH_A_END  : QUIZ_BATCH_B_END;
 
         String smsMsg = smsUtilBean.showMessageFromTemplate(BATCH_DETAILS_SMS_TEMPLATE, studentobj.getFullName(),
-                DateFormatUtils.format(batchSetting.getExamDate(), FULL_DATE_FORMAT_SMS), schoolDesc, startTime, batch);
+                DateFormatUtils.format(batchSetting.getExamDate(), FULL_DATE_FORMAT_SMS), schoolDesc, startTime, endTime);
 
         log.info("smsMsg :: {} ", smsMsg);
 
@@ -99,12 +104,12 @@ public class ExamBatchService {
         String timeAlloted = "";
 
         if (StringUtils.equalsIgnoreCase(studentRecord.getExamBatch(), BATCH_A)) {
-            timeAlloted = batchSetting.getBatchA_Start() + " a.m   - " + batchSetting.getBatchA_Stop() + " a.m";
+            timeAlloted = QUIZ_BATCH_A_START + " - " + QUIZ_BATCH_A_END;
         } else {
-            timeAlloted = batchSetting.getBatchB_Start() + " a.m   - " + batchSetting.getBatchB_Stop() + " a.m";
+            timeAlloted = QUIZ_BATCH_B_START + " - " + QUIZ_BATCH_A_END;
         }
 
-        msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(TABLE_ROW_EVEN_TEMPLATE, " Time Alloted : ", timeAlloted));
+        msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(TABLE_ROW_EVEN_TEMPLATE, " Exam Time : ", timeAlloted));
 
         msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(TABLE_ROW_ODD_TEMPLATE, " Date  : ", DateFormatUtils.format(batchSetting.getExamDate(), FULL_DATE_FORMAT)));
 

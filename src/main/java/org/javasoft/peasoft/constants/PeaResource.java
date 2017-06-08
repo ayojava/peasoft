@@ -122,6 +122,8 @@ public interface PeaResource {
     
     public static final String EXAM_BATCH_FOLDER ="exam-batch";
     
+    public static final String ACADEMY_BATCH_FOLDER ="academy";
+    
     public static final String RESULTS_FOLDER ="results";
     
     public static final String MESSAGES_FOLDER ="messages";

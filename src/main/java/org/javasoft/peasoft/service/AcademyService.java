@@ -8,12 +8,14 @@ package org.javasoft.peasoft.service;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.javasoft.peasoft.beans.core.util.EmailUtilBean;
+import org.javasoft.peasoft.beans.core.util.SMSUtilBean;
 import static org.javasoft.peasoft.constants.PeaResource.RESULTS_FOLDER;
 import static org.javasoft.peasoft.constants.PeaResource.SEPARATOR;
 import org.javasoft.peasoft.entity.core.Marks;
 import org.javasoft.peasoft.entity.core.Student;
 import org.javasoft.peasoft.entity.core.StudentRecord;
 import org.javasoft.peasoft.entity.data.EmailData;
+import org.javasoft.peasoft.entity.data.SMSData;
 import org.javasoft.peasoft.entity.settings.BatchSettings;
 import static org.javasoft.peasoft.utils.template.EmailTemplate.ACADEMY_NOT_SELECTED_NOTIFICATION_TEMPLATE;
 import static org.javasoft.peasoft.utils.template.EmailTemplate.ACADEMY_SELECTED_NOTIFICATION_TEMPLATE;
@@ -41,6 +43,8 @@ import static org.javasoft.peasoft.utils.template.EmailTemplate.OUTER_TABLE_TWIT
 import static org.javasoft.peasoft.utils.template.EmailTemplate.OUTER_TABLE_WEBSITE_TEMPLATE;
 import static org.javasoft.peasoft.utils.template.EmailTemplate.TABLE_ROW_EVEN_TEMPLATE;
 import static org.javasoft.peasoft.utils.template.EmailTemplate.TABLE_ROW_ODD_TEMPLATE;
+import static org.javasoft.peasoft.utils.template.SMSTemplate.ACADEMY_NOT_SELECTED_SMS_TEMPLATE;
+import static org.javasoft.peasoft.utils.template.SMSTemplate.ACADEMY_SELECTED_SMS_TEMPLATE;
 
 /**
  *
@@ -48,6 +52,18 @@ import static org.javasoft.peasoft.utils.template.EmailTemplate.TABLE_ROW_ODD_TE
  */
 @Slf4j
 public class AcademyService {
+
+    public SMSData generateNotificationSMS(SMSUtilBean smsUtilBean, Student studentObj,boolean selected) {
+        String smsMsg = smsUtilBean.showMessageFromTemplate((selected ? ACADEMY_SELECTED_SMS_TEMPLATE:ACADEMY_NOT_SELECTED_SMS_TEMPLATE),
+                 studentObj.getFullName(),studentObj.getEmail());
+        
+        log.info("smsMsg :: {} ", smsMsg);
+
+        SMSData smsData = new SMSData();
+        smsData.setMessage(smsMsg);
+        smsData.setStudent(studentObj);
+        return smsData;
+    }
 
     public EmailData generateNotificationEmail(EmailUtilBean emailUtilBean, StudentRecord studentRecord, BatchSettings batchSetting,
             boolean selected) {

@@ -79,16 +79,16 @@ public class StudentRecordPageBean extends AbstractBean implements Serializable 
         }
     }
 
-    public void markScores(){
-        try {
-            studentRecordFacade.markResults(studentRecords);
-            Messages.addGlobalInfo(" Marking Completed ");
-            setPageResource(LIST_STUDENT_RECORDS);
-        }catch (Exception ex) {
-            log.error("An Error has Occurred :::", ex);
-            Messages.addGlobalError("An Error has Occured");
-        }
-    }
+//    public void markScores(){
+//        try {
+//            studentRecordFacade.markResults(studentRecords);
+//            Messages.addGlobalInfo(" Marking Completed ");
+//            setPageResource(LIST_STUDENT_RECORDS);
+//        }catch (Exception ex) {
+//            log.error("An Error has Occurred :::", ex);
+//            Messages.addGlobalError("An Error has Occured");
+//        }
+//    }
         
     private void cleanup() {
 

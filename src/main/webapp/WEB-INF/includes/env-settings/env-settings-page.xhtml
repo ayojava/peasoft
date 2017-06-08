@@ -55,7 +55,7 @@ and open the template in the editor.
                                 </div>
                                 
                                 <div class="row default-row-padding">
-                                    <pnx:primeDIV labelDiv="col-md-2" labelID="schoolLbl" label="Exam Centre  : "
+                                    <pnx:primeDIV labelDiv="col-md-2" labelID="examCentreLbl" label="Exam Centre  : "
                                                   contentDiv="col-md-4" targetID="selExamCentre">
                                         <p:selectOneMenu id="selExamCentre" value="#{envSettingsPageBean.envSettings.batchSettings.examCentre}" required="true"
                                                          converter="omnifaces.SelectItemsConverter">
@@ -64,7 +64,7 @@ and open the template in the editor.
                                         </p:selectOneMenu>
 
                                     </pnx:primeDIV>
-                                    <pnx:primeDIV labelDiv="col-md-2" labelID="examDate" label="Exam Date  : "
+                                    <pnx:primeDIV labelDiv="col-md-2" labelID="examDateLbl" label="Exam Date  : "
                                                   contentDiv="col-md-4" targetID="selExamDate">
                                         <p:calendar id="selExamDate" value="#{envSettingsPageBean.envSettings.batchSettings.examDate}" effect="clip"
                                                     showOn="both" navigator="true" required="true"
@@ -73,7 +73,7 @@ and open the template in the editor.
                                 </div>
                                 
                                 <div class="row default-row-padding">
-                                    <pnx:primeDIV labelDiv="col-md-2" labelID="interviewLbl" label="Interview Centre  : "
+                                    <pnx:primeDIV labelDiv="col-md-2" labelID="interviewCentreLbl" label="Interview Centre  : "
                                                   contentDiv="col-md-4" targetID="selInterviewCentre">
                                         <p:selectOneMenu id="selInterviewCentre" value="#{envSettingsPageBean.envSettings.batchSettings.interviewCentre}" required="true"
                                                          converter="omnifaces.SelectItemsConverter">
@@ -82,7 +82,7 @@ and open the template in the editor.
                                         </p:selectOneMenu>
 
                                     </pnx:primeDIV>
-                                    <pnx:primeDIV labelDiv="col-md-2" labelID="examDate" label="Interview  Date  : "
+                                    <pnx:primeDIV labelDiv="col-md-2" labelID="interviewDateLbl" label="Interview  Date  : "
                                                   contentDiv="col-md-4" targetID="selInterviewDate">
                                         <p:calendar id="selInterviewDate" value="#{envSettingsPageBean.envSettings.batchSettings.interviewDate}" effect="clip"
                                                     showOn="both" navigator="true" required="true"

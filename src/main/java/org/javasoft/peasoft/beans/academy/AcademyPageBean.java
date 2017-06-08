@@ -20,15 +20,18 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.javasoft.peasoft.beans.core.AbstractBean;
 import org.javasoft.peasoft.beans.core.util.EmailUtilBean;
+import org.javasoft.peasoft.beans.core.util.SMSUtilBean;
 import static org.javasoft.peasoft.constants.PeaResource.VIEW_HOME_PAGE;
 import org.javasoft.peasoft.ejb.data.EmailDataFacade;
 import org.javasoft.peasoft.ejb.data.NotificationFacade;
+import org.javasoft.peasoft.ejb.data.SMSDataFacade;
 import org.javasoft.peasoft.ejb.settings.BatchSettingsFacade;
 import org.javasoft.peasoft.ejb.studentRecord.StudentRecordFacade;
 import org.javasoft.peasoft.entity.core.Student;
 import org.javasoft.peasoft.entity.core.StudentRecord;
 import org.javasoft.peasoft.entity.data.EmailData;
 import org.javasoft.peasoft.entity.data.Notification;
+import org.javasoft.peasoft.entity.data.SMSData;
 import org.javasoft.peasoft.entity.settings.BatchSettings;
 import org.javasoft.peasoft.service.AcademyService;
 import org.omnifaces.util.Messages;
@@ -57,8 +60,14 @@ public class AcademyPageBean extends AbstractBean implements Serializable {
     @EJB
     private EmailDataFacade emailDataFacade;
     
+    @EJB
+    private SMSDataFacade smsDataFacade;
+    
     @Inject
     private EmailUtilBean emailUtilBean;
+    
+    @Inject
+    private SMSUtilBean smsUtilBean;
     
     private BatchSettings batchSetting;
 
@@ -84,6 +93,7 @@ public class AcademyPageBean extends AbstractBean implements Serializable {
             } else {
                 studentRecords = orderedMarks.stream().filter(StudentRecord::isActive).skip(500).collect(toList());
             }
+            super.setPageResource(appendFolderPath(ACADEMY_BATCH_FOLDER, LIST_ACADEMY_RECORDS));
         } else if (StringUtils.equals(VIEW_HOME_PAGE, pageResource)) {
             setHomePageResource();
             cleanup();
@@ -100,7 +110,7 @@ public class AcademyPageBean extends AbstractBean implements Serializable {
             } else {
                 pendingNotSelectedNotifications(notificationList);
             }
-            Messages.addGlobalInfo("Notifications Scheduled Successfully");
+            //Messages.addGlobalInfo("Notifications Scheduled Successfully");
         } catch (Exception ex) {
             log.error("An Error has Occurred :::", ex);
             Messages.addGlobalError("An Error has Occured");
@@ -108,16 +118,23 @@ public class AcademyPageBean extends AbstractBean implements Serializable {
     }
 
     private void pendingNotSelectedNotifications(List<Notification> notificationList) {
-        List<Notification> notSelectedNotificationList = notificationList.stream().skip(500).collect(toList());
+//        List<Notification> notSelectedNotificationList = notificationList.stream().skip(500).collect(toList());
+//
+//        List<Notification> pendingNotSelectedNotification = notSelectedNotificationList.stream().filter(n -> !n.isAcademyNotification()).collect(toList());
 
-        List<Notification> pendingNotSelectedNotification = notSelectedNotificationList.stream().filter(n -> !n.isAcademyNotification()).collect(toList());
+        List<Notification> pendingNotSelectedNotification =notificationList.stream().skip(500).filter(n -> !n.isAcademyNotification()).collect(toList());
         log.info("Pending NotSelected  Notification List ==== {}", pendingNotSelectedNotification.size());
+        if(pendingNotSelectedNotification.isEmpty()){
+            Messages.addGlobalWarn("No Pending Not Selected Notifications");
+            return;
+        }
         int cntSize = (pendingNotSelectedNotification.size() > BATCH_SIZE) ? BATCH_SIZE : pendingNotSelectedNotification.size();
         for (int i = 0; i <= cntSize; i++) {
             Notification aNotification = pendingNotSelectedNotification.get(i);
             StudentRecord aRecord = aNotification.getStudentRecord();
             EmailData emailData =academyService.generateNotificationEmail(emailUtilBean, aRecord, batchSetting, false);
             emailDataFacade.persist(emailData);
+            
             
             Student studentObj = aRecord.getStudent();
             HashSet<String> phoneNos = new HashSet<>();
@@ -126,18 +143,28 @@ public class AcademyPageBean extends AbstractBean implements Serializable {
             phoneNos.add(studentObj.getParent().getAddressTemplate().getContactPhoneNo1());
             phoneNos.add(studentObj.getParent().getAddressTemplate().getContactPhoneNo2());
             
+            SMSData smsData = academyService.generateNotificationSMS(smsUtilBean, studentObj, false);
+            phoneNos.stream().forEach((String phoneNo) -> {
+                            if (StringUtils.isNotBlank(phoneNo)) {
+                                smsData.setId(null);
+                                smsData.setRecipientPhoneNo(appendCountryCode(phoneNo));
+                                smsDataFacade.persist(smsData);
+                            }
+                        });
             
-
+            aRecord.setGrade(NOT_SELECTED);
             aNotification.setBatchNotification(true);
-            notificationFacade.edit(aNotification);
-
+            notificationFacade.edit(aNotification);    
         }
+        Messages.addGlobalInfo("Notifications Scheduled Successfully");
     }
     
     private void pendingSelectedNotifications(List<Notification> notificationList) {
         List<Notification> selectedNotificationList = notificationList.stream().limit(500).collect(toList());
 
-        List<Notification> pendingSelectedNotification = selectedNotificationList.stream().filter(n -> !n.isAcademyNotification()).collect(toList());
+       List<Notification> pendingSelectedNotification = selectedNotificationList.stream().filter(n -> !n.isAcademyNotification()).collect(toList());
+        
+        //List<Notification> pendingSelectedNotification = notificationList.stream().limit(500).filter(n -> !n.isAcademyNotification()).collect(toList());
         log.info("Pending Selected  Notification List ==== {}", pendingSelectedNotification.size());
         int cntSize = (pendingSelectedNotification.size() > BATCH_SIZE) ? BATCH_SIZE : pendingSelectedNotification.size();
         for (int i = 0; i <= cntSize; i++) {
@@ -151,13 +178,25 @@ public class AcademyPageBean extends AbstractBean implements Serializable {
             phoneNos.add(studentObj.getOtherPhoneNo());
             phoneNos.add(studentObj.getParent().getAddressTemplate().getContactPhoneNo1());
             phoneNos.add(studentObj.getParent().getAddressTemplate().getContactPhoneNo2());
+            
+            SMSData smsData = academyService.generateNotificationSMS(smsUtilBean, studentObj, true);
+            phoneNos.stream().forEach((String phoneNo) -> {
+                            if (StringUtils.isNotBlank(phoneNo)) {
+                                smsData.setId(null);
+                                smsData.setRecipientPhoneNo(appendCountryCode(phoneNo));
+                                smsDataFacade.persist(smsData);
+                            }
+                        });
 
             aNotification.setBatchNotification(true);
             notificationFacade.edit(aNotification);
-
         }
     }
 
+    public void mark(){
+    
+    }
+    
     private void cleanup() {
 
     }

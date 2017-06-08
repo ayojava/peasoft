@@ -5,12 +5,65 @@ To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
-    <head>
-        <title>TODO supply a title</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    </head>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui" xmlns:of="http://omnifaces.org/functions"
+      xmlns:o="http://omnifaces.org/ui" xmlns:pnx="http://www.javasoft.org/primefacesExt/primefacelets"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <body>
-        <div>TODO write content</div>
+        <ui:composition>
+            <c:choose>
+                <c:when test="#{displayMode=='list'}">
+                    <pnx:pageDivider id="list-academy-records" separator="false">
+                        <ui:define name="properties">
+                            <p:dataTable id="studentsRecordTable" var="aRecord" value="#{academyPageBean.studentRecords}" 
+                                         paginatorPosition="bottom" paginator="true" rows="40" rowIndexVar="rowIndex"
+                                         rowStyleClass="#{aRecord.disqualified ? 'bg-danger':null}"
+                                         paginatorTemplate=" {CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}">
+                                
+                                <p:column headerText="No" style="text-align: center;width: 35px;">
+                                    <h:outputText value="#{rowIndex+1}"/>
+                                </p:column>
+
+                                <p:column headerText="Full Name" style="text-align: left;width: 250px;">
+                                    <h:outputText value="#{aRecord.student.fullName}"/>
+                                </p:column>
+                                
+                                <p:column headerText="Department" style="text-align: center;">
+                                    <h:outputText value="#{genericBean.department(aRecord.department)}"/>
+                                </p:column>
+                                
+                                <p:column headerText="Class" style="text-align: center;">
+                                    <h:outputText value="#{aRecord.sss}"/>
+                                </p:column>
+                                
+                                <p:column headerText="Batch" style="text-align: center;">
+                                    <h:outputText value="#{genericBean.batch(aRecord.examBatch)}"/>
+                                </p:column>
+                                
+                                <p:column headerText="Academic Score" style="text-align: center;">
+                                    <h:outputText value="#{genericBean.formatDecimalPlaces(aRecord.marks.totalAcademicScore)}"/>
+                                </p:column>
+
+                                <p:column headerText="Interview Score" style="text-align: center;">
+                                    <h:outputText value="#{genericBean.formatDecimalPlaces(aRecord.marks.totalInterviewScore)}"/>
+                                </p:column>
+
+                                <p:column headerText="Total Score" style="text-align: center;">
+                                    <h:outputText value="#{genericBean.formatDecimalPlaces(aRecord.marks.totalScore)}"/>
+                                </p:column>
+
+                                <p:column headerText="Status" style="text-align: center;">
+                                    <h:outputText value="#{genericBean.recordStatus(aRecord.status)}"/>
+                                </p:column>
+
+                             </p:dataTable>
+                        </ui:define>
+                    </pnx:pageDivider>
+                </c:when>
+            </c:choose>
+        </ui:composition>
     </body>
 </html>

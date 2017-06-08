@@ -25,7 +25,7 @@ and open the template in the editor.
                     <p:menuitem id="studentRecordMenu" value="Student Records"  icon="fa fa-cubes fa-1g"
                                 action="#{studentRecordPageBean.setPageResource(peaResource.LIST_STUDENT_RECORDS)}" update=":homeForm"/>
                     <p:separator />
-                    <p:submenu id="batchModule" label="Batch"  icon="fa fa-globe fa-1g">
+                    <p:submenu id="academicTest" label="Academic Test"  icon="fa fa-globe fa-1g">
                         <p:menuitem value="Batch A " icon="fa fa-indent fa-1g" update=":homeForm" id="batchA"
                                     action="#{examBatchPageBean.setPageResource(peaResource.LIST_EXAM_BATCH)}">
                             <f:param name="batch" value="#{peaResource.BATCH_A}"/>
@@ -35,6 +35,10 @@ and open the template in the editor.
                                     action="#{examBatchPageBean.setPageResource(peaResource.LIST_EXAM_BATCH)}">
                             <f:param name="batch" value="#{peaResource.BATCH_B}"/>
                         </p:menuitem>
+                    </p:submenu>
+                    <p:separator />
+                    <p:submenu id="oralInterviewMenu" label="Oral Interview"  icon="fa fa-globe fa-1g">
+                        
                     </p:submenu>
                     <p:separator />
                     <p:submenu id="academyModule" label="Academy"  icon="fa fa-cubes fa-1g">
