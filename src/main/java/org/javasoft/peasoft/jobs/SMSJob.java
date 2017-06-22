@@ -28,7 +28,7 @@ import org.quartz.JobExecutionException;
  * @author ayojava
  */
 @Slf4j
-@Scheduled(cronExpression = "0 0/10 * * * ?")
+@Scheduled(cronExpression = "0 0 9/2 ? * * *")
 public class SMSJob implements Job {
 
     @EJB

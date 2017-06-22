@@ -366,7 +366,7 @@ and open the template in the editor.
                     <pnx:pageDivider id="list-student-records" separator="false">
                         <ui:define name="properties">
                             <p:dataTable id="studentsRecordTable" var="aRecord" value="#{studentRecordPageBean.studentRecords}" 
-                                         paginatorPosition="bottom" paginator="true" rows="40" rowIndexVar="rowIndex"
+                                         paginatorPosition="bottom" paginator="true" rows="#{peaResource.TABLE_LIST_SIZE}" rowIndexVar="rowIndex"
                                          rowStyleClass="#{aRecord.disqualified ? 'bg-danger':null}"
                                          paginatorTemplate=" {CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}">
 

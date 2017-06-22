@@ -150,7 +150,7 @@ public interface PeaResource {
     
     public static final String SENDER_EMAIL ="brainchallenge2017@peafoundation.org";
     
-    
+    public static final int TABLE_LIST_SIZE = 50;
     
     void setPageResource(String pageResource);
 
