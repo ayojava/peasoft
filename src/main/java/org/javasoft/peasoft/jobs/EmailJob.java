@@ -25,7 +25,8 @@ import org.quartz.JobExecutionException;
  */
 @Slf4j
 //  0 0 8/2 ? * * * Every 2 hours starting from 8am
-@Scheduled(cronExpression = "0 0 8/2 ? * * *") // Every 2 hours starting from 8am
+//@Scheduled(cronExpression = "0 0 8/2 ? * * *") // Every 2 hours starting from 8am
+@Scheduled(cronExpression = "0 0 0/1 ? * * *") // Every hour
 public class EmailJob implements Job {
 
     private List<EmailData> pendingEmailData;
@@ -66,7 +67,7 @@ public class EmailJob implements Job {
             log.warn("====  No Pending Emails =====  ");
             return;
         }
-        log.info("Pending Email Count ======= {}" , pendingEmailData.size());
+        //log.info("Pending Email Count ======= {}" , pendingEmailData.size());
         emailService = new EmailService();
 //        emailService.initEmailService("true", emailSettings.getServer(), String.valueOf(emailSettings.getPort()), emailSettings.getSender(),
 //                emailSettings.getPassword(), "BrainChallenge2017");

@@ -17,6 +17,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
@@ -78,10 +79,14 @@ public class SMSData implements Serializable {
     @CreationTimestamp
     private Date createDate;
     
+    @Transient
+    private boolean successStatus;
+    
     public void updateResponseMessage(){
         switch(getResponseCode()){
             case CODE_1701:
                 this.responseMessage = MSG_1701;
+                successStatus = true;
                 break;
             case CODE_1702:
                 this.responseMessage = MSG_1702;

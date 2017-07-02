@@ -10,7 +10,7 @@ and open the template in the editor.
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:p="http://primefaces.org/ui" xmlns:of="http://omnifaces.org/functions"
       xmlns:o="http://omnifaces.org/ui" xmlns:pnx="http://www.javasoft.org/primefacesExt/primefacelets"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"  xmlns:fn="http://java.sun.com/jsp/jstl/functions"
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <body>
         <ui:composition>
@@ -19,9 +19,13 @@ and open the template in the editor.
                     <pnx:pageDivider id="list-academy-records" separator="false">
                         <ui:define name="properties">
                             <p:dataTable id="studentsRecordTable" var="aRecord" value="#{academyPageBean.studentRecords}" 
-                                         paginatorPosition="bottom" paginator="true" rows="#{peaResource.TABLE_LIST_SIZE}" rowIndexVar="rowIndex"
+                                         paginatorPosition="bottom" paginator="true" rows="#{genericBean.tableListSize}" rowIndexVar="rowIndex"
                                          rowStyleClass="#{aRecord.disqualified ? 'bg-danger':null}"
                                          paginatorTemplate=" {CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}">
+                                
+                                <f:facet name="header">
+                                    In total , there are #{fn:length(academyPageBean.studentRecords)} records
+                                </f:facet>
                                 
                                 <p:column headerText="No" style="text-align: center;width: 35px;">
                                     <h:outputText value="#{rowIndex+1}"/>
@@ -58,7 +62,8 @@ and open the template in the editor.
                                 <p:column headerText="Status" style="text-align: center;">
                                     <h:outputText value="#{genericBean.recordStatus(aRecord.status)}"/>
                                 </p:column>
-
+                                
+                                
                              </p:dataTable>
                         </ui:define>
                     </pnx:pageDivider>

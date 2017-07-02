@@ -28,7 +28,8 @@ import org.quartz.JobExecutionException;
  * @author ayojava
  */
 @Slf4j
-@Scheduled(cronExpression = "0 0 9/2 ? * * *")
+//@Scheduled(cronExpression = "0 0 9/2 ? * * *")
+@Scheduled(cronExpression = " 0 0/30 0 ? * * *") // Every 30 minutes
 public class SMSJob implements Job {
 
     @EJB
@@ -81,11 +82,14 @@ public class SMSJob implements Job {
             try {
                 String output = smsService.sendSMSMessage(smsDATA);
                 log.info("=========  Output Msg ========= {}", output);
-                String responseMsg[]=StringUtils.split(output, SEPARATOR);
+                String responseMsg[] = StringUtils.split(output, SEPARATOR);
                 smsDATA.setResponseCode(responseMsg[0]);
                 smsDATA.updateResponseMessage();
-                smsDATA.setStatus(SENT);
-                smsDataFacade.edit(smsDATA);
+                if (smsDATA.isSuccessStatus()) {
+                    smsDATA.setStatus(SENT);
+                    smsDataFacade.edit(smsDATA);
+                }
+
             } catch (Exception ex) {
                 log.error("An Error has Occurred while Sending message :::", ex);
             }

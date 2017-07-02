@@ -10,6 +10,8 @@ import java.text.DecimalFormat;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
+import lombok.Getter;
+import org.javasoft.peasoft.constants.PeaResource;
 import static org.javasoft.peasoft.constants.PeaResource.ACTIVE;
 import static org.javasoft.peasoft.constants.PeaResource.ARTS;
 import static org.javasoft.peasoft.constants.PeaResource.BATCH_A;
@@ -34,9 +36,13 @@ public class GenericBean implements Serializable {
     
     private DecimalFormat decimalFormat;
     
+    @Getter
+    private int tableListSize;
+    
     @PostConstruct
     public void init(){
         decimalFormat = new DecimalFormat("##.##");
+        tableListSize = PeaResource.TABLE_LIST_SIZE;
     }
 
     public String recordStatus(String status) {

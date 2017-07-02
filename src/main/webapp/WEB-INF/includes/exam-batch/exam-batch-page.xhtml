@@ -6,7 +6,7 @@ and open the template in the editor.
 -->
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:fn="http://java.sun.com/jsp/jstl/functions"
-      xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" 
       xmlns:p="http://primefaces.org/ui" xmlns:of="http://omnifaces.org/functions"
       xmlns:o="http://omnifaces.org/ui" xmlns:pnx="http://www.javasoft.org/primefacesExt/primefacelets"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
@@ -26,8 +26,12 @@ and open the template in the editor.
                     <pnx:pageDivider id="list-exam-batch" separator="false">
                         <ui:define name="properties">
                             <p:dataTable id="examBatchTable" var="aRecord" value="#{examBatchPageBean.studentRecords}" 
-                                         paginatorPosition="bottom" paginator="true" rows="50" rowIndexVar="rowIndex"
+                                         paginatorPosition="bottom" paginator="true" rows="#{genericBean.tableListSize}" rowIndexVar="rowIndex"
                                          paginatorTemplate=" {CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}">
+                                
+                                <f:facet name="header">
+                                    In total , there are #{fn:length(academyPageBean.studentRecords)} records
+                                </f:facet>
                                 
                                 <p:column headerText="No" style="text-align: center;width: 40px;">
                                     <h:outputText value="#{rowIndex+1}"/>

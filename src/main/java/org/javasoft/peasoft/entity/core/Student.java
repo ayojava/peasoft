@@ -102,5 +102,12 @@ public class Student implements Serializable {
         Period currentAge = Period.between(startDate, LocalDate.now());
         return currentAge.getYears();
     }
+    
+    public String getSurnameAndFirstName(){
+        StringBuilder builder = new StringBuilder();
+        String[] otherNamesAsArray =StringUtils.split(othernames);
+        builder = builder.append(StringUtils.capitalize(surname)).append(" ").append(otherNamesAsArray[0]);
+        return builder.toString();
+    }
 
 }

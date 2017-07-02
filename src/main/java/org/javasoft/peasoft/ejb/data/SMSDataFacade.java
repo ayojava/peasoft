@@ -12,8 +12,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
-import static org.javasoft.peasoft.constants.PeaResource.BATCH_SIZE;
 import static org.javasoft.peasoft.constants.PeaResource.PENDING;
+import static org.javasoft.peasoft.constants.PeaResource.SMS_BATCH_SIZE;
 import org.javasoft.peasoft.ejb.dao.GenericDAO;
 import org.javasoft.peasoft.entity.data.SMSData;
 
@@ -37,6 +37,6 @@ public class SMSDataFacade extends GenericDAO<SMSData, Long>{
     }
     
     public List<SMSData> findPendingSMS(){
-        return getCriteria().add(Restrictions.eq("status", PENDING)).setMaxResults(BATCH_SIZE).list();
+        return getCriteria().add(Restrictions.eq("status", PENDING)).setMaxResults(SMS_BATCH_SIZE).list();
     }
 }
