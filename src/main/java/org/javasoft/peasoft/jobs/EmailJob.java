@@ -56,7 +56,7 @@ public class EmailJob implements Job {
 //            log.error("Email Settings is pending . Check you Email Configuration ");
 //            return;
 //        }
-
+        log.info(" ==========  [ Loading Email JOB ] ========== ");
         if (session == null) {
             log.error("Mail Session is null. Check your configuration  ");
             return;
@@ -67,13 +67,13 @@ public class EmailJob implements Job {
             log.warn("====  No Pending Emails =====  ");
             return;
         }
-        //log.info("Pending Email Count ======= {}" , pendingEmailData.size());
+        //
         emailService = new EmailService();
 //        emailService.initEmailService("true", emailSettings.getServer(), String.valueOf(emailSettings.getPort()), emailSettings.getSender(),
 //                emailSettings.getPassword(), "BrainChallenge2017");
         emailService.setMailSession(session);
         
-
+        log.info("======= [ About To Send Email ] =======");
         pendingEmailData.forEach((EmailData data) -> {
             //log.info("\n======================================");
             if (data.isAttachment()) {

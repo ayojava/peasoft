@@ -29,7 +29,7 @@ import org.quartz.JobExecutionException;
  */
 @Slf4j
 //@Scheduled(cronExpression = "0 0 9/2 ? * * *")
-@Scheduled(cronExpression = " 0 0/30 0 ? * * *") // Every 30 minutes
+@Scheduled(cronExpression = " 0 0/20 * ? * * *") // Every 30 minutes
 public class SMSJob implements Job {
 
     @EJB
@@ -42,7 +42,7 @@ public class SMSJob implements Job {
 
     @Override
     public void execute(JobExecutionContext context) throws JobExecutionException {
-
+        log.info(" ==========  [ Loading SMS JOB ] ========== ");
         EnvSettings envSettings = envSettingsFacade.findOne();
         if (envSettings == null) {
             log.error("Env Settings is pending . Check your  Configuration ");
@@ -81,7 +81,7 @@ public class SMSJob implements Job {
         pendingSMS.forEach((SMSData smsDATA) -> {
             try {
                 String output = smsService.sendSMSMessage(smsDATA);
-                log.info("=========  Output Msg ========= {}", output);
+                log.info(" :: Msg [ {} ] :: Msg Length [ {} ] :: Response [ {} ]", smsDATA.getMessage() , smsDATA.getMessage().length() , output);
                 String responseMsg[] = StringUtils.split(output, SEPARATOR);
                 smsDATA.setResponseCode(responseMsg[0]);
                 smsDATA.updateResponseMessage();

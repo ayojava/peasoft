@@ -51,7 +51,7 @@ public class StudentService {
     
     public SMSData generateWelcomeSMS(SMSUtilBean smsUtilBean, Student studentObj){
         
-        String smsMsg = smsUtilBean.showMessageFromTemplate(REGISTRATION_DETAILS_SMS_TEMPLATE,studentObj.getSurnameAndFirstName(), studentObj.getEmail());
+        String smsMsg = smsUtilBean.showMessageFromTemplate(REGISTRATION_DETAILS_SMS_TEMPLATE,studentObj.getSurnameAndFirstName());
         log.info("smsMsg :: [ {} ] :: Length :: [ {} ] " , smsMsg , smsMsg.length());
         
         SMSData smsData = new SMSData();
