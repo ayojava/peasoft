@@ -38,6 +38,8 @@ public interface EmailTemplate {
     public static final String OUTER_TABLE_GUIDELINE_TEMPLATE = "{outerTable.guideline}";
 
     public static final String OUTER_TABLE_ENQUIRY_TEMPLATE = "{outerTable.enquiry}";
+    
+    public static final String OUTER_TABLE_DISREGARD_EMAIL_TEMPLATE = "{outerTable.disregardEmail}";
 
     public static final String OUTER_TABLE_BRAINCHALLENGE_EMAIL_TEMPLATE = "{outerTable.brainChallengeEmail}";
 

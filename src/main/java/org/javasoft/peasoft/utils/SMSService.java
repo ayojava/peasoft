@@ -90,7 +90,7 @@ public class SMSService {
                 .append("&type=").append(URLEncoder.encode(smsSettings.getType(), "UTF-8"))
                 .append("&dlr=").append(URLEncoder.encode(smsSettings.isDlr() ? "1" : "0", "UTF-8"))
                 .append("&destination=").append(URLEncoder.encode(smsDATA.getRecipientPhoneNo(), "UTF-8"))
-                .append("&source=").append(URLEncoder.encode("PEAF", "UTF-8"))
+                .append("&source=").append(URLEncoder.encode("PEAFOUNDATN", "UTF-8"))
                 .append("&message=").append(URLEncoder.encode(smsDATA.getMessage(), "UTF-8"));
 
         return urlEncodeString.toString();

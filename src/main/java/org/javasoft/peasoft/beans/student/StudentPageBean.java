@@ -168,6 +168,14 @@ public class StudentPageBean extends AbstractBean implements Serializable {
 
         cleanup();
     }
+    
+    public void resendEmail(){
+        studentService = new StudentService();
+        EmailData emailData = studentService.generateWelcomeEmail(student, emailUtilBean, school.getName());
+        emailDataFacade.persist(emailData);
+
+        Messages.addGlobalInfo("Email Successfully Scheduled");
+    }
 
     public void editStudent() {
         try {

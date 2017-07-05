@@ -10,7 +10,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.javasoft.peasoft.beans.core.GenericBean;
 import org.javasoft.peasoft.beans.core.util.EmailUtilBean;
 import org.javasoft.peasoft.beans.core.util.SMSUtilBean;
-import static org.javasoft.peasoft.constants.PeaResource.PENDING;
 import static org.javasoft.peasoft.constants.PeaResource.SEPARATOR;
 import static org.javasoft.peasoft.constants.PeaResource.STUDENT_FOLDER;
 import org.javasoft.peasoft.entity.core.Student;
@@ -26,6 +25,7 @@ import static org.javasoft.peasoft.utils.template.EmailTemplate.OUTER_TABLE_BRAI
 import static org.javasoft.peasoft.utils.template.EmailTemplate.OUTER_TABLE_CLOSE_BODY_TEMPLATE;
 import static org.javasoft.peasoft.utils.template.EmailTemplate.OUTER_TABLE_CLOSE_FOOTER_TEMPLATE;
 import static org.javasoft.peasoft.utils.template.EmailTemplate.OUTER_TABLE_CLOSE_TABLE_TEMPLATE;
+import static org.javasoft.peasoft.utils.template.EmailTemplate.OUTER_TABLE_DISREGARD_EMAIL_TEMPLATE;
 import static org.javasoft.peasoft.utils.template.EmailTemplate.OUTER_TABLE_ENQUIRY_TEMPLATE;
 import static org.javasoft.peasoft.utils.template.EmailTemplate.OUTER_TABLE_FACEBOOK_TEMPLATE;
 import static org.javasoft.peasoft.utils.template.EmailTemplate.OUTER_TABLE_INSTAGRAM_TEMPLATE;
@@ -51,7 +51,8 @@ public class StudentService {
     
     public SMSData generateWelcomeSMS(SMSUtilBean smsUtilBean, Student studentObj){
         
-        String smsMsg = smsUtilBean.showMessageFromTemplate(REGISTRATION_DETAILS_SMS_TEMPLATE,studentObj.getSurnameAndFirstName());
+        String smsMsg = smsUtilBean.showMessageFromTemplate(REGISTRATION_DETAILS_SMS_TEMPLATE,studentObj.getSurnameAndFirstName(),
+                studentObj.getEmail());
         log.info("smsMsg :: [ {} ] :: Length :: [ {} ] " , smsMsg , smsMsg.length());
         
         SMSData smsData = new SMSData();
@@ -104,7 +105,7 @@ public class StudentService {
         msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(TABLE_ROW_EVEN_TEMPLATE," Parent Phone No(s) : ",phoneNos));
         
         msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(TABLE_ROW_ODD_TEMPLATE," Parent Email : ",studentObj.getParent().getAddressTemplate().getContactEmail1()));
-        msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(TABLE_ROW_EVEN_TEMPLATE," Parent Address  : ",studentObj.getParent().getAddressTemplate().getFullAddress()));
+        //msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(TABLE_ROW_EVEN_TEMPLATE," Parent Address  : ",studentObj.getParent().getAddressTemplate().getFullAddress()));
         
         msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(INNER_TABLE_BOTTOM_TEMPLATE));
         
@@ -116,6 +117,8 @@ public class StudentService {
         msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(OUTER_TABLE_BRAINCHALLENGE_EMAIL_TEMPLATE));
         msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(OUTER_TABLE_BRAINCHALLENGE_TELEPHONE_TEMPLATE));
         msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(OUTER_TABLE_BRAINCHALLENGE_WEBSITE_TEMPLATE));
+        msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(OUTER_TABLE_DISREGARD_EMAIL_TEMPLATE));
+        
         
         msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(OUTER_TABLE_OFFICE_ADDRESS_TEMPLATE));
         msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(OUTER_TABLE_FACEBOOK_TEMPLATE));

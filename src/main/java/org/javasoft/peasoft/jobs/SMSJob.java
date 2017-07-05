@@ -65,15 +65,15 @@ public class SMSJob implements Job {
         int creditBalance = -1;//pessimistic
         try {
             String creditBalanceMsg = smsService.checkCreditBalance();
-            log.info("========= Credit Balance Message ========= {}", creditBalanceMsg);
+            log.info("========= Credit Balance Message :: {}", creditBalanceMsg);
             String[] split = StringUtils.split(creditBalanceMsg, COLON);
-            creditBalance = Integer.parseInt(split[1]);
-            log.info("========= Credit Balance ========= {}", creditBalance);
+            creditBalance = Integer.parseInt(StringUtils.remove(split[1],','));
+            log.info("========= Credit Balance :: {}", creditBalance);
         } catch (Exception ex) {
             log.error("An Error has Occurred while checking balance :::", ex);
         }
 
-        if (creditBalance <= 0) {
+        if (creditBalance <= 1) {
             log.warn("====  Insufficient Credit Balance =====  ");
             return;
         }
@@ -87,8 +87,9 @@ public class SMSJob implements Job {
                 smsDATA.updateResponseMessage();
                 if (smsDATA.isSuccessStatus()) {
                     smsDATA.setStatus(SENT);
-                    smsDataFacade.edit(smsDATA);
+                    
                 }
+                smsDataFacade.edit(smsDATA);
 
             } catch (Exception ex) {
                 log.error("An Error has Occurred while Sending message :::", ex);
