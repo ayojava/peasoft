@@ -11,6 +11,7 @@
       <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver"/>
       <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect"/>
       <!--
+      <jta-data-source>java:jboss/datasources/peasoftDS</jta-data-source>
       <property name="hibernate.connection.driver_class" value="org.postgresql.Driver"/>
       <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect"/>
       -->

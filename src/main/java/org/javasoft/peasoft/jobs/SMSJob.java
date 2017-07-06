@@ -29,7 +29,7 @@ import org.quartz.JobExecutionException;
  */
 @Slf4j
 //@Scheduled(cronExpression = "0 0 9/2 ? * * *")
-@Scheduled(cronExpression = " 0 0/20 * ? * * *") // Every 30 minutes
+@Scheduled(cronExpression = " 0 0/20 * ? * * *") // Every 20 minutes
 public class SMSJob implements Job {
 
     @EJB
