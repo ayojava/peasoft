@@ -17,11 +17,11 @@ import javax.persistence.ManyToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.persistence.Transient;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import static org.javasoft.peasoft.constants.PeaResource.PENDING;
+import static org.javasoft.peasoft.constants.PeaResource.SENT;
 import static org.javasoft.peasoft.constants.SMSResource.CODE_1025;
 import static org.javasoft.peasoft.constants.SMSResource.CODE_1701;
 import static org.javasoft.peasoft.constants.SMSResource.CODE_1702;
@@ -44,6 +44,7 @@ import static org.javasoft.peasoft.constants.SMSResource.MSG_1707;
 import static org.javasoft.peasoft.constants.SMSResource.MSG_1708;
 import static org.javasoft.peasoft.constants.SMSResource.MSG_1709;
 import static org.javasoft.peasoft.constants.SMSResource.MSG_1710;
+import static org.javasoft.peasoft.constants.SMSResource.MSG_UNKNOWN_ERROR;
 import org.javasoft.peasoft.entity.core.Student;
 
 /**
@@ -79,44 +80,46 @@ public class SMSData implements Serializable {
     @CreationTimestamp
     private Date createDate;
     
-    @Transient
-    private boolean successStatus;
+    
     
     public void updateResponseMessage(){
         switch(getResponseCode()){
             case CODE_1701:
-                this.responseMessage = MSG_1701;
-                successStatus = true;
+                setResponseMessage(MSG_1701);
+                setStatus(SENT);
                 break;
             case CODE_1702:
-                this.responseMessage = MSG_1702;
+                setResponseMessage(MSG_1702);
                 break;
             case CODE_1703:
-                this.responseMessage = MSG_1703;
+                setResponseMessage(MSG_1703);
                 break;
             case CODE_1704:
-                this.responseMessage = MSG_1704;
+                setResponseMessage(MSG_1704);
                 break;
             case CODE_1705:
-                this.responseMessage = MSG_1705;
+                setResponseMessage(MSG_1705);
                 break;
             case CODE_1706:
-                this.responseMessage = MSG_1706;
+                setResponseMessage(MSG_1706);
                 break;
             case CODE_1707:
-                this.responseMessage = MSG_1707;
+                setResponseMessage(MSG_1707);
                 break;
             case CODE_1708:
-                this.responseMessage = MSG_1708;
+                setResponseMessage(MSG_1708);
                 break;
             case CODE_1709:
-                this.responseMessage = MSG_1709;
+                setResponseMessage(MSG_1709);
                 break;
             case CODE_1710:
-                this.responseMessage = MSG_1710;
+                setResponseMessage(MSG_1710);
                 break;
             case CODE_1025:
-                this.responseMessage = MSG_1025;
+                setResponseMessage(MSG_1025);
+                break;
+            default:
+                setResponseMessage(MSG_UNKNOWN_ERROR);
                 break;
         }
     }

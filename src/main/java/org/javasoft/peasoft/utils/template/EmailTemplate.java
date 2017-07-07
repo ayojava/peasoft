@@ -39,6 +39,8 @@ public interface EmailTemplate {
 
     public static final String OUTER_TABLE_ENQUIRY_TEMPLATE = "{outerTable.enquiry}";
     
+    public static final String OUTER_TABLE_REVERT_TEMPLATE = "{outerTable.revert}";
+    
     public static final String OUTER_TABLE_DISREGARD_EMAIL_TEMPLATE = "{outerTable.disregardEmail}";
     
     public static final String OUTER_TABLE_FOOTNOTE_TEMPLATE = "{outerTable.footNote}";
@@ -82,7 +84,7 @@ public interface EmailTemplate {
     public static final String STUDENT_RESULT_NOT_SELECTED_NOTIFICATION_TEMPLATE = "{studentResult.notSelectedNotification}";
 
     //
-    //academy.top
+    //academy.top outerTable.revert
     //academy.notSelectedNotification
     //academy.selectedNotification
     public static final String ACADEMY_SUBJECT_TEMPLATE = "{academy.subject}";

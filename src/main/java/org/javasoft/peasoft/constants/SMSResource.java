@@ -56,5 +56,7 @@ public interface SMSResource {
     
     public static final String MSG_1025 = "Insufficient Credit";
     
+    public static final String MSG_UNKNOWN_ERROR = "Unknown Error";
+    
     
 }

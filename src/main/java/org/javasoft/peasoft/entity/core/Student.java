@@ -71,7 +71,7 @@ public class Student implements Serializable {
     private StudentRecord studentRecord;
     
     @OneToOne
-    @Cascade({CascadeType.DELETE , CascadeType.PERSIST})
+    @Cascade({CascadeType.DELETE , CascadeType.PERSIST , CascadeType.MERGE})
     private Parent parent;
 
     @Past
@@ -93,7 +93,7 @@ public class Student implements Serializable {
     
     public String getFullName(){
         StringBuilder builder = new StringBuilder();
-        builder = builder.append(StringUtils.capitalize(surname)).append("  ").append(othernames);
+        builder = builder.append(StringUtils.capitalize(surname)).append(" ").append(othernames);
         return builder.toString();
     }
     

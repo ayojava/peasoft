@@ -29,7 +29,7 @@ import org.quartz.JobExecutionException;
  */
 @Slf4j
 //@Scheduled(cronExpression = "0 0 9/2 ? * * *")
-@Scheduled(cronExpression = " 0 0/20 * ? * * *") // Every 20 minutes
+@Scheduled(cronExpression = " 0 0/15 * ? * * *") // Every 15 minutes
 public class SMSJob implements Job {
 
     @EJB
@@ -81,14 +81,13 @@ public class SMSJob implements Job {
         pendingSMS.forEach((SMSData smsDATA) -> {
             try {
                 String output = smsService.sendSMSMessage(smsDATA);
-                log.info(" :: Msg [ {} ] :: Msg Length [ {} ] :: Response [ {} ]", smsDATA.getMessage() , smsDATA.getMessage().length() , output);
+       
                 String responseMsg[] = StringUtils.split(output, SEPARATOR);
                 smsDATA.setResponseCode(responseMsg[0]);
                 smsDATA.updateResponseMessage();
-                if (smsDATA.isSuccessStatus()) {
-                    smsDATA.setStatus(SENT);
-                    
-                }
+                log.info(" :: Msg [ {} ] :: Msg Length [ {} ] :: Response [ {}-{} ]", 
+                        smsDATA.getMessage() , smsDATA.getMessage().length() ,responseMsg[0], smsDATA.getResponseMessage());
+                
                 smsDataFacade.edit(smsDATA);
 
             } catch (Exception ex) {
