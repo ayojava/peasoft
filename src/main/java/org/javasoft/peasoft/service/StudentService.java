@@ -161,4 +161,17 @@ public class StudentService {
         return emailData;
     }
     
+    public EmailData generateData(String emailAdd,EmailUtilBean emailUtilBean){
+        
+        EmailData emailData = new EmailData();
+        emailData.setMailMessage("This is a Test Message");
+        emailData.setAttachment(true);
+        emailData.setAttachmentFile("");
+        emailData.setMailSubject("About The BrainChallenge 7.0 Program");
+        emailData.setRecipientEmail(emailAdd);
+        emailData.setRecipientID(1L);
+        emailData.setRecipientName("Participant");
+        return emailData;
+    }
+    
 }

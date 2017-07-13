@@ -12,7 +12,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.hibernate.Criteria;
 import org.hibernate.FetchMode;
+import org.hibernate.criterion.ProjectionList;
+import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
+import org.hibernate.transform.Transformers;
+import org.javasoft.peasoft.batch.dto.EmailBatchDTO;
 import org.javasoft.peasoft.ejb.dao.GenericDAO;
 import org.javasoft.peasoft.entity.core.School;
 import org.javasoft.peasoft.entity.core.StudentRecord;
@@ -70,5 +74,16 @@ public class SchoolFacade extends GenericDAO<School, Long>{
     public boolean schoolAlreadyExists(School schoolObj){
         List<School> allSchools = findAll();
         return allSchools.stream().anyMatch(s-> StringUtils.equalsIgnoreCase(s.getName(), schoolObj.getName()));
+    }
+    
+    public List<EmailBatchDTO> findEmailBatchDTO(){
+        Criteria criteria = getCriteria();
+        //criteria.createAlias("addressTemplate", "pa");
+        ProjectionList projectionsList =  Projections.projectionList();
+        projectionsList.add(Projections.property("id"),"recipientID");
+        projectionsList.add(Projections.property("addressTemplate.contactEmail1"),"email1");
+        projectionsList.add(Projections.property("addressTemplate.contactEmail1"),"email2");
+        criteria.setProjection(projectionsList).setResultTransformer(Transformers.aliasToBean(EmailBatchDTO.class));
+        return criteria.list();
     }
 }

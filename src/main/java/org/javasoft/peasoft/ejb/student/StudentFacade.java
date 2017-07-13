@@ -14,8 +14,10 @@ import javax.ejb.Stateless;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.hibernate.Criteria;
-import org.hibernate.criterion.Criterion;
-import org.hibernate.criterion.Restrictions;
+import org.hibernate.criterion.ProjectionList;
+import org.hibernate.criterion.Projections;
+import org.hibernate.transform.Transformers;
+import org.javasoft.peasoft.batch.dto.EmailBatchDTO;
 import static org.javasoft.peasoft.constants.PeaResource.BATCH_A;
 import static org.javasoft.peasoft.constants.PeaResource.BATCH_B;
 import org.javasoft.peasoft.ejb.dao.GenericDAO;
@@ -132,5 +134,21 @@ public class StudentFacade extends GenericDAO<Student, Long> {
         //globalRegistry.updateStudentCount();
         
         return studentEntity;
+    }
+    
+//    public List<String> findDistinctStudentEmail(){
+//        Criteria criteria = getCriteria();
+//        criteria.setProjection(Projections.property(""));
+//    }
+    public List<EmailBatchDTO> findEmailBatchDTO(){
+        Criteria criteria = getCriteria();
+        criteria.createAlias("parent", "p");
+        //criteria.createAlias("p.addressTemplate", "pa");
+        ProjectionList projectionsList =  Projections.projectionList();
+        projectionsList.add(Projections.property("id"),"recipientID");
+        projectionsList.add(Projections.property("email"),"email1");
+        projectionsList.add(Projections.property("p.addressTemplate.contactEmail1"),"email2");
+        criteria.setProjection(projectionsList).setResultTransformer(Transformers.aliasToBean(EmailBatchDTO.class));
+        return criteria.list();
     }
 }
