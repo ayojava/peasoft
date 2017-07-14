@@ -17,6 +17,7 @@ import javax.inject.Inject;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.deltaspike.scheduler.spi.Scheduler;
 import org.javasoft.peasoft.batch.dto.EmailBatchDTO;
+import org.javasoft.peasoft.beans.core.util.EmailUtilBean;
 import org.javasoft.peasoft.ejb.school.SchoolFacade;
 import org.javasoft.peasoft.ejb.student.StudentFacade;
 import org.javasoft.peasoft.jobs.EmailJob;
@@ -46,6 +47,9 @@ public class SingletonFacade {
 
     @Inject
     private Scheduler<Job> jobScheduler;
+    
+    @Inject
+    private EmailUtilBean emailUtilBean;
 
     @PostConstruct
     public void initialize() {
@@ -54,6 +58,7 @@ public class SingletonFacade {
         jobScheduler.registerNewJob(EmailJob.class);
         jobScheduler.registerNewJob(SMSJob.class);
        // handleBatchJob(); not working 
+       checkEmailCount();
     }
 
     private void initCount() {
