@@ -24,6 +24,10 @@ and open the template in the editor.
                                      ajax="false" update="@form" action="#{studentPageBean.setPageResource(peaResource.NEW_STUDENT)}" 
                                      icon="fa fa-fw fa-plus" title="New Student"/> 
                     <p:spacer width="10px"/>
+                    <p:commandButton styleClass="pnx-round-button" id="scheduleTopBtn" value="Schedule" 
+                                     ajax="false" update="@form" action="#{studentPageBean.scheduleUpdateEmail()}" 
+                                     icon="fa fa-fw fa-refresh" title="Schedule Update"/> 
+                    <p:spacer width="10px"/>
                     <p:commandButton styleClass="pnx-round-button" id="closeTopBtn" value="Home" 
                                      immediate="true" ajax="false" update="@form" icon="fa fa-fw fa-home"
                                      action="#{studentPageBean.setPageResource(peaResource.VIEW_HOME_PAGE)}" 

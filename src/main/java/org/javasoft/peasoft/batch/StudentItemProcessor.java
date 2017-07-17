@@ -34,7 +34,7 @@ public class StudentItemProcessor implements ItemProcessor{
         String emailAddress = (String)item;
         
         try{
-            return studentService.generateData(emailAddress, emailUtilBean);
+            //return studentService.generateData(emailAddress, emailUtilBean,"");
         }catch(Exception ex){
             log.error("Exception {}",ex);
         }

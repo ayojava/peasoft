@@ -112,11 +112,11 @@ public class EmailService {
             mimeMsg.setFrom(fromAddress);
 
             String recipientEmailArr[] = StringUtils.split(recipientEmail, SEPARATOR);
-            log.info("Recipient Email Length :::: {}",recipientEmailArr.length);
+            //log.info("Recipient Email Length :::: {}",recipientEmailArr.length);
             
             InternetAddress toAddressArr[] = new InternetAddress[recipientEmailArr.length];
             for(int i=0 ; i < recipientEmailArr.length ; i++){
-                log.info("Email Address :::: {}" , recipientEmailArr[i]);
+                //log.info("Email Address :::: {}" , recipientEmailArr[i]);
                 toAddressArr[i] = new InternetAddress(recipientEmailArr[i], recipientName);
             }
             mimeMsg.setRecipients(Message.RecipientType.TO, toAddressArr);

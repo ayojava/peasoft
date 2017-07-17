@@ -184,7 +184,7 @@ public class SchoolPageBean extends AbstractBean implements Serializable {
         schoolFacade.asyncSchoolAndStudentsRecordsExcelDocument(fileName, school,allRecords);
         schoolService = new SchoolService();
         
-        String filePath = registry.getInitFilePath() + SCHOOL_FOLDER+ File.pathSeparator + fileName;
+        String filePath = registry.getInitFilePath()+ File.separator + SCHOOL_FOLDER+ File.separator + fileName;
         EmailData emailData = schoolService.generateResultBySchoolEmail(emailUtilBean, school,totalStudents,selectedStudents, notSelectedStudents, 
                 artStudents, scienceStudents, commercialStudents, ss1, ss2, filePath);
         emailDataFacade.persist(emailData);

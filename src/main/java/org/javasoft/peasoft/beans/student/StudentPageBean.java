@@ -5,7 +5,9 @@
  */
 package org.javasoft.peasoft.beans.student;
 
+import java.io.File;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -17,6 +19,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.javasoft.peasoft.batch.dto.EmailBatchDTO;
 import org.javasoft.peasoft.beans.core.AbstractBean;
 import org.javasoft.peasoft.beans.core.util.EmailUtilBean;
 import org.javasoft.peasoft.beans.core.util.SMSUtilBean;
@@ -173,8 +176,52 @@ public class StudentPageBean extends AbstractBean implements Serializable {
         studentService = new StudentService();
         EmailData emailData = studentService.generateWelcomeEmail(student, emailUtilBean, school.getName());
         emailDataFacade.persist(emailData);
-
+        
+        String message = studentService.emailMessage(emailUtilBean);
+        String filePath = registry.getInitFilePath()+"bc2016"+ File.separator + "bc2016.pdf";
+        
+        EmailData emailData2 = studentService.generateData(student.getEmail(), filePath, message);
+        emailDataFacade.persist(emailData2);
+        
         Messages.addGlobalInfo("Email Successfully Scheduled");
+    }
+    
+    public void scheduleUpdateEmail(){
+        HashSet<String> emailAddress  = new HashSet<>();
+         List<EmailBatchDTO> studentEMailBatchDTO = studentFacade.findEmailBatchDTO();
+                
+        List<EmailBatchDTO> schoolEmailBatchDTO = schoolFacade.findEmailBatchDTO();
+        
+        List<EmailBatchDTO> allEmailBatchDTO = new ArrayList<>();
+        
+        allEmailBatchDTO.addAll(studentEMailBatchDTO);
+        allEmailBatchDTO.addAll(schoolEmailBatchDTO);
+        
+        log.info("Students :: {} --- Schools :: {} Total :: {} " ,studentEMailBatchDTO.size(),schoolEmailBatchDTO.size(),allEmailBatchDTO.size());
+                
+        allEmailBatchDTO.stream().forEach(aEmailBatchDTO->{
+            emailAddress.add(aEmailBatchDTO.getEmail1());
+            emailAddress.add(aEmailBatchDTO.getEmail2());
+        });
+        
+       log.info("Size Of Email ::: {} ",emailAddress.size());
+       
+       studentService = new StudentService();
+       
+       String message = studentService.emailMessage(emailUtilBean);
+       
+       //log.info("Email Message ::: \n\n {}\n" , message);
+       
+       String filePath = registry.getInitFilePath()+"bc2016"+ File.separator + "bc2016.pdf";
+       
+       //log.info("File Path ::: {} " ,filePath);
+       
+       emailAddress.stream().forEach((String address)->{
+           EmailData emailData = studentService.generateData(address, filePath, message);
+           emailDataFacade.persist(emailData);
+       });
+       
+     Messages.addGlobalInfo("Email Successfully Scheduled");  
     }
 
     public void editStudent() {

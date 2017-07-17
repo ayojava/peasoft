@@ -96,4 +96,100 @@ public interface EmailTemplate {
     public static final String ACADEMY_SELECTED_NOTIFICATION_TEMPLATE = "{academy.selectedNotification}";
 
     public static final String ACADEMY_VENUE_TEMPLATE = "{academy.venue}";
+    
+    public static final String EMAIL1_TEMPLATE = "{email1}";
+    
+    public static final String EMAIL2_TEMPLATE = "{email2}";
+    
+    public static final String EMAIL3_TEMPLATE = "{email3}";
+    
+    public static final String EMAIL4_TEMPLATE = "{email4}";
+    
+    public static final String EMAIL5_TEMPLATE = "{email5}";
+    
+    public static final String EMAIL6_TEMPLATE = "{email6}";
+    
+    public static final String EMAIL7_TEMPLATE = "{email7}";
+    
+    public static final String EMAIL8_TEMPLATE = "{email8}";
+    
+    public static final String EMAIL9_TEMPLATE = "{email9}";
+    
+    public static final String EMAIL10_TEMPLATE = "{email10}";
+    
+    public static final String EMAIL11_TEMPLATE = "{email11}";
+    
+    public static final String EMAIL12_TEMPLATE = "{email12}";
+    
+    public static final String EMAIL13_TEMPLATE = "{email13}";
+    
+    public static final String EMAIL14_TEMPLATE = "{email14}";
+    
+    public static final String EMAIL15_TEMPLATE = "{email15}";
+    
+    public static final String EMAIL16_TEMPLATE = "{email16}";
+    
+    public static final String EMAIL17_TEMPLATE = "{email17}";
+    
+    public static final String EMAIL18_TEMPLATE = "{email18}";
+    
+    public static final String EMAIL19_TEMPLATE = "{email19}";
+    
+    public static final String EMAIL20_TEMPLATE = "{email20}";
+    
+    public static final String EMAIL21_TEMPLATE = "{email21}";
+    
+    public static final String EMAIL22_TEMPLATE = "{email22}";
+    
+    public static final String EMAIL23_TEMPLATE = "{email23}";
+    
+    public static final String EMAIL24_TEMPLATE = "{email24}";
+    
+    public static final String EMAIL25_TEMPLATE = "{email25}";
+    
+    public static final String EMAIL26_TEMPLATE = "{email26}";
+    
+    public static final String EMAIL27_TEMPLATE = "{email27}";
+    
+    public static final String EMAIL28_TEMPLATE = "{email28}";
+    
+    public static final String EMAIL29_TEMPLATE = "{email29}";
+    
+    public static final String EMAIL30_TEMPLATE = "{email30}";
+    
+    public static final String EMAIL31_TEMPLATE = "{email31}";
+    
+    public static final String EMAIL32_TEMPLATE = "{email32}";
+    
+    public static final String EMAIL33_TEMPLATE = "{email33}";
+    
+    public static final String EMAIL34_TEMPLATE = "{email34}";
+    
+    public static final String EMAIL35_TEMPLATE = "{email35}";
+    
+    public static final String EMAIL36_TEMPLATE = "{email36}";
+    
+    public static final String EMAIL37_TEMPLATE = "{email37}";
+    
+    public static final String EMAIL38_TEMPLATE = "{email38}";
+    
+    public static final String EMAIL39_TEMPLATE = "{email39}";
+    
+    public static final String EMAIL40_TEMPLATE = "{email40}";
+    
+    public static final String EMAIL41_TEMPLATE = "{email41}";
+    
+    public static final String EMAIL42_TEMPLATE = "{email42}";
+    
+    public static final String EMAIL43_TEMPLATE = "{email43}";
+    
+    public static final String EMAIL44_TEMPLATE = "{email44}";
+    
+    public static final String EMAIL45_TEMPLATE = "{email45}";
+    
+    public static final String EMAIL46_TEMPLATE = "{email46}";
+    
+    public static final String EMAIL47_TEMPLATE = "{email47}";
+    
+    public static final String EMAIL48_TEMPLATE = "{email48}";
 }

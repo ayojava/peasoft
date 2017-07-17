@@ -5,6 +5,7 @@
  */
 package org.javasoft.peasoft.ejb.util;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -18,11 +19,14 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.deltaspike.scheduler.spi.Scheduler;
 import org.javasoft.peasoft.batch.dto.EmailBatchDTO;
 import org.javasoft.peasoft.beans.core.util.EmailUtilBean;
+import static org.javasoft.peasoft.constants.PeaResource.SCHOOL_FOLDER;
 import org.javasoft.peasoft.ejb.school.SchoolFacade;
 import org.javasoft.peasoft.ejb.student.StudentFacade;
 import org.javasoft.peasoft.jobs.EmailJob;
 import org.javasoft.peasoft.jobs.SMSJob;
+import org.javasoft.peasoft.service.StudentService;
 import org.javasoft.peasoft.utils.GlobalRegistry;
+import static org.javasoft.peasoft.utils.template.EmailTemplate.EMAIL1_TEMPLATE;
 import org.quartz.Job;
 
 /**
@@ -50,6 +54,8 @@ public class SingletonFacade {
     
     @Inject
     private EmailUtilBean emailUtilBean;
+    
+    private StudentService studentService;
 
     @PostConstruct
     public void initialize() {
@@ -58,37 +64,20 @@ public class SingletonFacade {
         jobScheduler.registerNewJob(EmailJob.class);
         jobScheduler.registerNewJob(SMSJob.class);
        // handleBatchJob(); not working 
-       checkEmailCount();
+      // checkEmailCount();
     }
 
     private void initCount() {
         int schoolCount = schoolFacade.count();
         int studentCount = studentFacade.count();
-        //log.info("School Count -> [ {} ]    Student Count -> [ {} ]" , schoolCount , studentCount);
+        log.info("School Count -> [ {} ]    Student Count -> [ {} ]" , schoolCount , studentCount);
         globalRegistry.setSchoolCount(schoolCount);
         globalRegistry.setStudentCount(studentCount);
     }
     
     public void checkEmailCount(){
-        emailAddress = new HashSet<>();
+       
         
-        List<EmailBatchDTO> studentEMailBatchDTO = studentFacade.findEmailBatchDTO();
-                
-        List<EmailBatchDTO> schoolEmailBatchDTO = schoolFacade.findEmailBatchDTO();
-        
-        List<EmailBatchDTO> allEmailBatchDTO = new ArrayList<>();
-        
-        allEmailBatchDTO.addAll(studentEMailBatchDTO);
-        allEmailBatchDTO.addAll(schoolEmailBatchDTO);
-        
-        log.info("Students :: {} --- Schools :: {}  Total :: {} " ,studentEMailBatchDTO.size(),schoolEmailBatchDTO.size(),allEmailBatchDTO.size());
-                
-        allEmailBatchDTO.stream().forEach(aEmailBatchDTO->{
-            emailAddress.add(aEmailBatchDTO.getEmail1());
-            emailAddress.add(aEmailBatchDTO.getEmail2());
-        });
-        
-       log.info("Size Of Email ::: {} " ,emailAddress.size());
        
     }
 

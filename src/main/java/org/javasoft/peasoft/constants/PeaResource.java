@@ -146,9 +146,9 @@ public interface PeaResource {
     
     public static final String COLON =":";
     
-    public static final int BATCH_SIZE = 50;
+    public static final int BATCH_SIZE = 60;
     
-    public static final int SMS_BATCH_SIZE = 25;
+    public static final int SMS_BATCH_SIZE = 30;
     
     public static final String SENDER_EMAIL ="brainchallenge2017@peafoundation.org";
     
