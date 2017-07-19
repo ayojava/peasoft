@@ -79,6 +79,28 @@ and open the template in the editor.
                                     </pnx:primeDIV>    
                                 </div>
 
+                                <div class="row default-row-padding">
+                                    <pnx:primeDIV labelDiv="col-md-2" labelID="batchLbl" label="Batch   : "
+                                                  contentDiv="col-md-4" targetID="selBatch">
+                                        <p:selectOneRadio id="selBatch" value="#{schoolPageBean.school.assignedBatch}" >
+                                            <f:selectItem itemLabel="-- Select--" itemValue="#{null}" />
+                                            <f:selectItem itemValue="#{peaResource.BATCH_A}" itemLabel="Batch A" />
+                                            <f:selectItem itemValue="#{peaResource.BATCH_B}" itemLabel="Batch B" />     
+                                        </p:selectOneRadio>
+                                    </pnx:primeDIV>
+                                    
+                                    <pnx:primeDIV labelDiv="col-md-2" labelID="interviewLbl" label="Interview   : "
+                                                  contentDiv="col-md-4" targetID="selInterviewSlot">
+                                        <p:selectOneRadio id="selInterviewSlot" value="#{schoolPageBean.school.interviewSlot}">
+                                            <f:selectItem itemLabel="-- Select--" itemValue="#{null}" />
+                                            <f:selectItem itemValue="#{peaResource.SLOT_1}" itemLabel="9 AM - 11 AM" />
+                                            <f:selectItem itemValue="#{peaResource.SLOT_2}" itemLabel="11 AM - 1 PM" />     
+                                            <f:selectItem itemValue="#{peaResource.SLOT_3}" itemLabel="1 PM - 3 PM" />     
+                                            <f:selectItem itemValue="#{peaResource.SLOT_4}" itemLabel="3 PM - 5 PM" />     
+                                        </p:selectOneRadio>
+                                    </pnx:primeDIV>
+                                </div>
+                                
                             </div>
                         </ui:define>
                     </pnx:pageDivider>
@@ -125,6 +147,21 @@ and open the template in the editor.
                                         <hr size="0" class="pnx-tableRow-Separator" />
                                     </div>
                                 </div>
+                                <div class="row default-row-padding">
+                                    <pnx:primeDIV labelDiv="col-md-2"  label="Batch : " contentDiv="col-md-4" >
+                                        <span class="default-page-text">
+                                            #{genericBean.batch(schoolPageBean.school.assignedBatch)}
+                                            
+                                        </span>
+                                    </pnx:primeDIV>
+                                    <pnx:primeDIV labelDiv="col-md-2"  label="Interview : " contentDiv="col-md-4" >
+                                        <span class="default-page-text">
+                                            #{genericBean.interviewSlot(schoolPageBean.school.interviewSlot)}
+                                           
+                                        </span>
+                                    </pnx:primeDIV>
+                                </div>
+                                
                                 <div class="row default-row-padding">
                                     <pnx:primeDIV labelDiv="col-md-2"  label="Art : " contentDiv="col-md-2" >
                                         <span class="default-page-text">

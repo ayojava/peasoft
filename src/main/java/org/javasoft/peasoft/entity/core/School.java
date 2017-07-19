@@ -53,6 +53,10 @@ public class School implements Serializable {
     @NotNull
     @ColumnTransformer(write = "UPPER(?)")
     private String name ;
+    
+    private String assignedBatch;
+    
+    private String interviewSlot;
        
     @Valid
     @Column

@@ -116,13 +116,51 @@ public class ExamBatchPageBean extends AbstractBean implements Serializable {
         }
     }
 
+    public void setPageResource(String pageResource, StudentRecord studentRecord) {
+
+    }
+
     public void resendNotification(StudentRecord aRecord) {
+//        try {
+//            BatchSettings batchSetting = batchSettingsFacade.findOne();
+//            EmailData emailData = examBatchService.generateNotificationEmail(emailUtilBean, aRecord, batchSetting,
+//                    registry.getInitFilePath() + GUIDELINES_FOLDER + File.separator + "guideline.pdf");
+//            emailDataFacade.persist(emailData);
+//            Messages.addGlobalInfo("Notification Scheduled Successfully");
+//        } catch (Exception ex) {
+//            log.error("An Error has Occurred :::", ex);
+//            Messages.addGlobalError("An Error has Occured");
+//        }
+    }
+
+    public void scheduleBatchClass() {
         try {
-            BatchSettings batchSetting = batchSettingsFacade.findOne();
-            EmailData emailData = examBatchService.generateNotificationEmail(emailUtilBean, aRecord, batchSetting,
-                    registry.getInitFilePath() + GUIDELINES_FOLDER + File.separator + "guideline.pdf");
-            emailDataFacade.persist(emailData);
-            Messages.addGlobalInfo("Notification Scheduled Successfully");
+            int k = 0;
+            for (StudentRecord aRecord : studentRecords) {
+                k++;
+                if ((k == 1) || (k <= 30)) {
+                    aRecord.setExamClass(SS3A);
+                } else if ((k == 31) || (k <= 60)) {
+                    aRecord.setExamClass(SS3B);
+                } else if ((k == 61) || (k <= 80)) {
+                    aRecord.setExamClass(SS1B);
+                } else if ((k == 81) || (k <= 110)) {
+                    aRecord.setExamClass(SS3C);
+                } else if ((k == 111) || (k <= 140)) {
+                    aRecord.setExamClass(SS3D);
+                } else if ((k == 141) || (k <= 170)) {
+                    aRecord.setExamClass(SS2A);
+                } else if ((k == 171) || (k <= 200)) {
+                    aRecord.setExamClass(SS2B);
+                } else if ((k == 201) || (k <= 230)) {
+                    aRecord.setExamClass(SS2C);
+                } else if ((k == 231) || (k <= 360)) {
+                    aRecord.setExamClass(HALL);
+                }
+                examBatchFacade.edit(aRecord);
+            }
+            Messages.addGlobalInfo("Schedule successful");
+            setPageResource(LIST_EXAM_BATCH_OTHER);
         } catch (Exception ex) {
             log.error("An Error has Occurred :::", ex);
             Messages.addGlobalError("An Error has Occured");
@@ -193,7 +231,7 @@ public class ExamBatchPageBean extends AbstractBean implements Serializable {
                                 smsDataFacade.persist(smsData);
                             }
                         });
-                        
+
                         aNotification.setBatchNotification(true);
                         notificationFacade.edit(aNotification);
                     }
@@ -237,3 +275,20 @@ public class ExamBatchPageBean extends AbstractBean implements Serializable {
 }
 
 //Adeola Adeku...saka junction beside keystone bank, first turning on my right , second building to the left
+/*
+
+ <c:if test="#{examBatchPageBean.notificationCnt gt 0}">
+                        <p:spacer width="10px"/>
+                        <p:commandButton styleClass="pnx-round-button" id="sendNotificationBtn" value="Notifications [#{examBatchPageBean.notificationCnt}]" 
+                                         ajax="false" update="@form" action="#{examBatchPageBean.scheduleNotification()}" 
+                                         icon="fa fa-fw fa-bell-o" title="Schedule Notification"/> 
+                    </c:if>
+                    
+                    <c:if test="#{false}">
+                        <p:spacer width="10px"/>
+                        <p:commandButton styleClass="pnx-round-button" id="sendGuidelineBtn" value="Guidelines [#{examBatchPageBean.guidelineCnt}]" 
+                                         ajax="false" update="@form" action="#{examBatchPageBean.scheduleGuidelines()}" 
+                                         icon="fa fa-fw fa-bell-o" title="Schedule Guideline"/> 
+                    </c:if>
+
+*/

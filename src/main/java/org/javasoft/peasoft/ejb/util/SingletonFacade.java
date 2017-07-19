@@ -5,10 +5,7 @@
  */
 package org.javasoft.peasoft.ejb.util;
 
-import java.io.File;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.ejb.LocalBean;
@@ -17,16 +14,13 @@ import javax.ejb.Startup;
 import javax.inject.Inject;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.deltaspike.scheduler.spi.Scheduler;
-import org.javasoft.peasoft.batch.dto.EmailBatchDTO;
 import org.javasoft.peasoft.beans.core.util.EmailUtilBean;
-import static org.javasoft.peasoft.constants.PeaResource.SCHOOL_FOLDER;
 import org.javasoft.peasoft.ejb.school.SchoolFacade;
 import org.javasoft.peasoft.ejb.student.StudentFacade;
 import org.javasoft.peasoft.jobs.EmailJob;
 import org.javasoft.peasoft.jobs.SMSJob;
 import org.javasoft.peasoft.service.StudentService;
 import org.javasoft.peasoft.utils.GlobalRegistry;
-import static org.javasoft.peasoft.utils.template.EmailTemplate.EMAIL1_TEMPLATE;
 import org.quartz.Job;
 
 /**

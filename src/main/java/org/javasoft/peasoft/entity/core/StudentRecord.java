@@ -61,12 +61,11 @@ public class StudentRecord implements Serializable {
     @NotNull
     private String sss ;
     
-    @NotNull
     private String examBatch;
     
     private String examClass;
     
-    private String interviewBatch;
+    private String interviewSlot;
     
     @NotNull
     private String department;

@@ -90,6 +90,14 @@ public class StudentRecordFacade extends GenericDAO<StudentRecord, Long> {
         recordCriteria.createAlias("marks", "marks").createAlias("school", "school").add(Restrictions.eq("school.id", school.getId()));
         return recordCriteria.addOrder(Order.desc("marks.totalScore")).list();
     }
+    
+    public void editStudentTimings(String assignedBatch, String interviewSlot , List<StudentRecord> studentRecords){
+        studentRecords.stream().forEach((StudentRecord record)->{
+            record.setExamBatch(assignedBatch);
+            record.setInterviewSlot(interviewSlot);
+            edit(record);
+        });
+    }
 
     /*
         public School fetchJoinSchoolRecord(School school){

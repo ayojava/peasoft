@@ -72,6 +72,8 @@ public class SchoolPageBean extends AbstractBean implements Serializable {
     private EmailDataFacade emailDataFacade;
     
     private SchoolService schoolService;
+    
+    
 
     @Override
     @PostConstruct
@@ -101,6 +103,17 @@ public class SchoolPageBean extends AbstractBean implements Serializable {
             cleanup();
         }
     }
+    
+    public void scheduleInterviewAndBatchTimings(){
+        try{
+            studentRecordFacade.editStudentTimings(school.getAssignedBatch(), school.getInterviewSlot(), allRecords);
+            Messages.addGlobalInfo("Schedule Operation Successful");
+        }catch(Exception ex){
+            log.error("An Error has Occurred :::", ex);
+            Messages.addGlobalError("An Error has Occured");
+        }
+    }
+    
     
     private void setDisplayResults(){
         totalStudents = allRecords.size();

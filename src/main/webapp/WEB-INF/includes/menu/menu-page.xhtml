@@ -38,7 +38,24 @@ and open the template in the editor.
                     </p:submenu>
                     <p:separator />
                     <p:submenu id="oralInterviewMenu" label="Oral Interview"  icon="fa fa-globe fa-1g">
-                        
+                       <p:menuitem value="9am - 11am " icon="fa fa-indent fa-1g" update=":homeForm" id="slot1"
+                                    action="#{oralInterviewPageBean.setPageResource(peaResource.LIST_ORAL_INTERVIEW)}">
+                            <f:param name="slot" value="#{peaResource.SLOT_1}"/>
+                        </p:menuitem>
+                        <p:separator />
+                        <p:menuitem value="11am - 1pm" icon="fa fa-outdent fa-1g" update=":homeForm" id="slot2"
+                                    action="#{oralInterviewPageBean.setPageResource(peaResource.LIST_ORAL_INTERVIEW)}">
+                            <f:param name="slot" value="#{peaResource.SLOT_2}"/>
+                        </p:menuitem>
+                        <p:menuitem value="1pm - 3pm" icon="fa fa-indent fa-1g" update=":homeForm" id="slot3"
+                                    action="#{oralInterviewPageBean.setPageResource(peaResource.LIST_ORAL_INTERVIEW)}">
+                            <f:param name="slot" value="#{peaResource.SLOT_3}"/>
+                        </p:menuitem>
+                        <p:separator />
+                        <p:menuitem value="3pm - 5pm" icon="fa fa-outdent fa-1g" update=":homeForm" id="slot4"
+                                    action="#{oralInterviewPageBean.setPageResource(peaResource.LIST_ORAL_INTERVIEW)}">
+                            <f:param name="slot" value="#{peaResource.SLOT_4}"/>
+                        </p:menuitem>
                     </p:submenu>
                     <p:separator />
                     <p:submenu id="academyModule" label="Academy"  icon="fa fa-cubes fa-1g">

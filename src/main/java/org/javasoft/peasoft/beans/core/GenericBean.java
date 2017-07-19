@@ -25,6 +25,10 @@ import static org.javasoft.peasoft.constants.PeaResource.PENDING;
 import static org.javasoft.peasoft.constants.PeaResource.SCIENCE;
 import static org.javasoft.peasoft.constants.PeaResource.SELECTED;
 import static org.javasoft.peasoft.constants.PeaResource.SENT;
+import static org.javasoft.peasoft.constants.PeaResource.SLOT_1;
+import static org.javasoft.peasoft.constants.PeaResource.SLOT_2;
+import static org.javasoft.peasoft.constants.PeaResource.SLOT_3;
+import static org.javasoft.peasoft.constants.PeaResource.SLOT_4;
 
 /**
  *
@@ -99,6 +103,20 @@ public class GenericBean implements Serializable {
                 return "Batch A" ;
             case BATCH_B :
                 return "Batch B" ;
+        }
+        return "";
+    }
+    
+    public String interviewSlot(String interviewSlot){
+        switch(interviewSlot){
+            case SLOT_1:
+                return "9 AM - 11 AM";
+            case SLOT_2:
+                return "11 AM - 1 PM";
+            case SLOT_3:
+                return "1 PM - 3 PM";
+            case SLOT_4:
+                return "3 PM - 5 PM";
         }
         return "";
     }
