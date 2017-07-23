@@ -83,7 +83,6 @@ and open the template in the editor.
                                     <pnx:primeDIV labelDiv="col-md-2" labelID="batchLbl" label="Batch   : "
                                                   contentDiv="col-md-4" targetID="selBatch">
                                         <p:selectOneRadio id="selBatch" value="#{schoolPageBean.school.assignedBatch}" >
-                                            <f:selectItem itemLabel="-- Select--" itemValue="#{null}" />
                                             <f:selectItem itemValue="#{peaResource.BATCH_A}" itemLabel="Batch A" />
                                             <f:selectItem itemValue="#{peaResource.BATCH_B}" itemLabel="Batch B" />     
                                         </p:selectOneRadio>
@@ -91,13 +90,13 @@ and open the template in the editor.
                                     
                                     <pnx:primeDIV labelDiv="col-md-2" labelID="interviewLbl" label="Interview   : "
                                                   contentDiv="col-md-4" targetID="selInterviewSlot">
-                                        <p:selectOneRadio id="selInterviewSlot" value="#{schoolPageBean.school.interviewSlot}">
+                                        <p:selectOneMenu id="selInterviewSlot" value="#{schoolPageBean.school.interviewSlot}">
                                             <f:selectItem itemLabel="-- Select--" itemValue="#{null}" />
                                             <f:selectItem itemValue="#{peaResource.SLOT_1}" itemLabel="9 AM - 11 AM" />
                                             <f:selectItem itemValue="#{peaResource.SLOT_2}" itemLabel="11 AM - 1 PM" />     
                                             <f:selectItem itemValue="#{peaResource.SLOT_3}" itemLabel="1 PM - 3 PM" />     
                                             <f:selectItem itemValue="#{peaResource.SLOT_4}" itemLabel="3 PM - 5 PM" />     
-                                        </p:selectOneRadio>
+                                        </p:selectOneMenu>
                                     </pnx:primeDIV>
                                 </div>
                                 
@@ -215,21 +214,22 @@ and open the template in the editor.
                                     <h:outputText value="#{rowIndex+1}"/>
                                 </p:column>
 
-                                <p:column headerText="Student Name" style="text-align: left;width: 280px;">
+                                <p:column headerText="Student Name" style="text-align: left;width: 250px;">
                                     <h:outputText value="#{studentRecord.student.fullName}"/>
                                 </p:column>
-
-                                <p:column headerText="Class" style="text-align: left;">
-                                    <h:outputText value="#{studentRecord.sss}"/>
-                                </p:column>
                                 
-                                <p:column headerText="Department" style="text-align: left;">
-                                    <h:outputText value="#{genericBean.department(studentRecord.department)}"/>
-                                </p:column>
-
                                 <p:column headerText="Batch" style="text-align: center;">
                                     <h:outputText value="#{genericBean.batch(studentRecord.examBatch)}"/>
                                 </p:column>
+
+                                <p:column headerText="Exam Class" style="text-align: left;">
+                                    <h:outputText value="#{studentRecord.examClass}"/>
+                                </p:column>
+                                
+                                <p:column headerText="Interview Slot" style="text-align: left;">
+                                    <h:outputText value="#{genericBean.interviewSlot(studentRecord.interviewSlot)}"/>
+                                </p:column>
+           
 
                                 <p:column headerText="Academic Score" style="text-align: left;">
                                     <h:outputText value="#{studentRecord.marks.totalAcademicScore}"/>

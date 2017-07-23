@@ -29,27 +29,21 @@ and open the template in the editor.
                                 <div class="row default-row-padding">
                                     <pnx:primeDIV labelDiv="col-md-2" labelID="batchAStartLbl" label="Batch A Start : "
                                                   contentDiv="col-md-1" targetID="batchAStartTxt">
-                                        <p:inputText id="batchAStartTxt" maxlength="3" size="4" value="#{envSettingsPageBean.envSettings.batchSettings.batchA_Start}">
-                                            <f:validateLongRange minimum="1" maximum="24"/>
-                                        </p:inputText>
+                                        <p:inputText id="batchAStartTxt"  maxlength="6" size="6" value="#{envSettingsPageBean.envSettings.batchSettings.batchA_Start}"/>
+                                            
+                                        
                                     </pnx:primeDIV>
                                     <pnx:primeDIV labelDiv="col-md-2" labelID="batchAEndLbl" label="Batch A End : "
                                                   contentDiv="col-md-1" targetID="batchAEndTxt">
-                                        <p:inputText id="batchAEndTxt" maxlength="3" size="4" value="#{envSettingsPageBean.envSettings.batchSettings.batchA_Stop}">
-                                            <f:validateLongRange minimum="1" maximum="24"/>
-                                        </p:inputText>
+                                        <p:inputText id="batchAEndTxt"  maxlength="6" size="6" value="#{envSettingsPageBean.envSettings.batchSettings.batchA_Stop}"/>
                                     </pnx:primeDIV>
                                     <pnx:primeDIV labelDiv="col-md-2" labelID="batchBStartLbl" label="Batch B Start : "
                                                   contentDiv="col-md-1" targetID="batchBStartTxt">
-                                        <p:inputText id="batchBStartTxt" maxlength="3" size="4" value="#{envSettingsPageBean.envSettings.batchSettings.batchB_Start}">
-                                            <f:validateLongRange minimum="1" maximum="24"/>
-                                        </p:inputText>
+                                        <p:inputText id="batchBStartTxt" maxlength="6" size="6" value="#{envSettingsPageBean.envSettings.batchSettings.batchB_Start}"/>
                                     </pnx:primeDIV>
                                     <pnx:primeDIV labelDiv="col-md-2" labelID="batchBEndLbl" label="Batch B End : "
                                                   contentDiv="col-md-1" targetID="batchBEndTxt">
-                                        <p:inputText id="batchBEndTxt" maxlength="3" size="4" value="#{envSettingsPageBean.envSettings.batchSettings.batchB_Stop}">
-                                            <f:validateLongRange minimum="1" maximum="24"/>
-                                        </p:inputText>
+                                        <p:inputText id="batchBEndTxt" maxlength="6" size="6" value="#{envSettingsPageBean.envSettings.batchSettings.batchB_Stop}"/>
                                     </pnx:primeDIV>
 
                                 </div>

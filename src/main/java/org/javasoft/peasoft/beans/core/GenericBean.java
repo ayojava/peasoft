@@ -7,11 +7,14 @@ package org.javasoft.peasoft.beans.core;
 
 import java.io.Serializable;
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 import lombok.Getter;
 import org.javasoft.peasoft.constants.PeaResource;
+import static org.javasoft.peasoft.constants.PeaResource.ABSENT;
 import static org.javasoft.peasoft.constants.PeaResource.ACTIVE;
 import static org.javasoft.peasoft.constants.PeaResource.ARTS;
 import static org.javasoft.peasoft.constants.PeaResource.BATCH_A;
@@ -19,9 +22,11 @@ import static org.javasoft.peasoft.constants.PeaResource.BATCH_B;
 import static org.javasoft.peasoft.constants.PeaResource.COMMERCIAL;
 import static org.javasoft.peasoft.constants.PeaResource.DISQUALIFIED;
 import static org.javasoft.peasoft.constants.PeaResource.FEMALE;
+import static org.javasoft.peasoft.constants.PeaResource.FULL_DATE_FORMAT;
 import static org.javasoft.peasoft.constants.PeaResource.MALE;
 import static org.javasoft.peasoft.constants.PeaResource.NOT_SELECTED;
 import static org.javasoft.peasoft.constants.PeaResource.PENDING;
+import static org.javasoft.peasoft.constants.PeaResource.PRESENT;
 import static org.javasoft.peasoft.constants.PeaResource.SCIENCE;
 import static org.javasoft.peasoft.constants.PeaResource.SELECTED;
 import static org.javasoft.peasoft.constants.PeaResource.SENT;
@@ -59,6 +64,16 @@ public class GenericBean implements Serializable {
                 return "Sent";
             case PENDING:
                 return "Pending";
+        }
+        return "";
+    }
+    
+    public String attendance(String attendance){
+        switch(attendance){
+            case ABSENT:
+                return "Absent";
+            case PRESENT:
+                return "Present";
         }
         return "";
     }
@@ -123,5 +138,10 @@ public class GenericBean implements Serializable {
     
     public String formatDecimalPlaces(double value){
         return decimalFormat.format(value);
+    }
+    
+    public String formatFullDate(Date dateObj){
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(FULL_DATE_FORMAT);
+        return simpleDateFormat.format(dateObj);
     }
 }

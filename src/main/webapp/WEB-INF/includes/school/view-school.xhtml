@@ -21,20 +21,12 @@ and open the template in the editor.
                     </ui:decorate> 
                 </ui:define>
                 <ui:define name="pageButtonsTop">
-                    <p:commandButton styleClass="pnx-round-button" id="topScheduleSlotsBtn" value="Schedule" 
-                                     ajax="false" update="@form" action="#{schoolPageBean.scheduleInterviewAndBatchTimings()}" 
-                                     icon="fa fa-fw fa-cogs"
-                                     title="Generate Timings"/>  
-                    <p:spacer width="10px"/>
+                    
                     <p:commandButton styleClass="pnx-round-button" id="topExcelSlotsBtn" value="Batch" 
-                                     ajax="false" update="@form" action="#{schoolPageBean.generateBatchBySchool()}" 
+                                     ajax="false" update="@form" action="#{schoolPageBean.generateBatchBySchoolAndEmail()}" 
                                      icon="fa fa-fw fa-file-excel-o"
-                                     title="Generate Batch in Excel"/>  
-                    <p:spacer width="10px"/>
-                    <p:commandButton styleClass="pnx-round-button" id="excelTopBtn" value="Results" 
-                                     ajax="false" update="@form" action="#{schoolPageBean.generateResultBySchool()}" 
-                                     icon="fa fa-fw fa-file-excel-o"
-                                     title="Generate Results in Excel"/>  
+                                     title="Generate Batch in Excel and Email"/>  
+                    
                     <p:spacer width="10px"/>
                     <p:commandButton styleClass="pnx-round-button" id="editTopBtn" value="Edit" 
                                      ajax="false" update="@form" action="#{schoolPageBean.setPageResource(peaResource.EDIT_SCHOOL)}" icon="fa fa-fw fa-edit"
@@ -46,20 +38,12 @@ and open the template in the editor.
                     <p:spacer width="10px"/>   
                 </ui:define>
                 <ui:define name="pageButtonsBottom">
-                    <p:commandButton styleClass="pnx-round-button" id="bottomScheduleSlotsBtn" value="Schedule" 
-                                     ajax="false" update="@form" action="#{schoolPageBean.scheduleInterviewAndBatchTimings()}" 
-                                     icon="fa fa-fw fa-cogs"
-                                     title="Generate Timings"/>  
-                    <p:spacer width="10px"/>
+                    
                     <p:commandButton styleClass="pnx-round-button" id="bottomExcelSlotsBtn" value="Batch" 
-                                     ajax="false" update="@form" action="#{schoolPageBean.generateBatchBySchool()}" 
+                                     ajax="false" update="@form" action="#{schoolPageBean.generateBatchBySchoolAndEmail()}" 
                                      icon="fa fa-fw fa-file-excel-o"
-                                     title="Generate Batch in Excel"/>  
-                    <p:spacer width="10px"/>
-                    <p:commandButton styleClass="pnx-round-button" id="excelBottomBtn" value="Results" 
-                                     ajax="false" update="@form" action="#{schoolPageBean.generateResultBySchool()}" 
-                                     icon="fa fa-fw fa-file-excel-o"
-                                     title="Generate Results in Excel"/>  
+                                     title="Generate Batch in Excel and Email"/>  
+                    
                     <p:spacer width="10px"/>
                     <p:commandButton styleClass="pnx-round-button" id="editBottomBtn" value="Edit" 
                                      ajax="false" update="@form" action="#{schoolPageBean.setPageResource(peaResource.EDIT_SCHOOL)}" icon="fa fa-fw fa-edit"

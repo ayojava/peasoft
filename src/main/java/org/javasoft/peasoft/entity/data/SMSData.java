@@ -70,7 +70,7 @@ public class SMSData implements Serializable {
     
     private String status ;
     
-    @ManyToOne
+    @ManyToOne()
     private Student student;
        
     private String recipientPhoneNo;

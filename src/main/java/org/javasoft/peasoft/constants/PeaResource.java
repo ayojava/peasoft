@@ -75,7 +75,7 @@ public interface PeaResource {
     
     public static final String LIST_EXAM_BATCH_OTHER = "list-exam-batch-other";
     
-    /*=========== EXAM-BATCH ===========*/
+    /*=========== ORAL-INTERVIEW ===========*/
     public static final String LIST_ORAL_INTERVIEW = "list-oral-interview";
     
     public static final String VIEW_ORAL_INTERVIEW = "view-oral-interview";
@@ -92,6 +92,10 @@ public interface PeaResource {
     
     //===============================
     public static final String ACTIVE ="AC";
+    
+    public static final String ABSENT ="AB";
+    
+    public static final String PRESENT ="PR";
     
     public static final String DISQUALIFIED ="DQ";
     
@@ -133,6 +137,8 @@ public interface PeaResource {
     
     public static final String STUDENT_RECORD_FOLDER ="student-record";
     
+    public static final String ORAL_INTERVIEW_FOLDER ="oral-interview";
+    
     public static final String EXAM_BATCH_FOLDER ="exam-batch";
     
     public static final String ACADEMY_BATCH_FOLDER ="academy";
@@ -169,7 +175,7 @@ public interface PeaResource {
     
     public static final int BATCH_SIZE = 60;
     
-    public static final int SMS_BATCH_SIZE = 30;
+    public static final int SMS_BATCH_SIZE = 50;
     
     public static final String SENDER_EMAIL ="brainchallenge2017@peafoundation.org";
     

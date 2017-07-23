@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://xmlns.jcp.org/jsf/html" xmlns:fn="http://java.sun.com/jsp/jstl/functions"
+      xmlns:f="http://java.sun.com/jsf/core" xmlns:c="http://java.sun.com/jsp/jstl/core" 
+      xmlns:p="http://primefaces.org/ui" xmlns:of="http://omnifaces.org/functions"
+      xmlns:o="http://omnifaces.org/ui" xmlns:pnx="http://www.javasoft.org/primefacesExt/primefacelets"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <body>
+        <ui:composition>
+            <c:choose>
+                <c:when test="#{displayMode=='edit'}">
+                    <pnx:pageDivider id="oralInterview" separator="false">
+                        <ui:define name="properties">
+                            <div class="default-page-border">
+                                <div class="row default-row-padding">
+                                    <pnx:primeDIV labelDiv="col-md-2" label="Identification No : "   contentDiv="col-md-4">
+                                        <span class="default-page-text">
+                                            #{oralInterviewPageBean.studentRecord.student.identificationNo}
+                                        </span>
+                                    </pnx:primeDIV>
+                                    <pnx:primeDIV labelDiv="col-md-2" label="Record No : "   contentDiv="col-md-4">
+                                        <span class="default-page-text">
+                                            #{oralInterviewPageBean.studentRecord.identificationNo}
+                                        </span>
+                                    </pnx:primeDIV>
+                                </div>
+                                <div class="row default-row-padding">
+                                    <pnx:primeDIV labelDiv="col-md-2" label="Full Name : "   contentDiv="col-md-4">
+                                        <span class="default-page-text">
+                                            #{oralInterviewPageBean.studentRecord.student.fullName}
+                                        </span>
+                                    </pnx:primeDIV>
+                                    <pnx:primeDIV labelDiv="col-md-2" label="Gender : "   contentDiv="col-md-4">
+                                        <span class="default-page-text">
+                                            #{genericBean.gender(oralInterviewPageBean.studentRecord.student.gender)}
+                                        </span>
+                                    </pnx:primeDIV>
+                                </div>
+                                <div class="row default-row-padding">
+                                    <div class="col-md-12">
+                                        <hr size="0" class="pnx-tableRow-Separator" />
+                                    </div>
+                                </div>
+                                <div class="row default-row-padding">
+                                    <pnx:primeDIV labelDiv="col-md-2" label="School Name : "   contentDiv="col-md-4">
+                                        <span class="default-page-text">
+                                            #{oralInterviewPageBean.studentRecord.school.name}
+                                        </span>
+                                    </pnx:primeDIV>
+                                    <pnx:primeDIV labelDiv="col-md-2" label="Identification No : "   contentDiv="col-md-4">
+                                        <span class="default-page-text">
+                                            #{oralInterviewPageBean.studentRecord.school.identificationNo}
+                                        </span>
+                                    </pnx:primeDIV>                                      
+                                </div>
+                                <div class="row default-row-padding">
+                                    <pnx:primeDIV labelDiv="col-md-2" label="Class : "   contentDiv="col-md-4">
+                                        <span class="default-page-text">
+                                            #{oralInterviewPageBean.studentRecord.sss}
+                                        </span>
+                                    </pnx:primeDIV>
+                                    <pnx:primeDIV labelDiv="col-md-2" label="Department : "   contentDiv="col-md-4">
+                                        <span class="default-page-text">
+                                            #{genericBean.department(oralInterviewPageBean.studentRecord.department)}
+                                        </span>
+                                    </pnx:primeDIV>
+                                </div>
+                                <div class="row default-row-padding">
+                                    <pnx:primeDIV labelDiv="col-md-2" labelID="interviewLbl" label="Interview   : "
+                                                  contentDiv="col-md-4" targetID="selInterviewSlot">
+                                        <p:selectOneMenu id="selInterviewSlot" value="#{oralInterviewPageBean.studentRecord.interviewSlot}">
+                                            <f:selectItem itemLabel="-- Select--" itemValue="#{null}" />
+                                            <f:selectItem itemValue="#{peaResource.SLOT_1}" itemLabel="9 AM - 11 AM" />
+                                            <f:selectItem itemValue="#{peaResource.SLOT_2}" itemLabel="11 AM - 1 PM" />     
+                                            <f:selectItem itemValue="#{peaResource.SLOT_3}" itemLabel="1 PM - 3 PM" />     
+                                            <f:selectItem itemValue="#{peaResource.SLOT_4}" itemLabel="3 PM - 5 PM" />     
+                                        </p:selectOneMenu>
+                                    </pnx:primeDIV>
+                                </div>
+                            </div>
+                        </ui:define>
+                    </pnx:pageDivider>
+                </c:when>
+                <c:when test="#{displayMode=='list'}">
+                    <pnx:pageDivider id="list-exam-batch" separator="false">
+                        <ui:define name="properties">
+                            <p:dataTable id="examBatchTable" var="aRecord" value="#{oralInterviewPageBean.studentRecords}" 
+                                         paginatorPosition="bottom" paginator="true" rows="#{genericBean.tableListSize}" rowIndexVar="rowIndex"
+                                         paginatorTemplate=" {CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}">
+
+                                <f:facet name="header">
+                                    In total , there are #{fn:length(oralInterviewPageBean.studentRecords)} records
+                                </f:facet>
+
+                                <p:column headerText="No" style="text-align: center;width: 40px;">
+                                    <h:outputText value="#{rowIndex+1}"/>
+                                </p:column>
+
+                                <p:column headerText="Id No" style="text-align: left;width: 90px;">
+                                    <h:outputText value="#{aRecord.student.identificationNo}"/>
+                                </p:column>
+
+                                <p:column headerText="Full Name" style="text-align: left;width: 200px;">
+                                    <h:outputText value="#{aRecord.student.fullName}"/>
+                                </p:column>
+
+                                <p:column headerText="School" style="text-align: left;width: 270px;">
+                                    <h:outputText value="#{aRecord.school.name}"/>
+                                </p:column>
+
+                                <p:column headerText="Class" style="text-align: left;">
+                                    <h:outputText value="#{aRecord.sss}"/>
+                                </p:column>
+
+                                <p:column headerText="Department" style="text-align: left;">
+                                    <h:outputText value="#{genericBean.department(aRecord.department)}"/>
+                                </p:column>
+
+                                <p:column headerText="Gender" style="text-align: center;">
+                                    <h:outputText value="#{genericBean.gender(aRecord.student.gender)}"/>
+                                </p:column>
+
+                                <p:column headerText="Attendance" style="text-align: left;">
+                                    <h:outputText value="#{aRecord.attendance_interview}"/>
+                                </p:column>
+
+                                <p:column headerText="Actions" style="text-align: center;width: 40px;">
+
+                                    <p:commandButton update="@form" icon="edit-icon"
+                                                     action="#{oralInterviewPageBean.setPageResource(peaResource.EDIT_ORAL_INTERVIEW,aRecord)}"
+                                                     title="Edit" class="img-button"/>
+                                </p:column>
+
+                            </p:dataTable>                        
+                        </ui:define>
+                    </pnx:pageDivider>
+                </c:when>
+            </c:choose>
+        </ui:composition>
+    </body>
+</html>

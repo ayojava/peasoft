@@ -20,6 +20,8 @@ public interface SMSTemplate {
     public static final String ACADEMY_NOT_SELECTED_SMS_TEMPLATE = "{academy.notSelectedSMS}";
 
     public static final String ACADEMY_SELECTED_SMS_TEMPLATE = "{academy.selectedSMS}";
+    
+    public static final String EXAM_DETAILS_SMS_TEMPLATE = "{examDetails.sms}";
 
     //
     //

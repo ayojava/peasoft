@@ -17,7 +17,7 @@ and open the template in the editor.
                     <pnx:pageDivider id="examBatch" separator="false">
                         <ui:define name="properties">
                             <div class="default-page-border">
-                                
+
                             </div>
                         </ui:define>
                     </pnx:pageDivider>
@@ -28,15 +28,15 @@ and open the template in the editor.
                             <p:dataTable id="examBatchTable" var="aRecord" value="#{examBatchPageBean.studentRecords}" 
                                          paginatorPosition="bottom" paginator="true" rows="#{genericBean.tableListSize}" rowIndexVar="rowIndex"
                                          paginatorTemplate=" {CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}">
-                                
+
                                 <f:facet name="header">
                                     In total , there are #{fn:length(examBatchPageBean.studentRecords)} records
                                 </f:facet>
-                                
+
                                 <p:column headerText="No" style="text-align: center;width: 40px;">
                                     <h:outputText value="#{rowIndex+1}"/>
                                 </p:column>
-                                
+
                                 <p:column headerText="Id No" style="text-align: left;width: 100px;">
                                     <h:outputText value="#{aRecord.student.identificationNo}"/>
                                 </p:column>
@@ -44,38 +44,31 @@ and open the template in the editor.
                                 <p:column headerText="Full Name" style="text-align: left;width: 200px;">
                                     <h:outputText value="#{aRecord.student.fullName}"/>
                                 </p:column>
-                                
+
                                 <p:column headerText="School" style="text-align: left;width: 280px;">
                                     <h:outputText value="#{aRecord.school.name}"/>
                                 </p:column>
-                                
+
                                 <p:column headerText="Class" style="text-align: left;">
                                     <h:outputText value="#{aRecord.sss}"/>
                                 </p:column>
-                                
+
                                 <p:column headerText="Department" style="text-align: left;">
                                     <h:outputText value="#{genericBean.department(aRecord.department)}"/>
                                 </p:column>
-                                
+
                                 <p:column headerText="Gender" style="text-align: center;width:90px">
                                     <h:outputText value="#{genericBean.gender(aRecord.student.gender)}"/>
                                 </p:column>
-                                
+
                                 <p:column headerText="Exam Class" style="text-align: center;width:90px">
                                     <h:outputText value="#{aRecord.examClass}"/>
                                 </p:column>
-                                
-                                <p:column headerText="Actions" style="text-align: center;width: 80px;">
-                                                                        
-                                    <p:commandButton update="@form" icon="view-icon"
-                                                     action="#{examBatchPageBean.setPageResource(peaResource.VIEW_EXAM_BATCH,aRecord)}"
-                                                     title="View" class="img-button"/>
 
-                                    <span class="pnx-horizontal-seperator">|</span>
-
+                                <p:column headerText="Actions" style="text-align: center;width: 50px;">
                                     <p:commandButton update="@form" icon="edit-icon"
-                                                     action="#{examBatchPageBean.setPageResource(peaResource.EDIT_EXAM_BATCH,aRecord)}"
-                                                     title="Edit" class="img-button"/>
+                                                     action="#{examBatchPageBean.changeBatch(aRecord)}"
+                                                     title="Change" class="img-button"/>
                                 </p:column>
 
                             </p:dataTable>                        

@@ -27,7 +27,7 @@ import org.quartz.JobExecutionException;
 //  0 0 8/2 ? * * * Every 2 hours starting from 8am
 //@Scheduled(cronExpression = "0 0 8/2 ? * * *") // Every 2 hours starting from 8am
 //@Scheduled(cronExpression = "0 0 0/1 ? * * *") // Every hour
-@Scheduled(cronExpression = " 0 0/20 * ? * * *") // Every 20 minutes
+@Scheduled(cronExpression = " 0 0/15 * ? * * *") // Every 20 minutes
 public class EmailJob implements Job {
 
     private List<EmailData> pendingEmailData;

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.javasoft.peasoft.excel.batch;
+package org.javasoft.peasoft.excel.interviewSlot;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -15,7 +15,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.javasoft.peasoft.beans.core.GenericBean;
-import static org.javasoft.peasoft.constants.PeaResource.EXAM_BATCH_FOLDER;
+import static org.javasoft.peasoft.constants.PeaResource.ORAL_INTERVIEW_FOLDER;
 import org.javasoft.peasoft.entity.core.Student;
 import org.javasoft.peasoft.entity.core.StudentRecord;
 import org.javasoft.peasoft.excel.ExcelProcessor;
@@ -26,24 +26,23 @@ import org.omnifaces.util.Beans;
  * @author ayojava
  */
 @Slf4j
-public class BatchListExcelReport extends ExcelProcessor{
+public class InterviewSlotExcelReport extends ExcelProcessor{
     
     private int rowCount = 1;
 
-    private String[] columnHeaders = {"S/N","Reg No" ,"Name", " Gender "," School " ," Class ", " Department ", " Batch "," Exam Room "};
+    private String[] columnHeaders = {"S/N","Reg No" ,"Name", " Gender "," School " ," Class ", " Department ", " Interview Slot "};
     
     private String fileName;
     
     private List<StudentRecord> studentRecords;
     
     public boolean populateExcelSheet(List<StudentRecord> records, String sheetName, String fileName){
-        
         init();
         this.fileName = fileName;
         setCurrentSheet(sheetName);
-        String batchName ="";
+        String slotName ="";
         String timeSlot ="";
-        populateSheetHeaders(batchName ,timeSlot);
+        populateSheetHeaders(slotName ,timeSlot);
         populateColumnHeaders(columnHeaders);
         studentRecords = records;
         try {
@@ -62,14 +61,12 @@ public class BatchListExcelReport extends ExcelProcessor{
         
         GenericBean genericBean = Beans.getInstance(GenericBean.class);
         
-        //{"S/N","Reg No" ,"Name", " Gender "," School " ," Class ", " Department ", " Batch "};
-        
         studentRecords.forEach((StudentRecord aRecord) -> {
             Student student = aRecord.getStudent();
             String[] rowValues = {
                 String.valueOf(rowCount),aRecord.getIdentificationNo() ,student.getFullName(),genericBean.gender(student.getGender()),
                 aRecord.getSchool().getName(),aRecord.getSss(), genericBean.department(aRecord.getDepartment()),
-                genericBean.batch(aRecord.getExamBatch()),aRecord.getExamClass()
+                aRecord.getInterviewSlot()
             };
             
             Row row = getCurrentSheet().createRow(rowPosition);
@@ -83,8 +80,8 @@ public class BatchListExcelReport extends ExcelProcessor{
         });
         writeTo(outStream);
         
-        log.info(" Directory ::: [ {} ]    FileName ::: [ {} ]" ,globalRegistry.getInitFilePath() + EXAM_BATCH_FOLDER, fileName );
-        File filePath = globalRegistry.createFile(globalRegistry.getInitFilePath() + EXAM_BATCH_FOLDER, fileName);
+        log.info(" Directory ::: [ {} ]    FileName ::: [ {} ]" ,globalRegistry.getInitFilePath() + ORAL_INTERVIEW_FOLDER, fileName );
+        File filePath = globalRegistry.createFile(globalRegistry.getInitFilePath() + ORAL_INTERVIEW_FOLDER, fileName);
         
         @Cleanup
         FileOutputStream fileStream = new FileOutputStream(filePath);

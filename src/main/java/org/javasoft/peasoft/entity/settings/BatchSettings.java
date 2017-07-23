@@ -33,13 +33,13 @@ public class BatchSettings implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private int batchA_Start;
+    private String batchA_Start;
     
-    private int batchB_Start;
+    private String batchB_Start;
     
-    private int batchA_Stop;
+    private String batchA_Stop;
     
-    private int batchB_Stop;
+    private String batchB_Stop;
         
     @OneToOne
     private School examCentre;

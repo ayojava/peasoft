@@ -16,6 +16,8 @@ public interface EmailTemplate {
     public static final String TABLE_ROW_ODD_TEMPLATE = "{tableRow.odd}";
 
     public static final String TABLE_ROW_EVEN_TEMPLATE = "{tableRow.even}";
+    
+    public static final String TABLE_ROW_HIGHLIGHT_TEMPLATE = "{tableRow.highlight}";
 
     public static final String REGISTRATION_DETAILS_SUBJECT_TEMPLATE = "{registrationDetails.subject}";
 
@@ -40,6 +42,12 @@ public interface EmailTemplate {
     public static final String OUTER_TABLE_ENQUIRY_TEMPLATE = "{outerTable.enquiry}";
     
     public static final String OUTER_TABLE_REVERT_TEMPLATE = "{outerTable.revert}";
+    
+    public static final String OUTER_TABLE_QUIZ_FOOTNOTE_TEMPLATE = "{outerTable.quizFootnote}";
+    
+    public static final String OUTER_TABLE_DIRECTION_FOOTNOTE_TEMPLATE = "{outerTable.directionFootnote}";
+    
+    public static final String OUTER_TABLE_ORAL_INTERVIEW_FOOTNOTE_TEMPLATE = "{outerTable.oralInterviewFootnote}";
     
     public static final String OUTER_TABLE_DISREGARD_EMAIL_TEMPLATE = "{outerTable.disregardEmail}";
     

@@ -173,6 +173,7 @@ public class SchoolPageBean extends AbstractBean implements Serializable {
     public void editSchool(){
         try{
             schoolFacade.edit(school);
+            studentRecordFacade.editStudentTimings(school);
             Messages.addGlobalInfo("Edit Operation Successful");
             setPageResource(LIST_SCHOOLS);
         }catch(Exception ex){
@@ -192,7 +193,7 @@ public class SchoolPageBean extends AbstractBean implements Serializable {
         Messages.addGlobalInfo("Excel Sheet In Progress");
     }
     
-    public void generateResultBySchool(){
+    public void generateResultBySchoolAndEmail(){
         String fileName = DateFormatUtils.format(new Date(), DISPLAY_DATE_FORMAT_DAYS)+"_"+ RandomStringUtils.randomNumeric(5)+".xls"; 
         schoolFacade.asyncSchoolAndStudentsRecordsExcelDocument(fileName, school,allRecords);
         schoolService = new SchoolService();
@@ -201,10 +202,10 @@ public class SchoolPageBean extends AbstractBean implements Serializable {
         EmailData emailData = schoolService.generateResultBySchoolEmail(emailUtilBean, school,totalStudents,selectedStudents, notSelectedStudents, 
                 artStudents, scienceStudents, commercialStudents, ss1, ss2, filePath);
         emailDataFacade.persist(emailData);
-        Messages.addGlobalInfo("Excel Sheet In Progress");
+        Messages.addGlobalInfo("Result Sheet Generated and Sent");
     }
     
-    public void generateBatchBySchool(){
+    public void generateBatchBySchoolAndEmail(){
     
     }
     
@@ -215,3 +216,21 @@ public class SchoolPageBean extends AbstractBean implements Serializable {
         school = null;
     }
 }
+
+/*
+
+    <!--
+                    <p:spacer width="10px"/>
+                    <p:commandButton styleClass="pnx-round-button" id="excelTopBtn" value="Results" 
+                                     ajax="false" update="@form" action="#{schoolPageBean.generateResultBySchool()}" 
+                                     icon="fa fa-fw fa-file-excel-o"
+                                     title="Generate Results in Excel And Email"/>  
+                    <p:spacer width="10px"/>
+                    <p:commandButton styleClass="pnx-round-button" id="excelBottomBtn" value="Results" 
+                                     ajax="false" update="@form" action="#{schoolPageBean.generateResultBySchool()}" 
+                                     icon="fa fa-fw fa-file-excel-o"
+                                     title="Generate Results in Excel"/>  
+                    -->
+
+
+*/

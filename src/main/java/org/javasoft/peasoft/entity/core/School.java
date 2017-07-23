@@ -19,6 +19,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import lombok.Data;
@@ -77,5 +78,8 @@ public class School implements Serializable {
 
     @Formula("(select count(*) from School_StudentRecord s where s.schoolId = id)")
     private int studentCount;
+    
+    @Transient
+    private String fullAddress;
         
 }

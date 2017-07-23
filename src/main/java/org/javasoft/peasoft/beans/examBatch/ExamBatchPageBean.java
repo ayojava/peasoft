@@ -5,10 +5,8 @@
  */
 package org.javasoft.peasoft.beans.examBatch;
 
-import java.io.File;
 import java.io.Serializable;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -30,12 +28,7 @@ import org.javasoft.peasoft.ejb.data.SMSDataFacade;
 import org.javasoft.peasoft.ejb.examBatch.ExamBatchFacade;
 import org.javasoft.peasoft.ejb.settings.BatchSettingsFacade;
 import org.javasoft.peasoft.entity.core.School;
-import org.javasoft.peasoft.entity.core.Student;
 import org.javasoft.peasoft.entity.core.StudentRecord;
-import org.javasoft.peasoft.entity.data.EmailData;
-import org.javasoft.peasoft.entity.data.Notification;
-import org.javasoft.peasoft.entity.data.SMSData;
-import org.javasoft.peasoft.entity.settings.BatchSettings;
 import org.javasoft.peasoft.excel.batch.BatchListExcelReport;
 import org.javasoft.peasoft.service.ExamBatchService;
 import org.omnifaces.util.Messages;
@@ -184,6 +177,7 @@ public class ExamBatchPageBean extends AbstractBean implements Serializable {
     }
 
     public void generateBatchListInExcel() {
+        //run a groupBy class , surname
         if (studentRecords == null || studentRecords.isEmpty()) {
             Messages.addGlobalWarn("No Student Record Available");
             return;
@@ -202,42 +196,43 @@ public class ExamBatchPageBean extends AbstractBean implements Serializable {
         }
     }
 
+    //deprecated of no use again 
     public void scheduleNotification() {
         try {
-            BatchSettings batchSetting = batchSettingsFacade.findOne();
-            List<Notification> pendingNotifications = notificationFacade.getPendingBatchNotification(batch);
-
-            pendingNotifications.forEach(
-                    aNotification -> {
-                        StudentRecord aRecord = aNotification.getStudentRecord();
-                        EmailData emailData = examBatchService.generateNotificationEmail(emailUtilBean, aRecord, batchSetting,
-                                registry.getInitFilePath() + GUIDELINES_FOLDER + File.separator + "guideline.pdf");
-                        emailDataFacade.persist(emailData);
-
-                        Student studentObj = aRecord.getStudent();
-
-                        HashSet<String> phoneNos = new HashSet<>();
-                        phoneNos.add(studentObj.getPhoneNo());
-                        phoneNos.add(studentObj.getOtherPhoneNo());
-                        phoneNos.add(studentObj.getParent().getAddressTemplate().getContactPhoneNo1());
-                        phoneNos.add(studentObj.getParent().getAddressTemplate().getContactPhoneNo2());
-
-                        SMSData smsData = examBatchService.generateNotificationSMS(smsUtilBean, aRecord.getExamBatch(), batchSetting, studentObj);
-
-                        phoneNos.stream().forEach((String phoneNo) -> {
-                            if (StringUtils.isNotBlank(phoneNo)) {
-                                smsData.setId(null);
-                                smsData.setRecipientPhoneNo(appendCountryCode(phoneNo));
-                                smsDataFacade.persist(smsData);
-                            }
-                        });
-
-                        aNotification.setBatchNotification(true);
-                        notificationFacade.edit(aNotification);
-                    }
-            );
-            Messages.addGlobalInfo("Notifications Scheduled Successfully");
-            setPageResource(LIST_EXAM_BATCH_OTHER);
+//            BatchSettings batchSetting = batchSettingsFacade.findOne();
+//            List<Notification> pendingNotifications = notificationFacade.getPendingBatchNotification(batch);
+//
+//            pendingNotifications.forEach(
+//                    aNotification -> {
+//                        StudentRecord aRecord = aNotification.getStudentRecord();
+//                        EmailData emailData = examBatchService.generateNotificationEmail(emailUtilBean, aRecord, batchSetting,
+//                                registry.getInitFilePath() + GUIDELINES_FOLDER + File.separator + "guideline.pdf");
+//                        emailDataFacade.persist(emailData);
+//
+//                        Student studentObj = aRecord.getStudent();
+//
+//                        HashSet<String> phoneNos = new HashSet<>();
+//                        phoneNos.add(studentObj.getPhoneNo());
+//                        phoneNos.add(studentObj.getOtherPhoneNo());
+//                        phoneNos.add(studentObj.getParent().getAddressTemplate().getContactPhoneNo1());
+//                        phoneNos.add(studentObj.getParent().getAddressTemplate().getContactPhoneNo2());
+//
+//                        SMSData smsData = examBatchService.generateNotificationSMS(smsUtilBean, aRecord.getExamBatch(), batchSetting, studentObj);
+//
+//                        phoneNos.stream().forEach((String phoneNo) -> {
+//                            if (StringUtils.isNotBlank(phoneNo)) {
+//                                smsData.setId(null);
+//                                smsData.setRecipientPhoneNo(appendCountryCode(phoneNo));
+//                                smsDataFacade.persist(smsData);
+//                            }
+//                        });
+//
+//                        aNotification.setBatchNotification(true);
+//                        notificationFacade.edit(aNotification);
+//                    }
+//            );
+//            Messages.addGlobalInfo("Notifications Scheduled Successfully");
+//            setPageResource(LIST_EXAM_BATCH_OTHER);
         } catch (Exception ex) {
             log.error("An Error has Occurred :::", ex);
             Messages.addGlobalError("An Error has Occured");

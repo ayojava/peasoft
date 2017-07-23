@@ -7,6 +7,7 @@ package org.javasoft.peasoft.ejb.studentRecord;
 
 import java.util.List;
 import static java.util.stream.Collectors.toList;
+import javax.ejb.EJB;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import lombok.extern.slf4j.Slf4j;
@@ -17,6 +18,7 @@ import static org.javasoft.peasoft.constants.PeaResource.BATCH_SIZE;
 import static org.javasoft.peasoft.constants.PeaResource.NOT_SELECTED;
 import static org.javasoft.peasoft.constants.PeaResource.SELECTED;
 import org.javasoft.peasoft.ejb.dao.GenericDAO;
+import org.javasoft.peasoft.ejb.school.SchoolFacade;
 import org.javasoft.peasoft.entity.core.School;
 import org.javasoft.peasoft.entity.core.StudentRecord;
 
@@ -32,6 +34,9 @@ public class StudentRecordFacade extends GenericDAO<StudentRecord, Long> {
     public StudentRecordFacade() {
         super(StudentRecord.class);
     }
+    
+    @EJB
+    private SchoolFacade schoolFacade;
 
     //will not be necessary, just do a limit query
     public List<StudentRecord> markResults(double cutOffMark) {
@@ -91,12 +96,29 @@ public class StudentRecordFacade extends GenericDAO<StudentRecord, Long> {
         return recordCriteria.addOrder(Order.desc("marks.totalScore")).list();
     }
     
+    public void editStudentTimings(School school){
+        //schoolFacade.edit(school);
+        Criteria recordCriteria = getCriteria();
+        recordCriteria.createAlias("school", "school").add(Restrictions.eq("school.id", school.getId()));
+        List<StudentRecord> studentRecords =recordCriteria.list();
+        studentRecords.stream().forEach((StudentRecord record)->{
+            record.setExamBatch(school.getAssignedBatch());
+            record.setInterviewSlot(school.getInterviewSlot());
+            edit(record);
+        });
+    }
+    
     public void editStudentTimings(String assignedBatch, String interviewSlot , List<StudentRecord> studentRecords){
         studentRecords.stream().forEach((StudentRecord record)->{
             record.setExamBatch(assignedBatch);
             record.setInterviewSlot(interviewSlot);
             edit(record);
         });
+    }
+    
+    public List<StudentRecord> findAllBySlot(String interviewSlot) {
+        Criteria criteria = getCriteria().createAlias("student", "student").add(Restrictions.eq("interviewSlot", interviewSlot));
+        return criteria.addOrder(Order.asc("student.surname")).list();
     }
 
     /*

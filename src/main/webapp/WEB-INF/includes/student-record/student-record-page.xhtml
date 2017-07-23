@@ -19,14 +19,14 @@ and open the template in the editor.
                     <pnx:pageDivider id="edit-student-records" separator="false">
                         <ui:define name="properties">
                             <div class="default-page-border">
-                                
+
                                 <div class="row default-row-padding">
                                     <pnx:primeDIV labelDiv="col-md-2" label="Identification No : "   contentDiv="col-md-4">
                                         <span class="default-page-text">
                                             #{studentRecordPageBean.studentRecord.identificationNo}
                                         </span>
                                     </pnx:primeDIV>
-                                    
+
                                     <pnx:primeDIV labelDiv="col-md-2" label="Status : " labelID="statusLbl"  contentDiv="col-md-4"
                                                   targetID="selStatus">
                                         <p:selectOneRadio id="selStatus" value="#{studentRecordPageBean.studentRecord.status}" required="true">
@@ -35,9 +35,9 @@ and open the template in the editor.
                                             <f:selectItem itemValue="#{peaResource.DISQUALIFIED}" itemLabel="Disqualified" />
                                         </p:selectOneRadio>
                                     </pnx:primeDIV>
-                                    
+
                                 </div>
-                                
+
                                 <div class="row default-row-padding">
                                     <pnx:primeDIV labelDiv="col-md-2" label="Full Name : "   contentDiv="col-md-4">
                                         <span class="default-page-text">
@@ -90,16 +90,43 @@ and open the template in the editor.
                                     </div>
                                 </div>
                                 <div class="row default-row-padding">
+                                    <pnx:primeDIV labelDiv="col-md-2" labelID="quizLbl" label="Attendance (Quiz)   : "
+                                                  contentDiv="col-md-4" targetID="selQuiz">
+                                        <p:selectOneRadio id="selQuiz" value="#{studentRecordPageBean.studentRecord.attendance_quiz}">
+                                            <f:selectItem itemValue="#{peaResource.ABSENT}" itemLabel="Absent" />
+                                            <f:selectItem itemValue="#{peaResource.PRESENT}" itemLabel="Present" /> 
+                                        </p:selectOneRadio>
+                                    </pnx:primeDIV>
+                                    <pnx:primeDIV labelDiv="col-md-2" labelID="interviewLbl" label="Attendance (Interview)   : "
+                                                  contentDiv="col-md-4" targetID="selInterview">
+                                        <p:selectOneRadio id="selInterview" value="#{studentRecordPageBean.studentRecord.attendance_interview}">
+                                            <f:selectItem itemValue="#{peaResource.ABSENT}" itemLabel="Absent" />
+                                            <f:selectItem itemValue="#{peaResource.PRESENT}" itemLabel="Present" /> 
+                                        </p:selectOneRadio>
+                                    </pnx:primeDIV>
+                                </div>
+
+                                <div class="row default-row-padding">
+                                    <div class="col-md-12">
+                                        <hr size="0" class="pnx-tableRow-Separator" />
+                                    </div>
+                                </div>
+                                <div class="row default-row-padding">
+                                    <div class="col-md-12">
+                                        <span style="font-weight: bold">QUIZ SCORES</span>
+                                    </div>
+                                </div>
+                                <div class="row default-row-padding">
                                     <pnx:primeDIV labelDiv="col-md-3" labelID="mathsLbl" label="Maths Score : "
                                                   contentDiv="col-md-3" targetID="mathsTxt">
-                                        
+
                                         <p:inputNumber id="mathsTxt" value="#{studentRecordPageBean.studentRecord.marks.mathScore}"
                                                        minValue="0.0" maxValue="20.0" validatorMessage="Invalid Score"
                                                        emptyValue="zero" required="true"/>
                                     </pnx:primeDIV>
                                     <pnx:primeDIV labelDiv="col-md-3" labelID="englishLbl" label="English Score : "
                                                   contentDiv="col-md-3" targetID="englishTxt">
-                                                                               
+
                                         <p:inputNumber id="englishTxt" value="#{studentRecordPageBean.studentRecord.marks.englishScore}"
                                                        minValue="0.0" maxValue="20.0" validatorMessage="Invalid Score"
                                                        emptyValue="zero" required="true"/>
@@ -108,7 +135,7 @@ and open the template in the editor.
                                 <div class="row default-row-padding">
                                     <pnx:primeDIV labelDiv="col-md-3" labelID="currentAffairsLbl" label="Current Affairs Score : "
                                                   contentDiv="col-md-3" targetID="currentAffairsTxt">
-                         
+
                                         <p:inputNumber id="currentAffairsTxt" value="#{studentRecordPageBean.studentRecord.marks.currentAffairsScore}"
                                                        minValue="0.0" maxValue="10.0" validatorMessage="Invalid Score"
                                                        emptyValue="zero" required="true"/>
@@ -127,7 +154,8 @@ and open the template in the editor.
                                 </div>
                                 <div class="row default-row-padding">
                                     <div class="col-md-12">
-                                        Add the Scores from both supervisors  (20 Marks )
+                                        <span style="font-weight: bold">INTERVIEW SCORES</span>Add the Scores from both supervisors  (20 Marks )
+
                                     </div>
                                 </div>
                                 <div class="row default-row-padding">
@@ -137,7 +165,7 @@ and open the template in the editor.
                                                        minValue="0.0" maxValue="20.0" validatorMessage="Invalid Score"
                                                        emptyValue="zero" required="true"/>
                                     </pnx:primeDIV>
-                                    
+
                                     <pnx:primeDIV labelDiv="col-md-3" labelID="personalAppearanceLbl" label="Personal Appearance Score : "
                                                   contentDiv="col-md-3" targetID="personalAppearanceTxt">                                                        
                                         <p:inputNumber id="personalAppearanceTxt" value="#{studentRecordPageBean.studentRecord.marks.personalAppearance}"
@@ -152,7 +180,7 @@ and open the template in the editor.
                                                        minValue="0.0" maxValue="20.0" validatorMessage="Invalid Score"
                                                        emptyValue="zero" required="true"/>
                                     </pnx:primeDIV>
-                                    
+
                                     <pnx:primeDIV labelDiv="col-md-3" labelID="plansAndGoalsLbl" label="Plans And Goals Score : "
                                                   contentDiv="col-md-3" targetID="plansAndGoalsTxt">                                                        
                                         <p:inputNumber id="plansAndGoalsTxt" value="#{studentRecordPageBean.studentRecord.marks.plansAndGoals}"
@@ -160,7 +188,7 @@ and open the template in the editor.
                                                        emptyValue="zero" required="true"/>
                                     </pnx:primeDIV>
                                 </div>
-                                
+
                                 <div class="row default-row-padding">
                                     <pnx:primeDIV labelDiv="col-md-3" labelID="bookKnowledgeLbl" label="Book Knowledge Score : "
                                                   contentDiv="col-md-3" targetID="bookKnowledgeTxt">                                                                
@@ -168,7 +196,7 @@ and open the template in the editor.
                                                        minValue="0.0" maxValue="20.0" validatorMessage="Invalid Score"
                                                        emptyValue="zero" required="true"/>
                                     </pnx:primeDIV>
-                                    
+
                                     <pnx:primeDIV labelDiv="col-md-3" labelID="confidenceLevelLbl" label="Confidence Level Score : "
                                                   contentDiv="col-md-3" targetID="confidenceLevelTxt">                                                        
                                         <p:inputNumber id="confidenceLevelTxt" value="#{studentRecordPageBean.studentRecord.marks.confidenceLevel}"
@@ -176,7 +204,7 @@ and open the template in the editor.
                                                        emptyValue="zero" required="true"/>
                                     </pnx:primeDIV>
                                 </div>
-                               
+
                             </div>
                         </ui:define>
                     </pnx:pageDivider>
@@ -259,6 +287,25 @@ and open the template in the editor.
                                     </pnx:primeDIV>
 
                                 </div>
+                                <div class="row default-row-padding">
+                                    <div class="col-md-12">
+                                        <hr size="0" class="pnx-tableRow-Separator" />
+                                    </div>
+                                </div>
+                                <div class="row default-row-padding">
+                                    <pnx:primeDIV labelDiv="col-md-2" label="Quiz  : "   contentDiv="col-md-4">
+                                        <span class="default-page-text">
+                                            #{genericBean.attendance(studentRecordPageBean.studentRecord.attendance_quiz)}
+                                        </span>
+                                    </pnx:primeDIV>
+                                    <pnx:primeDIV labelDiv="col-md-2" label="Interview  : "   contentDiv="col-md-4">
+                                        <span class="default-page-text">
+                                            #{genericBean.attendance(studentRecordPageBean.studentRecord.attendance_interview)}
+                                        </span>
+                                    </pnx:primeDIV>
+                                </div>
+
+
                                 <div class="row default-row-padding">
                                     <div class="col-md-12">
                                         <hr size="0" class="pnx-tableRow-Separator" />
@@ -373,7 +420,7 @@ and open the template in the editor.
                                 <f:facet name="header">
                                     In total , there are #{fn:length(studentRecordPageBean.studentRecords)} records
                                 </f:facet>
-                                
+
                                 <p:column headerText="No" style="text-align: center;width: 35px;">
                                     <h:outputText value="#{rowIndex+1}"/>
                                 </p:column>
@@ -381,19 +428,19 @@ and open the template in the editor.
                                 <p:column headerText="Full Name" style="text-align: left;width: 250px;">
                                     <h:outputText value="#{aRecord.student.fullName}"/>
                                 </p:column>
-                                
+
                                 <p:column headerText="Department" style="text-align: center;">
                                     <h:outputText value="#{genericBean.department(aRecord.department)}"/>
                                 </p:column>
-                                
+
                                 <p:column headerText="Class" style="text-align: center;">
                                     <h:outputText value="#{aRecord.sss}"/>
                                 </p:column>
-                                
+
                                 <p:column headerText="Batch" style="text-align: center;">
                                     <h:outputText value="#{genericBean.batch(aRecord.examBatch)}"/>
                                 </p:column>
-                                
+
                                 <p:column headerText="Academic Score" style="text-align: center;">
                                     <h:outputText value="#{genericBean.formatDecimalPlaces(aRecord.marks.totalAcademicScore)}"/>
                                 </p:column>
@@ -410,7 +457,7 @@ and open the template in the editor.
                                     <h:outputText value="#{genericBean.recordStatus(aRecord.status)}"/>
                                 </p:column>
 
-                                
+
 
                                 <p:column headerText="Actions" style="text-align: center;width: 80px;">
                                     <p:commandButton update="@form" icon="view-icon"

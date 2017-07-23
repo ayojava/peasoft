@@ -67,6 +67,10 @@ public class StudentRecord implements Serializable {
     
     private String interviewSlot;
     
+    private String attendance_quiz;
+    
+    private String attendance_interview;
+        
     @NotNull
     private String department;
     
