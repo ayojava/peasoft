@@ -36,6 +36,7 @@ import org.javasoft.peasoft.entity.core.StudentRecord;
 import org.javasoft.peasoft.entity.data.EmailData;
 import org.javasoft.peasoft.entity.data.SMSData;
 import org.javasoft.peasoft.entity.settings.BatchSettings;
+import org.javasoft.peasoft.excel.studentRecord.StudentRecordsListExcelReport;
 import org.javasoft.peasoft.service.StudentRecordService;
 import org.omnifaces.util.Messages;
 
@@ -76,7 +77,7 @@ public class StudentRecordPageBean extends AbstractBean implements Serializable 
 
     @Inject
     private GenericBean genericBean;
-    
+
     private StudentRecordService studentRecordService;
 
     @Override
@@ -118,15 +119,18 @@ public class StudentRecordPageBean extends AbstractBean implements Serializable 
         }
     }
 
-    public void exportStudentRecords(){
+    public void exportStudentRecords() {
         try {
-            String fileName = DateFormatUtils.format(new Date(), DISPLAY_DATE_FORMAT_DAYS)+"_"+ RandomStringUtils.randomNumeric(5)+".xls"; 
-            
-        }catch(Exception ex){
-            
+            String fileName = DateFormatUtils.format(new Date(), DISPLAY_DATE_FORMAT_DAYS) + "_" + RandomStringUtils.randomNumeric(5) + ".xls";
+            StudentRecordsListExcelReport studentRecordsListExcelReport = new StudentRecordsListExcelReport();
+            studentRecordsListExcelReport.populateExcelSheet("StudentRecords", fileName, studentRecords);
+            Messages.addGlobalInfo("Excel Sheet Sent");
+        } catch (Exception ex) {
+            log.error("An Error has Occurred :::", ex);
+            Messages.addGlobalError("An Error has Occured");
         }
     }
-        
+
     public void sendQuizAndInterviewNotification() {
 
         try {
@@ -147,30 +151,30 @@ public class StudentRecordPageBean extends AbstractBean implements Serializable 
                 phoneNos.add(studentObj.getOtherPhoneNo());
                 phoneNos.add(studentObj.getParent().getAddressTemplate().getContactPhoneNo1());
                 phoneNos.add(studentObj.getParent().getAddressTemplate().getContactPhoneNo2());
-                
+
                 // funny behaviour 
                 //SMSData smsData = studentRecordService.generateExamDetailsNotification(smsUtilBean, fullName,email);
                 int exceedMsgLength = 0;
                 SMSData quizSMSData = new SMSData();
                 SMSData interviewSMSData = new SMSData();
 //                
-                String  quizMsg = "QUIZ DETAILS FOR "+studentObj.getAbbreviatedName()+ " -FRI JULY 28,2017-"
-                        + genericBean.batch(aRecord.getExamBatch())+"-"
-                        + ((StringUtils.equalsIgnoreCase(BATCH_A, aRecord.getExamBatch())? batchSettings.getBatchA_Start() : batchSettings.getBatchB_Start()) + " a.m")
+                String quizMsg = "QUIZ DETAILS FOR " + studentObj.getAbbreviatedName() + " -FRI JULY 28,2017-"
+                        + genericBean.batch(aRecord.getExamBatch()) + "-"
+                        + ((StringUtils.equalsIgnoreCase(BATCH_A, aRecord.getExamBatch()) ? batchSettings.getBatchA_Start() : batchSettings.getBatchB_Start()) + " a.m")
                         + "-ST ANTHONY SCHOOL,AJALA BSTOP,IJAIYE,"
                         + "Come with an HB Pencil for shading your answer sheet."; //
                 quizSMSData.setMessage(quizMsg);
-                log.info("Quiz Message :: [{}] - Length :: [{}]" , quizMsg,quizMsg.length());
-                
-                String interviewMsg = "INTERVIEW DETAILS FOR "+studentObj.getAbbreviatedName()+ "-SAT JULY 29,2017 from "
+                log.info("Quiz Message :: [{}] - Length :: [{}]", quizMsg, quizMsg.length());
+
+                String interviewMsg = "INTERVIEW DETAILS FOR " + studentObj.getAbbreviatedName() + "-SAT JULY 29,2017 from "
                         + aRecord.getInterviewSlot()
                         + "at UTOPIA COLLEGE,IJAIYE.Come formally dressed for the interview.";
-                
+
                 interviewSMSData.setMessage(interviewMsg);
-                log.info("Interview Message :: [{}] - Length :: [{}]" , interviewMsg,interviewMsg.length());
-                if((quizMsg.length() > 160)||(interviewMsg.length() > 160)){
+                log.info("Interview Message :: [{}] - Length :: [{}]", interviewMsg, interviewMsg.length());
+                if ((quizMsg.length() > 160) || (interviewMsg.length() > 160)) {
                     exceedMsgLength++;
-                    log.info("Exceed Message Length ::: [{}]",exceedMsgLength);
+                    log.info("Exceed Message Length ::: [{}]", exceedMsgLength);
                 }
 
                 phoneNos.stream().forEach((String phoneNo) -> {
@@ -178,7 +182,7 @@ public class StudentRecordPageBean extends AbstractBean implements Serializable 
                         quizSMSData.setId(null);
                         quizSMSData.setRecipientPhoneNo(appendCountryCode(phoneNo));
                         smsDataFacade.persist(quizSMSData);
-                        
+
                         interviewSMSData.setId(null);
                         interviewSMSData.setRecipientPhoneNo(appendCountryCode(phoneNo));
                         smsDataFacade.persist(interviewSMSData);
@@ -187,7 +191,6 @@ public class StudentRecordPageBean extends AbstractBean implements Serializable 
             });
 
             Messages.addGlobalInfo("Save Operation Successful");
-            
 
             setPageResource(LIST_STUDENT_RECORDS);
         } catch (Exception ex) {
@@ -202,12 +205,11 @@ public class StudentRecordPageBean extends AbstractBean implements Serializable 
             studentRecordService = new StudentRecordService();
             BatchSettings batchSettings = batchSettingsFacade.findOne();
             String filePath = registry.getInitFilePath() + "bc2016" + File.separator + "description.pdf";
-            
-            EmailData emailData = studentRecordService.generateExamDetailsNotification(studentRecord, filePath, emailUtilBean, batchSettings);
-                emailDataFacade.persist(emailData);
 
-                
-                /*
+            EmailData emailData = studentRecordService.generateExamDetailsNotification(studentRecord, filePath, emailUtilBean, batchSettings);
+            emailDataFacade.persist(emailData);
+
+            /*
                 Student studentObj = studentRecord.getStudent();
                 HashSet<String> phoneNos = new HashSet<>();
                 phoneNos.add(studentObj.getPhoneNo());
@@ -225,8 +227,8 @@ public class StudentRecordPageBean extends AbstractBean implements Serializable 
                         smsDataFacade.persist(smsData);
                     }
                 });
-                */
-                Messages.addGlobalInfo("Information Successsfully sent");
+             */
+            Messages.addGlobalInfo("Information Successsfully sent");
         } catch (Exception ex) {
             log.error("An Error has Occurred :::", ex);
             Messages.addGlobalError("An Error has Occured");

@@ -37,6 +37,8 @@ public class StudentRecordFacade extends GenericDAO<StudentRecord, Long> {
     
     @EJB
     private SchoolFacade schoolFacade;
+    
+    
 
     //will not be necessary, just do a limit query
     public List<StudentRecord> markResults(double cutOffMark) {
@@ -127,4 +129,6 @@ public class StudentRecordFacade extends GenericDAO<StudentRecord, Long> {
                .add(Restrictions.eq("id", school.getId())).uniqueResult();
    }
      */
+    
+   
 }

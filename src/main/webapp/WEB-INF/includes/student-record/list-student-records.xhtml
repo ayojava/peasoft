@@ -21,6 +21,11 @@ and open the template in the editor.
                     </ui:decorate> 
                 </ui:define>
                 <ui:define name="pageButtonsTop">
+                    <p:commandButton styleClass="pnx-round-button" id="exportTopBtn" value="Export" 
+                                     ajax="false" update="@form" action="#{studentRecordPageBean.exportStudentRecords()}" 
+                                     icon="fa fa-fw fa-refresh" title="Export Records "/> 
+                    
+                    <p:spacer width="10px"/>
                     <p:commandButton styleClass="pnx-round-button" id="scheduleTopBtn" value="Schedule" 
                                      ajax="false" update="@form" action="#{studentRecordPageBean.sendQuizAndInterviewNotification()}" 
                                      icon="fa fa-fw fa-refresh" title="Schedule class " rendered="false"/> 
