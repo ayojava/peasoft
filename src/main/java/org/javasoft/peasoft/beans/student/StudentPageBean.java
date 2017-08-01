@@ -154,7 +154,7 @@ public class StudentPageBean extends AbstractBean implements Serializable {
                 if (StringUtils.isNotBlank(phoneNo)) {
                     smsData.setId(null);
                     smsData.setRecipientPhoneNo(appendCountryCode(phoneNo));
-                    smsDataFacade.persist(smsData);
+                    //smsDataFacade.persist(smsData);
                 }
             });
 
@@ -187,41 +187,41 @@ public class StudentPageBean extends AbstractBean implements Serializable {
     }
     
     public void scheduleUpdateEmail(){
-        HashSet<String> emailAddress  = new HashSet<>();
-         List<EmailBatchDTO> studentEMailBatchDTO = studentFacade.findEmailBatchDTO();
-                
-        List<EmailBatchDTO> schoolEmailBatchDTO = schoolFacade.findEmailBatchDTO();
-        
-        List<EmailBatchDTO> allEmailBatchDTO = new ArrayList<>();
-        
-        allEmailBatchDTO.addAll(studentEMailBatchDTO);
-        allEmailBatchDTO.addAll(schoolEmailBatchDTO);
-        
-        log.info("Students :: {} --- Schools :: {} Total :: {} " ,studentEMailBatchDTO.size(),schoolEmailBatchDTO.size(),allEmailBatchDTO.size());
-                
-        allEmailBatchDTO.stream().forEach(aEmailBatchDTO->{
-            emailAddress.add(aEmailBatchDTO.getEmail1());
-            emailAddress.add(aEmailBatchDTO.getEmail2());
-        });
-        
-       log.info("Size Of Email ::: {} ",emailAddress.size());
-       
-       studentService = new StudentService();
-       
-       String message = studentService.emailMessage(emailUtilBean);
-       
-       //log.info("Email Message ::: \n\n {}\n" , message);
-       
-       String filePath = registry.getInitFilePath()+"bc2016"+ File.separator + "bc2016.pdf";
-       
-       //log.info("File Path ::: {} " ,filePath);
-       
-       emailAddress.stream().forEach((String address)->{
-           EmailData emailData = studentService.generateData(address, filePath, message);
-           emailDataFacade.persist(emailData);
-       });
-       
-     Messages.addGlobalInfo("Email Successfully Scheduled");  
+//        HashSet<String> emailAddress  = new HashSet<>();
+//         List<EmailBatchDTO> studentEMailBatchDTO = studentFacade.findEmailBatchDTO();
+//                
+//        List<EmailBatchDTO> schoolEmailBatchDTO = schoolFacade.findEmailBatchDTO();
+//        
+//        List<EmailBatchDTO> allEmailBatchDTO = new ArrayList<>();
+//        
+//        allEmailBatchDTO.addAll(studentEMailBatchDTO);
+//        allEmailBatchDTO.addAll(schoolEmailBatchDTO);
+//        
+//        log.info("Students :: {} --- Schools :: {} Total :: {} " ,studentEMailBatchDTO.size(),schoolEmailBatchDTO.size(),allEmailBatchDTO.size());
+//                
+//        allEmailBatchDTO.stream().forEach(aEmailBatchDTO->{
+//            emailAddress.add(aEmailBatchDTO.getEmail1());
+//            emailAddress.add(aEmailBatchDTO.getEmail2());
+//        });
+//        
+//       log.info("Size Of Email ::: {} ",emailAddress.size());
+//       
+//       studentService = new StudentService();
+//       
+//       String message = studentService.emailMessage(emailUtilBean);
+//       
+//       //log.info("Email Message ::: \n\n {}\n" , message);
+//       
+//       String filePath = registry.getInitFilePath()+"bc2016"+ File.separator + "bc2016.pdf";
+//       
+//       //log.info("File Path ::: {} " ,filePath);
+//       
+//       emailAddress.stream().forEach((String address)->{
+//           EmailData emailData = studentService.generateData(address, filePath, message);
+//           emailDataFacade.persist(emailData);
+//       });
+//       
+//     Messages.addGlobalInfo("Email Successfully Scheduled");  
     }
 
     public void editStudent() {

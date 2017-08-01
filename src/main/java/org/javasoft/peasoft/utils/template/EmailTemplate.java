@@ -91,10 +91,13 @@ public interface EmailTemplate {
 
     public static final String STUDENT_RESULT_NOT_SELECTED_NOTIFICATION_TEMPLATE = "{studentResult.notSelectedNotification}";
 
-    //
-    //academy.top outerTable.revert
-    //academy.notSelectedNotification
-    //academy.selectedNotification
+//     = Exam Center Details For  -  %s
+//    
+    
+    public static final String EXAMINATION_CENTRE_DETAILS_SUBJECT_TEMPLATE="{examinationCenterDetails.subject}";
+            
+    public static final String EXAMINATION_CENTRE_DETAILS_TOP_TEMPLATE="{examinationCenterDetails.top}";
+        
     public static final String ACADEMY_SUBJECT_TEMPLATE = "{academy.subject}";
 
     public static final String ACADEMY_TOP_TEMPLATE = "{academy.top}";

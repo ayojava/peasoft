@@ -82,13 +82,20 @@ public class Student implements Serializable {
     
     @Transient
     private String fullName;
+    
+    @Transient
+    private String abbreviatedName;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(updatable = false)
     @CreationTimestamp
     private Date createDate;
     
-    
+    public String getAbbreviatedName(){
+        StringBuilder builder = new StringBuilder();
+        builder = builder.append(StringUtils.capitalize(surname)).append(" ").append(StringUtils.left(othernames, 1).toUpperCase());
+        return builder.toString();
+    }
     
     public String getFullName(){
         StringBuilder builder = new StringBuilder();

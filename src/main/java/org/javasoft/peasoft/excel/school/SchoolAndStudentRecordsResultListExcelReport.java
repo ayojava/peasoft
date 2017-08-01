@@ -16,12 +16,11 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.javasoft.peasoft.beans.core.GenericBean;
-import static org.javasoft.peasoft.constants.PeaResource.BATCH_A;
 import static org.javasoft.peasoft.constants.PeaResource.SCHOOL_FOLDER;
+import org.javasoft.peasoft.entity.core.Marks;
 import org.javasoft.peasoft.entity.core.School;
 import org.javasoft.peasoft.entity.core.Student;
 import org.javasoft.peasoft.entity.core.StudentRecord;
-import org.javasoft.peasoft.entity.settings.BatchSettings;
 import org.javasoft.peasoft.excel.ExcelProcessor;
 import org.omnifaces.util.Beans;
 
@@ -30,63 +29,68 @@ import org.omnifaces.util.Beans;
  * @author ayojava
  */
 @Slf4j
-public class SchoolAndStudentRecordsListExcelReport extends ExcelProcessor{
-    
+public class SchoolAndStudentRecordsResultListExcelReport extends ExcelProcessor {
+
     private School school;
 
     private int rowCount = 1;
     
     private List<StudentRecord> studentRecords;
-    
-    private GenericBean genericBean ;
-    
-    private String[] columnHeaders = {"S/N", "Name", "Gender", "Class", "Department","Batch (Quiz)","Time Slot (Quiz)","Exam Class(Quiz)",
-                                    "Time Slot(Oral Interview)"};
+
+    private String[] columnHeaders = {"S/N", "Name", "Gender", "Class", "Department", "Status", "Maths (%)", "English (%)",
+        "Current Affairs (%)", "ICT Score (%)", "Communication Skill (%)", "Personal Awareness (%)", "SelfAwareness (%)",
+        "PlansAndGoals (%)", "BookKnowledge (%)", "Confidence Level (%) ", "Total Score (%)", "Grade "};
 
     private String fileName;
-    
-    public boolean populateExcelSheet(String sheetName, String fileName, School schoolObj, List<StudentRecord> allRecords,
-            BatchSettings batchSettings) {
+
+    public boolean populateExcelSheet(String sheetName, String fileName, School schoolObj, List<StudentRecord> allRecords) {
         if (schoolObj == null || allRecords.isEmpty() || StringUtils.isBlank(sheetName) || StringUtils.isBlank(fileName)) {
             log.error("=== SheetName or School is not supplied . Excel sheet can't be generated");
             return false;
         }
+
         init();
         this.fileName = fileName;
         setCurrentSheet(sheetName);
         school = schoolObj;
-        
-        genericBean = Beans.getInstance(GenericBean.class);
-        String quizVenue="VENUE FOR QUIZ ::: " + batchSettings.getExamCentre().getAddressTemplate().getFullAddress();
-        String quizDate="DATE FOR QUIZ ::: " +genericBean.formatFullDate(batchSettings.getExamDate());
-        String oralInterviewVenue="VENUE FOR ORAL INTERVIEW ::: " + batchSettings.getInterviewCentre().getAddressTemplate().getFullAddress();
-        String oralInterviewDate="DATE FOR ORAL INTERVIEW ::: " +genericBean.formatFullDate(batchSettings.getInterviewDate());
-        populateSheetHeaders(quizVenue,quizDate,oralInterviewVenue,oralInterviewDate);
-        
+        String schoolName = "NAME  : " + school.getName();
+        String schoolAddress = "ADDRESS  : " + school.getAddressTemplate().getFullAddress();
+        populateSheetHeaders(schoolName, schoolAddress);
         populateColumnHeaders(columnHeaders);
         try {
             studentRecords = allRecords;
-            writeExcelData(batchSettings);
+            writeExcelData();
         } catch (IOException ex) {
             log.error("An Error has Occurred :::", ex);
             return false;
         }
         return true;
     }
-    
-    private void writeExcelData(BatchSettings batchSettings) throws IOException {
+
+    private void writeExcelData() throws IOException {
         @Cleanup
         ByteArrayOutputStream outStream = new ByteArrayOutputStream();
         
+        GenericBean genericBean = Beans.getInstance(GenericBean.class);
+
+        //int currentPosition = getRowPosition();
+        //int no = 1;
+
+//        private String[] columnHeaders = {"S/N" ,"Name" ,"Gender" ,"Class" ,"Department" ,"Status" ,"Maths (%)","English (%)",
+//        "Current Affairs (%)","ICT Score (%)","Communication Skill (%)","Personal Awareness (%)","SelfAwareness (%)",
+//        "PlansAndGoals (%)","BookKnowledge (%)","Confidence Level (%) ","Total Score (%)","Grade (%)"};
+       // List<StudentRecord> studentRecords = school.getStudentRecords();
         studentRecords.forEach((StudentRecord aRecord) -> {
-           
             Student student = aRecord.getStudent();
+            Marks mark = aRecord.getMarks();
             String[] rowValues = {
-                String.valueOf(rowCount), student.getFullName(), genericBean.gender(student.getGender()), aRecord.getSss(),
-                genericBean.department(aRecord.getDepartment()),genericBean.batch(aRecord.getExamBatch()),
-                (StringUtils.equalsIgnoreCase(BATCH_A, aRecord.getExamBatch())? batchSettings.getBatchA_Start() : batchSettings.getBatchB_Start()) + " a.m",
-                aRecord.getExamClass(),aRecord.getInterviewSlot()
+                String.valueOf(rowCount), student.getFullName(), genericBean.gender(student.getGender()), aRecord.getSss(),genericBean.department(aRecord.getDepartment()),
+                genericBean.recordStatus(aRecord.getStatus()), String.valueOf(mark.getMathScore()), String.valueOf(mark.getEnglishScore()), String.valueOf(mark.getCurrentAffairsScore()),
+                String.valueOf(mark.getIctScore()),String.valueOf(mark.getCommunicationSkill()),String.valueOf(mark.getPersonalAppearance()),
+                String.valueOf(mark.getSelfAwareness()),String.valueOf(mark.getPlansAndGoals()),String.valueOf(mark.getBookKnowledge()),
+                String.valueOf(mark.getConfidenceLevel()),String.valueOf(mark.getTotalScore()),genericBean.obtainedGrade(aRecord.getGrade())
             };
+            
             Row row = getCurrentSheet().createRow(rowPosition);
             for (int i = 0; i < rowValues.length; i++) {
                 Cell cell = row.createCell(i);
@@ -98,6 +102,7 @@ public class SchoolAndStudentRecordsListExcelReport extends ExcelProcessor{
         });
         writeTo(outStream);
         
+        log.info(" Directory ::: [ {} ]    FileName ::: [ {} ]" ,globalRegistry.getInitFilePath() + SCHOOL_FOLDER, fileName );
         File filePath = globalRegistry.createFile(globalRegistry.getInitFilePath() + SCHOOL_FOLDER, fileName);
         
         @Cleanup

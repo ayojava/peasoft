@@ -58,7 +58,7 @@ public class StudentRecordService {
     
     private String quiz_list_1="You are to come along with  HB pencil, Biro ( Blue or Black ) and Eraser.The pencil will be used to shade your answers on the answer sheet, while you write your names with the Biro.";
     
-    private String quiz_list_2="The Time alloted for the Quiz is One Hour (60 minutes) for 60 questions (Maths 20 questions, English 20 questions , Current Affairs 20 questions , I.C.T 20 questions) . ";
+    private String quiz_list_2="The Time alloted for the Quiz is One Hour (60 minutes) for 60 questions (Maths 20 questions, English 20 questions , Current Affairs 10 questions , I.C.T 10 questions) . ";
     
     private String quiz_list_3="Ensure you are available at the alloted time,You will not be allowed to join another Batch if you miss your time slot , and no extra time will be alloted if you arrive late.";
     

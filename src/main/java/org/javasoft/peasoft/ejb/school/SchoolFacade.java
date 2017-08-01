@@ -6,6 +6,7 @@
 package org.javasoft.peasoft.ejb.school;
 
 import java.util.List;
+import javax.ejb.EJB;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import lombok.extern.slf4j.Slf4j;
@@ -18,9 +19,12 @@ import org.hibernate.criterion.Restrictions;
 import org.hibernate.transform.Transformers;
 import org.javasoft.peasoft.batch.dto.EmailBatchDTO;
 import org.javasoft.peasoft.ejb.dao.GenericDAO;
+import org.javasoft.peasoft.ejb.settings.BatchSettingsFacade;
 import org.javasoft.peasoft.entity.core.School;
 import org.javasoft.peasoft.entity.core.StudentRecord;
+import org.javasoft.peasoft.entity.settings.BatchSettings;
 import org.javasoft.peasoft.excel.school.SchoolAndStudentRecordsListExcelReport;
+import org.javasoft.peasoft.excel.school.SchoolAndStudentRecordsResultListExcelReport;
 import org.javasoft.peasoft.excel.school.SchoolListExcelReport;
 import org.javasoft.peasoft.utils.GlobalRegistry;
 
@@ -34,6 +38,9 @@ import org.javasoft.peasoft.utils.GlobalRegistry;
 public class SchoolFacade extends GenericDAO<School, Long>{
     
     private GlobalRegistry globalRegistry;
+    
+    @EJB
+    private BatchSettingsFacade batchSettingsFacade;
 
     public SchoolFacade(){
         super(School.class);
@@ -66,8 +73,15 @@ public class SchoolFacade extends GenericDAO<School, Long>{
     }
     
     public void asyncSchoolAndStudentsRecordsExcelDocument(String fileName, School schoolObj,List<StudentRecord> studentRecord){
-        SchoolAndStudentRecordsListExcelReport report = new SchoolAndStudentRecordsListExcelReport();
+        SchoolAndStudentRecordsResultListExcelReport report = new SchoolAndStudentRecordsResultListExcelReport();
         report.populateExcelSheet("SchoolRecordsList", fileName, schoolObj,studentRecord);
+        report.destroy();
+    }
+    
+    public void generateStudentsRecordsExcelDocumentBySchool(String fileName, School schoolObj,List<StudentRecord> studentRecord){
+        BatchSettings batchSettings = batchSettingsFacade.findOne();
+        SchoolAndStudentRecordsListExcelReport report = new SchoolAndStudentRecordsListExcelReport();
+        report.populateExcelSheet("StudentsRecordsList", fileName, schoolObj,studentRecord,batchSettings);
         report.destroy();
     }
     

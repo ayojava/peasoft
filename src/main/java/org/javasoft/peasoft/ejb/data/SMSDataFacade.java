@@ -30,13 +30,16 @@ public class SMSDataFacade extends GenericDAO<SMSData, Long>{
         super(SMSData.class);
     }
     
-    @Override
-    public List<SMSData> findAll() {
+    public List<SMSData> findAllPendingSMS(){
+        return getCriteria().add(Restrictions.eq("status", PENDING)).list();
+    }
+    
+    public List<SMSData> findAllOrderByStudentName() {
         Criteria criteria = getCriteria().createAlias("student", "student");
         return criteria.addOrder(Order.asc("student.surname")).list();
     }
     
     public List<SMSData> findPendingSMS(){
-        return getCriteria().add(Restrictions.eq("status", PENDING)).setMaxResults(SMS_BATCH_SIZE).list();
+        return getCriteria().add(Restrictions.eq("status", PENDING)).addOrder(Order.desc("id")).setMaxResults(SMS_BATCH_SIZE).list();
     }
 }

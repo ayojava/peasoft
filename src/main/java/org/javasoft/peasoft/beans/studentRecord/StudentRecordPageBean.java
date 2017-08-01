@@ -7,6 +7,7 @@ package org.javasoft.peasoft.beans.studentRecord;
 
 import java.io.File;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -17,10 +18,14 @@ import javax.inject.Named;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.time.DateFormatUtils;
 import org.javasoft.peasoft.beans.core.AbstractBean;
+import org.javasoft.peasoft.beans.core.GenericBean;
 import org.javasoft.peasoft.beans.core.util.EmailUtilBean;
 import org.javasoft.peasoft.beans.core.util.SMSUtilBean;
+import static org.javasoft.peasoft.constants.PeaResource.DISPLAY_DATE_FORMAT_DAYS;
 import static org.javasoft.peasoft.constants.PeaResource.VIEW_HOME_PAGE;
 import org.javasoft.peasoft.ejb.data.EmailDataFacade;
 import org.javasoft.peasoft.ejb.data.SMSDataFacade;
@@ -69,6 +74,9 @@ public class StudentRecordPageBean extends AbstractBean implements Serializable 
     @EJB
     private BatchSettingsFacade batchSettingsFacade;
 
+    @Inject
+    private GenericBean genericBean;
+    
     private StudentRecordService studentRecordService;
 
     @Override
@@ -110,6 +118,15 @@ public class StudentRecordPageBean extends AbstractBean implements Serializable 
         }
     }
 
+    public void exportStudentRecords(){
+        try {
+            String fileName = DateFormatUtils.format(new Date(), DISPLAY_DATE_FORMAT_DAYS)+"_"+ RandomStringUtils.randomNumeric(5)+".xls"; 
+            
+        }catch(Exception ex){
+            
+        }
+    }
+        
     public void sendQuizAndInterviewNotification() {
 
         try {
@@ -120,7 +137,7 @@ public class StudentRecordPageBean extends AbstractBean implements Serializable 
 
                 String fullName = aRecord.getStudent().getFullName();
                 String email = aRecord.getStudent().getEmail();
-                System.out.println("Full Name :: [ " + fullName + " ] - Email :: [ " + email + " ] ");
+                //System.out.println("Full Name :: [ " + fullName + " ] - Email :: [ " + email + " ] ");
                 EmailData emailData = studentRecordService.generateExamDetailsNotification(aRecord, filePath, emailUtilBean, batchSettings);
                 emailDataFacade.persist(emailData);
 
@@ -133,23 +150,44 @@ public class StudentRecordPageBean extends AbstractBean implements Serializable 
                 
                 // funny behaviour 
                 //SMSData smsData = studentRecordService.generateExamDetailsNotification(smsUtilBean, fullName,email);
-                SMSData smsData = new SMSData();
-                String message ="Dear "+ fullName+", the Screening Test and Oral Interview will come up on Friday 28th and Saturday 29th July,2017."
-                        + "Details of your batch,venue have been sent to "+ email +".Incase you did not get yours,kindly come to the library(Behind "
-                        + "Ojokoro Housing Estate Meiran) to confirm or call 08188687814,07063583701";
-                smsData.setMessage(message);
-                log.info("SMS Message :: [{}]" , message);
+                int exceedMsgLength = 0;
+                SMSData quizSMSData = new SMSData();
+                SMSData interviewSMSData = new SMSData();
+//                
+                String  quizMsg = "QUIZ DETAILS FOR "+studentObj.getAbbreviatedName()+ " -FRI JULY 28,2017-"
+                        + genericBean.batch(aRecord.getExamBatch())+"-"
+                        + ((StringUtils.equalsIgnoreCase(BATCH_A, aRecord.getExamBatch())? batchSettings.getBatchA_Start() : batchSettings.getBatchB_Start()) + " a.m")
+                        + "-ST ANTHONY SCHOOL,AJALA BSTOP,IJAIYE,"
+                        + "Come with an HB Pencil for shading your answer sheet."; //
+                quizSMSData.setMessage(quizMsg);
+                log.info("Quiz Message :: [{}] - Length :: [{}]" , quizMsg,quizMsg.length());
+                
+                String interviewMsg = "INTERVIEW DETAILS FOR "+studentObj.getAbbreviatedName()+ "-SAT JULY 29,2017 from "
+                        + aRecord.getInterviewSlot()
+                        + "at UTOPIA COLLEGE,IJAIYE.Come formally dressed for the interview.";
+                
+                interviewSMSData.setMessage(interviewMsg);
+                log.info("Interview Message :: [{}] - Length :: [{}]" , interviewMsg,interviewMsg.length());
+                if((quizMsg.length() > 160)||(interviewMsg.length() > 160)){
+                    exceedMsgLength++;
+                    log.info("Exceed Message Length ::: [{}]",exceedMsgLength);
+                }
 
                 phoneNos.stream().forEach((String phoneNo) -> {
                     if (StringUtils.isNotBlank(phoneNo)) {
-                        smsData.setId(null);
-                        smsData.setRecipientPhoneNo(appendCountryCode(phoneNo));
-                        smsDataFacade.persist(smsData);
+                        quizSMSData.setId(null);
+                        quizSMSData.setRecipientPhoneNo(appendCountryCode(phoneNo));
+                        smsDataFacade.persist(quizSMSData);
+                        
+                        interviewSMSData.setId(null);
+                        interviewSMSData.setRecipientPhoneNo(appendCountryCode(phoneNo));
+                        smsDataFacade.persist(interviewSMSData);
                     }
                 });
             });
 
             Messages.addGlobalInfo("Save Operation Successful");
+            
 
             setPageResource(LIST_STUDENT_RECORDS);
         } catch (Exception ex) {

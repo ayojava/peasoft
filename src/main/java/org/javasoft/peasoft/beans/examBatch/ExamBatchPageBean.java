@@ -272,6 +272,14 @@ public class ExamBatchPageBean extends AbstractBean implements Serializable {
 //Adeola Adeku...saka junction beside keystone bank, first turning on my right , second building to the left
 /*
 
+ <!--
+                    <p:commandButton styleClass="pnx-round-button" id="scheduleTopBtn" value="Schedule" 
+                                     ajax="false" update="@form" action="#{examBatchPageBean.scheduleBatchClass()}" 
+                                     icon="fa fa-fw fa-refresh" title="Schedule class "/> 
+                    
+                    <p:spacer width="10px"/>
+                    -->
+
  <c:if test="#{examBatchPageBean.notificationCnt gt 0}">
                         <p:spacer width="10px"/>
                         <p:commandButton styleClass="pnx-round-button" id="sendNotificationBtn" value="Notifications [#{examBatchPageBean.notificationCnt}]" 

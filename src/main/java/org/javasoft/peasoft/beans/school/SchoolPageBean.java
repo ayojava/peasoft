@@ -24,10 +24,12 @@ import org.javasoft.peasoft.beans.core.AbstractBean;
 import org.javasoft.peasoft.beans.core.util.EmailUtilBean;
 import org.javasoft.peasoft.ejb.data.EmailDataFacade;
 import org.javasoft.peasoft.ejb.school.SchoolFacade;
+import org.javasoft.peasoft.ejb.settings.BatchSettingsFacade;
 import org.javasoft.peasoft.ejb.studentRecord.StudentRecordFacade;
 import org.javasoft.peasoft.entity.core.School;
 import org.javasoft.peasoft.entity.core.StudentRecord;
 import org.javasoft.peasoft.entity.data.EmailData;
+import org.javasoft.peasoft.entity.settings.BatchSettings;
 import org.javasoft.peasoft.entity.templates.AddressTemplate;
 import org.javasoft.peasoft.service.SchoolService;
 import org.omnifaces.util.Messages;
@@ -67,6 +69,9 @@ public class SchoolPageBean extends AbstractBean implements Serializable {
     
     @Inject
     private EmailUtilBean emailUtilBean;
+    
+    @EJB
+    private BatchSettingsFacade batchSettingsFacade;
     
     @EJB
     private EmailDataFacade emailDataFacade;
@@ -198,15 +203,25 @@ public class SchoolPageBean extends AbstractBean implements Serializable {
         schoolFacade.asyncSchoolAndStudentsRecordsExcelDocument(fileName, school,allRecords);
         schoolService = new SchoolService();
         
-        String filePath = registry.getInitFilePath()+ File.separator + SCHOOL_FOLDER+ File.separator + fileName;
+        String filePath = registry.getInitFilePath()+  SCHOOL_FOLDER+ File.separator + fileName;
         EmailData emailData = schoolService.generateResultBySchoolEmail(emailUtilBean, school,totalStudents,selectedStudents, notSelectedStudents, 
                 artStudents, scienceStudents, commercialStudents, ss1, ss2, filePath);
         emailDataFacade.persist(emailData);
         Messages.addGlobalInfo("Result Sheet Generated and Sent");
     }
     
-    public void generateBatchBySchoolAndEmail(){
-    
+    public void generateStudentRecordsBySchoolAndEmail(){
+        String fileName = DateFormatUtils.format(new Date(), DISPLAY_DATE_FORMAT_DAYS)+"_"+ RandomStringUtils.randomNumeric(5)+".xls"; 
+        schoolFacade.generateStudentsRecordsExcelDocumentBySchool(fileName, school, allRecords);
+        
+        String excelFilePath = registry.getInitFilePath()+ SCHOOL_FOLDER+ File.separator + fileName;
+        String directionsFilePath=registry.getInitFilePath() + "bc2016" + File.separator + "description.pdf";
+        BatchSettings batchSettings = batchSettingsFacade.findOne();
+        schoolService = new SchoolService();
+        EmailData emailData = schoolService.generateStudentRecordsBySchool(emailUtilBean, batchSettings, totalStudents, school);
+        emailData.setAttachmentFile(excelFilePath+DOLLAR_SEPARATOR+directionsFilePath);
+        emailDataFacade.persist(emailData);
+        Messages.addGlobalInfo("Result Sheet Generated and Sent");
     }
     
     

@@ -22,11 +22,7 @@ and open the template in the editor.
                     </ui:decorate>
                 </ui:define>
                 <ui:define name="pageButtonsTop">
-                    <p:commandButton styleClass="pnx-round-button" id="scheduleTopBtn" value="Schedule" 
-                                     ajax="false" update="@form" action="#{examBatchPageBean.scheduleBatchClass()}" 
-                                     icon="fa fa-fw fa-refresh" title="Schedule class "/> 
-                    
-                    <p:spacer width="10px"/>
+                   
                     <p:commandButton styleClass="pnx-round-button" id="excelTopBtn" value="Generate" 
                                      ajax="false" update="@form" action="#{examBatchPageBean.generateBatchListInExcel()}" 
                                      icon="fa fa-fw fa-file-excel-o" title="Generate List in Excel "/> 
