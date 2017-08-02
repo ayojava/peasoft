@@ -76,7 +76,7 @@ public class Marks implements Serializable {
     
     public void computeMarks(){
         totalAcademicScore =  Precision.round(((mathScore + englishScore + currentAffairsScore + ictScore ) * 100/60), 2);
-        totalInterviewScore = Precision.round(((communicationSkill + personalAppearance + selfAwareness + plansAndGoals + bookKnowledge + confidenceLevel) * 100/120), 2);
+        totalInterviewScore = Precision.round(((communicationSkill + personalAppearance + selfAwareness + plansAndGoals + bookKnowledge + confidenceLevel) * 100/60), 2);
         totalScore = Precision.round(((totalAcademicScore + totalInterviewScore)/2), 2);
     }
         
