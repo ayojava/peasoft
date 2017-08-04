@@ -224,7 +224,19 @@ public class SchoolPageBean extends AbstractBean implements Serializable {
         Messages.addGlobalInfo("Result Sheet Generated and Sent");
     }
     
-    
+    public void sendInteractiveSessionNotification(){
+        try{
+            schoolService = new SchoolService();
+            schools.stream().forEach(aSchool->{
+                EmailData emailData = schoolService.generateAcademyInteractiveSessionNotificationToSchools(emailUtilBean, aSchool);
+                emailDataFacade.persist(emailData);
+            });
+            
+        }catch(Exception ex){
+            log.error("An Error has Occurred :::", ex);
+            Messages.addGlobalError("An Error has Occured");
+        }
+    }
    
     private void cleanup(){
         schools = null;

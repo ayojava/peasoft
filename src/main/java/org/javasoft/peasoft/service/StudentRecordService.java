@@ -13,12 +13,30 @@ import org.javasoft.peasoft.beans.core.util.SMSUtilBean;
 import static org.javasoft.peasoft.constants.PeaResource.BATCH_A;
 import static org.javasoft.peasoft.constants.PeaResource.SEPARATOR;
 import static org.javasoft.peasoft.constants.PeaResource.STUDENT_RECORD_FOLDER;
+import static org.javasoft.peasoft.email.ParentInviteEmail.LIST_1;
+import static org.javasoft.peasoft.email.ParentInviteEmail.LIST_2;
+import static org.javasoft.peasoft.email.ParentInviteEmail.LIST_3;
+import static org.javasoft.peasoft.email.ParentInviteEmail.LIST_4;
+import static org.javasoft.peasoft.email.ParentInviteEmail.LIST_5;
+import static org.javasoft.peasoft.email.ParentInviteEmail.LIST_6;
+import static org.javasoft.peasoft.email.ParentInviteEmail.PARAGRAPH_1;
+import static org.javasoft.peasoft.email.ParentInviteEmail.PARAGRAPH_2;
+import static org.javasoft.peasoft.email.ParentInviteEmail.PARAGRAPH_3;
+import static org.javasoft.peasoft.email.ParentInviteEmail.PARAGRAPH_4;
+import static org.javasoft.peasoft.email.ParentInviteEmail.PARAGRAPH_5;
+import static org.javasoft.peasoft.email.ParentInviteEmail.PARAGRAPH_6;
+import static org.javasoft.peasoft.email.ParentInviteEmail.PARAGRAPH_7;
+import static org.javasoft.peasoft.email.ParentInviteEmail.PARENT_MAIL_HEADER;
+import static org.javasoft.peasoft.email.ParentInviteEmail.PARENT_MAIL_SUBJECT;
 import org.javasoft.peasoft.entity.core.School;
 import org.javasoft.peasoft.entity.core.Student;
 import org.javasoft.peasoft.entity.core.StudentRecord;
 import org.javasoft.peasoft.entity.data.EmailData;
 import org.javasoft.peasoft.entity.data.SMSData;
 import org.javasoft.peasoft.entity.settings.BatchSettings;
+import static org.javasoft.peasoft.utils.template.EmailTemplate.BRAINCHALLENGE_ACADEMY_MORE_INFO_TEMPLATE;
+import static org.javasoft.peasoft.utils.template.EmailTemplate.BRAINCHALLENGE_ACADEMY_SUBJECT_TEMPLATE;
+import static org.javasoft.peasoft.utils.template.EmailTemplate.BRAINCHALLENGE_ACADEMY_TOP_TEMPLATE;
 import static org.javasoft.peasoft.utils.template.EmailTemplate.EXAMINATION_CENTER_SUBJECT_TEMPLATE;
 import static org.javasoft.peasoft.utils.template.EmailTemplate.EXAMINATION_CENTER_TOP_TEMPLATE;
 import static org.javasoft.peasoft.utils.template.EmailTemplate.HEADER_CLOSE_DIV_TEMPLATE;
@@ -39,7 +57,12 @@ import static org.javasoft.peasoft.utils.template.EmailTemplate.OUTER_TABLE_OPEN
 import static org.javasoft.peasoft.utils.template.EmailTemplate.OUTER_TABLE_OPEN_TABLE_TEMPLATE;
 import static org.javasoft.peasoft.utils.template.EmailTemplate.OUTER_TABLE_ORAL_INTERVIEW_FOOTNOTE_TEMPLATE;
 import static org.javasoft.peasoft.utils.template.EmailTemplate.OUTER_TABLE_QUIZ_FOOTNOTE_TEMPLATE;
+import static org.javasoft.peasoft.utils.template.EmailTemplate.OUTER_TABLE_REGISTRATION_FOOTNOTE_TEMPLATE;
+import static org.javasoft.peasoft.utils.template.EmailTemplate.OUTER_TABLE_RESULT_FOOTNOTE_TEMPLATE;
 import static org.javasoft.peasoft.utils.template.EmailTemplate.OUTER_TABLE_REVERT_TEMPLATE;
+import static org.javasoft.peasoft.utils.template.EmailTemplate.OUTER_TABLE_ROW_TAG_TEMPLATE;
+import static org.javasoft.peasoft.utils.template.EmailTemplate.OUTER_TABLE_ROW_TITLE_TAG_TEMPLATE;
+import static org.javasoft.peasoft.utils.template.EmailTemplate.OUTER_TABLE_TIMETABLE_FOOTNOTE_TEMPLATE;
 import static org.javasoft.peasoft.utils.template.EmailTemplate.OUTER_TABLE_TWITTER_TEMPLATE;
 import static org.javasoft.peasoft.utils.template.EmailTemplate.OUTER_TABLE_WEBSITE_TEMPLATE;
 import static org.javasoft.peasoft.utils.template.EmailTemplate.TABLE_ROW_EVEN_TEMPLATE;
@@ -69,6 +92,8 @@ public class StudentRecordService {
     private String interview_list_2="The Interview session will be between 10 - 15 minutes. Ensure you arrive at the venue on time.";
     
     
+    
+    
     public SMSData generateExamDetailsNotification(SMSUtilBean smsUtilBean,String fullName , String email){
     
         //Student studentObj =  studentRecord.getStudent();
@@ -77,6 +102,138 @@ public class StudentRecordService {
         String smsMsg = smsUtilBean.showMessageFromTemplate(EXAM_DETAILS_SMS_TEMPLATE, fullName,email);
         smsData.setMessage(smsMsg);
         return smsData;
+    }
+    
+    public EmailData generateAcademyInteractiveSessionNotificationForParents(StudentRecord studentRecord,EmailUtilBean emailUtilBean){
+        Student studentObj =  studentRecord.getStudent();
+                
+        StringBuilder msgBody = new StringBuilder();
+        
+        msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(HEADER_OPEN_DIV_TEMPLATE));
+        msgBody = msgBody.append("&nbsp;&nbsp; Dear Parent ," ).append(emailUtilBean.showMessageFromTemplate(OUTER_TABLE_OPEN_TABLE_TEMPLATE));
+        msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(OUTER_TABLE_ROW_TITLE_TAG_TEMPLATE,PARENT_MAIL_HEADER));
+        msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(OUTER_TABLE_ROW_TAG_TEMPLATE,PARENT_MAIL_HEADER));
+        msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(OUTER_TABLE_ROW_TAG_TEMPLATE,PARAGRAPH_1));
+        msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(OUTER_TABLE_ROW_TAG_TEMPLATE,PARAGRAPH_2));
+        msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(OUTER_TABLE_ROW_TAG_TEMPLATE,PARAGRAPH_3));
+        msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(OUTER_TABLE_ROW_TAG_TEMPLATE,PARAGRAPH_4));
+        msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(OUTER_TABLE_ROW_TAG_TEMPLATE,PARAGRAPH_5));
+        
+        msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(INNER_TABLE_TOP_TEMPLATE));
+        msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(TABLE_ROW_ODD_TEMPLATE, "", "BrainChallenge 2017 Parents And Principals Forum "));
+        msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(TABLE_ROW_EVEN_TEMPLATE, " Date : ", "Friday August 11, 2017"));
+        msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(TABLE_ROW_EVEN_TEMPLATE, " Venue : ", "Alinco Events Centre"));
+        msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(TABLE_ROW_EVEN_TEMPLATE, " Address : ", "No 1 Asuku Layout,Ijaiye(Behind Ojokoro LCDA) Lagos"));
+        msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(TABLE_ROW_EVEN_TEMPLATE, " Time  : ", " 2pm - 4pm"));
+        
+        msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(INNER_TABLE_BOTTOM_TEMPLATE));
+
+        msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(OUTER_TABLE_ROW_TAG_TEMPLATE,PARAGRAPH_6,LIST_1,LIST_2,LIST_3,
+                LIST_4,LIST_5,LIST_6));
+        
+        msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(OUTER_TABLE_ROW_TAG_TEMPLATE,PARAGRAPH_7));
+        
+        msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(OUTER_TABLE_OPEN_FOOTER_TEMPLATE));
+        msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(OUTER_TABLE_REVERT_TEMPLATE));
+        msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(OUTER_TABLE_FOOTNOTE_TEMPLATE));
+        msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(OUTER_TABLE_DISREGARD_EMAIL_TEMPLATE));
+        
+        msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(OUTER_TABLE_OFFICE_ADDRESS_TEMPLATE));
+        msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(OUTER_TABLE_FACEBOOK_TEMPLATE));
+        msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(OUTER_TABLE_INSTAGRAM_TEMPLATE));
+        msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(OUTER_TABLE_TWITTER_TEMPLATE));
+        msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(OUTER_TABLE_WEBSITE_TEMPLATE));
+
+        msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(OUTER_TABLE_CLOSE_FOOTER_TEMPLATE));
+        msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(OUTER_TABLE_CLOSE_TABLE_TEMPLATE));
+        msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(HEADER_CLOSE_DIV_TEMPLATE));
+
+        
+        
+        
+        StringBuilder recipientEmails = new StringBuilder();
+        recipientEmails = recipientEmails.append(studentObj.getEmail());
+
+        String contactEmail1 = studentObj.getParent().getAddressTemplate().getContactEmail1();
+        
+        if (StringUtils.isNotBlank(contactEmail1) && !StringUtils.equalsIgnoreCase(studentObj.getEmail(), contactEmail1)) {
+            recipientEmails = recipientEmails.append(SEPARATOR).append(contactEmail1);
+        }
+        
+        EmailData emailData = new EmailData();
+        emailData.setMailMessage(msgBody.toString());
+        emailData.setRecipientEmail(recipientEmails.toString()); //
+        emailData.setRecipientID(studentObj.getId());
+        emailData.setRecipientName(studentObj.getParent().getName());
+        emailData.setAttachment(false);
+        emailData.setMailSubject(PARENT_MAIL_SUBJECT);
+        emailData.setRecipientType(STUDENT_RECORD_FOLDER);
+        return emailData;
+    }
+    
+    public EmailData generateAcademyDetailsNotificationForStudents(StudentRecord studentRecord,String attachmentFile,EmailUtilBean emailUtilBean){
+        Student studentObj =  studentRecord.getStudent();
+        String mailSubject = emailUtilBean.showMessageFromTemplate(BRAINCHALLENGE_ACADEMY_SUBJECT_TEMPLATE,studentObj.getFullName());
+        StringBuilder msgBody = new StringBuilder();
+        msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(HEADER_OPEN_DIV_TEMPLATE));
+        msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(OUTER_TABLE_OPEN_TABLE_TEMPLATE));
+        msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(OUTER_TABLE_OPEN_BODY_TEMPLATE));
+        
+        msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(BRAINCHALLENGE_ACADEMY_TOP_TEMPLATE, studentObj.getFullName()));
+        msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(BRAINCHALLENGE_ACADEMY_MORE_INFO_TEMPLATE));
+        
+        msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(INNER_TABLE_TOP_TEMPLATE));
+        
+        msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(TABLE_ROW_ODD_TEMPLATE, "", "BRAINCHALLENGE ACADEMY DETAILS "));
+        msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(TABLE_ROW_EVEN_TEMPLATE, " Date : ", "Thursday August 10 & Friday August 11, 2017"));
+        msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(TABLE_ROW_EVEN_TEMPLATE, " Venue : ", "Alinco Events Centre"));
+        msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(TABLE_ROW_EVEN_TEMPLATE, " Address : ", "No 1 Asuku Layout,Ijaiye(Behind Ojokoro LCDA) Lagos"));
+        msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(TABLE_ROW_EVEN_TEMPLATE, " Time  : ", " Thursday 9am - 5pm ; Friday 9am - 2.30pm"));
+        
+        msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(INNER_TABLE_BOTTOM_TEMPLATE));
+
+        msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(OUTER_TABLE_CLOSE_BODY_TEMPLATE));
+
+        msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(OUTER_TABLE_OPEN_FOOTER_TEMPLATE));
+        
+        msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(OUTER_TABLE_TIMETABLE_FOOTNOTE_TEMPLATE));
+        msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(OUTER_TABLE_REGISTRATION_FOOTNOTE_TEMPLATE));
+        msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(OUTER_TABLE_RESULT_FOOTNOTE_TEMPLATE));
+        
+        msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(OUTER_TABLE_REVERT_TEMPLATE));
+        msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(OUTER_TABLE_FOOTNOTE_TEMPLATE));
+        msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(OUTER_TABLE_DISREGARD_EMAIL_TEMPLATE));
+        
+        msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(OUTER_TABLE_OFFICE_ADDRESS_TEMPLATE));
+        msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(OUTER_TABLE_FACEBOOK_TEMPLATE));
+        msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(OUTER_TABLE_INSTAGRAM_TEMPLATE));
+        msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(OUTER_TABLE_TWITTER_TEMPLATE));
+        msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(OUTER_TABLE_WEBSITE_TEMPLATE));
+
+        msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(OUTER_TABLE_CLOSE_FOOTER_TEMPLATE));
+        msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(OUTER_TABLE_CLOSE_TABLE_TEMPLATE));
+        msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(HEADER_CLOSE_DIV_TEMPLATE));
+        
+        StringBuilder recipientEmails = new StringBuilder();
+        recipientEmails = recipientEmails.append(studentObj.getEmail());
+
+        String contactEmail1 = studentObj.getParent().getAddressTemplate().getContactEmail1();
+        
+        if (StringUtils.isNotBlank(contactEmail1) && !StringUtils.equalsIgnoreCase(studentObj.getEmail(), contactEmail1)) {
+            recipientEmails = recipientEmails.append(SEPARATOR).append(contactEmail1);
+        }
+        
+        EmailData emailData = new EmailData();
+        emailData.setMailMessage(msgBody.toString());
+        emailData.setRecipientEmail(recipientEmails.toString()); //
+        emailData.setRecipientID(studentObj.getId());
+        emailData.setRecipientName(studentObj.getFullName());
+        emailData.setAttachment(true);
+        emailData.setAttachmentFile(attachmentFile);
+        emailData.setMailSubject(mailSubject);
+        emailData.setRecipientType(STUDENT_RECORD_FOLDER);
+        return emailData;
+        
     }
     
     public EmailData generateExamDetailsNotification(StudentRecord studentRecord,String attachmentFile,EmailUtilBean emailUtilBean , 
@@ -169,4 +326,6 @@ public class StudentRecordService {
         emailData.setRecipientType(STUDENT_RECORD_FOLDER);
         return emailData;
     }
+    
+    
 }

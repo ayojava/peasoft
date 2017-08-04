@@ -158,7 +158,7 @@ public class StudentPageBean extends AbstractBean implements Serializable {
                 }
             });
 
-            emailDataFacade.persist(emailData);
+            //emailDataFacade.persist(emailData);
 
             Messages.addGlobalInfo("Save Operation Successful");
 

@@ -13,10 +13,13 @@ import javax.ejb.Singleton;
 import javax.ejb.Startup;
 import javax.inject.Inject;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.deltaspike.scheduler.spi.Scheduler;
 import org.javasoft.peasoft.beans.core.util.EmailUtilBean;
 import org.javasoft.peasoft.ejb.school.SchoolFacade;
 import org.javasoft.peasoft.ejb.student.StudentFacade;
+import org.javasoft.peasoft.ejb.studentRecord.StudentRecordFacade;
+import org.javasoft.peasoft.entity.core.Student;
 import org.javasoft.peasoft.jobs.EmailJob;
 import org.javasoft.peasoft.jobs.SMSJob;
 import org.javasoft.peasoft.service.StudentService;
@@ -39,16 +42,19 @@ public class SingletonFacade {
     private SchoolFacade schoolFacade;
 
     @EJB
+    private StudentRecordFacade studentRecordFacade;
+
+    @EJB
     private StudentFacade studentFacade;
-        
-    private HashSet<String> emailAddress ;
+
+    private HashSet<String> phoneNos;
 
     @Inject
     private Scheduler<Job> jobScheduler;
-    
+
     @Inject
     private EmailUtilBean emailUtilBean;
-    
+
     private StudentService studentService;
 
     @PostConstruct
@@ -57,22 +63,44 @@ public class SingletonFacade {
         initCount();
         jobScheduler.registerNewJob(EmailJob.class);
         jobScheduler.registerNewJob(SMSJob.class);
-       // handleBatchJob(); not working 
-      // checkEmailCount();
+        // handleBatchJob(); not working 
+        // checkSMSCount();
+        
     }
 
     private void initCount() {
         int schoolCount = schoolFacade.count();
         int studentCount = studentFacade.count();
-        log.info("School Count -> [ {} ]    Student Count -> [ {} ]" , schoolCount , studentCount);
+        //log.info("School Count -> [ {} ]    Student Count -> [ {} ]" , schoolCount , studentCount);
         globalRegistry.setSchoolCount(schoolCount);
         globalRegistry.setStudentCount(studentCount);
-    }
-    
-    public void checkEmailCount(){
-       
+
         
-       
+    }
+
+    private void checkSMSCount() {
+        phoneNos = new HashSet<>();
+        studentRecordFacade.findAll().stream().forEach((aRecord)->{
+            Student studentObj = aRecord.getStudent();
+            phoneNos.add(studentObj.getPhoneNo());
+            phoneNos.add(studentObj.getOtherPhoneNo());
+            phoneNos.add(studentObj.getParent().getAddressTemplate().getContactPhoneNo1());
+            phoneNos.add(studentObj.getParent().getAddressTemplate().getContactPhoneNo2());
+        });
+        log.info("Total Phone Nos ::: {}" ,phoneNos.size());
+        
+        log.info("MTN Phone Nos ::: {}" , phoneNos.stream().filter(p->(
+                StringUtils.substring(p, 0,4).equalsIgnoreCase("0703")||
+                StringUtils.substring(p, 0,4).equalsIgnoreCase("0706")||
+                StringUtils.substring(p, 0,4).equalsIgnoreCase("0803")||
+                StringUtils.substring(p, 0,4).equalsIgnoreCase("0806")||
+                StringUtils.substring(p, 0,4).equalsIgnoreCase("0810")||
+                StringUtils.substring(p, 0,4).equalsIgnoreCase("0813")||
+                StringUtils.substring(p, 0,4).equalsIgnoreCase("0814")||
+                StringUtils.substring(p, 0,4).equalsIgnoreCase("0816")||
+                StringUtils.substring(p, 0,4).equalsIgnoreCase("0903")||
+                StringUtils.substring(p, 0,4).equalsIgnoreCase("0906")
+                )).count());
     }
 
 //    private void handleBatchJob() {

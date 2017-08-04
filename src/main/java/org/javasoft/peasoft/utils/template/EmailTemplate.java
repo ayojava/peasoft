@@ -60,6 +60,19 @@ public interface EmailTemplate {
     public static final String OUTER_TABLE_BRAINCHALLENGE_WEBSITE_TEMPLATE = "{outerTable.brainChallengeWebsite}";
 
     public static final String OUTER_TABLE_OFFICE_ADDRESS_TEMPLATE = "{outerTable.officeAddress}";
+    
+    //outerTable.rowTitleTag  outerTable.rowTag
+    
+    public static final String OUTER_TABLE_ROW_TITLE_TAG_TEMPLATE = "{outerTable.rowTitleTag}";
+    
+    public static final String OUTER_TABLE_ROW_TAG_TEMPLATE = "{outerTable.rowTag}";
+    
+       
+    public static final String OUTER_TABLE_TIMETABLE_FOOTNOTE_TEMPLATE = "{outerTable.timetableFootnote}";
+    
+    public static final String OUTER_TABLE_REGISTRATION_FOOTNOTE_TEMPLATE = "{outerTable.registrationFootnote}";
+    
+    public static final String OUTER_TABLE_RESULT_FOOTNOTE_TEMPLATE = "{outerTable.resultFootnote}";
 
     public static final String OUTER_TABLE_FACEBOOK_TEMPLATE = "{outerTable.facebook}";
 
@@ -91,8 +104,15 @@ public interface EmailTemplate {
 
     public static final String STUDENT_RESULT_NOT_SELECTED_NOTIFICATION_TEMPLATE = "{studentResult.notSelectedNotification}";
 
-//     = Exam Center Details For  -  %s
+//     outerTable.timetableFootnote
 //    
+    public static final String BRAINCHALLENGE_ACADEMY_SUBJECT_TEMPLATE="{brainchallengeAcademy.subject}";
+    
+    public static final String BRAINCHALLENGE_ACADEMY_TOP_TEMPLATE="{brainchallengeAcademy.top}";
+    
+    public static final String BRAINCHALLENGE_ACADEMY_MORE_INFO_TEMPLATE="{brainchallengeAcademy.moreInfo}";
+    
+    
     
     public static final String EXAMINATION_CENTRE_DETAILS_SUBJECT_TEMPLATE="{examinationCenterDetails.subject}";
             

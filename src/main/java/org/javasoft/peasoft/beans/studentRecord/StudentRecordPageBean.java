@@ -131,6 +131,69 @@ public class StudentRecordPageBean extends AbstractBean implements Serializable 
         }
     }
 
+    public void sendAcademyDetailsNotification() {
+        try {
+            studentRecordService = new StudentRecordService();
+            String filePath = registry.getInitFilePath() + "bc2016" + File.separator + "timetable.pdf";
+            studentRecords.stream().forEach((aRecord) -> {
+                EmailData emailData = studentRecordService.generateAcademyDetailsNotificationForStudents(studentRecord, filePath, emailUtilBean);
+                emailDataFacade.persist(emailData);
+                
+                EmailData parentEmailData = studentRecordService.generateAcademyInteractiveSessionNotificationForParents(studentRecord, emailUtilBean);
+                emailDataFacade.persist(parentEmailData);
+                Student studentObj = aRecord.getStudent();
+                
+                aRecord.getMarks().computeMarks();
+                studentRecordFacade.edit(aRecord);
+                
+                HashSet<String> phoneNos = new HashSet<>();
+                phoneNos.add(studentObj.getPhoneNo());
+                phoneNos.add(studentObj.getOtherPhoneNo());
+                phoneNos.add(studentObj.getParent().getAddressTemplate().getContactPhoneNo1());
+                phoneNos.add(studentObj.getParent().getAddressTemplate().getContactPhoneNo2());
+
+                SMSData academySMSData = new SMSData();
+                SMSData parentSMSData = new SMSData();
+
+                String academySMS = "Dear " + studentObj.getAbbreviatedName() + "-BrainChallenge Academy-Thur and Fri Aug 10 and 11 2017-Alinco "
+                        + "Event Centre,1 Asuko Layout,Ijaiye(Behind Ojokoro LCDA)-9am daily";
+
+                String parentSMS = "Interactive Day with parents of BrainChallenge Applicants will hold on Fri Aug 11,2017 by" +
+                " 2pm at Alinco Event Centre,1 Asuku Layout,Ijaiye(Behind Ojokoro LCDA)";
+
+                phoneNos.stream().forEach((String phoneNo) -> {
+                    if (StringUtils.isNotBlank(phoneNo)) {
+                        academySMSData.setId(null);
+                        academySMSData.setMessage(academySMS);
+                        academySMSData.setRecipientPhoneNo(appendCountryCode(phoneNo));
+                        smsDataFacade.persist(academySMSData);
+                    }
+                });
+
+                String parentPhoneNo1 = studentObj.getParent().getAddressTemplate().getContactPhoneNo1();
+                if (StringUtils.isNotBlank(parentPhoneNo1)) {
+                    parentSMSData.setId(null);
+                    parentSMSData.setMessage(parentSMS);
+                    parentSMSData.setRecipientPhoneNo(appendCountryCode(parentPhoneNo1));
+                    smsDataFacade.persist(parentSMSData);
+                }
+                
+                String parentPhoneNo2 = studentObj.getParent().getAddressTemplate().getContactPhoneNo2();
+                if (StringUtils.isNotBlank(parentPhoneNo2) && !StringUtils.equalsIgnoreCase(parentPhoneNo1, parentPhoneNo2)) {
+                    parentSMSData.setId(null);
+                    parentSMSData.setMessage(parentSMS);
+                    parentSMSData.setRecipientPhoneNo(appendCountryCode(parentPhoneNo2));
+                    smsDataFacade.persist(parentSMSData);
+                }
+
+            });
+
+        } catch (Exception ex) {
+            log.error("An Error has Occurred :::", ex);
+            Messages.addGlobalError("An Error has Occured");
+        }
+    }
+
     public void sendQuizAndInterviewNotification() {
 
         try {

@@ -24,6 +24,10 @@ and open the template in the editor.
                                      ajax="false" update="@form" action="#{schoolPageBean.generateAllSchoolsList()}" 
                                      icon="fa fa-fw fa-file-excel-o" title="Generate List in Excel "/> 
                     <p:spacer width="10px"/>
+                    <p:commandButton styleClass="pnx-round-button" id="notificationTopBtn" value="Schedule" 
+                                     ajax="false" update="@form" action="#{schoolPageBean.sendInteractiveSessionNotification()}" 
+                                     icon="fa fa-fw fa-file-excel-o" title="Schedule Notification "/> 
+                    <p:spacer width="10px"/>
                     <p:commandButton styleClass="pnx-round-button" id="newTopBtn" value="New" 
                                      ajax="false" update="@form" action="#{schoolPageBean.setPageResource(peaResource.NEW_SCHOOL)}" 
                                      icon="fa fa-fw fa-plus" title="New School"/> 
