@@ -24,14 +24,7 @@ and open the template in the editor.
                     <p:commandButton styleClass="pnx-round-button" id="excelTopBtn" value="Generate" 
                                      ajax="false" update="@form" action="#{resultsPageBean.generateResultListInExcel()}" 
                                      icon="fa fa-fw fa-file-excel-o" title="Generate List in Excel "/> 
-                    
-                    <c:if test="#{resultsPageBean.notificationCnt gt 0}">
-                        <p:spacer width="10px"/>
-                        <p:commandButton styleClass="pnx-round-button" id="sendNotificationBtn" value="Notifications [#{resultsPageBean.notificationCnt}]" 
-                                         ajax="false" update="@form" action="#{resultsPageBean.scheduleNotification()}" 
-                                         icon="fa fa-fw fa-bell-o" title="Schedule Notification"/> 
-                    </c:if>
-                    
+                                        
                     <p:spacer width="10px"/>
                     <p:commandButton styleClass="pnx-round-button" id="closeTopBtn" value="Home" 
                                      immediate="true" ajax="false" update="@form" icon="fa fa-fw fa-home"

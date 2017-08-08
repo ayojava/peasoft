@@ -6,6 +6,7 @@
 package org.javasoft.peasoft.beans.results;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.context.FacesContext;
@@ -14,15 +15,19 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.time.DateFormatUtils;
 import org.javasoft.peasoft.beans.core.AbstractBean;
 import org.javasoft.peasoft.beans.core.util.EmailUtilBean;
+import static org.javasoft.peasoft.constants.PeaResource.DISPLAY_DATE_FORMAT_DAYS;
 import org.javasoft.peasoft.ejb.data.EmailDataFacade;
 import org.javasoft.peasoft.ejb.data.NotificationFacade;
 import org.javasoft.peasoft.ejb.results.ResultsFacade;
 import org.javasoft.peasoft.entity.core.StudentRecord;
 import org.javasoft.peasoft.entity.data.EmailData;
 import org.javasoft.peasoft.entity.data.Notification;
+import org.javasoft.peasoft.excel.result.ResultsListExcelReport;
 import org.javasoft.peasoft.service.ResultsService;
 import org.omnifaces.util.Messages;
 
@@ -86,18 +91,18 @@ public class ResultsPageBean extends AbstractBean implements Serializable {
     }
 
     public void changeGrade(StudentRecord aRecord){
-        try{
-            String oldGrade = aRecord.getGrade();
-            aRecord.setGrade(StringUtils.equalsIgnoreCase(oldGrade, SELECTED) ? NOT_SELECTED : SELECTED);
-            String newGrade = aRecord.getGrade();
-            log.info("Old Grade :: {} ==== New Grade :: {} " , oldGrade , newGrade);
-            resultsFacade.edit(aRecord);
-            Messages.addGlobalInfo("Edit Operation Successful");
-            setPageResource(LIST_RESULTS_OTHER);
-        }catch(Exception ex){
-            log.error("An Error has Occurred :::", ex);
-            Messages.addGlobalError("An Error has Occured");
-        }
+//        try{
+//            String oldGrade = aRecord.getGrade();
+//            aRecord.setGrade(StringUtils.equalsIgnoreCase(oldGrade, SELECTED) ? NOT_SELECTED : SELECTED);
+//            String newGrade = aRecord.getGrade();
+//            log.info("Old Grade :: {} ==== New Grade :: {} " , oldGrade , newGrade);
+//            resultsFacade.edit(aRecord);
+//            Messages.addGlobalInfo("Edit Operation Successful");
+//            setPageResource(LIST_RESULTS_OTHER);
+//        }catch(Exception ex){
+//            log.error("An Error has Occurred :::", ex);
+//            Messages.addGlobalError("An Error has Occured");
+//        }
     }
     
     public void scheduleNotification(){
@@ -114,7 +119,16 @@ public class ResultsPageBean extends AbstractBean implements Serializable {
     }
     
     public void  generateResultListInExcel() {
-        
+        try{
+            String fileName = DateFormatUtils.format(new Date(), DISPLAY_DATE_FORMAT_DAYS) + "_" + RandomStringUtils.randomNumeric(5) + ".xls";
+            List<StudentRecord> studentRecordsByMarks = resultsFacade.orderByMarks();
+            ResultsListExcelReport resultsListExcelReport = new ResultsListExcelReport();
+            resultsListExcelReport.populateExcelSheet("Results", fileName, studentRecordsByMarks);
+            Messages.addGlobalInfo("Excel Sheet Sent");
+        }catch(Exception ex){
+            log.error("An Error has Occurred :::", ex);
+            Messages.addGlobalError("An Error has Occured");
+        }
     }
     
     private void cleanup() {

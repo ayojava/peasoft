@@ -61,12 +61,15 @@ public interface EmailTemplate {
 
     public static final String OUTER_TABLE_OFFICE_ADDRESS_TEMPLATE = "{outerTable.officeAddress}";
     
-    //outerTable.rowTitleTag  outerTable.rowTag
+    //outerTable.hostingFootnote
     
     public static final String OUTER_TABLE_ROW_TITLE_TAG_TEMPLATE = "{outerTable.rowTitleTag}";
     
     public static final String OUTER_TABLE_ROW_TAG_TEMPLATE = "{outerTable.rowTag}";
     
+    public static final String OUTER_TABLE_TOPIC_LIST_FOOTNOTE_TEMPLATE = "{outerTable.topicListFootnote}";
+    
+    public static final String OUTER_TABLE_HOSTING_FOOTNOTE_TEMPLATE = "{outerTable.hostingFootnote}";
        
     public static final String OUTER_TABLE_TIMETABLE_FOOTNOTE_TEMPLATE = "{outerTable.timetableFootnote}";
     

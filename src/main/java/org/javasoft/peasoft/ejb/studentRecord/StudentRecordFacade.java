@@ -55,10 +55,11 @@ public class StudentRecordFacade extends GenericDAO<StudentRecord, Long> {
         return findAll();
     }
 
-    public void markResults(List<StudentRecord> allRecords) {
-        List<StudentRecord> selectedStudents = allRecords.stream().filter(StudentRecord::isActive).limit(24).collect(toList());
+    public void markResults() {
+        List<StudentRecord> allRecords = orderByMarks();
+        List<StudentRecord> selectedStudents = allRecords.stream().limit(24).collect(toList());
 
-        List<StudentRecord> notSelectedStudents = allRecords.stream().filter(StudentRecord::isActive).skip(24).collect(toList());
+        List<StudentRecord> notSelectedStudents = allRecords.stream().skip(24).collect(toList());
 
         selectedStudents.forEach(
                 (StudentRecord record) -> {
@@ -71,10 +72,10 @@ public class StudentRecordFacade extends GenericDAO<StudentRecord, Long> {
                 (StudentRecord record) -> {
                     record.setGrade(NOT_SELECTED);
                     edit(record);
-                    if (record.getRecordId() % BATCH_SIZE == 0) {
-                        getHibernateSession().flush();
-                        getHibernateSession().clear();
-                    }
+//                    if (record.getRecordId() % BATCH_SIZE == 0) {
+//                        getHibernateSession().flush();
+//                        getHibernateSession().clear();
+//                    }
                 }
         );
 

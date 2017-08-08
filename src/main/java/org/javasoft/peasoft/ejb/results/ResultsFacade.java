@@ -33,4 +33,10 @@ public class ResultsFacade extends GenericDAO<StudentRecord, Long>{
         recordCriteria.createAlias("marks", "marks");
         return recordCriteria.addOrder(Order.desc("marks.totalScore")).list();
     }
+    
+    public List<StudentRecord> orderByMarks() {
+        Criteria recordCriteria = getCriteria();
+        recordCriteria.createAlias("marks", "marks");
+        return recordCriteria.addOrder(Order.desc("marks.totalScore")).list();
+    }
 }

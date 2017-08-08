@@ -209,7 +209,7 @@ and open the template in the editor.
                                     <h:outputText value="#{rowIndex+1}"/>
                                 </p:column>
                                 
-                                <p:column headerText="Full Name" style="text-align: left;width: 250px;">
+                                <p:column headerText="Full Name" style="text-align: left;width: 220px;">
                                     <h:outputText value="#{aRecord.student.fullName}"/>
                                 </p:column>
                                 
@@ -221,14 +221,10 @@ and open the template in the editor.
                                     <h:outputText value="#{aRecord.sss}"/>
                                 </p:column>
                                 
-                                <p:column headerText="Gender" style="text-align: center;">
-                                    <h:outputText value="#{genericBean.gender(aRecord.student.gender)}"/>
+                                <p:column headerText="School" style="text-align: left;width: 120px;">
+                                    <h:outputText value="#{aRecord.school.name}"/>
                                 </p:column>
-                                
-                                <p:column headerText="Batch" style="text-align: center;">
-                                    <h:outputText value="#{genericBean.batch(aRecord.examBatch)}"/>
-                                </p:column>
-                                
+                                                                
                                 <p:column headerText="Academic Score" style="text-align: center;">
                                     <h:outputText value="#{genericBean.formatDecimalPlaces(aRecord.marks.totalAcademicScore)}"/>
                                 </p:column>

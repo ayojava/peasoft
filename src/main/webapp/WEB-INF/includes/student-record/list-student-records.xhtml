@@ -26,9 +26,13 @@ and open the template in the editor.
                                      icon="fa fa-fw fa-refresh" title="Export Records "/> 
                     
                     <p:spacer width="10px"/>
+                    <p:commandButton styleClass="pnx-round-button" id="markTopBtn" value="Mark" 
+                                     ajax="false" update="@form" action="#{studentRecordPageBean.markScores()}" 
+                                     icon="fa fa-fw fa-refresh" title="Assign Grade"/> 
+                    
                     <p:commandButton styleClass="pnx-round-button" id="scheduleTopBtn" value="Schedule" 
                                      ajax="false" update="@form" action="#{studentRecordPageBean.sendAcademyDetailsNotification()}" 
-                                     icon="fa fa-fw fa-refresh" title="Email Notification "/> 
+                                     icon="fa fa-fw fa-refresh" title="Email Notification " rendered="false"/> 
                     
                     <p:spacer width="10px"/>
                     <p:commandButton styleClass="pnx-round-button" id="closeTopBtn" value="Home" 

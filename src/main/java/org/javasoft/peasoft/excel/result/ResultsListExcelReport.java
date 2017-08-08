@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package org.javasoft.peasoft.excel.school;
+package org.javasoft.peasoft.excel.result;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -12,13 +12,11 @@ import java.io.IOException;
 import java.util.List;
 import lombok.Cleanup;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.javasoft.peasoft.beans.core.GenericBean;
-import static org.javasoft.peasoft.constants.PeaResource.SCHOOL_FOLDER;
+import static org.javasoft.peasoft.constants.PeaResource.RESULTS_FOLDER;
 import org.javasoft.peasoft.entity.core.Marks;
-import org.javasoft.peasoft.entity.core.School;
 import org.javasoft.peasoft.entity.core.Student;
 import org.javasoft.peasoft.entity.core.StudentRecord;
 import org.javasoft.peasoft.excel.ExcelProcessor;
@@ -29,33 +27,24 @@ import org.omnifaces.util.Beans;
  * @author ayojava
  */
 @Slf4j
-public class SchoolAndStudentRecordsResultListExcelReport extends ExcelProcessor {
-
-    private School school;
-
+public class ResultsListExcelReport extends ExcelProcessor{
+    
     private int rowCount = 1;
     
     private List<StudentRecord> studentRecords;
-
-    private String[] columnHeaders = {"S/N", "Name", "Gender", "Class", "Department", "Status", "Maths (20)", "English (20)",
+    
+    private String[] columnHeaders = {"S/N", "Name", "Gender", "Class", "Department", "School", "Maths (20)", "English (20)",
         "Current Affairs (10)", "ICT Score (10)", "Communication Skill (10)", "Personal Awareness (10)", "SelfAwareness (10)",
         "PlansAndGoals (10)", "BookKnowledge (10)", "Confidence Level (10) ", "Total Score (%)", "Grade "};
-
+    
     private String fileName;
-
-    public boolean populateExcelSheet(String sheetName, String fileName, School schoolObj, List<StudentRecord> allRecords) {
-        if (schoolObj == null || allRecords.isEmpty() || StringUtils.isBlank(sheetName) || StringUtils.isBlank(fileName)) {
-            log.error("=== SheetName or School is not supplied . Excel sheet can't be generated");
-            return false;
-        }
-
+    
+    public boolean populateExcelSheet(String sheetName, String fileName, List<StudentRecord> allRecords) {
+        
         init();
         this.fileName = fileName;
         setCurrentSheet(sheetName);
-        school = schoolObj;
-        String schoolName = "NAME  : " + school.getName();
-        String schoolAddress = "ADDRESS  : " + school.getAddressTemplate().getFullAddress();
-        populateSheetHeaders(schoolName, schoolAddress);
+        populateSheetHeaders("Results List");
         populateColumnHeaders(columnHeaders);
         try {
             studentRecords = allRecords;
@@ -66,26 +55,19 @@ public class SchoolAndStudentRecordsResultListExcelReport extends ExcelProcessor
         }
         return true;
     }
-
+    
     private void writeExcelData() throws IOException {
         @Cleanup
         ByteArrayOutputStream outStream = new ByteArrayOutputStream();
         
         GenericBean genericBean = Beans.getInstance(GenericBean.class);
 
-        //int currentPosition = getRowPosition();
-        //int no = 1;
-
-//        private String[] columnHeaders = {"S/N" ,"Name" ,"Gender" ,"Class" ,"Department" ,"Status" ,"Maths (%)","English (%)",
-//        "Current Affairs (%)","ICT Score (%)","Communication Skill (%)","Personal Awareness (%)","SelfAwareness (%)",
-//        "PlansAndGoals (%)","BookKnowledge (%)","Confidence Level (%) ","Total Score (%)","Grade (%)"};
-       // List<StudentRecord> studentRecords = school.getStudentRecords();
         studentRecords.forEach((StudentRecord aRecord) -> {
             Student student = aRecord.getStudent();
             Marks mark = aRecord.getMarks();
             String[] rowValues = {
                 String.valueOf(rowCount), student.getFullName(), genericBean.gender(student.getGender()), aRecord.getSss(),genericBean.department(aRecord.getDepartment()),
-                genericBean.recordStatus(aRecord.getStatus()), String.valueOf(mark.getMathScore()), String.valueOf(mark.getEnglishScore()), String.valueOf(mark.getCurrentAffairsScore()),
+                aRecord.getSchool().getName(), String.valueOf(mark.getMathScore()), String.valueOf(mark.getEnglishScore()), String.valueOf(mark.getCurrentAffairsScore()),
                 String.valueOf(mark.getIctScore()),String.valueOf(mark.getCommunicationSkill()),String.valueOf(mark.getPersonalAppearance()),
                 String.valueOf(mark.getSelfAwareness()),String.valueOf(mark.getPlansAndGoals()),String.valueOf(mark.getBookKnowledge()),
                 String.valueOf(mark.getConfidenceLevel()),String.valueOf(mark.getTotalScore()),genericBean.obtainedGrade(aRecord.getGrade())
@@ -102,8 +84,8 @@ public class SchoolAndStudentRecordsResultListExcelReport extends ExcelProcessor
         });
         writeTo(outStream);
         
-        log.info(" Directory ::: [ {} ]    FileName ::: [ {} ]" ,globalRegistry.getInitFilePath() + SCHOOL_FOLDER, fileName );
-        File filePath = globalRegistry.createFile(globalRegistry.getInitFilePath() + SCHOOL_FOLDER, fileName);
+        //log.info(" Directory ::: [ {} ]    FileName ::: [ {} ]" ,globalRegistry.getInitFilePath() + RESULTS_FOLDER, fileName );
+        File filePath = globalRegistry.createFile(globalRegistry.getInitFilePath() + RESULTS_FOLDER, fileName);
         
         @Cleanup
         FileOutputStream fileStream = new FileOutputStream(filePath);
@@ -114,7 +96,8 @@ public class SchoolAndStudentRecordsResultListExcelReport extends ExcelProcessor
     @Override
     public void destroy(){
         super.destroy();
-        school = null;
+        
         columnHeaders = null;
     }
+
 }

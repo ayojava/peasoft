@@ -25,8 +25,6 @@ import static org.javasoft.peasoft.email.ParentInviteEmail.PARAGRAPH_3;
 import static org.javasoft.peasoft.email.ParentInviteEmail.PARAGRAPH_4;
 import static org.javasoft.peasoft.email.ParentInviteEmail.PARAGRAPH_5;
 import static org.javasoft.peasoft.email.ParentInviteEmail.PARAGRAPH_6;
-import static org.javasoft.peasoft.email.ParentInviteEmail.PARAGRAPH_7;
-import static org.javasoft.peasoft.email.ParentInviteEmail.PARENT_MAIL_HEADER;
 import static org.javasoft.peasoft.email.ParentInviteEmail.PARENT_MAIL_SUBJECT;
 import org.javasoft.peasoft.entity.core.School;
 import org.javasoft.peasoft.entity.core.Student;
@@ -50,6 +48,7 @@ import static org.javasoft.peasoft.utils.template.EmailTemplate.OUTER_TABLE_DIRE
 import static org.javasoft.peasoft.utils.template.EmailTemplate.OUTER_TABLE_DISREGARD_EMAIL_TEMPLATE;
 import static org.javasoft.peasoft.utils.template.EmailTemplate.OUTER_TABLE_FACEBOOK_TEMPLATE;
 import static org.javasoft.peasoft.utils.template.EmailTemplate.OUTER_TABLE_FOOTNOTE_TEMPLATE;
+import static org.javasoft.peasoft.utils.template.EmailTemplate.OUTER_TABLE_HOSTING_FOOTNOTE_TEMPLATE;
 import static org.javasoft.peasoft.utils.template.EmailTemplate.OUTER_TABLE_INSTAGRAM_TEMPLATE;
 import static org.javasoft.peasoft.utils.template.EmailTemplate.OUTER_TABLE_OFFICE_ADDRESS_TEMPLATE;
 import static org.javasoft.peasoft.utils.template.EmailTemplate.OUTER_TABLE_OPEN_BODY_TEMPLATE;
@@ -60,9 +59,8 @@ import static org.javasoft.peasoft.utils.template.EmailTemplate.OUTER_TABLE_QUIZ
 import static org.javasoft.peasoft.utils.template.EmailTemplate.OUTER_TABLE_REGISTRATION_FOOTNOTE_TEMPLATE;
 import static org.javasoft.peasoft.utils.template.EmailTemplate.OUTER_TABLE_RESULT_FOOTNOTE_TEMPLATE;
 import static org.javasoft.peasoft.utils.template.EmailTemplate.OUTER_TABLE_REVERT_TEMPLATE;
-import static org.javasoft.peasoft.utils.template.EmailTemplate.OUTER_TABLE_ROW_TAG_TEMPLATE;
-import static org.javasoft.peasoft.utils.template.EmailTemplate.OUTER_TABLE_ROW_TITLE_TAG_TEMPLATE;
 import static org.javasoft.peasoft.utils.template.EmailTemplate.OUTER_TABLE_TIMETABLE_FOOTNOTE_TEMPLATE;
+import static org.javasoft.peasoft.utils.template.EmailTemplate.OUTER_TABLE_TOPIC_LIST_FOOTNOTE_TEMPLATE;
 import static org.javasoft.peasoft.utils.template.EmailTemplate.OUTER_TABLE_TWITTER_TEMPLATE;
 import static org.javasoft.peasoft.utils.template.EmailTemplate.OUTER_TABLE_WEBSITE_TEMPLATE;
 import static org.javasoft.peasoft.utils.template.EmailTemplate.TABLE_ROW_EVEN_TEMPLATE;
@@ -110,30 +108,33 @@ public class StudentRecordService {
         StringBuilder msgBody = new StringBuilder();
         
         msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(HEADER_OPEN_DIV_TEMPLATE));
-        msgBody = msgBody.append("&nbsp;&nbsp; Dear Parent ," ).append(emailUtilBean.showMessageFromTemplate(OUTER_TABLE_OPEN_TABLE_TEMPLATE));
-        msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(OUTER_TABLE_ROW_TITLE_TAG_TEMPLATE,PARENT_MAIL_HEADER));
-        msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(OUTER_TABLE_ROW_TAG_TEMPLATE,PARENT_MAIL_HEADER));
-        msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(OUTER_TABLE_ROW_TAG_TEMPLATE,PARAGRAPH_1));
-        msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(OUTER_TABLE_ROW_TAG_TEMPLATE,PARAGRAPH_2));
-        msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(OUTER_TABLE_ROW_TAG_TEMPLATE,PARAGRAPH_3));
-        msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(OUTER_TABLE_ROW_TAG_TEMPLATE,PARAGRAPH_4));
-        msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(OUTER_TABLE_ROW_TAG_TEMPLATE,PARAGRAPH_5));
+        msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(OUTER_TABLE_OPEN_TABLE_TEMPLATE));
+        msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(OUTER_TABLE_OPEN_BODY_TEMPLATE));
+        msgBody = msgBody.append(" Dear Parent ,<br/>" );
+        msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(PARAGRAPH_1));
+        msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(PARAGRAPH_2));
+        msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(PARAGRAPH_3));
+        msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(PARAGRAPH_4));
+        msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(PARAGRAPH_5)).append("<div>");
         
         msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(INNER_TABLE_TOP_TEMPLATE));
-        msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(TABLE_ROW_ODD_TEMPLATE, "", "BrainChallenge 2017 Parents And Principals Forum "));
+        msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(TABLE_ROW_ODD_TEMPLATE, "", "BRAINCHALLENGE 2017 , PARENTS AND PRINCIPALS FORUM "));
         msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(TABLE_ROW_EVEN_TEMPLATE, " Date : ", "Friday August 11, 2017"));
         msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(TABLE_ROW_EVEN_TEMPLATE, " Venue : ", "Alinco Events Centre"));
         msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(TABLE_ROW_EVEN_TEMPLATE, " Address : ", "No 1 Asuku Layout,Ijaiye(Behind Ojokoro LCDA) Lagos"));
         msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(TABLE_ROW_EVEN_TEMPLATE, " Time  : ", " 2pm - 4pm"));
-        
         msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(INNER_TABLE_BOTTOM_TEMPLATE));
-
-        msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(OUTER_TABLE_ROW_TAG_TEMPLATE,PARAGRAPH_6,LIST_1,LIST_2,LIST_3,
-                LIST_4,LIST_5,LIST_6));
-        
-        msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(OUTER_TABLE_ROW_TAG_TEMPLATE,PARAGRAPH_7));
-        
+        msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(OUTER_TABLE_CLOSE_BODY_TEMPLATE));
         msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(OUTER_TABLE_OPEN_FOOTER_TEMPLATE));
+        
+        msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(OUTER_TABLE_TOPIC_LIST_FOOTNOTE_TEMPLATE,PARAGRAPH_6,LIST_1,LIST_2,LIST_3,LIST_4,LIST_5,LIST_6));
+        
+
+//
+//        msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(OUTER_TABLE_ROW_TAG_TEMPLATE,PARAGRAPH_6,));
+//        
+//        msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(OUTER_TABLE_ROW_TAG_TEMPLATE,PARAGRAPH_7));
+        msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(OUTER_TABLE_HOSTING_FOOTNOTE_TEMPLATE));
         msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(OUTER_TABLE_REVERT_TEMPLATE));
         msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(OUTER_TABLE_FOOTNOTE_TEMPLATE));
         msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(OUTER_TABLE_DISREGARD_EMAIL_TEMPLATE));
@@ -147,9 +148,7 @@ public class StudentRecordService {
         msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(OUTER_TABLE_CLOSE_FOOTER_TEMPLATE));
         msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(OUTER_TABLE_CLOSE_TABLE_TEMPLATE));
         msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(HEADER_CLOSE_DIV_TEMPLATE));
-
-        
-        
+    
         
         StringBuilder recipientEmails = new StringBuilder();
         recipientEmails = recipientEmails.append(studentObj.getEmail());

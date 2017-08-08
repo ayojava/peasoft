@@ -136,16 +136,16 @@ public class StudentRecordPageBean extends AbstractBean implements Serializable 
             studentRecordService = new StudentRecordService();
             String filePath = registry.getInitFilePath() + "bc2016" + File.separator + "timetable.pdf";
             studentRecords.stream().forEach((aRecord) -> {
-                EmailData emailData = studentRecordService.generateAcademyDetailsNotificationForStudents(studentRecord, filePath, emailUtilBean);
+                EmailData emailData = studentRecordService.generateAcademyDetailsNotificationForStudents(aRecord, filePath, emailUtilBean);
                 emailDataFacade.persist(emailData);
-                
-                EmailData parentEmailData = studentRecordService.generateAcademyInteractiveSessionNotificationForParents(studentRecord, emailUtilBean);
+
+                EmailData parentEmailData = studentRecordService.generateAcademyInteractiveSessionNotificationForParents(aRecord, emailUtilBean);
                 emailDataFacade.persist(parentEmailData);
                 Student studentObj = aRecord.getStudent();
-                
+
                 aRecord.getMarks().computeMarks();
                 studentRecordFacade.edit(aRecord);
-                
+
                 HashSet<String> phoneNos = new HashSet<>();
                 phoneNos.add(studentObj.getPhoneNo());
                 phoneNos.add(studentObj.getOtherPhoneNo());
@@ -158,8 +158,8 @@ public class StudentRecordPageBean extends AbstractBean implements Serializable 
                 String academySMS = "Dear " + studentObj.getAbbreviatedName() + "-BrainChallenge Academy-Thur and Fri Aug 10 and 11 2017-Alinco "
                         + "Event Centre,1 Asuko Layout,Ijaiye(Behind Ojokoro LCDA)-9am daily";
 
-                String parentSMS = "Interactive Day with parents of BrainChallenge Applicants will hold on Fri Aug 11,2017 by" +
-                " 2pm at Alinco Event Centre,1 Asuku Layout,Ijaiye(Behind Ojokoro LCDA)";
+                String parentSMS = "Interactive Day with parents of BrainChallenge Applicants will hold on Fri Aug 11,2017 by"
+                        + " 2pm at Alinco Event Centre,1 Asuku Layout,Ijaiye(Behind Ojokoro LCDA)";
 
                 phoneNos.stream().forEach((String phoneNo) -> {
                     if (StringUtils.isNotBlank(phoneNo)) {
@@ -177,7 +177,7 @@ public class StudentRecordPageBean extends AbstractBean implements Serializable 
                     parentSMSData.setRecipientPhoneNo(appendCountryCode(parentPhoneNo1));
                     smsDataFacade.persist(parentSMSData);
                 }
-                
+
                 String parentPhoneNo2 = studentObj.getParent().getAddressTemplate().getContactPhoneNo2();
                 if (StringUtils.isNotBlank(parentPhoneNo2) && !StringUtils.equalsIgnoreCase(parentPhoneNo1, parentPhoneNo2)) {
                     parentSMSData.setId(null);
@@ -187,7 +187,7 @@ public class StudentRecordPageBean extends AbstractBean implements Serializable 
                 }
 
             });
-
+            Messages.addGlobalInfo("Operation Successful");
         } catch (Exception ex) {
             log.error("An Error has Occurred :::", ex);
             Messages.addGlobalError("An Error has Occured");
@@ -299,16 +299,16 @@ public class StudentRecordPageBean extends AbstractBean implements Serializable 
 
     }
 
-//    public void markScores(){
-//        try {
-//            studentRecordFacade.markResults(studentRecords);
-//            Messages.addGlobalInfo(" Marking Completed ");
-//            setPageResource(LIST_STUDENT_RECORDS);
-//        }catch (Exception ex) {
-//            log.error("An Error has Occurred :::", ex);
-//            Messages.addGlobalError("An Error has Occured");
-//        }
-//    }
+    public void markScores() {
+        try {
+            studentRecordFacade.markResults();
+            Messages.addGlobalInfo("Records successfully marked");
+        } catch (Exception ex) {
+            log.error("An Error has Occurred :::", ex);
+            Messages.addGlobalError("An Error has Occured");
+        }
+    }
+
     private void cleanup() {
 
     }

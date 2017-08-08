@@ -15,13 +15,13 @@ public class ParentInviteEmail {
     
     public static String PARENT_MAIL_HEADER="LETTER OF APPRECIATION AND INVITATION TO THE 2017 OJOKORO COMMUNITY BRAIN CHALLENGE PARENTS AND PRINCIPALS FORUM";
     
-    public static String PARAGRAPH_1="We would love to use this opportunity to show our delight for your effort in educating the youth of IJaiye Ojokoro Community.";
+    public static String PARAGRAPH_1="We would love to use this opportunity to show our delight for your effort in educating the youth of IJaiye Ojokoro Community.<br/>";
     
-    public static String PARAGRAPH_2="PEA foundation, an NGO in this community, partners with government and other educational institution to reduce barriers to educational resources, opportunities and services especially at the grassroots.";
+    public static String PARAGRAPH_2="PEA foundation, an NGO in this community, partners with government and other educational institution to reduce barriers to educational resources, opportunities and services especially at the grassroots.<br/>";
     
-    public static String PARAGRAPH_3="In order to achieve our mission, we embark on various programs and projects such as an annual quiz and debate competition; career counselling and soft skills training; annual education summit; and book reading clubs. We also establish and operate libraries in public schools as well as in communities.";
+    public static String PARAGRAPH_3="In order to achieve our mission, we embark on various programs and projects such as an Annual Quiz and Debate Competition (BrainChallenge); Career Counselling and Soft Skills Training; Annual Education Summit; and Book Reading Clubs(Pre-Teens , Teenagers).<br/> We also establish and operate libraries in public schools as well as in communities.<br/>";
     
-    public static String PARAGRAPH_4="It is worthy of note that since the commencement of our activities in 2009, and our interactions with the youths, we have made some important discoveries, which needs to be brought to the notice of stakeholders in the educational sector. It is in this light, that we deem it fit to hold an interactive session with parents, school heads and other stakeholders to discuss these issues and find ways to address them in earnest.";
+    public static String PARAGRAPH_4="It is worthy of note that since the commencement of our activities in 2009, and our interactions with the youths, we have made some important discoveries, which needs to be brought to the notice of stakeholders in the educational sector. It is in this light, that we deem it fit to hold an interactive session with parents, school heads and other stakeholders to discuss these issues and find ways to address them in earnest.<br/>";
     
     public static String PARAGRAPH_5="Details of the August meeting are as follows:";
     
