@@ -102,7 +102,13 @@ public interface EmailTemplate {
     public static final String STUDENT_RESULT_SUBJECT_TEMPLATE = "{studentResult.subject}";
 
     public static final String STUDENT_RESULT_TOP_TEMPLATE = "{studentResult.top}";
-
+    
+    public static final String STUDENT_RESULT_ACADEMIC_SCORE_TEMPLATE = "{studentResult.totalAcademicScore}";
+    
+    public static final String STUDENT_RESULT_INTERVIEW_TEMPLATE = "{studentResult.totalInterviewScore}";
+    
+    public static final String STUDENT_RESULT_TOTAL_TEMPLATE = "{studentResult.totalScore}";
+  
     public static final String STUDENT_RESULT_SELECTED_NOTIFICATION_TEMPLATE = "{studentResult.selectedNotification}";
 
     public static final String STUDENT_RESULT_NOT_SELECTED_NOTIFICATION_TEMPLATE = "{studentResult.notSelectedNotification}";

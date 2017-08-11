@@ -22,10 +22,10 @@ and open the template in the editor.
                 </ui:define>
                 <ui:define name="pageButtonsTop">
                     
-                    <p:commandButton styleClass="pnx-round-button" id="topExcelSlotsBtn" value="Batch" 
-                                     ajax="false" update="@form" action="#{schoolPageBean.generateStudentRecordsBySchoolAndEmail()}" 
+                    <p:commandButton styleClass="pnx-round-button" id="topExcelSlotsBtn" value="Result" 
+                                     ajax="false" update="@form" action="#{schoolPageBean.generateResultBySchoolAndEmail()}" 
                                      icon="fa fa-fw fa-file-excel-o"
-                                     title="Generate Batch in Excel and Email"/>  
+                                     title="Generate result in Excel and Email"/>  
                     
                     <p:spacer width="10px"/>
                     <p:commandButton styleClass="pnx-round-button" id="editTopBtn" value="Edit" 
@@ -39,10 +39,10 @@ and open the template in the editor.
                 </ui:define>
                 <ui:define name="pageButtonsBottom">
                     
-                    <p:commandButton styleClass="pnx-round-button" id="bottomExcelSlotsBtn" value="Generate" 
-                                     ajax="false" update="@form" action="#{schoolPageBean.generateStudentRecordsBySchoolAndEmail()}" 
+                    <p:commandButton styleClass="pnx-round-button" id="bottomExcelSlotsBtn" value="Result" 
+                                     ajax="false" update="@form" action="#{schoolPageBean.generateResultBySchoolAndEmail()}" 
                                      icon="fa fa-fw fa-file-excel-o"
-                                     title="Generate StudentRecords in Excel and Email"/>  
+                                     title="Generate result in Excel and Email"/>  
                     
                     <p:spacer width="10px"/>
                     <p:commandButton styleClass="pnx-round-button" id="editBottomBtn" value="Edit" 

@@ -57,7 +57,7 @@ and open the template in the editor.
                                     <pnx:primeDIV labelDiv="col-md-2" label="Phone No : "   contentDiv="col-md-4">
                                         <span class="default-page-text">
                                             #{resultsPageBean.studentRecord.student.phoneNo} ,
-                                            #{resultsPageBean.studentRecord.student.otherPhoneNo}
+                                            #{resultsPageBean.studentRecord.student.parent.addressTemplate.contactPhoneNo1}
                                         </span>
                                     </pnx:primeDIV>    
                                 </div>
@@ -221,7 +221,7 @@ and open the template in the editor.
                                     <h:outputText value="#{aRecord.sss}"/>
                                 </p:column>
                                 
-                                <p:column headerText="School" style="text-align: left;width: 120px;">
+                                <p:column headerText="School" style="text-align: left;width: 240px;">
                                     <h:outputText value="#{aRecord.school.name}"/>
                                 </p:column>
                                                                 
@@ -237,16 +237,12 @@ and open the template in the editor.
                                     <h:outputText value="#{genericBean.formatDecimalPlaces(aRecord.marks.totalScore)}"/>
                                 </p:column>
                                 
-                                <p:column headerText="Actions" style="text-align: center;width: 80px;">
+                                <p:column headerText="Actions" style="text-align: center;width: 40px;">
                                     <p:commandButton update="@form" icon="view-icon"
                                                      action="#{resultsPageBean.setPageResource(peaResource.VIEW_RESULT,aRecord)}"
                                                      title="View" class="img-button"/>
 
-                                    <span class="pnx-horizontal-seperator">|</span>
                                     
-                                    <p:commandButton update="@form" icon="edit-icon"
-                                                     action="#{resultsPageBean.changeGrade(aRecord)}"
-                                                     title="Change Grade" class="img-button"/>
                                 </p:column>
                                 
 

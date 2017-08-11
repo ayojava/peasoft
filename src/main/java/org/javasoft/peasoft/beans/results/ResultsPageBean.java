@@ -26,7 +26,6 @@ import org.javasoft.peasoft.ejb.data.NotificationFacade;
 import org.javasoft.peasoft.ejb.results.ResultsFacade;
 import org.javasoft.peasoft.entity.core.StudentRecord;
 import org.javasoft.peasoft.entity.data.EmailData;
-import org.javasoft.peasoft.entity.data.Notification;
 import org.javasoft.peasoft.excel.result.ResultsListExcelReport;
 import org.javasoft.peasoft.service.ResultsService;
 import org.omnifaces.util.Messages;
@@ -105,17 +104,19 @@ public class ResultsPageBean extends AbstractBean implements Serializable {
 //        }
     }
     
-    public void scheduleNotification(){
+    public void sendResultsToEmail(){
         resultsService = new ResultsService();
-        List<Notification> notifications = notificationFacade.getPendingResultNotifications(grade);
-        notifications.forEach((Notification aNotification)->{
-            EmailData emailData = resultsService.generateNotificationEmail(emailUtilBean, grade, aNotification.getStudentRecord());
-            examDataFacade.persist(emailData);
-            
-            aNotification.setResultNotification(true);
-            notificationFacade.edit(aNotification);
-        });
-    
+        try{
+            List<StudentRecord> findAllRecords = resultsFacade.findAll();
+            findAllRecords.stream().forEach((StudentRecord aRecord)->{
+                EmailData emailData =resultsService.generateNotificationEmail(emailUtilBean, aRecord);
+                examDataFacade.persist(emailData);
+            });
+            Messages.addGlobalInfo("Result successfully sent");
+        }catch(Exception ex){
+            log.error("An Error has Occurred :::", ex);
+            Messages.addGlobalError("An Error has Occured");
+        }    
     }
     
     public void  generateResultListInExcel() {

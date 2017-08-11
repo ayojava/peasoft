@@ -86,20 +86,20 @@ public class AcademyService {
         msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(TABLE_ROW_ODD_TEMPLATE, "Identification No : ", studentObj.getIdentificationNo()));
         msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(TABLE_ROW_EVEN_TEMPLATE, "School : ", studentRecord.getSchool().getName()));
 
-        msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(TABLE_ROW_ODD_TEMPLATE, " Mathematics (%) : ", String.valueOf(marks.getMathScore())));
-        msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(TABLE_ROW_EVEN_TEMPLATE, " English (%) : ", String.valueOf(marks.getEnglishScore())));
+        msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(TABLE_ROW_ODD_TEMPLATE, " Mathematics (20) : ", String.valueOf(marks.getMathScore())));
+        msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(TABLE_ROW_EVEN_TEMPLATE, " English (20) : ", String.valueOf(marks.getEnglishScore())));
 
-        msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(TABLE_ROW_ODD_TEMPLATE, " Current Affairs (%) : ", String.valueOf(marks.getCurrentAffairsScore())));
-        msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(TABLE_ROW_EVEN_TEMPLATE, " I.C.T (%) : ", String.valueOf(marks.getIctScore())));
+        msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(TABLE_ROW_ODD_TEMPLATE, " Current Affairs (10) : ", String.valueOf(marks.getCurrentAffairsScore())));
+        msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(TABLE_ROW_EVEN_TEMPLATE, " I.C.T (10) : ", String.valueOf(marks.getIctScore())));
 
-        msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(TABLE_ROW_ODD_TEMPLATE, " Book Knowledge (%) : ", String.valueOf(marks.getBookKnowledge())));
-        msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(TABLE_ROW_EVEN_TEMPLATE, " Communication Skill (%) : ", String.valueOf(marks.getCommunicationSkill())));
+        msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(TABLE_ROW_ODD_TEMPLATE, " Book Knowledge (10) : ", String.valueOf(marks.getBookKnowledge())));
+        msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(TABLE_ROW_EVEN_TEMPLATE, " Communication Skill (10) : ", String.valueOf(marks.getCommunicationSkill())));
 
-        msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(TABLE_ROW_ODD_TEMPLATE, " Confidence Level (%) : ", String.valueOf(marks.getConfidenceLevel())));
-        msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(TABLE_ROW_EVEN_TEMPLATE, " Personal Appearance (%) : ", String.valueOf(marks.getPersonalAppearance())));
+        msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(TABLE_ROW_ODD_TEMPLATE, " Confidence Level (10) : ", String.valueOf(marks.getConfidenceLevel())));
+        msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(TABLE_ROW_EVEN_TEMPLATE, " Personal Appearance (10) : ", String.valueOf(marks.getPersonalAppearance())));
 
-        msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(TABLE_ROW_ODD_TEMPLATE, " Plans And Goals (%) : ", String.valueOf(marks.getPlansAndGoals())));
-        msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(TABLE_ROW_EVEN_TEMPLATE, " Self Awareness (%) : ", String.valueOf(marks.getSelfAwareness())));
+        msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(TABLE_ROW_ODD_TEMPLATE, " Plans And Goals (10) : ", String.valueOf(marks.getPlansAndGoals())));
+        msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(TABLE_ROW_EVEN_TEMPLATE, " Self Awareness (10) : ", String.valueOf(marks.getSelfAwareness())));
 
         msgBody = msgBody.append(emailUtilBean.showMessageFromTemplate(TABLE_ROW_ODD_TEMPLATE, " Total Score (%) : ", String.valueOf(marks.getTotalScore())));
 

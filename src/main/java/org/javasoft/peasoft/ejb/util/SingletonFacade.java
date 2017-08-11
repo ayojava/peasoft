@@ -16,10 +16,12 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.deltaspike.scheduler.spi.Scheduler;
 import org.javasoft.peasoft.beans.core.util.EmailUtilBean;
+import org.javasoft.peasoft.ejb.data.SMSDataFacade;
 import org.javasoft.peasoft.ejb.school.SchoolFacade;
 import org.javasoft.peasoft.ejb.student.StudentFacade;
 import org.javasoft.peasoft.ejb.studentRecord.StudentRecordFacade;
 import org.javasoft.peasoft.entity.core.Student;
+import org.javasoft.peasoft.entity.data.SMSData;
 import org.javasoft.peasoft.jobs.EmailJob;
 import org.javasoft.peasoft.jobs.SMSJob;
 import org.javasoft.peasoft.service.StudentService;
@@ -56,6 +58,9 @@ public class SingletonFacade {
     private EmailUtilBean emailUtilBean;
 
     private StudentService studentService;
+    
+    @EJB
+    private SMSDataFacade smsDataFacade;
 
     @PostConstruct
     public void initialize() {
@@ -65,7 +70,7 @@ public class SingletonFacade {
         jobScheduler.registerNewJob(SMSJob.class);
         // handleBatchJob(); not working 
         // checkSMSCount();
-        
+        //sendSMS();
     }
 
     private void initCount() {
@@ -78,6 +83,27 @@ public class SingletonFacade {
         
     }
 
+    private void sendSMS(){
+        phoneNos = new HashSet<>();
+        studentRecordFacade.findAll().stream().forEach((aRecord)->{
+            Student studentObj = aRecord.getStudent();
+            phoneNos.add(studentObj.getPhoneNo());
+            phoneNos.add(studentObj.getOtherPhoneNo());
+            phoneNos.add(studentObj.getParent().getAddressTemplate().getContactPhoneNo1());
+            phoneNos.add(studentObj.getParent().getAddressTemplate().getContactPhoneNo2());
+        });
+        String msg = "Dear parents,be rest assured that security personnel will be available at the venue during the Academy (Thursday and friday) "
+                    + "and in the community.";
+        
+        phoneNos.stream().forEach(p->{
+            SMSData smsData = new SMSData();
+            smsData.setId(null);
+            smsData.setRecipientPhoneNo("+234" +StringUtils.right(p ,10));
+            smsData.setMessage(msg);
+            smsDataFacade.persist(smsData);
+        });
+    }
+    
     private void checkSMSCount() {
         phoneNos = new HashSet<>();
         studentRecordFacade.findAll().stream().forEach((aRecord)->{

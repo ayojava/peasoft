@@ -21,8 +21,6 @@ import static org.javasoft.peasoft.email.ParentInviteEmail.PARAGRAPH_3;
 import static org.javasoft.peasoft.email.ParentInviteEmail.PARAGRAPH_4;
 import static org.javasoft.peasoft.email.ParentInviteEmail.PARAGRAPH_5;
 import static org.javasoft.peasoft.email.ParentInviteEmail.PARAGRAPH_6;
-import static org.javasoft.peasoft.email.ParentInviteEmail.PARAGRAPH_7;
-import static org.javasoft.peasoft.email.ParentInviteEmail.PARENT_MAIL_HEADER;
 import static org.javasoft.peasoft.email.ParentInviteEmail.PARENT_MAIL_SUBJECT;
 import org.javasoft.peasoft.entity.core.School;
 import org.javasoft.peasoft.entity.data.EmailData;
@@ -51,8 +49,6 @@ import static org.javasoft.peasoft.utils.template.EmailTemplate.OUTER_TABLE_OPEN
 import static org.javasoft.peasoft.utils.template.EmailTemplate.OUTER_TABLE_OPEN_FOOTER_TEMPLATE;
 import static org.javasoft.peasoft.utils.template.EmailTemplate.OUTER_TABLE_OPEN_TABLE_TEMPLATE;
 import static org.javasoft.peasoft.utils.template.EmailTemplate.OUTER_TABLE_REVERT_TEMPLATE;
-import static org.javasoft.peasoft.utils.template.EmailTemplate.OUTER_TABLE_ROW_TAG_TEMPLATE;
-import static org.javasoft.peasoft.utils.template.EmailTemplate.OUTER_TABLE_ROW_TITLE_TAG_TEMPLATE;
 import static org.javasoft.peasoft.utils.template.EmailTemplate.OUTER_TABLE_TOPIC_LIST_FOOTNOTE_TEMPLATE;
 import static org.javasoft.peasoft.utils.template.EmailTemplate.OUTER_TABLE_TWITTER_TEMPLATE;
 import static org.javasoft.peasoft.utils.template.EmailTemplate.OUTER_TABLE_WEBSITE_TEMPLATE;

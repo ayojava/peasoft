@@ -55,7 +55,10 @@ public class SchoolAndStudentRecordsResultListExcelReport extends ExcelProcessor
         school = schoolObj;
         String schoolName = "NAME  : " + school.getName();
         String schoolAddress = "ADDRESS  : " + school.getAddressTemplate().getFullAddress();
-        populateSheetHeaders(schoolName, schoolAddress);
+        populateSheetHeaders(schoolName, schoolAddress,"Total Academic Score : (Maths + English + Current Affairs + ICT Score)*100/60",
+                "Total Interview Score : (Communication Skill + Personal Awareness + Self Awareness + PlansAndGoals + BookKnowlwedge"
+                        + "+ Confidence Level ) * 100/60 ",
+                "Total Score = (Total Academic Score + Total Interview Score)/2");
         populateColumnHeaders(columnHeaders);
         try {
             studentRecords = allRecords;
