@@ -17,6 +17,7 @@ import org.javasoft.peasoft.entity.data.EmailData;
  *
  * @author ayojava
  */
+
 @Slf4j
 @Named("emailDataWriter")
 public class EmailDataWriter extends AbstractItemWriter {
